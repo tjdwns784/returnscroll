@@ -20,7 +20,7 @@ public class HomeController  {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		return "index";
+		return "home";
 	}
 	
 
@@ -36,22 +36,21 @@ public class HomeController  {
 		return "chat";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model) {
-
-		return "login";
-	}
-	
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String join(Locale locale, Model model) {
-
-		return "join";
-	}
-	
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(Locale locale, Model model) {
 
 		return "mypage";
 	}
 	
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String index(Locale locale, Model model) {
+
+		return "index";
+	}
+	
+	@RequestMapping(value = "/practice", method = RequestMethod.GET)
+	public String practice(Locale locale, Model model) {
+
+		return "practice";
+	}
 }
