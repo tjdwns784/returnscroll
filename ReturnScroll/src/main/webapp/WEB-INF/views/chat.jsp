@@ -27,28 +27,7 @@
 <body id="page-top">
 
   <!-- Navigation -->
-  <a class="menu-toggle rounded">
-    <i class="fas fa-bars"></i>
-  </a>
-  <nav id="sidebar-wrapper" >
-    <ul class="sidebar-nav">
-      <li class="sidebar-brand">
-        <a class="js-scroll-trigger" href="#page-top">Start Bootstrap</a>
-      </li>
-      <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="/returnscroll/">Home</a>
-      </li>
-      <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="/returnscroll/map">Map</a>
-      </li>
-      <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="/returnscroll/chat">Chat</a>
-      </li>
-      <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="/returnscroll/mypage">MyPage</a>
-      </li>
-    </ul>
-  </nav>
+	<jsp:include page="side.jsp"></jsp:include>
 
   <!-- Header -->
   <header class="masthead d-flex">

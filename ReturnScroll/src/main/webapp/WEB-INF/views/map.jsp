@@ -27,6 +27,9 @@
 <body id="page-top">
 
   <!-- Navigation -->
+<<<<<<< HEAD
+	<jsp:include page="side.jsp"></jsp:include>
+=======
   <a class="menu-toggle rounded">
     <i class="fas fa-bars"></i>
   </a>
@@ -49,6 +52,7 @@
       </li>
     </ul>
   </nav>
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
   <!-- Map -->
   <section id="contact" class="map">
