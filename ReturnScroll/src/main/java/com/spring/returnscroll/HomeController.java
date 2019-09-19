@@ -35,6 +35,12 @@ public class HomeController  {
 		return "kmap";
 	}
 	
+	@RequestMapping(value = "/tmap", method = RequestMethod.GET)
+	public String tmap(Locale locale, Model model) {
+
+		return "tmap";
+	}
+	
 	@RequestMapping(value = "/chat", method = RequestMethod.GET)
 	public String chat(Locale locale, Model model) {
 
