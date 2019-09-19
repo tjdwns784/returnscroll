@@ -23,11 +23,16 @@ public class HomeController  {
 		return "index";
 	}
 	
-
 	@RequestMapping(value = "/map", method = RequestMethod.GET)
 	public String map(Locale locale, Model model) {
 
 		return "map";
+	}
+	
+	@RequestMapping(value = "/kmap", method = RequestMethod.GET)
+	public String kmap(Locale locale, Model model) {
+
+		return "kmap";
 	}
 	
 	@RequestMapping(value = "/chat", method = RequestMethod.GET)

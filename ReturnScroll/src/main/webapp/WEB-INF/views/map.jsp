@@ -27,7 +27,32 @@
 <body id="page-top">
 
   <!-- Navigation -->
+<<<<<<< HEAD
 	<jsp:include page="side.jsp"></jsp:include>
+=======
+  <a class="menu-toggle rounded">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper" >
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="/returnscroll/">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="/returnscroll/map">Map</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="/returnscroll/chat">Chat</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="/returnscroll/mypage">MyPage</a>
+      </li>
+    </ul>
+  </nav>
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
   <!-- Map -->
   <section id="contact" class="map">
