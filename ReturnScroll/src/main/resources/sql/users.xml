@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+
+	<insert id="insert" parameterType="map">
+		INSERT INTO USERS
+		(UID, UPW, UNAME, NICK, BIRTH, PHONE, EMAIL)
+		VALUES
+		(#{uid}, #{upw}, #{uname},#{nick},#{birth},#{phone},#{email})
+	</insert>
+
+	<select id="uid" parameterType="string" resultType="string">
+		select uname
+		from `users` where uid =
+		#{value}
+	</select>
+	<select id="nick" parameterType="string" resultType="string">
+		select uname
+		from `users` where nick =
+		#{value}
+	</select>
+	<select id="email" parameterType="string" resultType="string">
+		select uname
+		from `users` where email =
+		#{value}
+	</select>
+
+</mapper>

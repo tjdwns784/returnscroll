@@ -27,6 +27,9 @@
 <body id="page-top">
 
   <!-- Navigation -->
+<<<<<<< HEAD
+	<jsp:include page="side.jsp"></jsp:include>
+=======
   <a class="menu-toggle rounded">
     <i class="fas fa-bars"></i>
   </a>
@@ -49,20 +52,7 @@
       </li>
     </ul>
   </nav>
-
-  <!-- Header -->
-  <header class="masthead d-flex">
-    <div class="container text-center my-auto">
-      <h1 class="mb-1">Return Scroll</h1>
-      <h3 class="mb-5">
-        <em>집에 조심히 가자구 ~!</em>
-      </h3>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="/login">Login</a>
-    </div>
-    <div class="overlay"></div>
-  </header>
-
-
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
   <!-- Map -->
   <section id="contact" class="map">
