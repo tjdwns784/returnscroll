@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Stylish Portfolio - Start Bootstrap Template</title>
+  <title>귀환주문서 채팅방</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,22 @@
 
   <!-- Custom CSS -->
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
-
+  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
+<style>
+#chat_box {
+    width: 800px;
+    min-width: 800px;
+    height: 500px;
+    min-height: 500px;
+    border: 1px solid black;
+}
+#msg {
+    width: 700px;
+}
+#msg_process {
+    width: 90px;
+}
+</style>
 </head>
 
 <body id="page-top">
@@ -32,66 +47,50 @@
   <!-- Header -->
   <header class="masthead d-flex">
     <div class="container text-center my-auto">
-      <h1 class="mb-1">Return Scroll</h1>
-      <h3 class="mb-5">
-        <em>집에 조심히 가자구~!</em>
-      </h3>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="/login">Login</a>
+      <h1 class="mb-1">Return Scroll 채팅방</h1>
+      
+	<section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- DIRECT CHAT -->
+                <div class="box box-warning direct-chat direct-chat-warning">
+                    <!-- 채팅 방 표시, 방 바꾸기 -->
+                    <div class="box-header with-border">
+                        <h3 class="box-title">수빈이의 채팅방</h3>
+                        <br>
+					<div id="members">
+						<h6>현재 대화 참여자 :</h6> 
+					</div>
+					<br>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- 채팅 메세지 표시 -->
+                    <div class="box-body">
+                        <!-- Conversations are loaded here -->
+                        <div class="direct-chat-messages">
+                      		
+                        </div>
+                        <!-- /.direct-chat-pane -->
+                    </div>
+                    <!-- /.box-body -->
+                    <!-- 채팅 메세지 입력 처리 -->
+                    <div class="box-footer">
+                        <div class="input-group">
+                            <input type="text" name="message" placeholder="메세지를 입력하세요" class="form-control">
+                            <span class="input-group-btn">
+                                <button id='sendBtn' type="button" class="btn btn-warning btn-flat">보내기</button>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!--/.direct-chat -->
+            </div>
+        </div>
+    </section>
     </div>
     <div class="overlay"></div>
   </header>
-
-
-
-  <!-- Services -->
-  <section class="content-section bg-primary text-white text-center" id="services">
-    <div class="container">
-      <div class="content-section-heading">
-        <h3 class="text-secondary mb-0">채팅?</h3>
-        <h2 class="mb-5">What We Offer</h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-          <span class="service-icon rounded-circle mx-auto mb-3">
-            <i class="icon-screen-smartphone"></i>
-          </span>
-          <h4>
-            <strong>Responsive</strong>
-          </h4>
-          <p class="text-faded mb-0">Looks great on any screen size!</p>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-          <span class="service-icon rounded-circle mx-auto mb-3">
-            <i class="icon-pencil"></i>
-          </span>
-          <h4>
-            <strong>Redesigned</strong>
-          </h4>
-          <p class="text-faded mb-0">Freshly redesigned for Bootstrap 4.</p>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
-          <span class="service-icon rounded-circle mx-auto mb-3">
-            <i class="icon-like"></i>
-          </span>
-          <h4>
-            <strong>Favorited</strong>
-          </h4>
-          <p class="text-faded mb-0">Millions of users
-            <i class="fas fa-heart"></i>
-            Start Bootstrap!</p>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <span class="service-icon rounded-circle mx-auto mb-3">
-            <i class="icon-mustache"></i>
-          </span>
-          <h4>
-            <strong>Question</strong>
-          </h4>
-          <p class="text-faded mb-0">I mustache you a question...</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
 
   <!-- Footer -->
@@ -132,6 +131,10 @@
 
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
+  
+  <script src="http://192.168.0.95:82/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="resources/chat.js"/></script>
 
 </body>
 

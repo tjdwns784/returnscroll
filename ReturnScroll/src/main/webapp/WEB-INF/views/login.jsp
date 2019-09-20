@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Stylish Portfolio - Start Bootstrap Template</title>
+<title>귀환주문서</title>
 
 <!-- Bootstrap Core CSS -->
 <link
@@ -35,9 +35,18 @@
 	rel="stylesheet">
 
 <link rel="stylesheet" href="resources/style.css">
+<style>
+	img[id=kakao-login-btn] {
+		margin-top: 7%; margin-bottom: 7%; width:235px; height:60px;
+	}
+	nav#sidebar-wrapper {
+		top: 0px !important;
+	}
+</style>
+
 </head>
 <body>
-<body id="page-top" >
+<body id="page-top" > 
 
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
@@ -69,13 +78,13 @@
 			<h1 class="mb-1">Login</h1>
 			<h3 class="mb-5"></h3>
 			<form class="form-inline-block">
-				<div class="form-group">
+				<div class="form-group" style="margin-top: -10%">
 					<label for="uid">ID:</label> <input type="text"
-						class="form-control" id="uid" placeholder="아이디 입력">
+						class="form-control" id="uid" placeholder="아이디 입력" style="margin-top: -1%">
 				</div>
 				<div class="form-group">
 					<label for="upw">Password:</label> <input type="password"
-						class="form-control" id="upw" placeholder="암호 입력">
+						class="form-control" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;">
 				</div>
 				<br>
 				<div class="checkbox">
@@ -83,9 +92,14 @@
 				</div>
 			</form>
 			<a class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/login">Login</a> <a
+				href="/returnscroll/login" id="btnLogin" style="width:115px">Login</a> <a
 				class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/join">join</a>
+				href="/returnscroll/join" style="width:115px">Join</a>
+			<a id="custom-login-btn" href="javascript:loginWithKakao()">
+<img id="kakao-login-btn" src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="235"/>
+</a>
+			<a href="http://localhost:8080/returnscroll/index">로그아웃</a>
+			
 		</div>
 		<div class="overlay"></div>
     </form>
@@ -135,19 +149,20 @@
 		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 		<script>
 	    $('#btnLogin').click(function() {
-	         var action = $('#frmLogin').attr("action");
+	         var action = $('#btnLogin').attr("href");
 	         var form_data = {
-	            "uname" : $('[name=uname]').val(),
-	            "psw" : $('[name=psw]').val()
+	            "uid" : $('#uid').val(),
+	            "upw" : $('#upw').val()
 	         };
 	         $.ajax({
 	            type : "POST",
 	            url : action,
 	            data : form_data,
 	            success : function(res) {
+	            	
 	               if (res == "success") {
-	                  alert("로그인 성공!");
-	                  location = "main"
+	                  alert("환영합니다!");
+	                  location = "practice"
 	               } else {
 	                  alert("아이디 또는 비밀번호가 잘못되었습니다");
 	               }
@@ -160,6 +175,35 @@
 
 	      });
 	    </script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('4de13c38b225e4c65f11521d264e7212');
+    // 카카오 로그인 버튼을 생성합니다.
+    function loginWithKakao() {
+	    Kakao.Auth.loginForm({
+	      success: function(authObj) {
+	    	  Kakao.API.request({
+		    	  url: '/v2/user/me',
+		    	  success: function(res) {
+		    		  console.log(res);
+		    		  var name = res.properties.nickname;
+		    		  var image = res.properties.profile_image;
+		    		  var html = '<h1>' + name + '<h1>';
+		    		  html += '<img src="' + image + '">';
+		    		  $('body').append(html);
+		    		  
+			     }
+		      })
+      		},
+	      fail: function(err) {
+	         alert(JSON.stringify(err));
+	      }
+    	});
+    }
+  //]]>
+</script>
 
 </body>
 

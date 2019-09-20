@@ -18,6 +18,10 @@ public class MemberService {
 
 	}
 
+	public String login(Map<String, Object> map) {
+		return usersDao.login(map);
+	}
+	
 	public String idDup(String id) {
 		return usersDao.dup(id);
 
@@ -32,5 +36,6 @@ public class MemberService {
 		return usersDao.dupEmail(email);
 
 	}
+
 
 }

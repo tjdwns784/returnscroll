@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Stylish Portfolio - Start Bootstrap Template</title>
+  <title>귀환주문서 홈</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,57 +28,23 @@
 <body id="page-top">
 
   <!-- Navigation -->
-  <a class="menu-toggle rounded">
-    <i class="fas fa-bars"></i>
-  </a>
-  <nav id="sidebar-wrapper" >
-    <ul class="sidebar-nav">
-      <li class="sidebar-brand">
-        <a class="js-scroll-trigger" href="#page-top">Start Bootstrap</a>
-      </li>
-      <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="/returnscroll/">Home</a>
-      </li>
-      <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="/returnscroll/map">Map</a>
-      </li>
-      <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="/returnscroll/chat">Chat</a>
-      </li>
-      <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="/returnscroll/mypage">MyPage</a>
-      </li>
-    </ul>
-  </nav>
+	<jsp:include page="side.jsp"></jsp:include>
 
   <!-- Header -->
   <header class="masthead d-flex">
     <div class="container text-center my-auto">
-      <h1 class="mb-1">Return Scroll</h1>
+      <h1 class="mb-1" style="margin-top:-10%">Return Scroll</h1>
       <h3 class="mb-5">
         <em>집에 조심히 가자구~!</em>
+        <img src="resources/img/혼신의힘을다한작품.jpg">
       </h3>
       <a class="btn btn-primary btn-xl js-scroll-trigger" href="/returnscroll/login">Login</a>
     </div>
     <div class="overlay"></div>
   </header>
 
-  <!-- About -->
-  <section class="content-section bg-light" id="about">
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-lg-10 mx-auto">
-          <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
-          <p class="lead mb-5">This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at
-            <a href="https://unsplash.com/">Unsplash</a>!</p>
-          <a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">What We Offer</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Services -->
-  <section class="content-section bg-primary text-white text-center" id="services">
+  <section class="content-section bg-primary text-white text-center" id="services" style="margin-top: 10%">
     <div class="container">
       <div class="content-section-heading">
         <h3 class="text-secondary mb-0">Services</h3>
