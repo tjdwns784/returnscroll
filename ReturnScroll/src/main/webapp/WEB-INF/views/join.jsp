@@ -390,15 +390,34 @@
 					}					
 				});					
 			})					
+<<<<<<< HEAD
 				$("#user_pw").focusout(()=>{
 					var pw = $("#user_pw").val()
 					var pw2 = $("#user_pw2").val()
 					if(pw == pw2){				
 						$("#msgpw2").text("비밀 번호가 일치 합니다")			
+=======
+				$("#user_pw2").focusout(()=>{					
+					var pw = $("#user_pw").val()				
+					var pw2 = $("#user_pw2").val()	
+					var passVal = $("#user_pw").val();				
+					var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+					if(pw == ""){
+						$("#msgpw2").text("비밀번호를 입력하세요.")			
+						$("#msgpw2").css("color","red")			
+						isPw = 0
+					}
+					else if(passVal.match(regExp) == null){				
+						$("#msgpw2").text("비밀번호 형식을 맞춰주세요.")			
+						$("#msgpw2").css("color","red")			
+						isPw = 1		
+					}else if(pw == pw2){				
+						$("#msgpw2").text("비밀 번호가 일치합니다.")			
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 						$("#msgpw2").css("color","blue")			
 						isPw = 1			
 					}else {				
-						$("#msgpw2").text("비밀번호가 다릅니다")			
+						$("#msgpw2").text("비밀번호가 다릅니다.")			
 						$("#msgpw2").css("color","red")			
 						isPw = 0			
 					}				
