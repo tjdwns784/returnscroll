@@ -6,9 +6,23 @@
         <title>Tmap</title>
         <script src="https://apis.openapi.sk.com/tmap/js?version=1&format=javascript&appKey=8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2"></script>
     	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    	 <!-- Bootstrap Core CSS -->
+  <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="${pageContext.request.contextPath}/resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
     </head>
-    
+	
     <body>
+    <!-- Navigation -->
+	<jsp:include page="side.jsp"></jsp:include>
+	
 	<p id="result" name="result" value=" " ></p>
 	<hr>
 	<form method='post' enctype='multipart/form-data'>
@@ -26,6 +40,14 @@
 	</form>
     <hr>
     	<div id="map_div"></div> 
+    	  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+		  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		
+		  <!-- Plugin JavaScript -->
+		  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+		
+		  <!-- Custom scripts for this template -->
+		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
          <script>
          	var map;
          	var latitude, longitude;
@@ -329,6 +351,8 @@
          	
          	
          </script>
+          <!-- Bootstrap core JavaScript -->
+
     <hr>   
     </body>
     

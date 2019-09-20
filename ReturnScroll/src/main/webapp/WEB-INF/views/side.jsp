@@ -14,7 +14,7 @@
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/join">Join</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
-				href="/returnscroll/map">Map</a></li>
+				href="/returnscroll/tmap">Map</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/chat">Chat</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
