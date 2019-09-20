@@ -200,83 +200,6 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 	<script>
-// 		var isId = 0															
-// 		var isEmail = 0								
-																
-// 				$("#user_email").focusout(()=>{							
-// 					// 이메일 검증 스크립트 작성					
-// 					var emailVal = $("#user_email").val();					
-// 					var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;					
-// 					// 검증에 사용할 정규식 변수 regExp에 저장					
-// 					if (emailVal.match(regExp) != null) {					
-// 						$("#msg2").text("사용가능합니다.")				
-// 						$("#msg2").css("color","blue")				
-// 						isEmail = 1				
-// 					}					
-// 					else {					
-// 						$("#msg2").text("유효한 이메일 형식이 아닙니다.")				
-// 						$("#msg2").css("color","red")				
-// 						isEmail = 0				
-// 					}					
-// 				})							
-// 				$("#idcheck").click(function(event){						
-// 					$.ajax({					
-// 						url:"idDup",						
-// 						data : {id : $("#user_id").val()},						
-// 						success: function(res){						
-// 							console.log(res);						
-// 							if(res=='0'&& $("[name=uid]").val() !="" ){											
-// 							 	alert("사용가능한 아이디 입니다.")
-// 								isId = 1					
-// 							}else {						
-// 								alert("이미 존재하는 아이디입니다. 바보 멍청이")			
-// 								isId = 0					
-// 							}				
-// 						}						
-// 					});						
-// 				})						
-										
-// 			   $(document).ready(function() {
-// 			      $('[name=upw2]').keyup(function() {
-// 			         var psw = $('#user_pw').val();
-// 			         var repeatPw = $(this).val();
-// 			         if(psw != repeatPw) {
-// 			            $('#msg1').text('비밀번호가 다릅니다.');
-// 			         } else {
-// 			            $('#msg1').text('');
-// 			         }
-// 			      })
-// 			   });
-		
-// 		      $('#reg_submit').click(function() {
-// 		    	  if($.trim($('#user_id').val()) == '') {
-// 		    		  alert('아이디를 입력해주세요');
-// 		    		  return false;
-// 		    	  } else if($.trim($('#user_pw').val()) == '') {
-// 		    		  alert('비밀번호를 입력해주세요');
-// 		    		  return false;
-// 		    	  }
-		    	  
-// 		         var action = $('#reg_submit').attr("action");
-// 		         var form_data = $('form').serialize();
-// 		         $.ajax({
-// 		            type : "POST",
-// 		            url : action,
-// 		            data : form_data,
-// 		            success : function(res) {
-// 		               if (res == "success") {
-// 		                  alert("회원가입 성공!");
-// 		                  location = "index";
-// 		               } else {
-// 		                  alert("회원가입 실패!");
-// 		               }
-// 		            },
-// 		            error : function() {
-// 		               alert("Error");
-// 		            }
-// 		         });
-// 		         return false;
-// 		      });						
 		var isId = 0							
 		var isPw = 0							
 		var isEmail = 0							
@@ -390,11 +313,6 @@
 					}					
 				});					
 			})					
-				$("#user_pw").focusout(()=>{
-					var pw = $("#user_pw").val()
-					var pw2 = $("#user_pw2").val()
-					if(pw == pw2){				
-						$("#msgpw2").text("비밀 번호가 일치 합니다")			
 				$("#user_pw2").focusout(()=>{					
 					var pw = $("#user_pw").val()				
 					var pw2 = $("#user_pw2").val()	
