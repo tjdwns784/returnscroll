@@ -9,21 +9,34 @@
 		VALUES
 		(#{uid}, #{upw}, #{uname},#{nick},#{birth},#{phone},#{email})
 	</insert>
-
+	
+	<select id="login" parameterType="string" resultType="string">
+		select *
+		from `users` where uid = #{uid} and upw = #{upw}
+	</select>
+	
 	<select id="uid" parameterType="string" resultType="string">
 		select uname
 		from `users` where uid =
 		#{value}
 	</select>
+	
 	<select id="nick" parameterType="string" resultType="string">
 		select uname
 		from `users` where nick =
 		#{value}
 	</select>
+	
 	<select id="email" parameterType="string" resultType="string">
 		select uname
 		from `users` where email =
 		#{value}
 	</select>
-
+	
+	<select id="" parameterType="string" resultType="string">
+		select uname
+		from `users` where email =
+		#{value}
+	</select>
+	
 </mapper>

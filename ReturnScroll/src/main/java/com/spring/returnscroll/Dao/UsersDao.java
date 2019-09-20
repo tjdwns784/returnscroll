@@ -15,6 +15,10 @@ public class UsersDao {
 		return ss.insert("users.insert", map);
 	}
 
+	public String login(Map<String, Object> map) {
+		return ss.selectOne("users.login", map);
+	}
+	
 	public String dup(String uid) {
 		return ss.selectOne("users.uid", uid);
 	}
@@ -26,4 +30,5 @@ public class UsersDao {
 	public String dupEmail(String email) {
 		return ss.selectOne("users.email", email);
 	}
+	
 }
