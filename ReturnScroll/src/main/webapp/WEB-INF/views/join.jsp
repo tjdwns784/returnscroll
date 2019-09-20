@@ -390,10 +390,10 @@
 					}					
 				});					
 			})					
-				$("#user_pw").focusout(()=>{					
-					var pw = $("#user_pw").val()				
-					var pw2 = $("#user_pw2").val()				
-					if(pw.equals(pw2)){				
+				$("#user_pw").focusout(()=>{
+					var pw = $("#user_pw").val()
+					var pw2 = $("#user_pw2").val()
+					if(pw == pw2){				
 						$("#msgpw2").text("비밀 번호가 일치 합니다")			
 						$("#msgpw2").css("color","blue")			
 						isPw = 1			
@@ -402,7 +402,7 @@
 						$("#msgpw2").css("color","red")			
 						isPw = 0			
 					}				
-				})					
+				})
 			$("#user_pw").focusout(()=>{						
 									
 					// 이메일 검증 스크립트 작성				
