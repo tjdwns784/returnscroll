@@ -39,11 +39,14 @@
 	img[id=kakao-login-btn] {
 		margin-top: 10%; width:240px
 	}
+	nav#sidebar-wrapper {
+		top: 0px !important;
+	}
 </style>
 
 </head>
 <body>
-<body id="page-top" >
+<body id="page-top" > 
 
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
