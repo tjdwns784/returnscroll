@@ -95,7 +95,10 @@
 				href="/returnscroll/login" id="btnLogin">Login</a> <a
 				class="btn btn-primary btn-xl js-scroll-trigger"
 				href="/returnscroll/join">join</a>
-			<a id="kakao-login-btn"></a>
+			<a id="custom-login-btn" href="javascript:loginWithKakao()">
+<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
+</a>
+			<a href="http://developers.kakao.com/logout">로그아웃</a>
 			
 		</div>
 		<div class="overlay"></div>
@@ -177,94 +180,30 @@
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('4de13c38b225e4c65f11521d264e7212');
     // 카카오 로그인 버튼을 생성합니다.
-    Kakao.Auth.createLoginButton({
-      container: '#kakao-login-btn',
-      success: function(authObj) {
-    	  Kakao.API.request({
-    	  url: '/v2/user/me',
-    	  success: function(res) {
-    		  console.log(res);
-    		  var name = res.properties.nickname;
-    		  var image = res.properties.profile_image;
-    		  var html = '<h1>' + name + '<h1>';
-    		  html += '<img src="' + image + '">';
-    		  $('body').append(html);
-    		  
-    	  }
-      })
-//     	  console.log(authObj);
-//     	  var token = authObj.access_token;
-    	  
-//           alert(token);
-//           sessionStorage.setItem("token", token);
-//           location = 'http://localhost:8080/MVC/ListController'
-      },
-      fail: function(err) {
-         alert(JSON.stringify(err));
-      }
-    });
+    function loginWithKakao() {
+	    Kakao.Auth.loginForm({
+	      success: function(authObj) {
+	    	  Kakao.API.request({
+		    	  url: '/v2/user/me',
+		    	  success: function(res) {
+		    		  console.log(res);
+		    		  var name = res.properties.nickname;
+		    		  var image = res.properties.profile_image;
+		    		  var html = '<h1>' + name + '<h1>';
+		    		  html += '<img src="' + image + '">';
+		    		  $('body').append(html);
+		    		  
+			     }
+		      })
+      		},
+	      fail: function(err) {
+	         alert(JSON.stringify(err));
+	      }
+    	});
+    }
   //]]>
 </script>
-<!-- <script>														 -->
-// 				//<![CDATA[										
-// 				// 사용할 앱의 JavaScript 키를 설정해 주세요.										
-// 				Kakao.init('602456200ebdad0c58f3bd1860bcd80d');										
-// 				// 카카오 로그인 버튼을 생성합니다.										
-// 				function loginWithKakao() {										
-// 					Kakao.Auth.loginForm({									
-// 						success : function(authObj) {								
-// 							console.log(JSON.stringify(authObj));							
-														
-// 							Kakao.API.request({							
-// 								url : '/v2/user/me',						
-// 								success : function(res) {						
-// 									var id = res.id;					
-														
-// 									$.ajax({					
-// 										url : "kakaoDup",				
-// 										data : {				
-// 											kakao : id			
-// 										},				
-// 										success : function(res) {				
-// 											console.log(res);			
-														
-// 											if (res == 0) {			
-// 												location = 'join?kakao=' + id		
-// 														#ERROR!
-// 											} else if (res == 1) {			
-// 												location = 'loginKakao?kakao='		
-// 														#ERROR!
-// 											}			
-// 										}				
-// 									});					
-														
-// 								},						
-// 								fail : function(error) {						
-// 									alert(JSON.stringify(error));					
-// 								}						
-// 							});							
-														
-// 							//			let userCode = JSON.stringify(authObj);				
-														
-// 						},								
-// 						fail : function(err) {								
-// 							alert(JSON.stringify(err));							
-// 						}								
-// 					});									
-// 				}										
-// 				//]]>										
-// 				function findpw() {										
-// 					location = "insertId";									
-// 				}										
-														
-// 				function msg() {										
-// 					var abc = '${msg}';									
-// 					if (abc != "") {									
-// 						alert(abc)								
-// 					}									
-// 				};										
-// 				msg()										
-<!-- 			</script>											 -->
+
 </body>
 
 </html>
