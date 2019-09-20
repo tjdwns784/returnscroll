@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Stylish Portfolio - Start Bootstrap Template</title>
+<title>귀환주문서</title>
 
 <!-- Bootstrap Core CSS -->
 <link
@@ -35,6 +35,12 @@
 	rel="stylesheet">
 
 <link rel="stylesheet" href="resources/style.css">
+<style>
+	img[id=kakao-login-btn] {
+		margin-top: 10%; width:240px
+	}
+</style>
+
 </head>
 <body>
 <body id="page-top" >
@@ -69,13 +75,13 @@
 			<h1 class="mb-1">Login</h1>
 			<h3 class="mb-5"></h3>
 			<form class="form-inline-block">
-				<div class="form-group">
+				<div class="form-group" style="margin-top: -10%">
 					<label for="uid">ID:</label> <input type="text"
-						class="form-control" id="uid" placeholder="아이디 입력">
+						class="form-control" id="uid" placeholder="아이디 입력" style="margin-top: -1%">
 				</div>
 				<div class="form-group">
 					<label for="upw">Password:</label> <input type="password"
-						class="form-control" id="upw" placeholder="암호 입력">
+						class="form-control" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;">
 				</div>
 				<br>
 				<div class="checkbox">
@@ -83,9 +89,11 @@
 				</div>
 			</form>
 			<a class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/login">Login</a> <a
+				href="/returnscroll/login" id="btnLogin">Login</a> <a
 				class="btn btn-primary btn-xl js-scroll-trigger"
 				href="/returnscroll/join">join</a>
+			<a id="kakao-login-btn"></a>
+			
 		</div>
 		<div class="overlay"></div>
     </form>
@@ -135,10 +143,10 @@
 		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 		<script>
 	    $('#btnLogin').click(function() {
-	         var action = $('#frmLogin').attr("action");
+	         var action = $('#btnLogin').attr("action");
 	         var form_data = {
-	            "uname" : $('[name=uname]').val(),
-	            "psw" : $('[name=psw]').val()
+	            "uname" : $('#uid').val(),
+	            "psw" : $('#upw').val()
 	         };
 	         $.ajax({
 	            type : "POST",
@@ -160,7 +168,100 @@
 
 	      });
 	    </script>
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('4de13c38b225e4c65f11521d264e7212');
+    // 카카오 로그인 버튼을 생성합니다.
+    Kakao.Auth.createLoginButton({
+      container: '#kakao-login-btn',
+      success: function(authObj) {
+    	  Kakao.API.request({
+    	  url: '/v2/user/me',
+    	  success: function(res) {
+    		  console.log(res);
+    		  var name = res.properties.nickname;
+    		  var image = res.properties.profile_image;
+    		  var html = '<h1>' + name + '<h1>';
+    		  html += '<img src="' + image + '">';
+    		  $('body').append(html);
+    		  
+    	  }
+      })
+//     	  console.log(authObj);
+//     	  var token = authObj.access_token;
+    	  
+//           alert(token);
+//           sessionStorage.setItem("token", token);
+//           location = 'http://localhost:8080/MVC/ListController'
+      },
+      fail: function(err) {
+         alert(JSON.stringify(err));
+      }
+    });
+  //]]>
+</script>
+<!-- <script>														 -->
+// 				//<![CDATA[										
+// 				// 사용할 앱의 JavaScript 키를 설정해 주세요.										
+// 				Kakao.init('602456200ebdad0c58f3bd1860bcd80d');										
+// 				// 카카오 로그인 버튼을 생성합니다.										
+// 				function loginWithKakao() {										
+// 					Kakao.Auth.loginForm({									
+// 						success : function(authObj) {								
+// 							console.log(JSON.stringify(authObj));							
+														
+// 							Kakao.API.request({							
+// 								url : '/v2/user/me',						
+// 								success : function(res) {						
+// 									var id = res.id;					
+														
+// 									$.ajax({					
+// 										url : "kakaoDup",				
+// 										data : {				
+// 											kakao : id			
+// 										},				
+// 										success : function(res) {				
+// 											console.log(res);			
+														
+// 											if (res == 0) {			
+// 												location = 'join?kakao=' + id		
+// 														#ERROR!
+// 											} else if (res == 1) {			
+// 												location = 'loginKakao?kakao='		
+// 														#ERROR!
+// 											}			
+// 										}				
+// 									});					
+														
+// 								},						
+// 								fail : function(error) {						
+// 									alert(JSON.stringify(error));					
+// 								}						
+// 							});							
+														
+// 							//			let userCode = JSON.stringify(authObj);				
+														
+// 						},								
+// 						fail : function(err) {								
+// 							alert(JSON.stringify(err));							
+// 						}								
+// 					});									
+// 				}										
+// 				//]]>										
+// 				function findpw() {										
+// 					location = "insertId";									
+// 				}										
+														
+// 				function msg() {										
+// 					var abc = '${msg}';									
+// 					if (abc != "") {									
+// 						alert(abc)								
+// 					}									
+// 				};										
+// 				msg()										
+<!-- 			</script>											 -->
 </body>
 
 </html>

@@ -7,14 +7,18 @@
 	<nav id="sidebar-wrapper">
 		<ul class="sidebar-nav">
 			<li class="sidebar-brand"><a class="js-scroll-trigger"
-				href="index">Start Bootstrap</a></li>
+				href="index">Menu</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/">Home</a></li>
+			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
+				href="/returnscroll/join">Join</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/map">Map</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/chat">Chat</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/mypage">MyPage</a></li>
+			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
+				href="/returnscroll/logout">LogOut</a></li>
 		</ul>
 	</nav>

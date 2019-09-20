@@ -20,10 +20,10 @@ public class UsersDao {
 	}
 
 	public String dupNick(String nick) {
-		return ss.selectOne("member.dupNick", nick);
+		return ss.selectOne("users.nick", nick);
 	}
 
 	public String dupEmail(String email) {
-		return ss.selectOne("member.dupEmail", email);
+		return ss.selectOne("users.email", email);
 	}
 }

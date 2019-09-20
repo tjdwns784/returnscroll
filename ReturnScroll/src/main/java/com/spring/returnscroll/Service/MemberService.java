@@ -33,4 +33,8 @@ public class MemberService {
 
 	}
 
+	public Map<String, Object> login(Map<String, Object> map) {
+		return null;
+	}
+
 }
