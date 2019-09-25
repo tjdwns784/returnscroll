@@ -18,6 +18,18 @@ public class MemberService {
 
 	}
 
+	public String login(Map<String, Object> map) {
+		return usersDao.login(map);
+	}
+	
+	public int userUpdate(Map<String, Object> map) {
+		return usersDao.userUpdate(map);
+	}
+	
+	public int userDelete(Map<String, Object> map) {
+		return usersDao.userDelete(map);
+	}
+	
 	public String idDup(String id) {
 		return usersDao.dup(id);
 
@@ -33,9 +45,6 @@ public class MemberService {
 
 	}
 
-	public Map<String, Object> login(Map<String, Object> map) {
-		return null;
-	}
 
 	// 채팅에 멤버초대하는 거임. 
 	public Map<String, String> chatInvite(String uid) {

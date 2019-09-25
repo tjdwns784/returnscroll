@@ -37,7 +37,7 @@
 <link rel="stylesheet" href="resources/style.css">
 <style>
 	img[id=kakao-login-btn] {
-		margin-top: 10%; width:240px
+		margin-top: 7%; margin-bottom: 7%; width:235px; height:60px;
 	}
 	nav#sidebar-wrapper {
 		top: 0px !important;
@@ -92,13 +92,13 @@
 				</div>
 			</form>
 			<a class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/login" id="btnLogin">Login</a> <a
+				href="/returnscroll/login" id="btnLogin" style="width:115px">Login</a> <a
 				class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/join">join</a>
+				href="/returnscroll/join" style="width:115px">Join</a>
 			<a id="custom-login-btn" href="javascript:loginWithKakao()">
-<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300"/>
+<img id="kakao-login-btn" src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="235"/>
 </a>
-			<a href="http://developers.kakao.com/logout">로그아웃</a>
+			<a href="http://localhost:8080/returnscroll/index">로그아웃</a>
 			
 		</div>
 		<div class="overlay"></div>
@@ -149,19 +149,20 @@
 		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 		<script>
 	    $('#btnLogin').click(function() {
-	         var action = $('#btnLogin').attr("action");
+	         var action = $('#btnLogin').attr("href");
 	         var form_data = {
-	            "uname" : $('#uid').val(),
-	            "psw" : $('#upw').val()
+	            "uid" : $('#uid').val(),
+	            "upw" : $('#upw').val()
 	         };
 	         $.ajax({
 	            type : "POST",
 	            url : action,
 	            data : form_data,
 	            success : function(res) {
+	            	
 	               if (res == "success") {
-	                  alert("로그인 성공!");
-	                  location = "main"
+	                  alert("환영합니다!");
+	                  location = "practice"
 	               } else {
 	                  alert("아이디 또는 비밀번호가 잘못되었습니다");
 	               }

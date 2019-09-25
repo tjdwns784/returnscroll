@@ -27,8 +27,7 @@
 <body id="page-top">
 
   <!-- Navigation -->
-	<jsp:include page="side.jsp"></jsp:include>
-	
+
   <a class="menu-toggle rounded">
     <i class="fas fa-bars"></i>
   </a>
@@ -51,6 +50,7 @@
       </li>
     </ul>
   </nav>
+	<jsp:include page="side.jsp"></jsp:include>
 
   <!-- Map -->
   <section id="contact" class="map">

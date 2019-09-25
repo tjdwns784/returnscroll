@@ -125,11 +125,12 @@
 					<div class="form-group">
 						<label for="user_phone">핸드폰 번호:</label> 
 						<select name="p1" style="width:85px; height:40px;">
-							<option>010</option>
-							<option>011</option>
-							<option>017</option>
-							<option>018</option>
-							<option>019</option>
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="016">016</option>
+							<option value="017">017</option>
+							<option value="018">018</option>
+							<option value="019">019</option>
 						</select>
 						-<input name="p2" required="required" style="width:85px; height:40px;" maxlength="4">
 						-<input name="p3" required="required" style="width:85px; height:40px;" maxlength="4">
