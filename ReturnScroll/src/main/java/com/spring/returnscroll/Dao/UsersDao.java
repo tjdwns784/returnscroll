@@ -26,4 +26,9 @@ public class UsersDao {
 	public String dupEmail(String email) {
 		return ss.selectOne("users.email", email);
 	}
+
+	public Map<String, String> chatInvite(String uid) {
+		return ss.selectOne("users.invite",uid);
+		
+	}
 }

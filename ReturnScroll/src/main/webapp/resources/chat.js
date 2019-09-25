@@ -86,15 +86,15 @@ $(document).ready(function() {
     function addMsg(sender, msg, time)
     {
       var flag = sender === user_name ? 'right' : 'left';
-      console.log("지금 이 메세지는 "+flag+"에 위치합니다.")
+      console.log("지금 이 메세지는 "+flag+"에 위치합니다.");
       // 1. 메시지UI를 붙일 요소를 찾아서, 동적으로 html을 구성하여 추가한다.
-      var html = `<div class="direct-chat-msg ${flag}">
-                                <div class="direct-chat-info clearfix">
-                                    <span class="direct-chat-name pull-${flag}">${sender} : ${msg} </span>
-
-    	  							<p class="direct-chat-timestamp pull-right"> ${time}</p>
-                                </div>
-                            </div>`;
+      var html = "<div class='direct-chat-msg "+flag+"'>";
+    	  html += "<div class='direct-chat-info clearfix'>";
+    	  html += "<span class='direct-chat-name pull-"+flag+"'>${sender}</span>";
+    	  html += "<span class='direct-chat-timestamp pull-right'> ${time}</span>";
+    	  html += "<div class='direct-chat-text'>${msg}</div>"
+    	  html += "</div>";
+    	  html += "</div>";
       $('.direct-chat-messages').append(html);
       // 자동스크롤
       $('.direct-chat-messages').scrollTop($('.direct-chat-messages')[0].scrollHeight+20);

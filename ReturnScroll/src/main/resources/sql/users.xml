@@ -25,5 +25,11 @@
 		from `users` where email =
 		#{value}
 	</select>
+	
+	<select id="invite" parameterType="string" resultType="map">
+		select uid, uname, nick
+		from `users` where uid =
+		#{value}
+	</select>
 
 </mapper>

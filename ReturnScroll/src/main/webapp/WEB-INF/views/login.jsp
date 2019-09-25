@@ -75,7 +75,7 @@
             <path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" />
         </svg>
         <div class="container text-center my-auto">
-			<h1 class="mb-1">Login</h1>
+			<h1 class="mb-1">술창</h1>
 			<h3 class="mb-5"></h3>
 			<form class="form-inline-block">
 				<div class="form-group" style="margin-top: -10%">
