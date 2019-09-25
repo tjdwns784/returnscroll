@@ -3,6 +3,18 @@
 "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="users">
 
+	<update id="update" parameterType="map">
+		UPDATE USERS SET
+		UPW=#{upw}, NICK=#{nick}, PHONE=#{phone}, EMAIL=#{email}
+		WHERE UID=#{uid}
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[ 
+			DELETE FROM USERS WHERE UID = #{uid} AND UPW = #{upw}
+         ]]>
+	</delete>
+	
 	<insert id="insert" parameterType="map">
 		INSERT INTO USERS
 		(UID, UPW, UNAME, NICK, BIRTH, PHONE, EMAIL)

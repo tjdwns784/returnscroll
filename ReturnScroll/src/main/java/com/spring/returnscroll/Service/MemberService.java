@@ -22,6 +22,14 @@ public class MemberService {
 		return usersDao.login(map);
 	}
 	
+	public int userUpdate(Map<String, Object> map) {
+		return usersDao.userUpdate(map);
+	}
+	
+	public int userDelete(Map<String, Object> map) {
+		return usersDao.userDelete(map);
+	}
+	
 	public String idDup(String id) {
 		return usersDao.dup(id);
 
@@ -36,6 +44,4 @@ public class MemberService {
 		return usersDao.dupEmail(email);
 
 	}
-
-
 }

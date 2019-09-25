@@ -19,6 +19,14 @@ public class UsersDao {
 		return ss.selectOne("users.login", map);
 	}
 	
+	public int userUpdate(Map<String, Object> map) {
+		return ss.update("users.update", map);
+	}
+	
+	public int userDelete(Map<String, Object> map) {
+		return ss.delete("users.delete", map);
+	}
+	
 	public String dup(String uid) {
 		return ss.selectOne("users.uid", uid);
 	}

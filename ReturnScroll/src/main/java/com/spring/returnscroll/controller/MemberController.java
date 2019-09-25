@@ -44,14 +44,41 @@ public class MemberController {
 			model.addAttribute("msg", "다시 로그인 해주세요.");
 			return "fail";					
 		}						
-	}					
-
+	}		
+	
+	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)							
 	public String logout(Model model, HttpServletRequest req) {							
 		HttpSession session = req.getSession();						
 		session.invalidate();						
-		return "redirect:index";						
-	}			
+		return "redirect:/index";						
+	}		
+	
+	// 회원수정
+	@RequestMapping(value="/userUpdate", method = RequestMethod.GET)
+	public String userrUpdate() {      
+		return "userUpdate";
+	}
+	
+	// 회원정보수정 액션
+	@RequestMapping(value="/userUpdateAction", method = RequestMethod.POST)
+	public String userUpdateAction(@RequestParam Map<String, Object> map) {
+		memberservice.userUpdate(map);
+		return "redirect:/index"; 
+	}
+	
+	// 회원탈퇴
+	@RequestMapping(value = "/userDelete", method = RequestMethod.GET)
+	public String userDelete(Model model, HttpServletRequest req) {							
+		return "userDelete";					
+		}
+	
+	// 회원탈퇴 액션
+	@RequestMapping(value="/userDeleteAction", method = RequestMethod.POST)
+	public String userDeleteAction(@RequestParam Map<String, Object> map) {
+		memberservice.userDelete(map);
+		return "redirect:/index";
+	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
@@ -129,15 +156,3 @@ public class MemberController {
 	}
 
 }
-//
-//	@RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
-//	public String logout(HttpServletRequest request, HttpSession httpsession) {
-//		httpsession.invalidate(); //세션삭제
-//		//메세지 출력후 페이지 이동
-//		request.setAttribute("type", "success");
-//		request.setAttribute("msg", "로그아웃");
-//		request.setAttribute("url", "/home");
-//		return "alert";
-//		
-//	}
-//}
