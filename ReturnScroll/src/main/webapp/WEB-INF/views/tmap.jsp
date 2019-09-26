@@ -21,7 +21,9 @@
 	
     <body>
     <!-- Navigation -->
-	<jsp:include page="side.jsp"></jsp:include>
+    <jsp:include page="side.jsp"></jsp:include>
+	
+     
 	
 	<p id="result" name="result" value=" " ></p>
 	<hr>
@@ -29,17 +31,19 @@
 	
 		출발 : <input type='text' name='start' readonly style="width : 50%;"><br>
 		도착 : <input type='text' name='arrive' readonly style="width : 50%;"><br>
-		<input type='button' value='경로찾기' onclick = "findRoot()"><br>
+		<input type='button' value='경로찾기' onclick = "findRoot()">&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type='button' value='경로취소' onclick = "removeRoot()"><br>
 		<hr>
 		현재위도 : <input type='text' name='lat' readonly style="width : 50%;"><br>
 		 현재경도 : <input type='text' name='lon' readonly style="width : 50%;"><br>
 		 현재주소 : <input type='text' name='address' style="width : 50%;"><br> 
-		 <input type='button' value='내위치찾기' onclick = "findMyLocation()"><br>
+		 <input type='button' value='내위치찾기' onclick = "findMyLocation()">&nbsp;&nbsp;&nbsp;&nbsp;
 		  <input type='button' value='내위치찾기 중지' onclick = "stopMyLocation()"><br>
 		
 	</form>
     <hr>
     	<div id="map_div"></div> 
+    	
     	  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 		  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		
@@ -54,9 +58,10 @@
 			var lonlate, lonlate2, lonlat3;
 			
 			var gAppKey = '8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2';
-			var markers, markers2;
+			var markers1, markers2;
 			var centerLL, targetLL;
 			var marker1, marker2;
+			var vectorLayer;
 		
 			var flocation;
 			
@@ -116,8 +121,8 @@
                     		centerLL = lonlat;
                     		targetLL = lonlat;
                     		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
-                    		markers = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성
-                    		map.addLayer(markers); // 지도에 Markers 객체 추가
+                    		markers1 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성
+                    		map.addLayer(markers1); // 지도에 Markers 객체 추가
                     		
                     		drawMarker(3,addr,1); // 마커 그리기
                     		////////////////////////////////
@@ -173,12 +178,12 @@
          	
          	} 
 			function findMyLocation(){
+				
+				markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
+				map.addLayer(markerLayer);//map에 마커 레이어 추가
      					
         		flocation = setInterval(function() {
-        			
-        			markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
-        			map.addLayer(markerLayer);//map에 마커 레이어 추가
-        			
+        		
         			longitude += 0.001;
         			latitude += 0.001;
         			   
@@ -200,10 +205,18 @@
 			function stopMyLocation(){
 					
         		clearInterval(flocation);
+        		markerLayer.clearMarkers();//레이어에 마커 제거
         		console.log("위치찾기 중지");
          	}
          	
          	function findRoot(){
+         		
+         		//출발, 도착지 마커 제거
+         		//markers1.clearMarkers();
+         		//markers2.clearMarkers();
+         		markers1.setVisibility(false);
+         		markers2.setVisibility(false);
+         		
      			
 				var tData = new Tmap.TData();//REST API 에서 제공되는 경로, 교통정보, POI 데이터를 쉽게 처리할 수 있는 클래스입니다.
 				
@@ -221,7 +234,14 @@
         		tData.events.register("onComplete", tData, onComplete);//데이터 로드가 성공적으로 완료되었을 때 발생하는 이벤트를 등록합니다.
         		tData.events.register("onProgress", tData, onProgress);//데이터 로드중에 발생하는 이벤트를 등록합니다.
         		tData.events.register("onError", tData, onError);//데이터 로드가 실패했을 떄 발생하는 이벤트를 등록합니다.
-        		  	
+   		  	
+         	}
+         	
+         	
+			function removeRoot(){		
+				map.removeLayer(vectorLayer);
+				markers1.setVisibility(true);
+         		markers2.setVisibility(true);
          	}
          	
          
@@ -303,7 +323,8 @@
         		console.log(this.responseXML); //xml로 데이터를 받은 정보들을 콘솔창에서 확인할 수 있습니다.
         			      
         		var kmlForm = new Tmap.Format.KML({extractStyles:true}).read(this.responseXML);
-        		var vectorLayer = new Tmap.Layer.Vector("vectorLayerID");
+        		//var vectorLayer = new Tmap.Layer.Vector("vectorLayerID");
+        		vectorLayer = new Tmap.Layer.Vector("vectorLayerID");
         		vectorLayer.addFeatures(kmlForm);
         		map.addLayer(vectorLayer);
         		//경로 그리기 후 해당영역으로 줌  
@@ -329,7 +350,7 @@
 				label.popupStyle = type;
 					if(ca == 1){
 						marker1 = new Tmap.Markers(targetLL,icon, label); // 마커 생성
-						markers.addMarker(marker1); // markers 에 마커 추가
+						markers1.addMarker(marker1); // markers 에 마커 추가
 						marker1.popup.show(); // 팝업 보이기
 					}else if(ca == 2){
 						icon = new Tmap.Icon("http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_a.png",size,offset); // 마커 아이콘 지정
@@ -354,6 +375,7 @@
           <!-- Bootstrap core JavaScript -->
 
     <hr>   
+   
     </body>
     
     <style>
