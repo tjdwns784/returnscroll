@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.returnscroll.Service.ArticleService;
 import com.spring.returnscroll.Service.MemberService;
 
-/**
- * Handles requests for the application home page.
- */
-
 
 @Controller
 public class HomeController  {
