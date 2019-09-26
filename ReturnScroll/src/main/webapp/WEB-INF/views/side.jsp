@@ -5,7 +5,7 @@
 
 	<a class="menu-toggle rounded"> <i class="fas fa-bars"></i>
 	</a>
-	<nav id="sidebar-wrapper">
+	<nav id="sidebar-wrapper" style="z-index:10000;">
 		<ul class="sidebar-nav">
 			<li class="sidebar-brand"><a class="js-scroll-trigger"
 				href="index">Menu</a></li>
@@ -17,6 +17,8 @@
 				href="/returnscroll/tmap">Map</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/chat">Chat</a></li>
+			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
+				href="/returnscroll/qna">Q&A</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/mypage">MyPage</a></li>
 		</ul>

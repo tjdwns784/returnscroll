@@ -3,20 +3,16 @@ package com.spring.returnscroll;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.returnscroll.Service.ArticleService;
 import com.spring.returnscroll.Service.MemberService;
 
 /**
@@ -29,6 +25,8 @@ import com.spring.returnscroll.Service.MemberService;
 public class HomeController  {
 	@Autowired
 	MemberService memberservice;
+	@Autowired
+	ArticleService articleservice;
 	  
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -90,9 +88,27 @@ public class HomeController  {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/practice", method = RequestMethod.GET)
-	public String practice(Locale locale, Model model) {
+	@RequestMapping(value = "/qna", method = RequestMethod.GET)
+	public String qna(Locale locale, Model model) {
+		model.addAttribute("list",articleservice.select());
+		return "qna";
+	}
+	
+	@RequestMapping(value = "/write", method=RequestMethod.GET)
+	public String write(Model model) {
 
-		return "practice";
+		return "write_qna";
+	}
+	
+	@RequestMapping(value = "/write", method=RequestMethod.POST)
+	public String writePost(@RequestParam Map<String,Object> map) {
+		articleservice.insert(map);
+		return "write_qna";
+	}
+	
+	@RequestMapping(value = "/show/{no}")
+	public String show_qna(Model model, @PathVariable("no") int no) {
+		model.addAttribute("article",articleservice.selectById(no));
+		return "show_qna";
 	}
 }
