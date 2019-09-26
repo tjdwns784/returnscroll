@@ -91,13 +91,13 @@ $(document).ready(function() {
       // 1. 메시지UI를 붙일 요소를 찾아서, 동적으로 html을 구성하여 추가한다.
       if(sender === '관리자'){
     	  var adminHtml = "";
-    	  html += "<div class='direct-chat-info clearfix'>";
+    	  html += "<div class='direct-chat-info clearfix'style='display: inline-block'>";
     	  html += "<div class='direct-chat-text'>"+msg+"</div>"
     	  html += "</div>";
     	  html += "";
       }else if(flag == 'left'){ // 왼쪽 
     	  var html = "<div class='direct-chat-msg "+flag+"'>";
-    	  html += "<div class='direct-chat-info clearfix'>";
+    	  html += "<div class='direct-chat-info clearfix' style='display: inline-block'>";
     	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:left!important;'>"+sender+"</span>";
     	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:left!important;'>"+time+"</span>";
     	  html += "<div class='direct-chat-text' style='text-align:"+flag+";'>"+msg+"</div>"
@@ -105,7 +105,7 @@ $(document).ready(function() {
     	  html += "</div>";
       }else{  // 오른쪽 
     	  var html = "<div class='direct-chat-msg "+flag+"'>";
-    	  html += "<div class='direct-chat-info clearfix'>";
+    	  html += "<div class='direct-chat-info clearfix' style='display: inline-block'>";
     	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:right!important;' >"+time+"</span>";
     	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:right!important;' >"+sender+"</span>";
     	  html += "<div class='direct-chat-text' style='text-align:"+flag+";'>"+msg+"</div>"
@@ -120,7 +120,7 @@ $(document).ready(function() {
 //    	  html += "<div class='direct-chat-text' style='text-align:"+flag+";'>"+msg+"</div>"
 //    	  html += "</div>";
 //    	  html += "</div>";
-      
+      html+= '<div class= row></div>'
       $('.direct-chat-messages').append(html);
       // 자동스크롤
       $('.direct-chat-messages').scrollTop($('.direct-chat-messages')[0].scrollHeight+20);
