@@ -165,7 +165,7 @@
 	            	
 	               if (res == "success") {
 	                  alert("환영합니다!");
-	                  location = "practice"
+	                  location = "index"
 	               } else {
 	                  alert("아이디 또는 비밀번호가 잘못되었습니다");
 	               }

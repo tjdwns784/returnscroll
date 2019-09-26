@@ -93,7 +93,7 @@
 
   <!-- Header -->
   <header class="masthead d-flex">
-    <div class="container text-center my-auto">
+    <div class="container my-auto">
       <h1 class="mb-1">Return Scroll 채팅방</h1>
       
       	<!-- 모달창 -->
