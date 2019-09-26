@@ -69,7 +69,6 @@ public class HomeController  {
 		return uidFind;
 	}
 	
-	
 	@RequestMapping(value = "/chat/addUser/{uid}", method = RequestMethod.GET)
 	public String addUser(Model model , @PathVariable("uid") String uid){
 		// url 경로를 변수화 하기. 
