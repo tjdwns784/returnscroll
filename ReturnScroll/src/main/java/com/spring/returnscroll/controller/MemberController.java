@@ -2,6 +2,8 @@ package com.spring.returnscroll.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +22,38 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.returnscroll.Service.MemberService;
 
-import javafx.scene.control.Alert;
-
 @Controller
 public class MemberController {
 	@Autowired
 	MemberService memberservice;
 
+	// 아이디 찾기
+	@RequestMapping(value = "/userSearch", method = RequestMethod.GET)
+	public String userIdSearch() {
+		return "userSearch";
+	}
+	@RequestMapping(value = "/userSearch", method = RequestMethod.POST)
+	@ResponseBody
+	public String userIdSearchPost(@RequestParam("uname") String uname, 
+			@RequestParam("phone") String phone) {
+		
+		String result = memberservice.get_searchId(uname, phone);
+		
+		return result;
+	}
+	
+	// 비밀번호 찾기
+	@RequestMapping(value = "/searchPassword", method = RequestMethod.POST)
+	@ResponseBody
+	public String passwordSearch(@RequestParam("uid")String uid,
+			@RequestParam("email")String email,
+			HttpServletRequest request) {
+
+		memberservice.mailSendWithPassword(uid, email);
+		
+		return "userSearchPassword";
+	}
+	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model) {
 		return "login";
@@ -34,7 +62,22 @@ public class MemberController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public String loginPost(Model model, HttpServletRequest req, HttpSession httpSession, @RequestParam Map<String, Object> map) {
-
+		String upw = (String) map.get("upw");
+		
+		String result2="";
+	    try {
+	        MessageDigest md5 = MessageDigest.getInstance("MD5");
+	        byte[] byteValue = md5.digest(upw.getBytes());
+	             
+	        Base64 base64EnDe =new Base64();
+	 
+	        result2 = base64EnDe.encodeToString(byteValue).replaceAll("\r\n","");
+	    }catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    }
+	    map.put("upw", result2);
+		
+		
 		String user = memberservice.login(map);				
 								
 		if (user != null) {						
@@ -85,9 +128,25 @@ public class MemberController {
 
 		return "join";
 	}
-
+	
+	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPost(@RequestParam Map<String, Object> map, HttpServletResponse response ) throws IOException {
+		String upw = (String) map.get("upw");
+		
+		String result2="";
+	    try {
+	        MessageDigest md5 = MessageDigest.getInstance("MD5");
+	        byte[] byteValue = md5.digest(upw.getBytes());
+	             
+	        Base64 base64EnDe =new Base64();
+	 
+	        result2 = base64EnDe.encodeToString(byteValue).replaceAll("\r\n","");
+	    }catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    }
+	    map.put("upw", result2);
+		
 		String y = (String) map.get("year");
 		String m = (String) map.get("month");
 		String d = (String) map.get("day");
