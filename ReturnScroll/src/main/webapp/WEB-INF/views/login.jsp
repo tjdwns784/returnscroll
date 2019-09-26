@@ -90,11 +90,14 @@
 				<div class="checkbox">
 					<label><input type="checkbox"> 아이디 저장</label>
 				</div>
-			</form>
+					<div class="interval_height a_none">
+						<a href="/returnscroll/userSearch" id="btnSearch">아이디 / 비밀번호 찾기</a>
+					</div>
+				</form>
 			<a class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/login" id="btnLogin" style="width:115px">Login</a> <a
+				href="/returnscroll/login" id="btnLogin" style="width:115px; margin-top: 5%">Login</a> <a
 				class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/join" style="width:115px">Join</a>
+				href="/returnscroll/join" style="width:115px; margin-top: 5%">Join</a>
 			<a id="custom-login-btn" href="javascript:loginWithKakao()">
 <img id="kakao-login-btn" src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="235"/>
 </a>

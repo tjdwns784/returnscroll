@@ -3,6 +3,20 @@
 "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="users">
 
+	<!-- 아이디 찾기 -->
+	<select id="searchId" resultType="string" parameterType="map">
+		SELECT IFNULL(UID, '')  
+		FROM USERS 
+        WHERE UNAME=#{uname} AND PHONE=#{phone}
+	</select>
+	
+	<!-- 회원 임시 비밀번호-->
+	<select id="searchPassword" resultType="string" parameterType="map">
+		SELECT IFNULL(UPW, '')
+		FROM USERS 
+		WHERE UID = #{uid} AND EMAIL = #{email}
+	</select>
+
 	<update id="update" parameterType="map">
 		UPDATE USERS SET
 		UPW=#{upw}, NICK=#{nick}, PHONE=#{phone}, EMAIL=#{email}
@@ -44,7 +58,6 @@
 		from `users` where email =
 		#{value}
 	</select>
-	
 
 	<select id="invite" parameterType="string" resultType="map">
 		select uid, uname, nick

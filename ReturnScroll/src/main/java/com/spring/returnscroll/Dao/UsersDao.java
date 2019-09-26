@@ -1,5 +1,6 @@
 package com.spring.returnscroll.Dao;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,6 +11,20 @@ import org.springframework.stereotype.Repository;
 public class UsersDao {
 	@Autowired
 	SqlSessionTemplate ss;
+
+	public String searchId(String uname, String phone) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uname", uname);
+		map.put("phone", phone);
+		return ss.selectOne("users.searchId", map);
+	}
+
+	public String searchPassword(String uid, String email) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uid", uid);
+		map.put("email", email);
+		return ss.selectOne("users.searchPassword", map);
+	}
 
 	public int join(Map<String, Object> map) {
 		return ss.insert("users.insert", map);
