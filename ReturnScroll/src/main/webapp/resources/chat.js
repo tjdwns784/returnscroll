@@ -85,16 +85,42 @@ $(document).ready(function() {
     // 메시지를 화면에 추가 처리
     function addMsg(sender, msg, time)
     {
+    	// 관리자 메세지는 따로 ~~
       var flag = sender === user_name ? 'right' : 'left';
-      console.log("지금 이 메세지는 "+flag+"에 위치합니다.");
+      console.log(sender);
       // 1. 메시지UI를 붙일 요소를 찾아서, 동적으로 html을 구성하여 추가한다.
-      var html = "<div class='direct-chat-msg "+flag+"'>";
+      if(sender === '관리자'){
+    	  var adminHtml = "";
     	  html += "<div class='direct-chat-info clearfix'>";
-    	  html += "<span class='direct-chat-name pull-"+flag+"'>${sender}</span>";
-    	  html += "<span class='direct-chat-timestamp pull-right'> ${time}</span>";
-    	  html += "<div class='direct-chat-text'>${msg}</div>"
+    	  html += "<div class='direct-chat-text'>"+msg+"</div>"
+    	  html += "</div>";
+    	  html += "";
+      }else if(flag == 'left'){ // 왼쪽 
+    	  var html = "<div class='direct-chat-msg "+flag+"'>";
+    	  html += "<div class='direct-chat-info clearfix'>";
+    	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:left!important;'>"+sender+"</span>";
+    	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:left!important;'>"+time+"</span>";
+    	  html += "<div class='direct-chat-text' style='text-align:"+flag+";'>"+msg+"</div>"
     	  html += "</div>";
     	  html += "</div>";
+      }else{  // 오른쪽 
+    	  var html = "<div class='direct-chat-msg "+flag+"'>";
+    	  html += "<div class='direct-chat-info clearfix'>";
+    	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:right!important;' >"+time+"</span>";
+    	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:right!important;' >"+sender+"</span>";
+    	  html += "<div class='direct-chat-text' style='text-align:"+flag+";'>"+msg+"</div>"
+    	  html += "</div>";
+    	  html += "</div>";
+      }
+      
+//      var html = "<div class='direct-chat-msg "+flag+"'>";
+//    	  html += "<div class='direct-chat-info clearfix'>";
+//    	  html += "<span class='direct-chat-timestamp pull-right'>"+time+"</span>";
+//    	  html += "<span class='direct-chat-name pull-"+flag+"'>"+sender+"</span>";
+//    	  html += "<div class='direct-chat-text' style='text-align:"+flag+";'>"+msg+"</div>"
+//    	  html += "</div>";
+//    	  html += "</div>";
+      
       $('.direct-chat-messages').append(html);
       // 자동스크롤
       $('.direct-chat-messages').scrollTop($('.direct-chat-messages')[0].scrollHeight+20);
@@ -102,24 +128,24 @@ $(document).ready(function() {
     }
   
     // 방정보 표시
-    socket.on('c_send_roomInfo',(rooms, myRoom)=>{
-      console.log(rooms, myRoom);
-      $('#chat_header').empty();
-      $.each(rooms,(idx, item)=>{
-        console.log(idx, item);
-        // 방 정보를 붙이는 대상을 찾아서 html을 구성하여 붙인다
-        var html =`<span data-toggle="tooltip" title="" class="badge bg-${ item === myRoom?'red':'yellow' }">${item}</span>`;
-        $('#chat_header').append(html);
-        if(item != myRoom){
-          $('#chat_header>span:last').on('click',()=>{
-            if(confirm(`${item}방으로 변경하시겠습니까?`)){
-              console.log('방 변경시도');
-              socket.emit('s_send_roomChg', item);
-              // 기존 메시지 삭제
-              $('.direct-chat-messages').empty();
-            }
-          });
-        }
-      });
-    });
+//    socket.on('c_send_roomInfo',(rooms, myRoom)=>{
+//      console.log(rooms, myRoom);
+//      $('#chat_header').empty();
+//      $.each(rooms,(idx, item)=>{
+//        console.log(idx, item);
+//        // 방 정보를 붙이는 대상을 찾아서 html을 구성하여 붙인다
+//        var html =`<span data-toggle="tooltip" title="" class="badge bg-${ item === myRoom?'red':'yellow' }">${item}</span>`;
+//        $('#chat_header').append(html);
+//        if(item != myRoom){
+//          $('#chat_header>span:last').on('click',()=>{
+//            if(confirm(`${item}방으로 변경하시겠습니까?`)){
+//              console.log('방 변경시도');
+//              socket.emit('s_send_roomChg', item);
+//              // 기존 메시지 삭제
+//              $('.direct-chat-messages').empty();
+//            }
+//          });
+//        }
+//      });
+//    });
 });

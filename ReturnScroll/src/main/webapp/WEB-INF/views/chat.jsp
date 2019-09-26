@@ -22,7 +22,9 @@
 
   <!-- Custom CSS -->
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
+  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css?ver=1" rel="stylesheet" >
+  <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.less" />
+	<script src="less.min.js" ></script>
 <style>
 #chat_box {
     width: 800px;
@@ -114,6 +116,7 @@
     </div>
    
     <div class="modal_layer"></div>
+    
 	</div>
       
 	<section class="content">
@@ -205,7 +208,7 @@
   
   <script src="http://192.168.0.95:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="resources/chat.js"/></script>
+    <script src="resources/chat.js?ver=1"/></script>
     
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">

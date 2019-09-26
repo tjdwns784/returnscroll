@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,8 @@ import com.spring.returnscroll.Service.MemberService;
 
 
 @Controller
-
 public class HomeController  {
+	
 	@Autowired
 	MemberService memberservice;
 	  
@@ -55,13 +56,21 @@ public class HomeController  {
 	}
 	
 	@RequestMapping(value = "/chat", method = RequestMethod.GET)
-	public String chat(Locale locale, Model model) {
-
-		return "chat";
+	public String chat(Locale locale, Model model, HttpSession httpSession) {
+		System.out.println("세션값은 ?"+httpSession.getAttribute("uid"));
+		if(httpSession.getAttribute("uid") == null) {
+			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+			return "redirect:login";
+		}else {
+			// 채팅 들어갈때 세션아이디값을 닉네임으로 보내주도록 하여라 
+			Object uid = httpSession.getAttribute("uid");
+			return "chat";			
+		}
 	}
 	
 	@RequestMapping(value = "/chat/findId", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody String chatPost(@RequestParam("uid") String uid){
+		
 		Map<String, String> findUser = memberservice.chatInvite(uid);
 		String uidFind = findUser.get("uid");
 		System.out.println(uidFind);
