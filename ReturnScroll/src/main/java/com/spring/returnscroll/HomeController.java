@@ -3,13 +3,10 @@ package com.spring.returnscroll;
 import java.util.Locale;
 import java.util.Map;
 
-<<<<<<< HEAD
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-=======
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.returnscroll.Service.ArticleService;
 import com.spring.returnscroll.Service.MemberService;
-
-/**
- * Handles requests for the application home page.
- */
 
 
 @Controller
