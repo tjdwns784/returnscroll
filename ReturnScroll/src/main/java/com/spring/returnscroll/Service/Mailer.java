@@ -33,7 +33,7 @@ public class Mailer {
 		    MimeMessage msg = new MimeMessage(ses); // 메일의 내용을 담을 객체
 		    msg.setSubject(subject); // 제목
 
-		    Address fromAddr = new InternetAddress("tjdwns784@gmail.com");
+		    Address fromAddr = new InternetAddress("tjdwns784@gmail.com", "귀환주문서 관리자");
 		    msg.setFrom(fromAddr); // 보내는 사람
 
 		    Address toAddr = new InternetAddress(to);

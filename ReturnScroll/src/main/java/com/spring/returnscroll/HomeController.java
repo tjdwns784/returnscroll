@@ -55,13 +55,18 @@ public class HomeController  {
 	
 	@RequestMapping(value = "/chat", method = RequestMethod.GET)
 	public String chat(Locale locale, Model model, HttpSession httpSession) {
-		System.out.println("세션값은 ?"+httpSession.getAttribute("uid"));
+//		System.out.println("세션값은 ?"+httpSession.getAttribute("uid"));
+		
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 			return "redirect:login";
 		}else {
-			// 채팅 들어갈때 세션아이디값을 닉네임으로 보내주도록 하여라 
-			Object uid = httpSession.getAttribute("uid");
+			Object userId = httpSession.getAttribute("uid");
+			String uid = userId.toString();
+			String nick = memberservice.userNick(uid);
+			System.out.println("닉네임은 ? "+nick);
+			model.addAttribute("uid", uid);
+			model.addAttribute("nick", nick); // chat에 uid 보내기
 			return "chat";			
 		}
 	}

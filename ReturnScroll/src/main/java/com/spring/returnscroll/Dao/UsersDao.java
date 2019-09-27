@@ -12,6 +12,13 @@ public class UsersDao {
 	@Autowired
 	SqlSessionTemplate ss;
 
+	public String mailId(String uid, String email) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uid", uid);
+		map.put("email", email);
+		return ss.selectOne("users.mailId", map);
+	}
+
 	public String searchId(String uname, String phone) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uname", uname);
@@ -55,7 +62,16 @@ public class UsersDao {
 	}
 
 	public Map<String, String> chatInvite(String uid) {
-		return ss.selectOne("users.invite",uid);
-		
+
+		return ss.selectOne("users.invite",uid);	
 	}
+	public String userNick(String uid) {
+		return ss.selectOne("users.userNick",uid);
+	}
+	
+	
+	public int passwordUpdate(Map<String, Object> map) {
+		return ss.update("users.passwordUpdate", map);
+	}	
+
 }

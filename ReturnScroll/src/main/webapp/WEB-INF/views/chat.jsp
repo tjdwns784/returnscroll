@@ -125,9 +125,9 @@
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
+                    <div id="putUser">현재 접속자 아이디 : ${uid}<br> 닉네임 : ${nick }</div>
                     <div class="box-header with-border">
-                        <h3 class="box-title">수빈이의 채팅방</h3>
-                        <br>
+                        <h3 class="box-title">수빈이의 채팅방</h3><br>
 					<div id="members">
 						<h6>현재 대화 참여자 :</h6> 
 					</div>
@@ -189,12 +189,13 @@
       </ul>
       <p class="text-muted small mb-0">Copyright &copy; Your Website 2019</p>
     </div>
-  </footer>
+  </footer> 
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+  <input type='hidden' id='nick' value='${nick}'>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -208,7 +209,7 @@
   
   <script src="http://192.168.0.95:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="resources/chat.js?ver=1"/></script>
+    <script src="resources/chat.js"/></script>
     
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">
