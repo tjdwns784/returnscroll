@@ -82,6 +82,7 @@ function addComment(){
 		success:function(res){
 			alert("댓글달기완료");
 			$("#comment").val("");
+			location.reload();
 		}
 	})
 }
