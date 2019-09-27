@@ -69,8 +69,6 @@ public class UsersDao {
 		return ss.selectOne("users.userNick",uid);
 	}
 	
-		return ss.selectOne("users.invite",uid);
-	}
 	
 	public int passwordUpdate(Map<String, Object> map) {
 		return ss.update("users.passwordUpdate", map);
