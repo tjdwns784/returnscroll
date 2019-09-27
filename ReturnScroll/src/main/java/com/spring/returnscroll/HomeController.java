@@ -35,22 +35,32 @@ public class HomeController  {
 		return "index";
 	}
 	
+	//지도 기본
 	@RequestMapping(value = "/map", method = RequestMethod.GET)
 	public String map(Locale locale, Model model) {
 
 		return "map";
 	}
 	
+	//지도 카카오맵
 	@RequestMapping(value = "/kmap", method = RequestMethod.GET)
 	public String kmap(Locale locale, Model model) {
 
 		return "kmap";
 	}
 	
+	//지도 티맵 - 사용하는것
 	@RequestMapping(value = "/tmap", method = RequestMethod.GET)
-	public String tmap(Locale locale, Model model) {
+	public String tmap(Locale locale, Model model, HttpSession httpSession) {
+		
+		if(httpSession.getAttribute("uid") == null) {
+			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+			return "redirect:login";
+		}else {
+			return "tmap";
+				
+		}
 
-		return "tmap";
 	}
 	
 	@RequestMapping(value = "/chat", method = RequestMethod.GET)
@@ -88,11 +98,17 @@ public class HomeController  {
 		// 아이디를 가지고 오는데... 이걸 어떻게 초대할건지
 		return "chat";
 	}
-	 
+	
+	//마이페이지 고객 정보 수정
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypage(Locale locale, Model model) {
+	public String mypage(Locale locale, Model model, HttpSession httpSession) {
 
-		return "mypage";
+		if(httpSession.getAttribute("uid") == null) {
+			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+			return "redirect:login";
+		}else {
+			return "mypage";
+		}
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -101,30 +117,53 @@ public class HomeController  {
 		return "index";
 	}
 	
+	//큐앤에이 게시판
 	@RequestMapping(value = "/qna", method = RequestMethod.GET)
-	public String qna(Locale locale, Model model) {
-		model.addAttribute("list",articleservice.select());
-		return "qna";
-	}
-	
-	@RequestMapping(value = "/write", method=RequestMethod.GET)
-	public String write(Model model) {
+	public String qna(Locale locale, Model model, HttpSession httpSession) {
 
-		return "write_qna";
+		if(httpSession.getAttribute("uid") == null) {
+			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+			return "redirect:login";
+		}else {
+			model.addAttribute("list",articleservice.select());
+			return "qna";			
+		}
+		
 	}
 	
+	//게시판에 글쓰기
+	@RequestMapping(value = "/write", method=RequestMethod.GET)
+	public String write(Model model, HttpSession httpSession) {
+		if(httpSession.getAttribute("uid") == null) {
+			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+			return "redirect:login";
+		}else {
+			return "write_qna";
+					
+		}
+
+	}
+	
+	//게시판에 글쓰기
 	@RequestMapping(value = "/write", method=RequestMethod.POST)
 	public String writePost(@RequestParam Map<String,Object> map) {
 		articleservice.insert(map);
 		return "write_qna";
 	}
 	
+	//게시판 글쓴것 보기 
 	@RequestMapping(value = "/show/{no}")
-	public String show_qna(Model model, @PathVariable("no") int no) {
-		model.addAttribute("article",articleservice.selectById(no));
-		List<Map<String, Object>> list = articleservice.selectByComment(no);
-		model.addAttribute("list2", list);
-		return "show_qna";
+	public String show_qna(Model model, @PathVariable("no") int no, HttpSession httpSession) {
+		if(httpSession.getAttribute("uid") == null) {
+			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+			return "redirect:login";
+		}else {
+			model.addAttribute("article",articleservice.selectById(no));
+			List<Map<String, Object>> list = articleservice.selectByComment(no);
+			model.addAttribute("list2", list);
+			return "show_qna";
+					
+		}
 	}
 	
 	//댓글입력
