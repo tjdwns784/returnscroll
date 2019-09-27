@@ -51,7 +51,7 @@
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
 	
-    <form>
+    <form id="loginForm" name="loginForm">
         <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,150 C0,65 120,65 120,150" fill="#e0a243" stroke="#000" stroke-width="2.5" />
             <g class="ears">
@@ -84,19 +84,19 @@
 				</div>
 				<div class="form-group">
 					<label for="upw">Password:</label> <input type="password"
-						class="form-control" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;">
+						class="form-control" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;" onkeyup="enterkey();" type="text"  value="">
 				</div>
 				<br>
 				<div class="checkbox">
-					<label><input type="checkbox"> 아이디 저장</label>
+					<label><input name="idsave" type="checkbox"> 아이디 저장</label>
 				</div>
 					<div class="interval_height a_none">
 						<a href="/returnscroll/userSearch" id="btnSearch">아이디 / 비밀번호 찾기</a>
 					</div>
 				</form>
 			<a class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/login" id="btnLogin" style="width:115px; margin-top: 5%">Login</a> <a
-				class="btn btn-primary btn-xl js-scroll-trigger"
+				href="/returnscroll/login" id="btnLogin" style="width:115px; margin-top: 5%">Login</a> 
+			<a class="btn btn-primary btn-xl js-scroll-trigger"
 				href="/returnscroll/join" style="width:115px; margin-top: 5%">Join</a>
 			<a id="custom-login-btn" href="javascript:loginWithKakao()">
 <img id="kakao-login-btn" src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="235"/>
@@ -150,7 +150,37 @@
 	<!-- Custom scripts for this template -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-		<script>
+	<script>
+		function enterkey() {
+	        if (window.event.keyCode == 13) {
+	             // 엔터키가 눌렸을 때 실행할 내용
+	        	  var action = $('#btnLogin').attr("href");
+	 	         var form_data = {
+	 	            "uid" : $('#uid').val(),
+	 	            "upw" : $('#upw').val()
+	 	         };
+	 	         $.ajax({
+	 	            type : "POST",
+	 	            url : action,
+	 	            data : form_data,
+	 	            success : function(res) {
+	 	            	
+	 	               if (res == "success") {
+	 	                  alert("환영합니다!");
+	 	                  sendit();
+	 	                  location = "index"
+	 	               } else {
+	 	                  alert("아이디 또는 비밀번호가 잘못되었습니다");
+	 	               }
+	 	            },
+	 	            error : function() {
+	 	               alert("Error");
+	 	            }
+	 	         });
+	 	         return false;
+	           
+	        }
+		}
 	    $('#btnLogin').click(function() {
 	         var action = $('#btnLogin').attr("href");
 	         var form_data = {
@@ -165,6 +195,7 @@
 	            	
 	               if (res == "success") {
 	                  alert("환영합니다!");
+	                  sendit();
 	                  location = "index"
 	               } else {
 	                  alert("아이디 또는 비밀번호가 잘못되었습니다");
@@ -207,7 +238,49 @@
     }
   //]]>
 </script>
-
+<script>
+    window.onload = function() {
+ 
+        if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
+            document.loginForm.uid.value = getCookie("id"); //input 이름이 id인곳에 getCookie("id")값을 넣어줌
+            document.loginForm.idsave.checked = true; // 체크는 체크됨으로
+        }
+ 
+    }
+ 
+    function setCookie(name, value, expiredays) //쿠키 저장함수
+    {
+        var todayDate = new Date();
+        todayDate.setDate(todayDate.getDate() + expiredays);
+        document.cookie = name + "=" + escape(value) + "; path=/; expires="
+                + todayDate.toGMTString() + ";"
+    }
+ 
+    function getCookie(Name) { // 쿠키 불러오는 함수
+        var search = Name + "=";
+        if (document.cookie.length > 0) { // if there are any cookies
+            offset = document.cookie.indexOf(search);
+            if (offset != -1) { // if cookie exists
+                offset += search.length; // set index of beginning of value
+                end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+                if (end == -1)
+                    end = document.cookie.length;
+                return unescape(document.cookie.substring(offset, end));
+            }
+        }
+    }
+ 
+    function sendit() {
+        if (document.loginForm.idsave.checked == true) { // 아이디 저장을 체크 하였을때
+            setCookie("id", document.loginForm.uid.value, 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
+        } else { // 아이디 저장을 체크 하지 않았을때
+            setCookie("id", document.loginForm.uid.value, 0); //날짜를 0으로 저장하여 쿠키삭제
+        }
+ 
+        document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
+ 
+    }
+</script>
 </body>
 
 </html>

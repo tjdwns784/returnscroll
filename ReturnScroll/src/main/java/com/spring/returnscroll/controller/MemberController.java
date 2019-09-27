@@ -55,8 +55,12 @@ public class MemberController {
 	}
 	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model) {
-		return "login";
+	public String login(Locale locale, Model model,HttpSession httpSession) {
+		if(httpSession.getAttribute("uid") == null) {
+			return "login";
+		}else {
+			return "redirect:/index";			
+		}
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -76,7 +80,6 @@ public class MemberController {
 	        e.printStackTrace();
 	    }
 	    map.put("upw", result2);
-		
 		
 		String user = memberservice.login(map);				
 								
