@@ -55,7 +55,10 @@ public class UsersDao {
 	}
 
 	public Map<String, String> chatInvite(String uid) {
-		return ss.selectOne("users.invite",uid);
-		
+		return ss.selectOne("users.invite",uid);	
 	}
+	public String userNick(String uid) {
+		return ss.selectOne("users.userNick",uid);
+	}
+	
 }

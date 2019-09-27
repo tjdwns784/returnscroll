@@ -100,7 +100,9 @@ public class MemberService {
 	// 채팅에 멤버초대하는 거임. 
 	public Map<String, String> chatInvite(String uid) {
 		return usersDao.chatInvite(uid);
-		
+	}
+	public String userNick(String uid) {
+		return usersDao.userNick(uid);
 	}
 
 }

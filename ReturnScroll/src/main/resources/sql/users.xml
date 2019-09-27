@@ -71,4 +71,11 @@
 		#{value}
 	</select>
 	
+	<!-- 회원의 닉네임 가져오기 -->
+	<select id="userNick" parameterType="string" resultType="string">
+		SELECT NICK
+		FROM `users`
+		WHERE UID = #{value}
+	</select>
+	
 </mapper>
