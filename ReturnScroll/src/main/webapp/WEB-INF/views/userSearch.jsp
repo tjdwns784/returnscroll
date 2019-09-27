@@ -181,7 +181,7 @@
 					$('#id_value').text("회원 정보를 확인해주세요!");	
 				} else {
 					$('#id_value').text(data);
-					alert("이메일을 보냈습니다. 확인해주세요.")
+					alert("이메일로 임시 비밀번호를 발송하였습니다.")
 					idV = data;
 				}
 			}, error:function(request, status, errorThrown){
