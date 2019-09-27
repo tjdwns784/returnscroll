@@ -83,8 +83,8 @@ $(document).ready(function() {
     function addMsg(sender, msg, time)
     {
     	// 관리자 메세지는 따로 ~~
-      var flag = sender === user_name ? 'right' : 'left';
-      console.log(sender);
+      var flag = sender === user_nick ? 'right' : 'left';
+      console.log("이메세지는"+flag);
       // 1. 메시지UI를 붙일 요소를 찾아서, 동적으로 html을 구성하여 추가한다.
       if(sender === '관리자'){
     	  var html = "<div class='direct-chat-msg' style='margin: auto; width:100%; text-align:center;'>";
