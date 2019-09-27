@@ -1,5 +1,6 @@
 package com.spring.returnscroll;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -116,6 +117,15 @@ public class HomeController  {
 	@RequestMapping(value = "/show/{no}")
 	public String show_qna(Model model, @PathVariable("no") int no) {
 		model.addAttribute("article",articleservice.selectById(no));
+		List<Map<String, Object>> list = articleservice.selectByComment(no);
+		model.addAttribute("list2", list);
+		return "show_qna";
+	}
+	
+	//댓글입력
+	@RequestMapping(value = "/addComment")
+	public String addComment(@RequestParam Map<String,Object> map) {
+		articleservice.insertComment(map);
 		return "show_qna";
 	}
 }

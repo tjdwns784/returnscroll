@@ -20,9 +20,18 @@ public class ArticleService {
 		int result = articleDao.insert(map);
 	}
 	
+	public void insertComment(Map<String, Object> map) {
+		articleDao.insertComment(map);
+	}
+	
 	public List<Map<String, Object>> select() {
 		return articleDao.select();
 	}
+	
+	public List<Map<String, Object>> selectByComment(int no) {
+		return articleDao.selectByComment(no);
+	}
+	
 	public Map<String, Object> selectById(int no){
 		articleDao.update(no);//조회수 증가
 		return articleDao.selectById(no);

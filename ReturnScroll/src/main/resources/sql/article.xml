@@ -10,20 +10,36 @@
 		WHERE GRP = #{grp} AND ORD >= #{ord}
 		]]>
 	</update>
+	
 	<insert id="insert" parameterType="map">
 		INSERT INTO ARTICLE (NO, TITLE, CONTENT, HIT, WRITER, WRITE_DATE)
 		VALUES (NULL, #{title}, #{content}, 0, #{writer}, NOW())
 	</insert>
+	
+	<insert id="insertComment" parameterType="map">
+		INSERT INTO COMMENT (WRITER, ARTICLE_NO, CONTENT, WRITE_DATE)
+		VALUES (#{writer}, #{article_no}, #{content}, NOW())
+	</insert>
+	
 	<update id="update" parameterType="_int">
 		UPDATE ARTICLE SET
 		HIT = HIT +1
 		WHERE NO = #{value}
 	</update>
+	
 	<select id="select" resultType="map">
 		SELECT NO, TITLE, CONTENT, HIT,WRITER, WRITE_DATE
 		FROM `ARTICLE`
 		ORDER BY NO DESC
 	</select>
+	
+	<select id="selectByComment" resultType="map" parameterType="_int">
+		SELECT CONTENT, WRITER, WRITE_DATE
+		FROM `COMMENT`
+		WHERE ARTICLE_NO = #{value}
+		ORDER BY WRITE_DATE DESC
+	</select>
+		
 	<select id="selectById" resultType="map" parameterType="_int">
 		SELECT NO, TITLE, CONTENT, HIT, WRITER, WRITE_DATE
 		FROM `ARTICLE`
