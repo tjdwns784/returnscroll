@@ -46,6 +46,4 @@
 		WHERE NO=#{value}
 	</select>
 
-	
-	
 </mapper>
