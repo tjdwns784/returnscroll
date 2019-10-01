@@ -57,7 +57,7 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="string" resultType="string">
 		SELECT *
-		FROM `USERS` WHERE UID = #{UID} AND UPW = #{UPW}
+		FROM `USERS` WHERE UID = #{uid} AND UPW = #{upw}
 	</select>
 	
 	<!-- 회원 아이디 중복검사-->
