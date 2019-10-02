@@ -1,9 +1,8 @@
 package com.spring.returnscroll;
 
-<<<<<<< HEAD
+
 import java.util.HashMap;
-=======
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -167,7 +166,7 @@ public class HomeController  {
 		return uidFind;
 	}
 	
-<<<<<<< HEAD
+
 //	@RequestMapping(value = "/chat/addUser/{uid}", method = RequestMethod.GET)
 //	public String addUser(Model model , @PathVariable("uid") String uid){
 //		// url 경로를 변수화 하기. 
@@ -181,7 +180,7 @@ public class HomeController  {
 
 		return "mypage";
 	}
-=======
+
 	@RequestMapping(value = "/chat/addUser/{uid}", method = RequestMethod.GET)
 	public String addUser(Model model , @PathVariable("uid") String uid){
 		// url 경로를 변수화 하기. 
@@ -201,7 +200,6 @@ public class HomeController  {
 //			return "mypage";
 //		}
 //	}
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
