@@ -123,25 +123,9 @@
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser">현재 접속자 아이디 : ${uid}<br> 닉네임 : ${nick }</div>
-                    <div id="roomNum">방번호 : ${room.roomId}</div>
                     
                     <div class="box-header with-border">
-                        <h3 class="box-title">${room.roomName }</h3><br>
-                        
-                        <div class="box-tools pull-right">
-                            <!-- 방정보 표시 -->
-                            <div id='chat_header'></div>
-<!--                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i -->
-<!--                                     class="fa fa-minus"></i> -->
-<!--                             </button> -->
-<!--                             <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" -->
-<!--                                 data-widget="chat-pane-toggle" data-original-title="Contacts"> -->
-<!--                                 <i class="fa fa-comments"></i></button> -->
-<!--                             <button type="button" class="btn btn-box-tool" data-widget="remove"><i -->
-<!--                                     class="fa fa-times"></i> -->
-<!--                             </button> -->
-                        </div>
+                        <h1 class="box-title">채팅방 생성하기</h1><br>
                         
 					<div id="members">
 						<h6>현재 대화 참여자 :</h6> 
@@ -149,17 +133,18 @@
 					<br>
                     </div>
                     <!-- /.box-header -->
-                    <!-- 채팅 메세지 표시 -->
+                    <!-- 채팅방 생성하기 -->
                     <div class="box-body">
-                        <!-- Conversations are loaded here -->
-                        <div class="direct-chat-messages">
-                        
-                          
-                        </div>
-                        <!-- /.direct-chat-pane -->
-                    </div>
-                    <!-- /.box-body -->
-                    <!-- 채팅 메세지 입력 처리 -->
+						<form action="/returnscroll/chat/createRoom" method="POST">
+							<div class="form-group">
+								<label for="name">채팅방 이름</label> 
+								<input type="text" class="form-control" name="roomName" id="roomName">
+							</div>
+							<input type="hidden" value="${uid }" name="createUser" >
+							<button type="submit" class="btn btn-default">Submit</button>
+						</form>
+					</div>
+                    
                     <div class="box-footer">
                         <div class="input-group">
                             <input type="text" name="message" placeholder="메세지를 입력하세요" class="form-control">
