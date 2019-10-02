@@ -26,7 +26,46 @@ import com.spring.returnscroll.Service.MemberService;
 public class MemberController {
 	@Autowired
 	MemberService memberservice;
-
+	
+	// My page 자동입력
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public String mypage(Locale locale, Model model, HttpSession httpSession) {
+			if(httpSession.getAttribute("uid") == null) {
+				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+				return "redirect:login";
+			}else {
+				Object userId = httpSession.getAttribute("uid");
+				String uid = userId.toString();
+				Map<String, String> map = memberservice.mypage(uid);
+				model.addAttribute("map", map);
+				return "mypage";			
+			}
+		}
+	
+	// My page 닉네임 중복확인
+	@RequestMapping(value = "/mpnickDup", method = RequestMethod.GET)
+	@ResponseBody
+	public int mpdupNick(@RequestParam Map<String, Object> map) {
+			String result = memberservice.mpnickDup(map);
+			int a = 0;
+			if (result != null) {
+				a = 1;
+			}
+			return a;
+		}
+	
+	// My page EMAIL 중복확인
+	@RequestMapping(value = "/mpemailDup", method = RequestMethod.GET)
+	@ResponseBody
+	public int mpdupEmail(@RequestParam Map<String, Object> map) {
+			String result = memberservice.mpemailDup(map);
+			int a = 0;
+			if (result != null) {
+				a = 1;
+			}
+			return a;
+		}
+		
 	// 아이디 찾기
 	@RequestMapping(value = "/userSearch", method = RequestMethod.GET)
 	public String userIdSearch() {
@@ -62,7 +101,8 @@ public class MemberController {
 			return "redirect:/index";			
 		}
 	}
-
+	
+	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public String loginPost(Model model, HttpServletRequest req, HttpSession httpSession, @RequestParam Map<String, Object> map) {
@@ -98,19 +138,54 @@ public class MemberController {
 		HttpSession session = req.getSession();						
 		session.invalidate();						
 		return "redirect:/index";						
-	}		
+	}	
 	
 	// 회원수정
 	@RequestMapping(value="/userUpdate", method = RequestMethod.GET)
-	public String userrUpdate() {      
+	public String userrUpdate(HttpSession session, Model model) { 
+		String uid = (String) session.getAttribute("uid");
+		Map<String, String> info = memberservice.mypage(uid);
+		String phone = info.get("phone");
+		String p1 = phone.substring(0, 3);
+		String p2 = phone.substring(3, 7);
+		String p3 = phone.substring(7);
+		
+		info.put("p1", p1);
+		info.put("p2", p2);
+		info.put("p3", p3);
+				
+		model.addAttribute("info", info);
+		
 		return "userUpdate";
 	}
 	
 	// 회원정보수정 액션
 	@RequestMapping(value="/userUpdateAction", method = RequestMethod.POST)
 	public String userUpdateAction(@RequestParam Map<String, Object> map) {
+		// 암호화
+		String upw = (String) map.get("upw");
+		String result2="";
+			  try {
+			       MessageDigest md5 = MessageDigest.getInstance("MD5");
+			       byte[] byteValue = md5.digest(upw.getBytes());
+			             
+			       Base64 base64EnDe =new Base64();
+			 
+			        result2 = base64EnDe.encodeToString(byteValue).replaceAll("\r\n","");
+			    }catch (NoSuchAlgorithmException e) {
+			        e.printStackTrace();
+			    }
+			    map.put("upw", result2);
+			    
+		String p1 = (String) map.get("p1");
+		String p2 = (String) map.get("p2");
+		String p3 = (String) map.get("p3");
+		
+		map.put("phone", p1 + p2 + p3);
+
 		memberservice.userUpdate(map);
-		return "redirect:/index"; 
+		
+		return "userUpdateAction"; 
 	}
 	
 	// 회원탈퇴
@@ -121,11 +196,39 @@ public class MemberController {
 	
 	// 회원탈퇴 액션
 	@RequestMapping(value="/userDeleteAction", method = RequestMethod.POST)
-	public String userDeleteAction(@RequestParam Map<String, Object> map) {
-		memberservice.userDelete(map);
-		return "redirect:/index";
+	@ResponseBody
+	public String userDeleteAction(@RequestParam Map<String, Object> map, HttpSession httpSession) {
+		// 암호화
+		String upw = (String) map.get("upw");
+		String result2="";
+	    try {
+	        MessageDigest md5 = MessageDigest.getInstance("MD5");
+	        byte[] byteValue = md5.digest(upw.getBytes());
+	             
+	        Base64 base64EnDe =new Base64();
+	 
+	        result2 = base64EnDe.encodeToString(byteValue).replaceAll("\r\n","");
+	    }catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    }
+	    map.put("upw", result2);
+		
+	    // 1이면 탈퇴, 0이면 탈퇴 실패
+		int result = memberservice.userDelete(map);
+		String msg = "";
+		if(result == 1) {
+			msg = "success";
+		} else {
+			msg = "fail";
+		}
+		
+		httpSession.invalidate();
+		
+		return msg;
 	}
+	
 
+	// 회원가입 불러오기
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(Locale locale, Model model) {
 
@@ -180,7 +283,7 @@ public class MemberController {
 
 	}
 
-	// 중복확인
+	// ID 중복확인
 	@RequestMapping(value = "/idDup", method = RequestMethod.GET)
 	@ResponseBody
 	public int dup(@RequestParam("id") String id) {
@@ -193,6 +296,7 @@ public class MemberController {
 		return a;
 	}
 
+	// 닉네임 중복확인
 	@RequestMapping(value = "/nickDup", method = RequestMethod.GET)
 	@ResponseBody
 	public int dupNick(@RequestParam("nick") String nick) {
@@ -205,6 +309,7 @@ public class MemberController {
 		return a;
 	}
 
+	// EMAIL 중복확인
 	@RequestMapping(value = "/emailDup", method = RequestMethod.GET)
 	@ResponseBody
 	public int dupEmail(@RequestParam("email") String email) {
@@ -216,5 +321,4 @@ public class MemberController {
 
 		return a;
 	}
-
 }

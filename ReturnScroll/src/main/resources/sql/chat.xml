@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat">
+
+	<!-- 채팅방 리스트 만들기 -->
+<!-- 	<select id="selectRoom" resultType="map"> -->
+<!-- 		SELECT r.roomId AS ID, r.roomName AS NAME -->
+<!-- 		FROM chatroom r INNER JOIN chatuser u ON r.roomId=u.chatRoomId -->
+<!-- 	</select> -->
+	
+	<select id="selectRoom" resultType="map">
+		SELECT roomId AS ID, roomName AS NAME
+		FROM chatroom 
+	</select>
+	
+	<select id="roomIn" parameterType="_int" resultType="map">
+		SELECT *
+		FROM chatroom
+		WHERE roomId = #{value}
+	</select>
+	
+	<insert id="createRoom" parameterType="map">
+		INSERT INTO chatroom
+		(roomId, roomName, roomKing, roomDate)
+		VALUES
+		(NULL, #{roomName}, #{createUser},NOW())
+	</insert>
+	
+	<insert id="addUser" parameterType="map">
+		INSERT INTO chatuser
+		(chatUserId, chatRoomId,joinDate)
+		VALUES
+		(#{uid}, #{roomId},NOW())
+	</insert>
+</mapper>

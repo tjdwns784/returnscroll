@@ -176,8 +176,23 @@ public class MemberService {
 	public Map<String, String> chatInvite(String uid) {
 		return usersDao.chatInvite(uid);
 	}
+	
 	public String userNick(String uid) {
 		return usersDao.userNick(uid);
 	}
+	
+	// mypage 정보입력
+	public Map<String, String> mypage(String uid) {
+		return usersDao.mypage(uid);
+	}
 
+	// mypage 닉네임 중복검사
+	public String mpnickDup(Map<String, Object> map) {
+		return usersDao.mpdupNick(map);
+	}
+		
+	// mypage EMAIL 중복검사
+	public String mpemailDup(Map<String, Object> map) {
+		return usersDao.mpdupEmail(map);
+	}
 }

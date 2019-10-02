@@ -97,23 +97,23 @@
       	<!-- 모달창 -->
 	<div id="modal">
    
-    <div class="modal_content">
-        <h2>친구초대</h2><br>
-        <p>초대할 친구를 검색하세요</p>
-        <form method="GET" id="find">
-	        ID : <input type="text" name="uid" id="uid" >
-        </form>
-	    <button id="findId">검색</button>
-        
-         <br>
-        
-        <div id="uidList" ></div>
-
-        <button type="button" id="modal_close_btn">창 닫기</button>
-      
-    </div>
-   
-    <div class="modal_layer"></div>
+	    <div class="modal_content">
+	        <h2>친구초대</h2><br>
+	        <p>초대할 친구를 검색하세요</p>
+	        <form method="GET" id="find">
+		        ID : <input type="text" name="uid" id="uid" >
+	        </form>
+		    <button id="findId">검색</button>
+	        
+	         <br>
+	        
+	        <div id="uidList" ></div>
+	
+	        <button type="button" id="modal_close_btn">창 닫기</button>
+	      
+	    </div>
+	   
+	    <div class="modal_layer"></div>
     
 	</div>
       
@@ -123,52 +123,45 @@
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser">현재 접속자 아이디 : ${uid}<br> 닉네임 : ${nick }</div>
-                    <div id="roomNum">방번호 : ${room.roomId}</div>
-                    
+                    <div id="putUser">현재 접속자 아이디 : ${uid}</div>
                     <div class="box-header with-border">
-                        <h3 class="box-title">${room.roomName }</h3><br>
-                        
-                        <div class="box-tools pull-right">
-                            <!-- 방정보 표시 -->
-                            <div id='chat_header'></div>
-<!--                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i -->
-<!--                                     class="fa fa-minus"></i> -->
-<!--                             </button> -->
-<!--                             <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" -->
-<!--                                 data-widget="chat-pane-toggle" data-original-title="Contacts"> -->
-<!--                                 <i class="fa fa-comments"></i></button> -->
-<!--                             <button type="button" class="btn btn-box-tool" data-widget="remove"><i -->
-<!--                                     class="fa fa-times"></i> -->
-<!--                             </button> -->
-                        </div>
-                        
-					<div id="members">
-						<h6>현재 대화 참여자 :</h6> 
-					</div>
+                        <h1 class="box-title">채팅방 리스트</h1><br>
 					<br>
                     </div>
-                    <!-- /.box-header -->
+                    
+                    
+                    
                     <!-- 채팅 메세지 표시 -->
                     <div class="box-body">
                         <!-- Conversations are loaded here -->
                         <div class="direct-chat-messages">
-                        
+	                        <table class="table">
+							    <thead>
+							      <tr>
+							        <th>채팅방 NO</th>
+							        <th>채팅방 명</th>
+							        <th>현재 접속자 수</th>
+							        <th> </th>
+							      </tr>
+							    </thead>
+							    <c:forEach var="list" items="${list }" varStatus="count" >
+							    <tbody>
+							      <tr>
+							        <td>${list.ID }</td>
+							        <td><a href="/returnscroll/chat/${list.ID }">${list.NAME }</a></td>
+							        <td>0</td>
+							        <td><button>입장</button></td>
+							      </tr>
+							    </tbody>
+							    </c:forEach>
+						  </table>
                           
                         </div>
+                        <button onclick="location.href='/returnscroll/chat/createRoom'">채팅방 생성</button>
                         <!-- /.direct-chat-pane -->
                     </div>
-                    <!-- /.box-body -->
-                    <!-- 채팅 메세지 입력 처리 -->
-                    <div class="box-footer">
-                        <div class="input-group">
-                            <input type="text" name="message" placeholder="메세지를 입력하세요" class="form-control">
-                            <span class="input-group-btn">
-                                <button id='sendBtn' type="button" class="btn btn-warning btn-flat">보내기</button>
-                                <button id='addFriend' type="button" class="btn btn-warning btn-flat">친구추가</button>
-                            </span>
-                        </div>
-                    </div>
+                    
+
                     <!-- /.box-footer-->
                 </div>
                 <!--/.direct-chat -->
@@ -211,7 +204,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
   <input type='hidden' id='nick' value='${nick}'>
-   <input id="roomNumber" type="hidden" valie='${room.roomId }'></input>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -225,47 +217,7 @@
   
   <script src="http://192.168.0.95:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/chat.js"/></script>
-    
-    <!-- 모달 띄우고 내리는거 -->
-    <script type="text/javascript">
-    $("#addFriend").click(function(){
-    	$("#uidList").empty();
-    	$("#uid").val('');
-        $("#modal").fadeIn();
-    });
-   
-     $("#modal_close_btn").click(function(){
-        $("#modal").fadeOut();
-    });    
-    </script>
-    
-    <!-- 아이디로 친구 찾기 -->
-	<script>
- 		$(document).on('click','#findId',function(){
-			// 입력한 아이디값 받기
- 			var uid = $('#uid').val();
- 			var postData = {"uid" : uid};
-			console.log(postData);
 
-			$.ajax({
-				url:"http://localhost:8080/returnscroll/chat/findId",
-				type:'GET',
-				data: postData,
-				success:function(data){
-					console.log('결과데이터는'+data);
-					$("#uidList").append(data+"<a href='/returnscroll/chat/${room.roomId }/"+data+"'>추가하기</a>");
-// 					$("#uidList").append(data+"<input type='button' value='친구추가' onclick='window.open('/returnscroll/chat/"+data+"','추가하기','width=#,height=#')'>");
-				},
-				error:function(request, status, errorThrown){
-					
-					alert('아이디를 다시 입력하세여');
-				}
-			})
-		});
- 		
- 		
-	</script>
 </body>
 
 </html>

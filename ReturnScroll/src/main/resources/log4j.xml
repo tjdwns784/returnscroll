@@ -34,8 +34,12 @@
 
 	<!-- Root Logger -->
 	<root>
+
 <!-- 		<priority value="warn" /> -->
 		<priority value="debug" />
+
+		<!-- <priority value="debug" /> -->
+
 		<appender-ref ref="console" />
 	</root>
 	

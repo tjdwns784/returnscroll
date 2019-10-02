@@ -79,6 +79,4 @@
 		DELETE FROM `COMMENT` WHERE CNO = #{cno}
 	</delete>
 
-	
-	
 </mapper>
