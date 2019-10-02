@@ -6,12 +6,13 @@ $(document).ready(function() {
     // (세션이 있었다면 : 이름, 아이디 사용)
     var user_name ="";
     var user_nick = $('#nick').val(); 
+    var room_num = $('#roomNumber').val();
 
     socket.on('connect', function(){
       // user_name = prompt('익명 닉네임 이름');
       console.log('회원의 닉네임' +user_nick);
       // 서버로 닉네임을 전송 => 서버에 있는 이벤트를 발생시킨다
-      socket.emit('s_send_userName', user_nick, new Date());
+      socket.emit('s_send_userName', user_nick, new Date(), room_num);
     })
     
     // 서버가 메시지를 보내면 채팅창에 표시
@@ -84,7 +85,6 @@ $(document).ready(function() {
     {
     	// 관리자 메세지는 따로 ~~
       var flag = sender === user_nick ? 'right' : 'left';
-      console.log("이메세지는"+flag);
       // 1. 메시지UI를 붙일 요소를 찾아서, 동적으로 html을 구성하여 추가한다.
       if(sender === '관리자'){
     	  var html = "<div class='direct-chat-msg' style='margin: auto; width:100%; text-align:center;'>";
@@ -124,25 +124,25 @@ $(document).ready(function() {
 
     }
   
-    // 방정보 표시
-//    socket.on('c_send_roomInfo',(rooms, myRoom)=>{
-//      console.log(rooms, myRoom);
-//      $('#chat_header').empty();
-//      $.each(rooms,(idx, item)=>{
-//        console.log(idx, item);
-//        // 방 정보를 붙이는 대상을 찾아서 html을 구성하여 붙인다
-//        var html =`<span data-toggle="tooltip" title="" class="badge bg-${ item === myRoom?'red':'yellow' }">${item}</span>`;
-//        $('#chat_header').append(html);
-//        if(item != myRoom){
-//          $('#chat_header>span:last').on('click',()=>{
-//            if(confirm(`${item}방으로 변경하시겠습니까?`)){
-//              console.log('방 변경시도');
-//              socket.emit('s_send_roomChg', item);
-//              // 기존 메시지 삭제
-//              $('.direct-chat-messages').empty();
-//            }
-//          });
-//        }
-//      });
-//    });
+    // 방정보 표시 (rooms가 방들의 정보를 담은 배열이고, myRoom이 내가 들어 있는 배열)
+    socket.on('c_send_roomInfo',(rooms, myRoom)=>{
+      console.log(rooms, myRoom);
+      $('#chat_header').empty();
+      $.each(rooms,(idx, item)=>{
+        console.log(idx, item);
+        // 방 정보를 붙이는 대상을 찾아서 html을 구성하여 붙인다
+        var html ="<span data-toggle='tooltip' title='' class='badge bg-${ item === myRoom?'red':'yellow' }'>${item}</span>";
+        $('#chat_header').append(html);
+        if(item != myRoom){
+          $('#chat_header>span:last').on('click',()=>{
+            if(confirm(`${item}방으로 변경하시겠습니까?`)){
+              console.log('방 변경시도');
+              socket.emit('s_send_roomChg', item);
+              // 기존 메시지 삭제
+              $('.direct-chat-messages').empty();
+            }
+          });
+        }
+      });
+    });
 });
