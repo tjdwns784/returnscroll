@@ -4,6 +4,13 @@
 <mapper namespace="users">
 
 
+	<!-- 마이 페이지 이름 넣기 -->
+	<select id="mypage" resultType="map" parameterType="string">
+		SELECT * 
+		FROM USERS 
+        WHERE UID = #{value}
+	</select>
+	
 	<!-- 메일 이름 넣기 -->
 	<select id="mailId" resultType="string" parameterType="map">
 		SELECT UNAME 
@@ -95,4 +102,15 @@
 		WHERE UID = #{value}
 	</select>
 	
+	<!-- 마이페이지 회원 닉네임 중복검사-->
+	<select id="nick2" parameterType="map" resultType="string">
+		SELECT UNAME
+		FROM `USERS` WHERE NICK = #{nick} AND UID != #{uid}
+	</select>
+	
+	<!-- 마이페이지 회원 이메일 중복검사-->
+	<select id="email2" parameterType="map" resultType="string">
+		SELECT UNAME
+		FROM `USERS` WHERE EMAIL = #{email} AND UID != #{uid}
+	</select>
 </mapper>
