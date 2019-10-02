@@ -1,3 +1,4 @@
+`+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 	language="java"%>
 <!DOCTYPE html>
@@ -68,42 +69,41 @@
 						<label for="user_id">아이디</label>
 						 <input type="text" style="width:70px; height:45px;"
 							class="form-control" id="user_id" name="uid" placeholder="ID"
-							required>
+							required="required">
 						<p id='msgid' style="color: red"></p>
 						<div class="check_font" id="id_check"></div>
 					</div>
 					<div class="form-group">
 						<label for="user_pw">비밀번호</label> <input type="password" 
 							class="form-control" id="user_pw" name="upw"
-							placeholder="Password" required>
+							placeholder="Password" required="required">
 						<p id='msgpw' style="color: red"></p>
 						<div class="check_font" id="pw_check"></div>
 					</div>
 					<div class="form-group">
 						<label for="user_pw2">비밀번호 확인</label> <input type="password"
 							class="form-control" id="user_pw2" name="upw2"
-							placeholder="Confirm Password" required>
+							placeholder="Confirm Password" required="required">
 						<p id='msgpw2' style="color: red"></p>
 						<div class="check_font" id="pw2_check"></div>
-
 					</div>
 					<div class="form-group">
 						<label for="user_name">이름</label> <input type="text"
 							class="form-control" id="user_name" name="uname"
-							placeholder="Name" required>
+							placeholder="Name" required="required">
 						<div class="check_font" id="name_check"></div>
 					</div>
 					<div class="form-group">
 						<label for="user_nick">별명</label> <input type="text"
 							class="form-control" id="user_nick" name="nick"
-							placeholder="NickName" required>
+							placeholder="NickName" required="required">
 						<p id='msgnick' style="color: red"></p>
 						<div class="check_font" id="name_check"></div>
 					</div>
 					<div class="form-group required">
 						<label for="user_birth">생년월일:</label>
 						<select name="year" style="width:85px; height:40px; margin-right:-2%;">
-							<%for(int i=2000; i>1939; i--){ %>
+							<%for(int i=2019; i>1939; i--){ %>
 							<option value="<%=i%>"><%=i %>년</option>
 							<%} %>
 						</select> 
@@ -139,7 +139,7 @@
 					<div class="form-group">
 						<label for="user_email">이메일</label> <input type="text"
 							class="form-control" name="email" id="user_email"
-							placeholder="E-mail" required>
+							placeholder="E-mail" required="required">
 						<p id='msgemail' style="color: red"></p>
 						<div class="check_font" id="email_check"></div>
 					</div>

@@ -9,20 +9,32 @@ import org.springframework.stereotype.Service;
 import com.spring.returnscroll.Dao.ArticleDao;
 
 @Service
-public class ArticleService {
+public class ArticleService {//qna게시판 
 
 	@Autowired
 	ArticleDao articleDao;
 	
-	
+	//게시판 글쓰기
 	public void insert(Map<String, Object> map) {
-		//articleDao.increaseOrd(map);
 		int result = articleDao.insert(map);
 	}
 	
+	//게시판 댓글달기
+	public void insertComment(Map<String, Object> map) {
+		articleDao.insertComment(map);
+	}
+	
+	//게시판 목록 불러오기
 	public List<Map<String, Object>> select() {
 		return articleDao.select();
 	}
+	
+	//게시판 댓글 불러오기
+	public List<Map<String, Object>> selectByComment(int no) {
+		return articleDao.selectByComment(no);
+	}
+	
+	//게시판 읽어오기
 	public Map<String, Object> selectById(int no){
 		articleDao.update(no);//조회수 증가
 		return articleDao.selectById(no);

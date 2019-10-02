@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 
-	<a class="menu-toggle rounded"> <i class="fas fa-bars"></i>
+	<a class="menu-toggle rounded" style="z-index:11000;"> <i class="fas fa-bars"></i>
 	</a>
 	<nav id="sidebar-wrapper" style="z-index:10000;">
 		<ul class="sidebar-nav">

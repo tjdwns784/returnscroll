@@ -155,7 +155,7 @@
 	        if (window.event.keyCode == 13) {
 	             // 엔터키가 눌렸을 때 실행할 내용
 	        	  var action = $('#btnLogin').attr("href");
-	 	         var form_data = {
+	 	          var form_data = {
 	 	            "uid" : $('#uid').val(),
 	 	            "upw" : $('#upw').val()
 	 	         };

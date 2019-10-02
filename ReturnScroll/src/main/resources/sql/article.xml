@@ -2,34 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="article">
-	<update id="increaseOrd" parameterType="map">
-	<!-- XML 문서에서 꺽쇠 기호 사용시 오동작을 막기 위해서 CDATA 사용 -->
-	<![CDATA[
-		UPDATE ARTICLE SET
-		ORD = ORD + 1
-		WHERE GRP = #{grp} AND ORD >= #{ord}
-		]]>
-	</update>
+	
+	<!--게시판 글쓰기  -->
 	<insert id="insert" parameterType="map">
 		INSERT INTO ARTICLE (NO, TITLE, CONTENT, HIT, WRITER, WRITE_DATE)
 		VALUES (NULL, #{title}, #{content}, 0, #{writer}, NOW())
 	</insert>
+	
+	<!--게시판 댓글달기 -->
+	<insert id="insertComment" parameterType="map">
+		INSERT INTO COMMENT (WRITER, ARTICLE_NO, CONTENT, WRITE_DATE)
+		VALUES (#{writer}, #{article_no}, #{content}, NOW())
+	</insert>
+	
+	<!--게시판 조회수 증가 -->
 	<update id="update" parameterType="_int">
 		UPDATE ARTICLE SET
 		HIT = HIT +1
 		WHERE NO = #{value}
 	</update>
+	
+	<!--게시판 목록 불러오기 -->
 	<select id="select" resultType="map">
 		SELECT NO, TITLE, CONTENT, HIT,WRITER, WRITE_DATE
 		FROM `ARTICLE`
 		ORDER BY NO DESC
 	</select>
+	
+	<!--게시판 댓글 불러오기 -->
+	<select id="selectByComment" resultType="map" parameterType="_int">
+		SELECT CONTENT, WRITER, WRITE_DATE
+		FROM `COMMENT`
+		WHERE ARTICLE_NO = #{value}
+		ORDER BY WRITE_DATE DESC
+	</select>
+	
+	<!--게시판 읽어오기 -->
 	<select id="selectById" resultType="map" parameterType="_int">
 		SELECT NO, TITLE, CONTENT, HIT, WRITER, WRITE_DATE
 		FROM `ARTICLE`
 		WHERE NO=#{value}
 	</select>
 
-	
-	
 </mapper>
