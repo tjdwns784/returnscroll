@@ -175,12 +175,6 @@ public class HomeController  {
 //		return "chat";
 //	}
 	 
-	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypage(Locale locale, Model model) {
-
-		return "mypage";
-	}
-
 	@RequestMapping(value = "/chat/addUser/{uid}", method = RequestMethod.GET)
 	public String addUser(Model model , @PathVariable("uid") String uid){
 		// url 경로를 변수화 하기. 
@@ -188,18 +182,6 @@ public class HomeController  {
 		// 아이디를 가지고 오는데... 이걸 어떻게 초대할건지
 		return "chat";
 	}
-	
-//	//마이페이지 고객 정보 수정
-//	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-//	public String mypage(Locale locale, Model model, HttpSession httpSession) {
-//
-//		if(httpSession.getAttribute("uid") == null) {
-//			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
-//			return "redirect:login";
-//		}else {
-//			return "mypage";
-//		}
-//	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
@@ -327,24 +309,3 @@ public class HomeController  {
 		return "show_qna";
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
