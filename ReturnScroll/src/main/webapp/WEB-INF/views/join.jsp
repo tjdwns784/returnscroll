@@ -91,6 +91,7 @@
 						<label for="user_name">이름</label> <input type="text"
 							class="form-control" id="user_name" name="uname"
 							placeholder="Name" required="required">
+							<p id='msgname' style="color: red"></p>
 						<div class="check_font" id="name_check"></div>
 					</div>
 					<div class="form-group">
@@ -202,7 +203,7 @@
 		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 	<script>
 		var isId = 0							
-		var isPw = 0							
+		var isPw = 0
 		var isEmail = 0							
 		var isNick = 0							
 									
@@ -210,19 +211,19 @@
 		$("#reg_submit").click(function(event){							
 			if(isId==0){						
 				event.preventDefault();					
-				alert("아이디를 확인해 주세요")					
+				alert("아이디를 확인해 주세요.")					
 			}						
 			if(isPw==0){						
 				event.preventDefault();					
-				alert("패스워드를 확인해 주세요")					
+				alert("패스워드를 확인해 주세요.")					
 			}						
 			if(isNick==0){						
 				event.preventDefault();					
-				alert("별명을 확인해 주세요")					
+				alert("별명을 확인해 주세요.")					
 			}						
 			if(isEmail==0){						
 				event.preventDefault();					
-				alert("이메일을 확인해 주세요")					
+				alert("이메일을 확인해 주세요.")					
 			}						
 		})		
 				
@@ -242,11 +243,15 @@
 						console.log(res);					
 										
 						if(res==0 && $("#user_email").val() !="" ){					
-							$("#msgemail").text("사용가능한 이메일 입니다")				
+							$("#msgemail").text("사용가능한 이메일 입니다.")				
 							$("#msgemail").css("color","blue")				
-							isEmail = 1				
+							isEmail = 1		
+						}else if(res==0 && $("#user_email").val() =="" ){
+							$("#msgemail").text("공백은 불가합니다.")	
+							$("#msgemail").css("color","red")	
+							isEmail = 0	
 						}else {					
-							$("#msgemail").text("중복된 이메일 입니다")				
+							$("#msgemail").text("중복된 이메일 입니다.")				
 							$("#msgemail").css("color","red")				
 							isEmail = 0				
 								}			
@@ -275,11 +280,15 @@
 							console.log(res);		
 									
 							if(res==0 && $("#user_id").val() !="" ){		
-								$("#msgid").text("사용가능한 아이디 입니다")	
+								$("#msgid").text("사용가능한 아이디 입니다.")	
 								$("#msgid").css("color","blue")	
-								isId = 1	
+								isId = 1
+							}else if(res==0 && $("#user_id").val() =="" ){
+								$("#msgid").text("공백은 불가합니다.")	
+								$("#msgid").css("color","red")	
+								isId = 0	
 							}else {		
-								$("#msgid").text("이미 존재하는 아이디 입니다")	
+								$("#msgid").text("이미 존재하는 아이디 입니다.")	
 								$("#msgid").css("color","red")	
 								isId = 0	
 									}
@@ -293,8 +302,8 @@
 							isId = 0		
 									
 						}			
-				})					
-									
+				})	
+										
 				$("#user_nick").focusout(()=>{					
 					$.ajax({				
 						url:"nickDup",					
@@ -303,11 +312,15 @@
 						console.log(res);					
 											
 						if(res==0 && $("#user_nick").val() !="" ){					
-							$("#msgnick").text("사용가능한 닉네임 입니다")				
+							$("#msgnick").text("사용가능한 닉네임 입니다.")				
 							$("#msgnick").css("color","blue")				
-							isNick = 1				
+							isNick = 1	
+						}else if(res==0 && $("#user_nick").val() =="" ){
+							$("#msgnick").text("공백은 불가합니다.")	
+							$("#msgnick").css("color","red")	
+							isNick = 0		
 						}else {					
-							$("#msgnick").text("이미 존재하는 닉네임 입니다")				
+							$("#msgnick").text("이미 존재하는 닉네임 입니다.")				
 							$("#msgnick").css("color","red")				
 							isNick = 0				
 						}			
@@ -333,7 +346,7 @@
 						$("#msgpw2").css("color","blue")			
 						isPw = 1			
 					}else {				
-						$("#msgpw2").text("비밀번호가 다릅니다")			
+						$("#msgpw2").text("비밀번호가 다릅니다.")			
 						$("#msgpw2").css("color","red")			
 						isPw = 0			
 					}				
@@ -350,7 +363,7 @@
 						isPw = 1			
 					}				
 					else {				
-						$("#msgpw").text("비밀번호는 8~15자로 영어,숫자,특수문자를 포함해야 합니다")			
+						$("#msgpw").text("비밀번호는 8~15자로 영어,숫자,특수문자를 포함해야 합니다.")			
 						$("#msgpw").css("color","red")			
 						isPw = 0			
 					}				

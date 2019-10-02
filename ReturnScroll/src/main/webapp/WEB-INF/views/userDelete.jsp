@@ -42,8 +42,7 @@
 	 	            	
 	 	               if (res == "success") {
 	 	                  alert("회원탈퇴가 완료되었습니다. 그 동안 이용해주셔서 감사합니다!");
-	 	                  sendit();
-	 	                  location = "index"
+	 	                  location = "/returnscroll/index"
 	 	               } else {
 	 	                  alert("비밀번호가 잘못되었습니다");
 	 	               }
@@ -71,8 +70,7 @@
 	            	
 	               if (res == "success") {
 	                  alert("회원탈퇴가 완료되었습니다. 그 동안 이용해주셔서 감사합니다!");
-	                  sendit();
-	                  location = "index"
+	                  location = "/returnscroll/index"
 	               } else {
 	                  alert("비밀번호가 잘못되었습니다");
 	               }

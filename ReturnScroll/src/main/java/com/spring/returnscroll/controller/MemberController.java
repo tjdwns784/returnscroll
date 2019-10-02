@@ -162,9 +162,30 @@ public class MemberController {
 	// 회원정보수정 액션
 	@RequestMapping(value="/userUpdateAction", method = RequestMethod.POST)
 	public String userUpdateAction(@RequestParam Map<String, Object> map) {
+		// 암호화
+		String upw = (String) map.get("upw");
+		String result2="";
+			  try {
+			       MessageDigest md5 = MessageDigest.getInstance("MD5");
+			       byte[] byteValue = md5.digest(upw.getBytes());
+			             
+			       Base64 base64EnDe =new Base64();
+			 
+			        result2 = base64EnDe.encodeToString(byteValue).replaceAll("\r\n","");
+			    }catch (NoSuchAlgorithmException e) {
+			        e.printStackTrace();
+			    }
+			    map.put("upw", result2);
+			    
+		String p1 = (String) map.get("p1");
+		String p2 = (String) map.get("p2");
+		String p3 = (String) map.get("p3");
+		
+		map.put("phone", p1 + p2 + p3);
+
 		memberservice.userUpdate(map);
+		
 		return "userUpdateAction"; 
-//		return "redirect:/mypage"; 
 	}
 	
 	// 회원탈퇴
@@ -177,8 +198,8 @@ public class MemberController {
 	@RequestMapping(value="/userDeleteAction", method = RequestMethod.POST)
 	@ResponseBody
 	public String userDeleteAction(@RequestParam Map<String, Object> map, HttpSession httpSession) {
-		String upw = (String) map.get("upw");
 		// 암호화
+		String upw = (String) map.get("upw");
 		String result2="";
 	    try {
 	        MessageDigest md5 = MessageDigest.getInstance("MD5");
