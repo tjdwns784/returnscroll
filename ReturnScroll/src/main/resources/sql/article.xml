@@ -11,27 +11,41 @@
 	
 	<!--게시판 댓글달기 -->
 	<insert id="insertComment" parameterType="map">
-		INSERT INTO COMMENT (WRITER, ARTICLE_NO, CONTENT, WRITE_DATE)
-		VALUES (#{writer}, #{article_no}, #{content}, NOW())
+		INSERT INTO COMMENT (CNO, WRITER, ARTICLE_NO, CONTENT, WRITE_DATE)
+		VALUES (NULL, #{writer}, #{article_no}, #{content}, NOW())
 	</insert>
 	
+	<!--게시판 글 수정하기 -->
+	<update id="updateArticle" parameterType="map">
+		UPDATE ARTICLE SET
+		TITLE = #{title},
+		CONTENT = #{content}
+		WHERE NO = #{no} AND WRITER = #{writer}
+	</update>
+	
 	<!--게시판 조회수 증가 -->
-	<update id="update" parameterType="_int">
+	<update id="updateHit" parameterType="_int">
 		UPDATE ARTICLE SET
 		HIT = HIT +1
 		WHERE NO = #{value}
 	</update>
 	
 	<!--게시판 목록 불러오기 -->
-	<select id="select" resultType="map">
+	<select id="select" resultType="map" parameterType="map">
 		SELECT NO, TITLE, CONTENT, HIT,WRITER, WRITE_DATE
 		FROM `ARTICLE`
+		<if test='searchText != null and searchText != ""'>
+			<where>
+				TITLE LIKE CONCAT('%', #{searchText}, '%')
+			</where>
+		</if>
 		ORDER BY NO DESC
+		LIMIT #{startNum}, 10
 	</select>
 	
 	<!--게시판 댓글 불러오기 -->
 	<select id="selectByComment" resultType="map" parameterType="_int">
-		SELECT CONTENT, WRITER, WRITE_DATE
+		SELECT CNO, CONTENT, WRITER, WRITE_DATE
 		FROM `COMMENT`
 		WHERE ARTICLE_NO = #{value}
 		ORDER BY WRITE_DATE DESC
@@ -43,6 +57,27 @@
 		FROM `ARTICLE`
 		WHERE NO=#{value}
 	</select>
+	
+	<!--게시판 전체 갯수 찾기 -->
+	<select id="selectTotalCount" resultType="_int" parameterType="map">
+		SELECT COUNT(*)
+		FROM `ARTICLE`
+		<if test='searchText != null and searchText != ""'>
+			<where>
+				TITLE LIKE CONCAT('%', #{searchText}, '%')
+			</where>
+		</if>
+	</select>
+	
+	<!--게시글 삭제하기  -->
+	<delete id="deleteArticle" parameterType="map">
+		DELETE FROM `ARTICLE` WHERE NO = #{no}
+	</delete>
+	
+	<!--게시판 댓글 삭제하기  -->
+	<delete id="deleteComment" parameterType="map">
+		DELETE FROM `COMMENT` WHERE CNO = #{cno}
+	</delete>
 
 	
 	

@@ -18,6 +18,11 @@
   <!-- Custom CSS -->
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head>
 <body>
 
@@ -30,26 +35,110 @@
 		
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-<input type ="button" value="글쓰기" onclick="location.href='write'">
 <hr>
-<table border="1" >
-<th> 번호 </th>
-<th> 제목 </th>
-<th> 작성자 </th>
-<th> 작성일 </th>
-<th> 조회수</th>
+<hr>
+<h1>Q&A</h1>
+<hr>
+<div class="search">
+	<div class="container-1" style="float:right; margin-right: 2.5%; margin-bottom: 1%">
+		<input type="text" placeholder="search" id="searchText" name="searchText">
+		<a href="" id="searchBtn"><i class="fa fa-search"></i></a>
+	</div>
+</div>
+
+
+
+<table class="table" style="width:95%; margin: 0 auto;">
+<thead class="thead-dark" style="text-align:center;">
+<th style="width:10%;"> 번호 </th>
+<th style="width:55%;"> 제목 </th>
+<th style="width:10%;"> 작성자 </th>
+<th style="width:15%;"> 작성일 </th>
+<th style="width:10%;"> 조회수</th>
+</thead>
+<tbody>
+
+
 	<c:forEach items="${list}" var="item">
 
-		<tr onClick ="location.href='show/${item.NO}'">
-		<td>${item.NO}</td>
-		<td>${item.TITLE}</td>
-		<td>${item.WRITER}</td>
-		<td>${item.WRITE_DATE}</td>
-		<td>${item.HIT}</td>
+		<tr onClick ="location.href='show/${item.NO}'" style="text-align:center;">
+		<td >${item.NO}</td>
+		<td style="text-align:left;">${item.TITLE}</td>
+		<td >${item.WRITER}</td>
+		<td >${item.WRITE_DATE}</td>
+		<td >${item.HIT}</td>
 		</tr>
 		
 	</c:forEach>
+	
+	</tbody>
 </table>
+<hr>
+<div>
+
+<input type ="button" value="글쓰기" onclick="location.href='write'" class="btn btn-info" style="float:right; margin-right:2.5%; margin-bottom: 0.5%;">
+</div>
+<div class="container" style="width:90%;" >
+  <ul class="pagination" style="justify-content: center;">
+    <% int t = (Integer)request.getAttribute("total"); 
+    	int showNum = t / 10;
+    	if(t % 10 != 0) {
+    		showNum++;
+    	}
+    	
+    	int nowPage = (Integer)request.getAttribute("page");
+    	int startPage = nowPage / 10 * 10;
+    	if(nowPage % 10 != 0) {
+    		startPage++;
+    	} else {
+    		startPage -= 9;
+    	}
+    	
+    	int endPage = startPage + 9;
+    	if(endPage > showNum) {
+    		endPage = showNum;
+    	}
+    	
+    	request.setAttribute("showNum", showNum);
+    	request.setAttribute("startPage", startPage);
+    	request.setAttribute("endPage", endPage);
+    	request.setAttribute("nowPage", nowPage);
+
+    	
+    %>
+    <c:if test='${page > 10}'>
+    	<li class="page-item"><a class="page-link" href="qna?page=${startPage - 10}">Previous</a></li>
+    </c:if>
+    <c:if test='${page <= 10}'>
+    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage - 10}">Previous</a></li>
+    </c:if>
+
+    <c:forEach begin="<%=startPage %>" end="<%=endPage%>" var="pnum" step="1">
+    	<c:if test='${nowPage == pnum}'> 
+    		<li class="page-item active">
+    	</c:if>
+    	<c:if test='${nowPage != pnum}'> 
+    		<li class="page-item">
+    	</c:if>
+    	<a class="page-link" href="qna?page=${pnum}&searchText=${searchText}">${pnum}</a></li>
+    </c:forEach>
+    
+    <c:if test='${endPage < showNum}'>
+    	<li class="page-item"><a class="page-link" href="qna?page=${startPage + 10}">Next</a></li>
+    </c:if>
+     <c:if test='${endPage >= showNum}'>
+    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage + 10}">Next</a></li>
+    </c:if>
+  </ul>
+</div>
+<script>
+	$("#searchBtn").click(function() {
+		var searchText = $('#searchText').val();
+		location = 'qna?searchText=' + searchText;
+		
+		return false;
+	})
+</script>
 
 <hr>
 </body>

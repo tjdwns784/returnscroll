@@ -19,27 +19,46 @@ public class ArticleService {//qna게시판
 		int result = articleDao.insert(map);
 	}
 	
+	//게시판 글 수정하기
+	public void updateArticle(Map<String, Object> map) {
+		articleDao.updateArticle(map);
+	}
+	
+	//게시판 글 삭제하기
+	public void deleteArticle(int no) {
+			articleDao.deleteArticle(no);
+	}
+	
 	//게시판 댓글달기
 	public void insertComment(Map<String, Object> map) {
 		articleDao.insertComment(map);
 	}
 	
+	//게시판 댓글 삭제하기
+	public void deleteComment(int cno) {
+				articleDao.deleteComment(cno);
+	}
+	
 	//게시판 목록 불러오기
-	public List<Map<String, Object>> select() {
-		return articleDao.select();
+	public List<Map<String, Object>> select(Map<String, Object> map) {
+		return articleDao.select(map);
 	}
 	
 	//게시판 댓글 불러오기
 	public List<Map<String, Object>> selectByComment(int no) {
 		return articleDao.selectByComment(no);
 	}
-	
+
 	//게시판 읽어오기
 	public Map<String, Object> selectById(int no){
 		articleDao.update(no);//조회수 증가
 		return articleDao.selectById(no);
 	}
-
-
+	
+	//게시판 전체 개수 찾기
+	public int selectTotalCount(Map<String, Object> map) {
+		return articleDao.selectTotalCount(map);
+	}
+	
 
 }

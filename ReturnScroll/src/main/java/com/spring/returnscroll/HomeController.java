@@ -119,17 +119,35 @@ public class HomeController  {
 	
 	//큐앤에이 게시판
 	@RequestMapping(value = "/qna", method = RequestMethod.GET)
-	public String qna(Locale locale, Model model, HttpSession httpSession) {
+	public String qna(Locale locale, Model model, HttpSession httpSession, 
+			@RequestParam(value="page", defaultValue = "1") int page,
+			@RequestParam Map<String, Object> map) {
 
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 			return "redirect:login";
 		}else {
-			model.addAttribute("list",articleservice.select());
+			int endNum = page * 10;
+			int startNum = endNum - 10;
+			
+			map.put("page", page);
+			map.put("startNum", startNum);
+			
+			model.addAttribute("list",articleservice.select(map));
+			
+			// 전체 qna 게시물 개수
+			// 전체 페이지 알아내기
+			int total = articleservice.selectTotalCount(map);
+			model.addAttribute("total",total);
+			model.addAttribute("page",page);
+			String searchT = (String) map.get("searchText");
+			model.addAttribute("searchText", searchT);
+			
 			return "qna";			
 		}
 		
 	}
+	
 	
 	//게시판에 글쓰기
 	@RequestMapping(value = "/write", method=RequestMethod.GET)
@@ -148,7 +166,7 @@ public class HomeController  {
 	@RequestMapping(value = "/write", method=RequestMethod.POST)
 	public String writePost(@RequestParam Map<String,Object> map) {
 		articleservice.insert(map);
-		return "write_qna";
+		return "redirect:qna";
 	}
 	
 	//게시판 글쓴것 보기 
@@ -166,6 +184,52 @@ public class HomeController  {
 		}
 	}
 	
+	//게시판 글수정하기
+	@RequestMapping(value = "/articleUpdate/{no}", method=RequestMethod.GET)
+		public String articleUpdate(Model model, @PathVariable("no") int no, HttpSession httpSession) {
+			if(httpSession.getAttribute("uid") == null) {
+				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+				return "redirect:login";
+			}else {
+				model.addAttribute(no);
+				return "articleUpdate";		
+			}
+		}
+	
+	//게시판 글수정하기
+		@RequestMapping(value = "/articleUpdate/{no}", method=RequestMethod.POST)
+			public String articleUpdatePost( @PathVariable("no") int no,@RequestParam Map<String,Object> map) {
+				 //System.out.println(map);
+				articleservice.updateArticle(map);
+				return "redirect:/show/"+ no;		
+				
+			}
+		
+	//게시판 글삭제하기
+	@RequestMapping(value = "/articleDelete/{no}")
+		public String articleDelete(Model model, @PathVariable("no") int no, HttpSession httpSession) {
+			if(httpSession.getAttribute("uid") == null) {
+				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+				return "redirect:login";
+			}else {
+				
+				articleservice.deleteArticle(no);
+				return "redirect:/qna";
+						
+			}
+	}
+	
+	//게시판 댓글삭제하기
+		@RequestMapping(value = "/commentDelete/{cno}")
+			public String commentDelete( 
+					@PathVariable("cno") int cno, @RequestParam(value="no", required = false) int no, HttpServletRequest req) {
+				
+					articleservice.deleteComment(cno);
+					String n = req.getParameter("no");
+			
+					return "redirect:/show/" + n;
+	}
+
 	//댓글입력
 	@RequestMapping(value = "/addComment")
 	public String addComment(@RequestParam Map<String,Object> map) {
@@ -173,3 +237,24 @@ public class HomeController  {
 		return "show_qna";
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

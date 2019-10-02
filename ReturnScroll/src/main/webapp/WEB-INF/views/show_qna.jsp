@@ -18,6 +18,12 @@
   <!-- Custom CSS -->
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -43,30 +49,56 @@
 작성자 : ${article.WRITER}
 <br>
 작성일자 : ${article.WRITE_DATE}
-
 <br>
+
+<button id="btnUpdate"  onclick="location.href='../articleUpdate/${article.NO}'">수정</button>
+<button id="btnDelete"  onclick="location.href='../articleDelete/${article.NO}'">삭제</button>
+<button id="btnQna"  onclick="location.href='../qna'">목록</button>
 <hr>
+
+<script>
+
+var userid ="${uid}";
+var artid = "${article.WRITER}";
+
+ if(userid != artid ){
+		$("#btnUpdate").hide();
+		$("#btnDelete").hide();
+ }
+ 
+</script>
+
 
 
 댓글: <input type="text" id="comment">
 <button onclick="addComment()">작성완료</button>
 <hr>
 
-<table border="1" >
+<table class="table" style="width:95%; margin: 0 auto;">
+	<thead class="thead-dark" style="text-align:center;">
 	<tr>
-		<th> 작성자 </th>
-		<th> 내용 </th>
-		<th> 작성일</th>
+		<th style="width:10%;"> 작성자 </th>
+		<th style="width:70%;"> 내용 </th>
+		<th style="width:15%;"> 작성일</th>
+		<th style="width:5%;"> 비고 </th>
 	</tr>
+	</thead>
+	 <tbody>
 	<c:forEach items="${list2}" var="item">
 		<tr>
-		<td>${item.WRITER}</td>
-		<td>${item.CONTENT}</td>
-		<td>${item.WRITE_DATE}</td>
+			<td>${item.WRITER}</td>
+			<td>${item.CONTENT}</td>
+			<td>${item.WRITE_DATE}</td>
+			<td>
+				<c:if test='${item.WRITER == uid}'><a href="../commentDelete/${item.CNO}?no=${article.NO}"> 삭제</a></c:if>
+				
+			</td>
 		</tr>
-		
 	</c:forEach>
+	</tbody>
 </table>
+
+
 
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"> </script>
 <script>
@@ -80,7 +112,7 @@ function addComment(){
 			"content":comment		
 		},
 		success:function(res){
-			alert("댓글달기완료");
+			//alert("댓글달기완료");
 			$("#comment").val("");
 			location.reload();
 		}
