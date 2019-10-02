@@ -175,11 +175,6 @@ public class HomeController  {
 //		return "chat";
 //	}
 	 
-	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypage(Locale locale, Model model) {
-
-		return "mypage";
-	}
 
 	@RequestMapping(value = "/chat/addUser/{uid}", method = RequestMethod.GET)
 	public String addUser(Model model , @PathVariable("uid") String uid){
