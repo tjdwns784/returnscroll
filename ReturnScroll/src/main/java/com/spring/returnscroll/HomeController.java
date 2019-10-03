@@ -86,10 +86,35 @@ public class HomeController  {
 			// 채팅방 리스트 불러오기
 			List<Map<String, Object>> list = chatService.selectList();
 			model.addAttribute("list",chatService.selectList());
+			
 			// 채팅방 리스트 보여주기
-			return "chatCreate";
+			return "chatList";
 		}
 	}
+	
+	// 채팅주소로 들어갈때 로그인 세션이 있는지 없는 지 검사함.
+		@RequestMapping(value = "/chat/allRoom", method = RequestMethod.GET)
+		public String chatAllRoom(Locale locale, Model model, HttpSession httpSession) {
+			// 로그인이 안돼어있으면 로그인 화면으로 가게하기
+			if(httpSession.getAttribute("uid") == null) {
+				return "redirect:login";
+			}else {
+				// 세션아이디 값 얻기
+				Object userId = httpSession.getAttribute("uid");
+				String uid = userId.toString();
+				String nick = memberservice.userNick(uid);
+				model.addAttribute("uid", uid);
+				model.addAttribute("nick", nick); // chat에 nick 보내기
+				
+				// 채팅방 리스트 불러오기
+				List<Map<String, Object>> list = chatService.selectAllList();
+				model.addAttribute("list",chatService.selectAllList());
+				
+				// 채팅방 리스트 보여주기
+				return "chatAllList";
+			}
+		}
+	
 	
 	// {roomNum}번 채팅방으로 접속
 	@RequestMapping(value = "/chat/{roomNum}", method = RequestMethod.GET)
@@ -101,6 +126,7 @@ public class HomeController  {
 		String nick = memberservice.userNick(uid);
 		model.addAttribute("uid", uid);
 		model.addAttribute("nick", nick); // chat에 nick 보내기
+		
 		// 디비에 접속자 추가
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid",uid);
@@ -112,9 +138,25 @@ public class HomeController  {
 		Map<String, Object> map2 = chatService.roomIn(roomNum);
 		model.addAttribute("room",map2);
 		
+		// 채팅방 참여자 정보 보내기
+//		List<Map<String, Object>> userList = chatService.roomMember(roomNum);
+//		model.addAttribute("userList",userList);
+
 		// 룸정보를 보내줌(현재 디비는 구분되지만 소켓쪽에서 인식을 못함)
 		return "chat";
 	}
+	
+	@RequestMapping(value = "/chat/roomData", method = {RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<Map<String, Object>> roomData(Model model, @RequestParam("roomId") int roomId){
+		
+		// 채팅방 참여자 정보 보내기
+		List<Map<String, Object>> userList = chatService.roomMember(roomId);
+//		model.addAttribute("userList",userList);
+//		System.out.println("초대할 회원의 아이디 : "+uidFind);
+		
+		return userList;
+	}
+	
 	// 채팅방 생성
 	@RequestMapping(value = "/chat/createRoom", method = RequestMethod.GET)
 	public String chatRoom(Locale locale, Model model, HttpSession httpSession) {
