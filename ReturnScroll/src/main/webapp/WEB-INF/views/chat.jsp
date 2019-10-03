@@ -123,12 +123,11 @@
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser">현재 접속자 아이디 : ${uid}<br> 닉네임 : ${nick }</div>
-                    <div id="roomNum">방번호 : ${room.roomId}</div>
+                    <div id="putUser" style='float: right;'>${uid}(${nick })님 환영합니다</div>
+                    <div id="roomNum">${room.roomId}번 방</div>
                     
                     <div class="box-header with-border">
-                        <h3 class="box-title">${room.roomName }</h3><br>
-                        
+                        <h1 class="box-title">${room.roomName }</h1><br>
                         <div class="box-tools pull-right">
                             <!-- 방정보 표시 -->
                             <div id='chat_header'></div>
@@ -144,8 +143,12 @@
                         </div>
                         
 					<div id="members">
-						<h6>현재 대화 참여자 :</h6> 
+						<p>현재 대화 참여자 :</p> 
+						<div id="memberList"></div>
 					</div>
+					
+					<button id='sendBtn' type="button" class="btn btn-warning btn-flat"
+					onclick="location.href='/returnscroll/chat'" style='float: right;'>채팅방 나가기</button>
 					<br>
                     </div>
                     <!-- /.box-header -->
@@ -211,7 +214,8 @@
     <i class="fas fa-angle-up"></i>
   </a>
   <input type='hidden' id='nick' value='${nick}'>
-   <input id="roomNumber" type="hidden" valie='${room.roomId }'></input>
+    <input type='hidden' id='userid' value='${uid}'>
+   <input id='roomNumber' type='hidden' value='${room.roomId }'></input>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -225,7 +229,7 @@
   
   <script src="http://192.168.0.95:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/chat.js"/></script>
+    <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script>
     
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">
@@ -253,7 +257,7 @@
 				type:'GET',
 				data: postData,
 				success:function(data){
-					console.log('결과데이터는'+data);
+					//console.log('결과데이터는'+data);
 					$("#uidList").append(data+"<a href='/returnscroll/chat/${room.roomId }/"+data+"'>추가하기</a>");
 // 					$("#uidList").append(data+"<input type='button' value='친구추가' onclick='window.open('/returnscroll/chat/"+data+"','추가하기','width=#,height=#')'>");
 				},
@@ -263,8 +267,34 @@
 				}
 			})
 		});
- 		
- 		
+	</script>
+	
+	<script>
+ 		$(document).ready(function(){
+			// 입력한 아이디값 받기
+ 			var roomId = ${room.roomId};
+ 			var roomData = {"roomId" : roomId};
+			console.log("roomData값은???????????????????????"+roomData);
+
+			$.ajax({
+				url:"http://localhost:8080/returnscroll/chat/roomData",
+				type:'GET',
+				data: roomData,
+				success:function(data){
+					//console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
+					var nick_list = "<h6>";
+					for(var i=0;i<data.length;i++){
+						nick_list += data[i].nick+"&nbsp;";
+					}
+					nick_list += "</h6>";
+					console.log("현재 참여자 리스트 : " +nick_list);
+					$("#memberList").append(nick_list);
+				},
+				error:function(request, status, errorThrown){
+					alert('현재 대화 참여자 불러오기 실패');
+				}
+			})
+		});
 	</script>
 </body>
 

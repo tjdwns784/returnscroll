@@ -4,14 +4,17 @@
 <mapper namespace="chat">
 
 	<!-- 채팅방 리스트 만들기 -->
-<!-- 	<select id="selectRoom" resultType="map"> -->
-<!-- 		SELECT r.roomId AS ID, r.roomName AS NAME -->
-<!-- 		FROM chatroom r INNER JOIN chatuser u ON r.roomId=u.chatRoomId -->
-<!-- 	</select> -->
-	
-	<select id="selectRoom" resultType="map">
+	<select id="selectAllRoom" resultType="map"> 
 		SELECT roomId AS ID, roomName AS NAME
-		FROM chatroom 
+		FROM chatroom
+	</select>
+
+	<!-- 채팅방 리스트랑 현재 접속자 수 불러오도록 -->
+	<select id="selectRoom" resultType="map">
+		SELECT cr.roomId AS ID, cr.roomName AS NAME, COUNT(*) AS people
+		FROM chatroom cr, chatuser cu 
+		WHERE cr.roomId = cu.chatRoomId
+		GROUP BY cr.roomId;
 	</select>
 	
 	<select id="roomIn" parameterType="_int" resultType="map">
@@ -33,4 +36,11 @@
 		VALUES
 		(#{uid}, #{roomId},NOW())
 	</insert>
+	
+	<select id="roomMember" parameterType="_int" resultType="map">
+		SELECT ch.chatUserId AS uid, ch.chatRoomId AS roomId, u.nick AS nick
+		FROM chatuser ch, users u
+		WHERE ch.chatRoomId = #{value} AND ch.chatUserId = u.uid;
+	</select>
+	
 </mapper>

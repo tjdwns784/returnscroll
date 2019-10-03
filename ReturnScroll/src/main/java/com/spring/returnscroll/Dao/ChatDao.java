@@ -16,6 +16,9 @@ public class ChatDao {
 	public  List<Map<String, Object>> selectList() {
 		return ss.selectList("chat.selectRoom");
 	}
+	public  List<Map<String, Object>> selectAllList() {
+		return ss.selectList("chat.selectAllRoom");
+	}
 	
 	public  Map<String, Object> roomIn(int roomNum) {
 		return ss.selectOne("chat.roomIn", roomNum);
@@ -27,5 +30,11 @@ public class ChatDao {
 	
 	public void addUser(Map<String, Object> map) {
 		ss.insert("chat.addUser",map);
+	}
+	public List<Map<String, Object>> roomMember(int roomNum){
+		return ss.selectList("chat.roomMember",roomNum);
+	}
+	public String userNick(Map<String, Object> map) {
+		return ss.selectOne("chat.userNick",map);
 	}
 }
