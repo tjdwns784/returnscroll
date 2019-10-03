@@ -37,7 +37,7 @@
 	
 	제목 : <input type="text" name="title"><br>
 	내용 : <textarea name="content" cols="20" rows="20"></textarea><br>
-	<input type="hidden" name="writer" value="${uid}"><br>
+	<input type="hidden" name="writer" value="${unick}"><br>
 	
 	<input type="submit">
 	</form>

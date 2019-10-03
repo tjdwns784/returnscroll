@@ -37,7 +37,7 @@
 		<input type="hidden" name="no" value="${no}"><br>
 		제목 : <input type="text" name="title"><br>
 		내용 : <textarea name="content" cols="20" rows="20"></textarea><br>
-		<input type="hidden" name="writer" value="${uid}"><br>
+		<input type="hidden" name="writer" value="${unick}"><br>
 	
 		<!-- submit 서버와 통신을 하게 되는 버튼 -->
 		<input type="submit" value="게시글수정">

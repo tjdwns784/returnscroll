@@ -45,8 +45,13 @@ public class ArticleService {//qna게시판
 	}
 	
 	//게시판 댓글 불러오기
-	public List<Map<String, Object>> selectByComment(int no) {
-		return articleDao.selectByComment(no);
+	public List<Map<String, Object>> selectByComment(Map<String, Object> map) {
+		return articleDao.selectByComment(map);
+	}
+	
+	//닉네임 불러오기
+	public String selectByNick(String useid) {
+		return articleDao.selectByNick(useid);
 	}
 
 	//게시판 읽어오기
@@ -59,6 +64,11 @@ public class ArticleService {//qna게시판
 	public int selectTotalCount(Map<String, Object> map) {
 		return articleDao.selectTotalCount(map);
 	}
+	
+	//게시판 댓글 개수 찾기
+		public int selectCommentCount(Map<String, Object> map) {
+			return articleDao.selectCommentCount(map);
+		}
 	
 
 }

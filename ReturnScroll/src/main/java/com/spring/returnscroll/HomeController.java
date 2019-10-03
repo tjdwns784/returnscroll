@@ -207,14 +207,27 @@ public class HomeController  {
 			
 			model.addAttribute("list",articleservice.select(map));
 			
+			String useid = (String) httpSession.getAttribute("uid");
+			String unick = articleservice.selectByNick(useid);
+			model.addAttribute("unick",unick);
+			
 			// 전체 qna 게시물 개수
 			// 전체 페이지 알아내기
 			int total = articleservice.selectTotalCount(map);
 			model.addAttribute("total",total);
 			model.addAttribute("page",page);
-			String searchT = (String) map.get("searchText");
-			model.addAttribute("searchText", searchT);
 			
+			String searchText = (String) map.get("searchText");
+			String searchItem = (String) map.get("searchItem");
+			String searchOrd = (String) map.get("searchOrd");
+			
+			model.addAttribute("searchText", searchText);
+			model.addAttribute("searchItem", searchItem);
+			model.addAttribute("searchOrd", searchOrd);
+			
+		
+	
+		
 			return "qna";			
 		}
 		
@@ -228,6 +241,10 @@ public class HomeController  {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 			return "redirect:login";
 		}else {
+			String useid = (String) httpSession.getAttribute("uid");
+			String unick = articleservice.selectByNick(useid);
+			//System.out.println(unick);
+			model.addAttribute("unick",unick);
 			return "write_qna";
 					
 		}
@@ -243,14 +260,44 @@ public class HomeController  {
 	
 	//게시판 글쓴것 보기 
 	@RequestMapping(value = "/show/{no}")
-	public String show_qna(Model model, @PathVariable("no") int no, HttpSession httpSession) {
+	public String show_qna(Model model, @PathVariable("no") int no, HttpSession httpSession,
+			@RequestParam(value="page", defaultValue = "1") int page,
+			@RequestParam Map<String, Object> map) {
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 			return "redirect:login";
 		}else {
+			
 			model.addAttribute("article",articleservice.selectById(no));
-			List<Map<String, Object>> list = articleservice.selectByComment(no);
+			///////////
+			
+			int endNum = page * 10;
+			int startNum = endNum - 10;
+			
+			map.put("page", page);
+			map.put("startNum", startNum);
+			map.put("no",no);
+			///////////
+			//System.out.println("map:"+map);
+			//List<Map<String, Object>> list = articleservice.selectByComment(no);
+			List<Map<String, Object>> list = articleservice.selectByComment(map);
 			model.addAttribute("list2", list);
+			//System.out.println("list: " + list);
+			
+			String useid = (String) httpSession.getAttribute("uid");
+			String unick = articleservice.selectByNick(useid);
+			model.addAttribute("unick",unick);
+			///////
+			
+			// 전체 qna 게시물 개수
+			// 전체 페이지 알아내기
+			
+			int cTotal = articleservice.selectCommentCount(map);
+			System.out.println(cTotal);
+			model.addAttribute("cTotal",cTotal);
+			model.addAttribute("page",page);
+			
+			
 			return "show_qna";
 					
 		}
@@ -264,6 +311,10 @@ public class HomeController  {
 				return "redirect:login";
 			}else {
 				model.addAttribute(no);
+				String useid = (String) httpSession.getAttribute("uid");
+				String unick = articleservice.selectByNick(useid);
+				System.out.println(unick);
+				model.addAttribute("unick",unick);
 				return "articleUpdate";		
 			}
 		}
@@ -271,7 +322,7 @@ public class HomeController  {
 	//게시판 글수정하기
 		@RequestMapping(value = "/articleUpdate/{no}", method=RequestMethod.POST)
 			public String articleUpdatePost( @PathVariable("no") int no,@RequestParam Map<String,Object> map) {
-				 //System.out.println(map);
+				System.out.println(map);
 				articleservice.updateArticle(map);
 				return "redirect:/show/"+ no;		
 				

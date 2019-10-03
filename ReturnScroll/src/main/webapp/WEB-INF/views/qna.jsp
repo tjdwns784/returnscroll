@@ -36,15 +36,30 @@
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 <hr>
-<hr>
 <h1>Q&A</h1>
 <hr>
-<div class="search">
-	<div class="container-1" style="float:right; margin-right: 2.5%; margin-bottom: 1%">
-		<input type="text" placeholder="search" id="searchText" name="searchText">
+
+
+
+	<div class="order" style="margin-left: 2.5%;">
+	<select id="orderItem" name="orderItem">
+		<option value="o_no" selected>번호순</option>
+		<option value="o_date" <c:if test='${param.searchOrd == "o_date"}'>selected</c:if>>최신순</option>
+		<option value="o_hit" <c:if test='${param.searchOrd == "o_hit"}'>selected</c:if>>조회순</option>
+	</select>
+	<input type ="button" value="목록새로고침" onclick="location.href='qna?searchText= ' +'&searchItem= ' + '&searchOrd= ';" class="btn btn-info" >
+	</div>
+	<div class="search" style="float:right; margin-right: 2.5%; margin-bottom: 1%">
+		<select id="searchItem" name="searchItem">
+			<option value="a_no">번호</option>
+			<option value="a_title"  selected="selected">제목</option>
+			<option value="a_content">내용</option>
+			<option value="a_writer">작성자</option>
+			<option value="a_tnc">제목+내용</option>
+		</select>
+		<input type="text" placeholder="search" id="searchText" name="searchText"  onkeydown="enterkey();">
 		<a href="" id="searchBtn"><i class="fa fa-search"></i></a>
 	</div>
-</div>
 
 
 
@@ -74,10 +89,13 @@
 	</tbody>
 </table>
 <hr>
-<div>
 
 <input type ="button" value="글쓰기" onclick="location.href='write'" class="btn btn-info" style="float:right; margin-right:2.5%; margin-bottom: 0.5%;">
-</div>
+<input type ="button" value="내댓글" onclick="location.href='qna?searchText=${unick}' +'&searchItem=c_writer' + '&searchOrd= ';" class="btn btn-info" 
+				style="float: right; margin-right: 1%;">
+<input type ="button" value="내게시글" onclick="location.href='qna?searchText=${unick}' +'&searchItem=a_writer' + '&searchOrd= ';" class="btn btn-info" 
+				style="float: right; margin-right: 1%;">
+
 <div class="container" style="width:90%;" >
   <ul class="pagination" style="justify-content: center;">
     <% int t = (Integer)request.getAttribute("total"); 
@@ -120,7 +138,7 @@
     	<c:if test='${nowPage != pnum}'> 
     		<li class="page-item">
     	</c:if>
-    	<a class="page-link" href="qna?page=${pnum}&searchText=${searchText}">${pnum}</a></li>
+    	<a class="page-link" href="qna?page=${pnum}&searchText=${searchText}&searchItem=${searchItem}&searchOrd=${searchOrd}">${pnum}</a></li>
     </c:forEach>
     
     <c:if test='${endPage < showNum}'>
@@ -132,11 +150,30 @@
   </ul>
 </div>
 <script>
+	function enterkey() {
+	    if (window.event.keyCode == 13) {
+	    	var searchText = $('#searchText').val();
+			var searchItem = $('#searchItem').val();
+			var searchOrd = $('#orderItem').val();
+			location = 'qna?searchText=' + searchText +'&searchItem=' + searchItem +'&searchOrd=' +searchOrd;
+			
+			return false;
+		};
+	}
 	$("#searchBtn").click(function() {
 		var searchText = $('#searchText').val();
-		location = 'qna?searchText=' + searchText;
+		var searchItem = $('#searchItem').val();
+		var searchOrd = $('#orderItem').val();
+		location = 'qna?searchText=' + searchText +'&searchItem=' + searchItem + '&searchOrd=' +searchOrd;
 		
 		return false;
+	})
+	$("#orderItem").change(function(){
+		var searchText = $('#searchText').val();
+		var searchItem = $('#searchItem').val();
+		var searchOrd = $('#orderItem').val();
+		location = 'qna?searchText=' + searchText +'&searchItem=' + searchItem + '&searchOrd=' +searchOrd;
+	
 	})
 </script>
 
