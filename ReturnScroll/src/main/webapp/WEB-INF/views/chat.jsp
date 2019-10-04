@@ -57,9 +57,9 @@
 }
 
 #modal .modal_content {
-  width:300px;
-  margin:100px auto;
-  padding:20px 10px;
+  width:500px;
+  margin:100px;
+  padding:70px 30px;
   background:#fff;
   border:2px solid #666;
 }
@@ -81,6 +81,10 @@
 .direct-chat-name .pull-right {
 	float: right;
 }
+
+.dropdown-toggle::after {
+    display:none;
+}
 </style>
 </head>
 
@@ -97,23 +101,40 @@
       	<!-- 모달창 -->
 	<div id="modal">
    
-    <div class="modal_content">
-        <h2>친구초대</h2><br>
-        <p>초대할 친구를 검색하세요</p>
-        <form method="GET" id="find">
-	        ID : <input type="text" name="uid" id="uid" >
-        </form>
-	    <button id="findId">검색</button>
-        
-         <br>
-        
-        <div id="uidList" ></div>
-
-        <button type="button" id="modal_close_btn">창 닫기</button>
-      
-    </div>
+	    <div class="modal_content">
+	        <h2 style="text-align: center;">친구초대</h2><br>
+	        <p style="text-align: center;">초대할 친구를 검색하세요</p>
+	        <form method="GET" id="find"  style="text-align: center;">
+		        ID : <input type="text" name="uid" id="uid" style="width: 300px; height: 35px;" placeholder="초대할 회원의 ID를 입력해주세요">
+		    	<button id="findId" class="btn btn-warning btn-flat" style="float: right; margin: unset;" >검색</button>
+			</form>
+	        
+	         <br>
+	        <div id="searchResult" style="padding-bottom: 10px;"></div>
+	          <table class="table">
+			    <thead>
+			      <tr>
+			        <th>No</th>
+			        <th>회원 ID</th>
+			        <th></th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+			        <td id="number"></td>
+			        <td id="findUserId"></td>
+			        <td id="inviteLink"></td>
+			      </tr>
+			    </tbody>
+			  </table>
+			 
+	        <div id="uidList" style="margin: 20px;"></div>
+	
+	        <button type="button" id="modal_close_btn" class="btn btn-warning btn-flat" style="float: right;">창 닫기</button>
+	      
+	    </div>
    
-    <div class="modal_layer"></div>
+  		  <div class="modal_layer"></div>
     
 	</div>
       
@@ -121,34 +142,26 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
-                <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box box-warning direct-chat direct-chat-warning" style="padding-top: 10px;">
+                
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser" style='float: right;'>${uid}(${nick })님 환영합니다</div>
-                    <div id="roomNum">${room.roomId}번 방</div>
+                    <div id="putUser" style='float: right; padding-right:10px;'>${uid}(${nick })님 환영합니다</div>
+                    <div id="roomNum" style="padding-left: 10px;">${room.roomId}번 방</div>
                     
                     <div class="box-header with-border">
-                        <h1 class="box-title">${room.roomName }</h1><br>
+                        <h1 class="box-title" style="text-align: center; display: block; padding-top: 20px;">${room.roomName }</h1><br>
+                        <!-- 채팅방 정보 보여줄 곳이였는데 없어도 댐 -->
                         <div class="box-tools pull-right">
-                            <!-- 방정보 표시 -->
                             <div id='chat_header'></div>
-<!--                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i -->
-<!--                                     class="fa fa-minus"></i> -->
-<!--                             </button> -->
-<!--                             <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" -->
-<!--                                 data-widget="chat-pane-toggle" data-original-title="Contacts"> -->
-<!--                                 <i class="fa fa-comments"></i></button> -->
-<!--                             <button type="button" class="btn btn-box-tool" data-widget="remove"><i -->
-<!--                                     class="fa fa-times"></i> -->
-<!--                             </button> -->
                         </div>
                         
 					<div id="members">
-						<p>현재 대화 참여자 :</p> 
+						<p style="text-align:center;">대화 참여자 </p> 
 						<div id="memberList"></div>
 					</div>
 					
 					<button id='sendBtn' type="button" class="btn btn-warning btn-flat"
-					onclick="location.href='/returnscroll/chat'" style='float: right;'>채팅방 나가기</button>
+					onclick="location.href='/returnscroll/chat'" style='float: right; margin-top: 10px;'>채팅방 나가기</button>
 					<br>
                     </div>
                     <!-- /.box-header -->
@@ -234,14 +247,22 @@
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">
     $("#addFriend").click(function(){
-    	$("#uidList").empty();
     	$("#uid").val('');
+    	$("#searchResult").empty();
+		$("#number").empty();
+		$("#findUserId").empty();
+		$("#inviteLink").empty();
         $("#modal").fadeIn();
     });
    
      $("#modal_close_btn").click(function(){
         $("#modal").fadeOut();
     });    
+       
+/*      $("#sendBtn").click(function(){
+     	sendMsg();
+     }) */
+
     </script>
     
     <!-- 아이디로 친구 찾기 -->
@@ -250,31 +271,64 @@
 			// 입력한 아이디값 받기
  			var uid = $('#uid').val();
  			var postData = {"uid" : uid};
-			console.log(postData);
+			var dataUrl = "http://localhost:8080/returnscroll/chat/findId";
+			
+			$("#uid").val('');
+			$("#searchResult").empty();
+			$("#number").empty();
+			$("#findUserId").empty();
+			$("#inviteLink").empty();
 
 			$.ajax({
-				url:"http://localhost:8080/returnscroll/chat/findId",
+				url:dataUrl,
 				type:'GET',
 				data: postData,
 				success:function(data){
 					//console.log('결과데이터는'+data);
-					$("#uidList").append(data+"<a href='/returnscroll/chat/${room.roomId }/"+data+"'>추가하기</a>");
-// 					$("#uidList").append(data+"<input type='button' value='친구추가' onclick='window.open('/returnscroll/chat/"+data+"','추가하기','width=#,height=#')'>");
+					// 검색 창 비우기
+					$("#uid").empty();
+					// data
+					$("#searchResult").append(data+" 에 대한 검색결과 입니다.")
+					$("#number").append(1);
+					$("#findUserId").append(data);
+					//$("#inviteLink").append("<a href='/returnscroll/chat/"+${room.roomId}+"/"+data+"' target='_blank'> 추가하기 </a>");
+					//$("#inviteLink").append("<a href='/returnscroll/chat/"+${room.roomId}+"' onclick='inviteUser("+data+")'> 추가하기 </a>");
+					//$("#inviteLink").append("<a href='' onclick='inviteUser("+data+")'> 추가하기 </a>");
+					$("#inviteLink").append("<input type='button' onclick='inviteUser(\""+data+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' />");
 				},
 				error:function(request, status, errorThrown){
-					
-					alert('아이디를 다시 입력하세여');
+					$("#searchResult").empty();
+					$("#number").empty();
+					$("#findUserId").empty();
+					$("#inviteLink").empty();
+					$("#searchResult").append("검색결과가 없습니당")
+					alert('아이디가 존재하지 않습니다');
 				}
 			})
+			
+			return false;
 		});
+
+	</script>
+	<script>
+		function inviteUser(user){
+			alert('초대할 유저 : '+user);
+			// 채팅에 접속
+			var socket = io("http://192.168.0.95:82");
+			
+			var user_id = user;
+			
+			soc
+			
+		}
 	</script>
 	
+	<!-- 현재 대화방에 참여중인 상대를 불러옴 -->
 	<script>
  		$(document).ready(function(){
 			// 입력한 아이디값 받기
  			var roomId = ${room.roomId};
  			var roomData = {"roomId" : roomId};
-			console.log("roomData값은???????????????????????"+roomData);
 
 			$.ajax({
 				url:"http://localhost:8080/returnscroll/chat/roomData",
@@ -284,7 +338,12 @@
 					//console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
 					var nick_list = "<h6>";
 					for(var i=0;i<data.length;i++){
-						nick_list += data[i].nick+"&nbsp;";
+						nick_list += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+data[i].nick
+						nick_list += "<span class='caret'></span></button>"
+						nick_list += "<ul class='dropdown-menu' style='list-style:none;'>"
+						nick_list += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
+						nick_list += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
+						nick_list += "</ul></div>";
 					}
 					nick_list += "</h6>";
 					console.log("현재 참여자 리스트 : " +nick_list);

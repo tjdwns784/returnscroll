@@ -56,11 +56,7 @@ $(document).ready(function() {
     	users+="</h6>";
     	//$("#members").append(users);
     }
-    
-    socket.on('c_delete_member',(user, rooms) =>{
-    	
-    })
-    
+
     // 클라이언트가 메시지를 작성하고, 엔터 or send키 클릭을 통해서 메시지를 서버로 전송
     // 엔터 이벤트 => keypress 이벤트
     // 이 문서상에 존재하는 모든 input 요소들 중에, name 속성의 값이 message인 요소
@@ -70,8 +66,9 @@ $(document).ready(function() {
         sendMsg();
       }
     })
+    
     // 이 문서상에 존재하는 모든 요소들 중에 id 값이 sendBtn인 요소
-    $('#sendBtn').on('click', (evt)=>{
+    $('buttin[id=sendBtn]').on('click', (evt)=>{
         console.log('메시지 전송');
         sendMsg();
     })

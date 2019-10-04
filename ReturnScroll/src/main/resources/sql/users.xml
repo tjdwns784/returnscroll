@@ -91,8 +91,7 @@
 	<!-- 채팅창 친구 초대 -->
 	<select id="invite" parameterType="string" resultType="map">
 		SELECT UID, UNAME, NICK
-		FROM `USERS` WHERE UID =
-		#{VALUE}
+		FROM `USERS` WHERE UID = #{VALUE}
 	</select>
 
 	<!-- 채팅입장시 닉네임 가져오기 -->

@@ -69,7 +69,7 @@ public class HomeController  {
 
 	}
 	
-	// 채팅주소로 들어갈때 로그인 세션이 있는지 없는 지 검사함.
+	// 채팅주소로 들어갈때 로그인 세션이 있는지 없는 지 검사 & 세션있으면 채팅방 리스트를 볼 수 있음
 	@RequestMapping(value = "/chat", method = RequestMethod.GET)
 	public String chat(Locale locale, Model model, HttpSession httpSession) {
 		// 로그인이 안돼어있으면 로그인 화면으로 가게하기
@@ -92,34 +92,35 @@ public class HomeController  {
 		}
 	}
 	
-	// 채팅주소로 들어갈때 로그인 세션이 있는지 없는 지 검사함.
-		@RequestMapping(value = "/chat/allRoom", method = RequestMethod.GET)
-		public String chatAllRoom(Locale locale, Model model, HttpSession httpSession) {
-			// 로그인이 안돼어있으면 로그인 화면으로 가게하기
-			if(httpSession.getAttribute("uid") == null) {
-				return "redirect:login";
-			}else {
-				// 세션아이디 값 얻기
-				Object userId = httpSession.getAttribute("uid");
-				String uid = userId.toString();
-				String nick = memberservice.userNick(uid);
-				model.addAttribute("uid", uid);
-				model.addAttribute("nick", nick); // chat에 nick 보내기
-				
-				// 채팅방 리스트 불러오기
-				List<Map<String, Object>> list = chatService.selectAllList();
-				model.addAttribute("list",chatService.selectAllList());
-				
-				// 채팅방 리스트 보여주기
-				return "chatAllList";
-			}
+	// 현재 채팅방에 아무도 입장하지 않은 방들을 보여줌
+	@RequestMapping(value = "/chat/allRoom", method = RequestMethod.GET)
+	public String chatAllRoom(Locale locale, Model model, HttpSession httpSession) {
+		// 로그인이 안돼어있으면 로그인 화면으로 가게하기
+		if(httpSession.getAttribute("uid") == null) {
+			return "redirect:login";
+		}else {
+			// 세션아이디 값 얻기
+			Object userId = httpSession.getAttribute("uid");
+			String uid = userId.toString();
+			String nick = memberservice.userNick(uid);
+			model.addAttribute("uid", uid);
+			model.addAttribute("nick", nick); // chat에 nick 보내기
+			
+			// 채팅방 리스트 불러오기
+			List<Map<String, Object>> list = chatService.selectAllList();
+			model.addAttribute("list",chatService.selectAllList());
+			
+			// 채팅방 리스트 보여주기
+			return "chatAllList";
 		}
+	}
 	
 	
 	// {roomNum}번 채팅방으로 접속
 	@RequestMapping(value = "/chat/{roomNum}", method = RequestMethod.GET)
 	public String chatRoom(Locale locale, Model model, HttpSession httpSession
 			,@PathVariable("roomNum") int roomNum) {
+		
 		// 접속자의 아이디 얻기
 		Object userId = httpSession.getAttribute("uid");
 		String uid = userId.toString();
@@ -127,37 +128,29 @@ public class HomeController  {
 		model.addAttribute("uid", uid);
 		model.addAttribute("nick", nick); // chat에 nick 보내기
 		
-		// 디비에 접속자 추가
+		// 디비에 접속자 추가 (접속한 사람의 세션 값으로 ) if-else
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid",uid);
 		map.put("roomId",roomNum);
 		chatService.addUser(map);
 		
-		// room에 추가 시키기 (insert)
+		// room에 입장한 회원추가 시키기 (insert)
 		model.addAttribute("RoomNum",roomNum);
 		Map<String, Object> map2 = chatService.roomIn(roomNum);
 		model.addAttribute("room",map2);
-		
-		// 채팅방 참여자 정보 보내기
-//		List<Map<String, Object>> userList = chatService.roomMember(roomNum);
-//		model.addAttribute("userList",userList);
 
 		// 룸정보를 보내줌(현재 디비는 구분되지만 소켓쪽에서 인식을 못함)
 		return "chat";
 	}
 	
+	// 현재 채팅방에 접속한 회원들 리스트를 보내줌 (Ajax통신)
 	@RequestMapping(value = "/chat/roomData", method = {RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<Map<String, Object>> roomData(Model model, @RequestParam("roomId") int roomId){
-		
-		// 채팅방 참여자 정보 보내기
+	public @ResponseBody List<Map<String, Object>> roomData(Model model, @RequestParam("roomId") int roomId){		
 		List<Map<String, Object>> userList = chatService.roomMember(roomId);
-//		model.addAttribute("userList",userList);
-//		System.out.println("초대할 회원의 아이디 : "+uidFind);
-		
 		return userList;
 	}
 	
-	// 채팅방 생성
+	// 채팅방 생성 페이지 보여줌
 	@RequestMapping(value = "/chat/createRoom", method = RequestMethod.GET)
 	public String chatRoom(Locale locale, Model model, HttpSession httpSession) {
 		// 세션아이디 값 얻기
@@ -170,6 +163,7 @@ public class HomeController  {
 		return "createRoom";
 	}
 	
+	// 새로운 채팅방 만들어서 DB저장(POST방식) 한 후 chat리스트로 돌아가기 
 	@RequestMapping(value = "/chat/createRoom", method = RequestMethod.POST)
 	public String chatRoomPost(Locale locale, Model model, HttpSession httpSession,
 			@RequestParam Map<String, Object> map) {
@@ -184,46 +178,31 @@ public class HomeController  {
 		return "redirect:/chat";
 	}
 	
-	// 초대하는 회원 정보 불러오기
-//	@RequestMapping(value = "/chat/{uid}", method = RequestMethod.POST)
-//	public String chatAdd(Locale locale, Model model, @PathVariable("uid") String uid) {
-//		
-//		// 초대받은 회원의 닉네임 받기
-//		String nick = memberservice.userNick(uid);
-//		model.addAttribute("uid", uid);
-//		model.addAttribute("nick", nick); // chat에 nick 보내기
-//		System.out.println("초대할 회원의 닉네임 : "+nick);
-//		
-//		return "invite";	
-//	}
-	
-	
-	
+	// 친구 추가할 때 회원의 아이디를 찾는거 (Ajax 통신)
 	@RequestMapping(value = "/chat/findId", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody String chatPost(@RequestParam("uid") String uid){
 		
 		Map<String, String> findUser = memberservice.chatInvite(uid);
-		String uidFind = findUser.get("uid");
-//		System.out.println("초대할 회원의 아이디 : "+uidFind);
+		String uidFind = findUser.get("UID");
+		System.out.println("초대할 회원의 아이디 : "+uidFind);
 		return uidFind;
 	}
 	
+	// 회원검색 후 초대하기 누르면 접속할 링크. 
+	@RequestMapping(value = "/chat/{roomId}/{uid}", method = RequestMethod.GET)
+	public String addUser(Model model ,HttpSession httpSession,
+			@PathVariable("roomId") String roomId, @PathVariable("uid") String uid){
+		
+//		Object userId = httpSession.getAttribute("uid");
+//		String nowUser = userId.toString(); // 지금 접속중인 사람의 아이디
 
-//	@RequestMapping(value = "/chat/addUser/{uid}", method = RequestMethod.GET)
-//	public String addUser(Model model , @PathVariable("uid") String uid){
-//		// url 경로를 변수화 하기. 
-//		System.out.println("초대할 회원의 아이디 : "+uid);
-//		// 아이디를 가지고 오는데... 이걸 어떻게 초대할건지
-//		return "chat";
-//	}
-	 
-	@RequestMapping(value = "/chat/addUser/{uid}", method = RequestMethod.GET)
-	public String addUser(Model model , @PathVariable("uid") String uid){
-		// url 경로를 변수화 하기. 
-		System.out.println("초대할 회원의 아이디 : "+uid);
-		// 아이디를 가지고 오는데... 이걸 어떻게 초대할건지
-		return "chat";
+		String userNick = memberservice.userNick(uid);
+		model.addAttribute("uid", uid);
+		model.addAttribute("nick", userNick);
+		
+		return "redirect:/chat/"+roomId;
 	}
+	
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {

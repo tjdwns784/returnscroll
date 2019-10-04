@@ -93,42 +93,19 @@
   <header class="masthead d-flex">
     <div class="container my-auto">
       <h1 class="mb-1">Return Scroll 채팅방</h1>
-      
-      	<!-- 모달창 -->
-	<div id="modal">
-   
-    <div class="modal_content">
-        <h2>친구초대</h2><br>
-        <p>초대할 친구를 검색하세요</p>
-        <form method="GET" id="find">
-	        ID : <input type="text" name="uid" id="uid" >
-        </form>
-	    <button id="findId">검색</button>
-        
-         <br>
-        
-        <div id="uidList" ></div>
-
-        <button type="button" id="modal_close_btn">창 닫기</button>
-      
-    </div>
-   
-    <div class="modal_layer"></div>
-    
-	</div>
-      
+           
 	<section class="content">
         <div class="row">
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
-                <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box box-warning direct-chat direct-chat-warning" style="padding-top: 50px; padding-bottom: 50px;">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
                     
                     <div class="box-header with-border">
-                        <h1 class="box-title">채팅방 생성하기</h1><br>
+                        <h1 style="display: block; text-align: center;font-size: 30px;"
+                        class="box-title" >채팅방 생성하기</h1><br>
                         
-					<div id="members">
-						<h6>현재 대화 참여자 :</h6> 
+					<div >
 					</div>
 					<br>
                     </div>
@@ -136,12 +113,15 @@
                     <!-- 채팅방 생성하기 -->
                     <div class="box-body">
 						<form action="/returnscroll/chat/createRoom" method="POST">
-							<div class="form-group">
-								<label for="name">채팅방 이름</label> 
-								<input type="text" class="form-control" name="roomName" id="roomName">
+							<div class="form-group" style="text-align: center; padding-top: 30px;">
+								<label for="name" style="margin-top: 10px;">채팅방 이름 &nbsp&nbsp </label> 
+								<input type="text" class="form-control" name="roomName" id="roomName"
+									style="width: 500px; display: initial;">
 							</div>
 							<input type="hidden" value="${uid }" name="createUser" >
-							<button type="submit" class="btn btn-default">Submit</button>
+<!-- 							<button onclick="location.href='/returnscroll/chat'" -->
+<!-- 							 class="btn btn-warning btn-flat" style="float:right;margin-right: 30px;">취소하기</button> -->
+							<button type="submit" class="btn btn-warning btn-flat" style="float:right;margin-right: 10px;">생성하기</button>
 						</form>
 					</div>
                     
