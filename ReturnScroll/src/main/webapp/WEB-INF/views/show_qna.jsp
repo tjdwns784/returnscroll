@@ -58,7 +58,7 @@
 
 <script>
 
-var userid ="${uid}";
+var userid ="${unick}";
 var artid = "${article.WRITER}";
 
  if(userid != artid ){
@@ -69,34 +69,80 @@ var artid = "${article.WRITER}";
 </script>
 
 
-
-댓글: <input type="text" id="comment">
-<button onclick="addComment()">작성완료</button>
+<div style="text-align :center;">
+<input type="text" id="comment" style="width: 90%; height:10%;" onkeydown="enterkey();">
+<button onclick="addComment()" style="height:10%;">등록</button>
+</div>
 <hr>
 
 <table class="table" style="width:95%; margin: 0 auto;">
-	<thead class="thead-dark" style="text-align:center;">
-	<tr>
-		<th style="width:10%;"> 작성자 </th>
-		<th style="width:70%;"> 내용 </th>
-		<th style="width:15%;"> 작성일</th>
-		<th style="width:5%;"> 비고 </th>
-	</tr>
-	</thead>
 	 <tbody>
 	<c:forEach items="${list2}" var="item">
-		<tr>
-			<td>${item.WRITER}</td>
-			<td>${item.CONTENT}</td>
-			<td>${item.WRITE_DATE}</td>
-			<td>
-				<c:if test='${item.WRITER == uid}'><a href="../commentDelete/${item.CNO}?no=${article.NO}"> 삭제</a></c:if>
-				
+		<tr style="text-align:center;">
+			<td style="width:10%;">${item.WRITER}</td>
+			<td style="width:70%; text-align:left;">${item.CONTENT}</td>
+			<td style="width:15%;">${item.WRITE_DATE}</td>
+			<td style="width:5%;">
+				<c:if test='${item.WRITER == unick}'><a href="../commentDelete/${item.CNO}?no=${article.NO}"> 삭제</a></c:if>				
 			</td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
+
+<div class="container" style="width:90%;">
+  <ul class="pagination">
+  <%
+  	int ct = (Integer) request.getAttribute("cTotal");
+  	int showNum = ct/10;
+  	if(ct%10 != 0){
+  		showNum++;
+  	}
+  	
+  	int nowPage = (Integer)request.getAttribute("page");
+  	int startPage = nowPage /10 * 10;
+  	if(nowPage % 10 !=0){
+  		startPage++;
+  	}else{
+  		startPage -=9;
+  	}
+  	
+  	int endPage = startPage + 9;
+  	if(endPage > showNum){
+  		endPage = showNum;
+  	}
+  	
+  	request.setAttribute("showNum", showNum);
+  	request.setAttribute("startPage", startPage);
+  	request.setAttribute("endPage", endPage);
+  	request.setAttribute("nowPage", nowPage);
+  
+  %>
+     <c:if test='${page > 10}'>
+    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage - 10}">Previous</a></li>
+    </c:if>
+    <c:if test='${page <= 10}'>
+    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage - 10}">Previous</a></li>
+    </c:if>
+    
+    <c:forEach begin="${startPage}" end="${endPage}" var="pnum" step="1">
+	   <c:if test='${nowPage == pnum}'> 
+    		<li class="page-item active">
+    	</c:if>
+    	<c:if test='${nowPage != pnum}'> 
+    		<li class="page-item">
+    	</c:if>
+    	<a class="page-link" href="../show/${no}?page=${pnum}">${pnum}</a></li>    
+    </c:forEach>
+   
+    <c:if test='${endPage < showNum}'>
+    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage + 10}">Next</a></li>
+    </c:if>
+     <c:if test='${endPage >= showNum}'>
+    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage + 10}">Next</a></li>
+    </c:if>
+  </ul>
+</div>
 
 
 
@@ -107,7 +153,7 @@ function addComment(){
 	$.ajax({
 		url:"../addComment",
 		data:{
-			"writer":"${uid}",
+			"writer":"${unick}",
 			"article_no":"${article.NO}",
 			"content":comment		
 		},
@@ -118,7 +164,11 @@ function addComment(){
 		}
 	})
 }
-
+function enterkey() {
+    if (window.event.keyCode == 13) {
+    	addComment();
+	};
+}
 </script>
 
 </body>
