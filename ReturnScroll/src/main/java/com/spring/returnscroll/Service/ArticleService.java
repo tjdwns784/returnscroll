@@ -32,11 +32,12 @@ public class ArticleService {//qna게시판
 	//게시판 댓글달기
 	public void insertComment(Map<String, Object> map) {
 		articleDao.insertComment(map);
+	
 	}
 	
 	//게시판 댓글 삭제하기
 	public void deleteComment(int cno) {
-				articleDao.deleteComment(cno);
+			articleDao.deleteComment(cno);
 	}
 	
 	//게시판 목록 불러오기

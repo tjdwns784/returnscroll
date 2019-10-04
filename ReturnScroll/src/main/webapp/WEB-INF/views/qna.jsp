@@ -73,12 +73,15 @@
 </thead>
 <tbody>
 
-
 	<c:forEach items="${list}" var="item">
 
 		<tr onClick ="location.href='show/${item.NO}'" style="text-align:center;">
 		<td >${item.NO}</td>
-		<td style="text-align:left;">${item.TITLE}</td>
+		<td style="text-align:left;">${item.TITLE} 
+			<c:if test='${item.CMT_CNT > 0}'>
+			[${item.CMT_CNT}]
+			</c:if>
+		</td>
 		<td >${item.WRITER}</td>
 		<td >${item.WRITE_DATE}</td>
 		<td >${item.HIT}</td>
@@ -175,6 +178,7 @@
 		location = 'qna?searchText=' + searchText +'&searchItem=' + searchItem + '&searchOrd=' +searchOrd;
 	
 	})
+	
 </script>
 
 <hr>

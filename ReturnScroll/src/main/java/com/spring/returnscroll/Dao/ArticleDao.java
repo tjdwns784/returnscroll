@@ -47,6 +47,7 @@ public class ArticleDao {//qna게시판
 	public int update(int id) {
 		return ss.update("article.updateHit", id);
 	}
+	
 
 	//게시판 목록 불러오기
 	public List<Map<String, Object>> select(Map<String, Object> map) {

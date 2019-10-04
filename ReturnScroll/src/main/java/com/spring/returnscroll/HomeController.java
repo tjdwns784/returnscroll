@@ -1,6 +1,9 @@
 package com.spring.returnscroll;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.List;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.returnscroll.Service.ArticleService;
 import com.spring.returnscroll.Service.ChatService;
@@ -296,7 +301,10 @@ public class HomeController  {
 	//게시판에 글쓰기
 	@RequestMapping(value = "/write", method=RequestMethod.POST)
 	public String writePost(@RequestParam Map<String,Object> map) {
+		  
 		articleservice.insert(map);
+		System.out.println(map);
+
 		return "redirect:qna";
 	}
 	
@@ -335,7 +343,7 @@ public class HomeController  {
 			// 전체 페이지 알아내기
 			
 			int cTotal = articleservice.selectCommentCount(map);
-			System.out.println(cTotal);
+			//System.out.println(cTotal);
 			model.addAttribute("cTotal",cTotal);
 			model.addAttribute("page",page);
 			
@@ -355,7 +363,7 @@ public class HomeController  {
 				model.addAttribute(no);
 				String useid = (String) httpSession.getAttribute("uid");
 				String unick = articleservice.selectByNick(useid);
-				System.out.println(unick);
+				//System.out.println(unick);
 				model.addAttribute("unick",unick);
 				return "articleUpdate";		
 			}
@@ -364,7 +372,7 @@ public class HomeController  {
 	//게시판 글수정하기
 		@RequestMapping(value = "/articleUpdate/{no}", method=RequestMethod.POST)
 			public String articleUpdatePost( @PathVariable("no") int no,@RequestParam Map<String,Object> map) {
-				System.out.println(map);
+				//System.out.println(map);
 				articleservice.updateArticle(map);
 				return "redirect:/show/"+ no;		
 				
