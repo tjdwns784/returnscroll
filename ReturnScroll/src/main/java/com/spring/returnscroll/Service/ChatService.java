@@ -30,11 +30,36 @@ public class ChatService {
 	public void createRoom(Map<String, Object> map) {
 		chatDao.createRoom(map);
 	}
+	public int roomNumber(Map<String, Object> map ) {
+		return chatDao.roomNumber(map);
+	}
 	public void addUser(Map<String, Object> map) {
 		chatDao.addUser(map);
 	}
 	public List<Map<String, Object>> roomMember(int roomNum){
 		return chatDao.roomMember(roomNum);
+	}
+	public List<Map<String, Object>> addFriend(String uid) {
+		return chatDao.addFriend(uid);
+	}
+	// 친구 요청을 받아 들였을 때, 수신상태를 1로 만들어줌,
+	public void accept(Map<String, String> map) {
+		chatDao.accept(map);
+	}
+
+	public Map<String, Object> friendListCheck(String sender) {
+		return chatDao.friendListCheck(sender);
+	}
+
+	public void newFriendList(Map<String, String> map) {
+		chatDao.newFriendList(map);
+	}
+	
+	public List<Map<String, Object>> friendList(String uid){
+		return chatDao.friendList(uid);
+	}
+	public int deleteFriend(Map<String, String> map) {
+		return chatDao.deleteFriend(map);
 	}
 
 }

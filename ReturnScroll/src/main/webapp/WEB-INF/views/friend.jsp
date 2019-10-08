@@ -81,10 +81,6 @@
 .direct-chat-name .pull-right {
 	float: right;
 }
-
-.dropdown-toggle::after {
-    display:none;
-}
 </style>
 </head>
 
@@ -96,10 +92,9 @@
   <!-- Header -->
   <header class="masthead d-flex">
     <div class="container my-auto">
-      <h1 class="mb-1">Return Scroll 채팅방</h1>
+      <h1 class="mb-1"></h1>
       
-      	<!-- 모달창 -->
-	<div id="modal">
+      <div id="modal">
    
 	    <div class="modal_content">
 	        <h2 style="text-align: center;">친구초대</h2><br>
@@ -142,52 +137,47 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
-                <div class="box box-warning direct-chat direct-chat-warning" style="padding-top: 10px;">
-                
-                    <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser" style='float: right; padding-right:10px;'>${uid}(${nick })님 환영합니다</div>
-                    <div id="roomNum" style="padding-left: 10px;">${room.roomId}번 방</div>
-                    
-                    <div class="box-header with-border">
-                        <h1 class="box-title" style="text-align: center; display: block; padding-top: 20px;">${room.roomName }</h1><br>
-                        <!-- 채팅방 정보 보여줄 곳이였는데 없어도 댐 -->
-                        <div class="box-tools pull-right">
-                            <div id='chat_header'></div>
-                        </div>
-                        
-					<div id="members">
-						<p style="text-align:center;">대화 참여자 </p> 
-						<div id="memberList"></div>
-					</div>
-					
-					<button id='sendBtn' type="button" class="btn btn-warning btn-flat"
-					onclick="location.href='/returnscroll/chat'" style='float: right; margin-top: 10px;'>채팅방 나가기</button>
-					<br>
-                    </div>
-                    <!-- /.box-header -->
-                    <!-- 채팅 메세지 표시 -->
-                    <div class="box-body">
-                        <!-- Conversations are loaded here -->
-                        <div class="direct-chat-messages">
-                        
-                          
-                        </div>
-                        <!-- /.direct-chat-pane -->
-                    </div>
-                    <!-- /.box-body -->
-                    <!-- 채팅 메세지 입력 처리 -->
-                    <div class="box-footer">
-                        <div class="input-group">
-                            <input type="text" name="message" placeholder="메세지를 입력하세요" class="form-control">
-                            <span class="input-group-btn">
-                                <button id='sendBtn' type="button" class="btn btn-warning btn-flat">보내기</button>
-<!--                                 <button id='addFriend' type="button" class="btn btn-warning btn-flat">친구추가</button> -->
-                            </span>
-                        </div>
-                    </div>
+                <div class="box box-warning direct-chat direct-chat-warning" style='padding: 50px;'>
+                    <h4 style='display: inline-block;'>${uid} 님의 친구 목록</h4><br>
+			        <div id="searchResult" style="padding-bottom: 10px;"></div>
+			          <table class="table">
+					    <thead>
+					      <tr>
+					        <th>No</th>
+					        <th>친구 ID</th>
+					        <th>닉네임</th>
+					        <th> - </th>
+					        <th> - </th>
+					      </tr>
+					    </thead>
+					    <c:if test="${not empty friendList}">
+					    <c:forEach var="lists" items="${friendList }" varStatus="status" >
+					    <tbody>
+					      <tr>
+					        <td>${status.count }</td>
+					        <td>${lists.friendId }</td>
+					        <td>${lists.nick }</td>
+					        <td>
+					        	<input type='button' onclick='deleteFriend("${lists.friendId}");' value='친구삭제' style='border:none; background:none; display:inline-block;' />
+					        </td>
+					        <td>
+					        	<input type='button' onclick='newChat("${uid}","${lists.friendId}");' value='채팅하기' style='border:none; background:none; display:inline-block;' />
+					        </td>
+					      </tr>
+					    </tbody>
+					    </c:forEach>
+					  </c:if>
+					  <c:if test="${empty friendList}">
+					    <h5>친구목록이 비어있습니다</h5>
+					  </c:if>
+					  </table>
                     <!-- /.box-footer-->
                 </div>
                 <!--/.direct-chat -->
+                
+                <button id='addFriend' type="button" class="btn btn-warning btn-flat" style='float:right;'>친구추가</button>
+                <button onclick="location.href='/returnscroll/chat'"
+                 id='addFriend' type="button" class="btn btn-warning btn-flat" style='float:right;'>채팅목록 보기</button>
             </div>
         </div>
     </section>
@@ -227,8 +217,8 @@
     <i class="fas fa-angle-up"></i>
   </a>
   <input type='hidden' id='nick' value='${nick}'>
-    <input type='hidden' id='userid' value='${uid}'>
-   <input id='roomNumber' type='hidden' value='${room.roomId }'></input>
+  <input type='hidden' id='recipient' value='${uid}'>
+  <input type='hidden' id='userID' value='${uid}'>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -242,7 +232,6 @@
   
   <script src="http://192.168.0.4:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/chat.js"/></script>
     
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">
@@ -258,14 +247,8 @@
      $("#modal_close_btn").click(function(){
         $("#modal").fadeOut();
     });    
-       
-/*      $("#sendBtn").click(function(){
-     	sendMsg();
-     }) */
-
     </script>
-    
-    <!-- 아이디로 친구 찾기 -->
+     <!-- 아이디로 친구 찾기 -->
 	<script>
  		$(document).on('click','#findId',function(){
 			// 입력한 아이디값 받기
@@ -291,9 +274,6 @@
 					$("#searchResult").append(data+" 에 대한 검색결과 입니다.")
 					$("#number").append(1);
 					$("#findUserId").append(data);
-					//$("#inviteLink").append("<a href='/returnscroll/chat/"+${room.roomId}+"/"+data+"' target='_blank'> 추가하기 </a>");
-					//$("#inviteLink").append("<a href='/returnscroll/chat/"+${room.roomId}+"' onclick='inviteUser("+data+")'> 추가하기 </a>");
-					//$("#inviteLink").append("<a href='' onclick='inviteUser("+data+")'> 추가하기 </a>");
 					$("#inviteLink").append("<input type='button' onclick='inviteUser(\""+data+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' />");
 				},
 				error:function(request, status, errorThrown){
@@ -320,7 +300,7 @@
          var socket = io("http://192.168.0.4:82");
          
          var recipient = user; // 받는사람
-         var sender = $('#userid').val();  // 보낸사람
+         var sender = $('#userID').val();  // 보낸사람
          
          // insert문 수행
          socket.emit('s_add_friend',sender,recipient);
@@ -329,41 +309,108 @@
             alert(msg);
          })
       }
-
 	</script>
-	
-	<!-- 현재 대화방에 참여중인 상대를 불러옴 -->
-	<script>
- 		$(document).ready(function(){
-			// 입력한 아이디값 받기
- 			var roomId = ${room.roomId};
- 			var roomData = {"roomId" : roomId};
 
-			$.ajax({
-				url:"http://localhost:8080/returnscroll/chat/roomData",
-				type:'GET',
-				data: roomData,
-				success:function(data){
-					//console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-					var nick_list = "<h6>";
-					for(var i=0;i<data.length;i++){
-						nick_list += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+data[i].nick
-						nick_list += "<span class='caret'></span></button>"
-						nick_list += "<ul class='dropdown-menu' style='list-style:none;'>"
-						nick_list += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
-						nick_list += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
-						nick_list += "</ul></div>";
-					}
-					nick_list += "</h6>";
-					console.log("현재 참여자 리스트 : " +nick_list);
-					$("#memberList").append(nick_list);
-				},
-				error:function(request, status, errorThrown){
-					alert('현재 대화 참여자 불러오기 실패');
-				}
-			})
-		});
-	</script>
+<script>
+       $('#friendYes').click(function(){
+          var sender = $('#senderId').val();
+          var recipient = $('#recipient').val();
+          var data = {"sender" : sender , "recipient" : recipient};
+          console.log('친구수락 버튼을 눌렀을 때 보내려는 데이터 : '+data.sender+","+data.recipient);
+          
+          $.ajax({
+            url:"http://localhost:8080/returnscroll/chat/addfriend",
+            type:'GET',
+            data: data,
+            success:function(data){
+               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
+                  alert(data+'님의 친구요청을 수락하였습니다.')
+            },
+            error:function(request, status, errorThrown){
+               alert('친구요청 수락 실패');
+            }
+         })
+       });
+       $('#friendNo').click(function(){
+          var sender = $('#senderId').val();
+          var recipient = $('#recipient').val();
+          var data = {"sender" : sender , "recipient" : recipient};
+          
+          $.ajax({
+            url:"http://localhost:8080/returnscroll/chat/addfriendReject",
+            type:'GET',
+            data: data,
+            success:function(data){
+               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
+                  alert(data+'님의 친구요청을 거절하였습니다.')
+            },
+            error:function(request, status, errorThrown){
+               alert('친구요청 수락 실패');
+            }
+         })
+       });
+    </script>
+    
+    <script type="text/javascript">
+    $("#friendList").click(function(){
+        $("#modal").fadeIn();
+    });
+   
+     $("#modal_close_btn").click(function(){
+        $("#modal").fadeOut();
+    });    
+
+    </script>
+    
+    <script>
+    	function deleteFriend(friendId){
+    		var userId = $('#userID').val();
+    		var data = {"userId" : userId , "friendId" : friendId};
+    		console.log('친구 삭제 할때 보내는 데이터 값 '+data.userId +",  "+data.friendId);
+    		var check = confirm(friendId+"님을 삭제하시겠습니까?");
+        	  if(check) {
+        		  $.ajax({
+                      url:"http://localhost:8080/returnscroll/chat/deleteFriend",
+                      type:'GET',
+                      data: data,
+                      success:function(data){
+                         //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
+                            alert(data+'님을 삭제하였습니다.')
+                      },
+                      error:function(request, status, errorThrown){
+                         alert('친구 삭제 실패');
+                      }
+                   })
+        	  }
+        	  else {
+        		  alert(friendId+"님을 친구목록에 유지하겠습니다");
+        	  }
+   		
+    		
+    	}
+    </script>
+    
+    <script>
+  		// 새로운 채팅하기
+    	function newChat(uid, friendId){
+    		var newChatName = prompt('새로운 채팅방의 이름을 작성해주세요!');
+    		var createData = {"roomName": newChatName ,"createUser": uid, "friendId" : friendId};
+    		console.log("방생성할 때 보내는 데이터 : "+createData.roomName+", "+createData.createUser+", "+createData.friendId);
+    		$.ajax({
+                url:"http://localhost:8080/returnscroll/friend/friendChatRoom",
+                type:'GET',
+                data: createData,
+                success:function(data){
+                	console.log('방금 생성한 방의 번호 '+data);
+                	location.href="http://localhost:8080/returnscroll/chat/"+data;
+                },
+                error:function(request, status, errorThrown){
+                   alert('방 생성 실패ㄴ');
+                }
+             })
+    	}
+    </script>
+
 </body>
 
 </html>
