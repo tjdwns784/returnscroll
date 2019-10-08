@@ -6,12 +6,15 @@ $(document).ready(function() {
     // (세션이 있었다면 : 이름, 아이디 사용)
     var user_name ="";
     var user_nick = $('#nick').val(); 
+    var user_id = $('#userid').val();
     var room_num = $('#roomNumber').val();
 
     socket.on('connect', function(){
       // user_name = prompt('익명 닉네임 이름');
       console.log('회원의 닉네임' +user_nick);
       // 서버로 닉네임을 전송 => 서버에 있는 이벤트를 발생시킨다
+      console.log("roomNumber는 무엇이냐 : "+room_num);
+      socket.emit('s_send_userId',user_id);
       socket.emit('s_send_userName', user_nick, new Date(), room_num);
     })
     
@@ -34,7 +37,7 @@ $(document).ready(function() {
     		users += member[i] + "님  ";
     	}
     	users+="</h6>";
-    	$("#members").append(users);
+    	//$("#members").append(users);
     }
     
     // 현재 대화방 참여자 목록을 표시... 배열을 받음
@@ -51,9 +54,9 @@ $(document).ready(function() {
     		users += member[i] + "님  ";
     	}
     	users+="</h6>";
-    	$("#members").append(users);
+    	//$("#members").append(users);
     }
-    
+
     // 클라이언트가 메시지를 작성하고, 엔터 or send키 클릭을 통해서 메시지를 서버로 전송
     // 엔터 이벤트 => keypress 이벤트
     // 이 문서상에 존재하는 모든 input 요소들 중에, name 속성의 값이 message인 요소
@@ -63,8 +66,9 @@ $(document).ready(function() {
         sendMsg();
       }
     })
+    
     // 이 문서상에 존재하는 모든 요소들 중에 id 값이 sendBtn인 요소
-    $('#sendBtn').on('click', (evt)=>{
+    $('buttin[id=sendBtn]').on('click', (evt)=>{
         console.log('메시지 전송');
         sendMsg();
     })
@@ -92,6 +96,7 @@ $(document).ready(function() {
     	  html += "<div class='direct-chat-text' style='position: initial; border:none;'>"+msg+"</div>"
     	  html += "</div>";
     	  html += "</div>";
+    	  
       }else if(flag == 'left'){ // 왼쪽 
     	  var html = "<div class='direct-chat-msg "+flag+"'>";
     	  html += "<div class='direct-chat-info clearfix' style='display: inline-block'>";
@@ -127,11 +132,12 @@ $(document).ready(function() {
     // 방정보 표시 (rooms가 방들의 정보를 담은 배열이고, myRoom이 내가 들어 있는 배열)
     socket.on('c_send_roomInfo',(rooms, myRoom)=>{
       console.log(rooms, myRoom);
+      
       $('#chat_header').empty();
       $.each(rooms,(idx, item)=>{
         console.log(idx, item);
         // 방 정보를 붙이는 대상을 찾아서 html을 구성하여 붙인다
-        var html ="<span data-toggle='tooltip' title='' class='badge bg-${ item === myRoom?'red':'yellow' }'>${item}</span>";
+        var html ="<span data-toggle='tooltip' title='' class='badge bg-${ item === myRoom?'red':'yellow' }'>"+item+"</span>";
         $('#chat_header').append(html);
         if(item != myRoom){
           $('#chat_header>span:last').on('click',()=>{

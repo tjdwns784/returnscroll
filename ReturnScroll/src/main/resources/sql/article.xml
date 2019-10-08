@@ -8,7 +8,7 @@
 		INSERT INTO ARTICLE (NO, TITLE, CONTENT, HIT, WRITER, WRITE_DATE)
 		VALUES (NULL, #{title}, #{content}, 0, #{writer}, NOW())
 	</insert>
-	
+
 	<!--게시판 댓글달기 -->
 	<insert id="insertComment" parameterType="map">
 		INSERT INTO COMMENT (CNO, WRITER, ARTICLE_NO, CONTENT, WRITE_DATE)
@@ -19,36 +19,95 @@
 	<update id="updateArticle" parameterType="map">
 		UPDATE ARTICLE SET
 		TITLE = #{title},
-		CONTENT = #{content}
+		CONTENT = #{content},
+		WRITE_DATE = NOW()
 		WHERE NO = #{no} AND WRITER = #{writer}
 	</update>
 	
 	<!--게시판 조회수 증가 -->
 	<update id="updateHit" parameterType="_int">
-		UPDATE ARTICLE SET
+		UPDATE `ARTICLE` SET
 		HIT = HIT +1
 		WHERE NO = #{value}
 	</update>
 	
+	
 	<!--게시판 목록 불러오기 -->
 	<select id="select" resultType="map" parameterType="map">
 		SELECT NO, TITLE, CONTENT, HIT,WRITER, WRITE_DATE
+		     , (SELECT COUNT(1) 
+		          FROM COMMENT
+		         WHERE ARTICLE_NO = NO) AS CMT_CNT
 		FROM `ARTICLE`
 		<if test='searchText != null and searchText != ""'>
-			<where>
-				TITLE LIKE CONCAT('%', #{searchText}, '%')
-			</where>
+			<if test='searchItem == "a_no"'>
+				<where>
+					NO LIKE CONCAT('%', #{searchText}, '%')
+				</where>
+			</if>
+			<if test='searchItem == "a_title"'>
+				<where>
+					TITLE LIKE CONCAT('%', #{searchText}, '%')
+				</where>			
+			</if>
+			<if test='searchItem == "a_content"'>
+				<where>
+					CONTENT LIKE CONCAT('%', #{searchText}, '%')
+				</where>			
+			</if>
+			<if test='searchItem == "a_writer"'>
+				<where>
+					WRITER LIKE CONCAT('%', #{searchText}, '%')
+				</where>
+			</if>
+			<if test='searchItem == "a_tnc"'>
+				<where>
+					TITLE LIKE CONCAT('%', #{searchText}, '%')
+					OR CONTENT LIKE CONCAT('%', #{searchText}, '%')
+				</where>			
+			</if>
+			<if test='searchItem == "c_writer"'>
+				<where>
+					NO IN (
+						  SELECT ARTICLE_NO
+						  FROM `COMMENT`
+						  WHERE WRITER = #{searchText}
+						  )
+				</where>			
+			</if>
 		</if>
-		ORDER BY NO DESC
+		<if test='searchOrd != null and searchOrd!=""'>
+			<if test='searchOrd == "o_no"'>
+				ORDER BY NO DESC
+			</if>
+			<if test='searchOrd == "o_date"'>
+				ORDER BY WRITE_DATE DESC
+			</if>
+			<if test='searchOrd == "o_hit"'>
+				ORDER BY HIT DESC
+			</if>
+		</if>
+		<if test='searchOrd == null or searchOrd==""'>
+			ORDER BY NO DESC
+		</if>
+		
 		LIMIT #{startNum}, 10
 	</select>
 	
 	<!--게시판 댓글 불러오기 -->
-	<select id="selectByComment" resultType="map" parameterType="_int">
+	<select id="selectByComment" resultType="map" parameterType="map">
 		SELECT CNO, CONTENT, WRITER, WRITE_DATE
 		FROM `COMMENT`
-		WHERE ARTICLE_NO = #{value}
+		WHERE ARTICLE_NO = #{no}
 		ORDER BY WRITE_DATE DESC
+		LIMIT #{startNum}, 10
+	</select>
+	
+	<!--게시판 댓글 갯수 찾기 -->
+	<select id="selectCommentCount" resultType="_int" parameterType="map">
+		SELECT COUNT(*)
+		FROM `COMMENT`
+		WHERE ARTICLE_NO = #{no}
 	</select>
 	
 	<!--게시판 읽어오기 -->
@@ -58,14 +117,53 @@
 		WHERE NO=#{value}
 	</select>
 	
+	<!--닉네임 읽어오기 -->
+	<select id="selectByNick" resultType="String" parameterType="String">
+		SELECT NICK
+		FROM USERS
+		WHERE UID=#{value}
+	</select>
+	
 	<!--게시판 전체 갯수 찾기 -->
 	<select id="selectTotalCount" resultType="_int" parameterType="map">
 		SELECT COUNT(*)
 		FROM `ARTICLE`
 		<if test='searchText != null and searchText != ""'>
-			<where>
-				TITLE LIKE CONCAT('%', #{searchText}, '%')
-			</where>
+			<if test='searchItem == "a_no"'>
+				<where>
+					NO LIKE CONCAT('%', #{searchText}, '%')
+				</where>
+			</if>
+			<if test='searchItem == "a_title"'>
+				<where>
+					TITLE LIKE CONCAT('%', #{searchText}, '%')
+				</where>			
+			</if>
+			<if test='searchItem == "a_content"'>
+				<where>
+					CONTENT LIKE CONCAT('%', #{searchText}, '%')
+				</where>			
+			</if>
+			<if test='searchItem == "a_writer"'>
+				<where>
+					WRITER LIKE CONCAT('%', #{searchText}, '%')
+				</where>
+			</if>
+			<if test='searchItem == "a_tnc"'>
+				<where>
+					TITLE LIKE CONCAT('%', #{searchText}, '%')
+					OR CONTENT LIKE CONCAT('%', #{searchText}, '%')
+				</where>			
+			</if>
+			<if test='searchItem == "c_writer"'>
+				<where>
+					NO IN (
+						  SELECT ARTICLE_NO
+						  FROM `COMMENT`
+						  WHERE WRITER = #{searchText}
+						  )
+				</where>			
+			</if>
 		</if>
 	</select>
 	

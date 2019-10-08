@@ -37,8 +37,22 @@
        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
    </context:component-scan>
-   
 
-   
+    <!-- SqlSessionFactoryBean -->
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="mapperLocations" value="classpath:sql/*.xml" />
+      <property name="dataSource" ref="dataSource" />
+      <property name="configLocation" value="classpath:mybatis-config.xml"/>
+   </bean>
+   <!-- SqlSessionTemplate -->
+   <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+      <constructor-arg ref="sqlSessionFactory"/>
+   </bean> 
+   <!-- multipartResolver 설정 -->
+   <bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="52428800" />
+	</bean>
+  
    
 </beans>

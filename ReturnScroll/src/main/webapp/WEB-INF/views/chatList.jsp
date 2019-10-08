@@ -123,10 +123,9 @@
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser">현재 접속자 아이디 : ${uid}</div>
+                    <div id="putUser" style='float: right;'>${uid}님 반갑습니다</div>
                     <div class="box-header with-border">
                         <h1 class="box-title">채팅방 리스트</h1><br>
-					<br>
                     </div>
                     
                     
@@ -148,16 +147,19 @@
 							    <tbody>
 							      <tr>
 							        <td>${list.ID }</td>
-							        <td><a href="/returnscroll/chat/${list.ID }">${list.NAME }</a></td>
-							        <td>0</td>
-							        <td><button>입장</button></td>
+							        <td>${list.NAME }</td>
+							        <td>${list.people }</td>
+							        <td><button onclick="location.href='/returnscroll/chat/${list.ID }'" class="btn btn-warning btn-flat">입장</button></td>
 							      </tr>
 							    </tbody>
 							    </c:forEach>
 						  </table>
                           
                         </div>
-                        <button onclick="location.href='/returnscroll/chat/createRoom'">채팅방 생성</button>
+                        <div style='margin-bottom: 10px;margin-right: 10px;float: right;'>
+	                        <button onclick="location.href='/returnscroll/chat/createRoom'" class="btn btn-warning btn-flat">채팅방 생성</button>
+	                        <button onclick="location.href='/returnscroll/chat/allRoom'" class="btn btn-warning btn-flat">전체 방 보기</button>
+                        </div>
                         <!-- /.direct-chat-pane -->
                     </div>
                     
