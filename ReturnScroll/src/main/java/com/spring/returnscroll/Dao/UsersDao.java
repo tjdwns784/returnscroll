@@ -42,7 +42,7 @@ public class UsersDao {
 	}
 
 	// 로그인
-	public String login(Map<String, Object> map) {
+	public Map<String, Object> login(Map<String, Object> map) {
 		return ss.selectOne("users.login", map);
 	}
 	
