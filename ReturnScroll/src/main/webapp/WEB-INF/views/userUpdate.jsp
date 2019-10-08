@@ -6,9 +6,30 @@
 <head>
 <meta charset="UTF-8">
 <title>returnscroll 회원수정</title>
+<!-- Bootstrap Core CSS -->
+<link
+	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link
+	href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+	rel="stylesheet" type="text/css">
+<link
+	href="${pageContext.request.contextPath}/resources/vendor/simple-line-icons/css/simple-line-icons.css"
+	rel="stylesheet">
+
+<!-- Custom CSS -->
+<link
+	href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css"
+	rel="stylesheet">
 </head>
 <body>
-
+	<!-- Navigation -->
+	<jsp:include page="side.jsp"></jsp:include>
 
 <h1>회원정보 수정</h1>
 
