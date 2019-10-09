@@ -140,7 +140,7 @@ public class MemberService {
 	}
 	
 	// 로그인
-	public String login(Map<String, Object> map) {
+	public Map<String, Object> login(Map<String, Object> map) {
 		return usersDao.login(map);
 	}
 	

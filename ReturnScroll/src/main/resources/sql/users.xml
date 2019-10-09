@@ -62,9 +62,10 @@
 	</insert>
 	
 	<!-- 로그인 -->
-	<select id="login" parameterType="string" resultType="string">
+	<select id="login" parameterType="string" resultType="map">
 		SELECT *
-		FROM `USERS` WHERE UID = #{uid} AND UPW = #{upw}
+		FROM `USERS` WHERE UID = #{uid} 
+<!-- 		AND UPW = #{upw} -->
 	</select>
 	
 	<!-- 회원 아이디 중복검사-->

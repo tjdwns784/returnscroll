@@ -33,16 +33,27 @@
       <property name="suffix" value=".jsp" />
    </bean>
    
+<<<<<<< HEAD
    <context:component-scan base-package="com.spring.returnscroll" />
    
       <!-- DataSource -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+<<<<<<< HEAD
         <property name="url" value="jdbc:log4jdbc:mysql://192.168.0.14:3306/returnscroll"></property>
+=======
+        <property name="url" value="jdbc:log4jdbc:mysql://192.168.0.14:3306/returnscroll?allowMultiQueries=true"></property>
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
         
         <property name="username" value="root"></property>
         <property name="password" value="mysql"></property>
     </bean>
+=======
+   <context:component-scan base-package="com.spring.returnscroll" use-default-filters="false">
+       <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+       <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+   </context:component-scan>
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
     <!-- SqlSessionFactoryBean -->
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -59,7 +70,6 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="52428800" />
 	</bean>
-   
-   
+  
    
 </beans>

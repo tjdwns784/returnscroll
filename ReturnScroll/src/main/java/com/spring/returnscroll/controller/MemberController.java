@@ -121,7 +121,7 @@ public class MemberController {
 	    }
 	    map.put("upw", result2);
 		
-		String user = memberservice.login(map);				
+	    Map<String, Object> user = memberservice.login(map);				
 								
 		if (user != null) {						
 			httpSession.setAttribute("uid", map.get("uid"));

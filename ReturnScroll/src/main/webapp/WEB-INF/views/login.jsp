@@ -77,14 +77,14 @@
         <div class="container text-center my-auto">
 			<h1 class="mb-1">Login</h1>
 			<h3 class="mb-5"></h3>
-			<form class="form-inline-block">
+			<form class="form-inline-block" action="login" method="post">
 				<div class="form-group" style="margin-top: -10%">
 					<label for="uid">ID:</label> <input type="text"
-						class="form-control" id="uid" placeholder="아이디 입력" style="margin-top: -1%">
+						class="form-control" name="uid" id="uid" placeholder="아이디 입력" style="margin-top: -1%">
 				</div>
 				<div class="form-group">
 					<label for="upw">Password:</label> <input type="password"
-						class="form-control" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;" onkeyup="enterkey();" type="text"  value="">
+						class="form-control" name="upw" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;" onkeyup="enterkey();" type="text"  value="">
 				</div>
 				<br>
 				<div class="checkbox">
@@ -102,7 +102,7 @@
 <img id="kakao-login-btn" src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="235"/>
 </a>
 			<a href="http://localhost:8080/returnscroll/index">로그아웃</a>
-			
+
 		</div>
 		<div class="overlay"></div>
     </form>
@@ -181,6 +181,11 @@
 	           
 	        }
 		}
+// 		$('#btnLogin').click(function() {
+// 			$('form')[0].method = 'post';
+// 			$('form')[0].submit();
+// 			return false;
+// 		});
 	    $('#btnLogin').click(function() {
 	         var action = $('#btnLogin').attr("href");
 	         var form_data = {

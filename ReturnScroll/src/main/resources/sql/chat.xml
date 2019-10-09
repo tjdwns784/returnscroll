@@ -30,6 +30,12 @@
 		(NULL, #{roomName}, #{createUser},NOW())
 	</insert>
 	
+	<select id="roomNumber" parameterType="map" resultType="_int">
+		SELECT roomId
+		FROM chatroom
+		WHERE roomName = #{roomName} AND roomKing = #{createUser}
+	</select>
+	
 	<insert id="addUser" parameterType="map">
 		INSERT INTO chatuser
 		(chatUserId, chatRoomId,joinDate)
@@ -42,5 +48,44 @@
 		FROM chatuser ch, users u
 		WHERE ch.chatRoomId = #{value} AND ch.chatUserId = u.uid;
 	</select>
+	
+	<select id="addFriend" parameterType="string" resultType="map">
+      SELECT sender, recipient, confirmation
+      FROM friendadd
+      WHERE recipient = #{value} AND confirmation = 0
+   </select>
+   
+   <update id="accept" parameterType="map">
+      UPDATE friendadd SET confirmation = 1
+      WHERE sender = #{sender} AND recipient = #{recipient}
+   </update>
+   
+   <!-- 회원의 친구리스트를 불러옴 -->
+   <select id="friendListCheck" parameterType="string" resultType="map">
+      SELECT no, userId, friendId
+      FROM friendlist
+      WHERE userId=#{value}
+   </select>
+   
+   <!-- 친구신청 보낸사람의 친구리스트가 비어있을 때 새로 생성 -->
+   <insert id="newFriendList" parameterType="map">
+   <![CDATA[
+      INSERT INTO friendlist (no, userId ,friendId)
+      VALUES (NULL , #{sender}, #{recipient});
+      
+      INSERT INTO friendlist (no, userId ,friendId)
+      VALUES (NULL , #{recipient}, #{sender} );
+   ]]>
+   </insert>
+	
+	<select id="friendList" parameterType="String" resultType="map">
+		SELECT f.friendId AS friendId, u.nick AS nick
+		FROM friendlist f, users u
+		WHERE f.userId = #{value} AND f.friendId = u.uid
+	</select>
+	
+	<delete id="deleteFriend" parameterType="map">
+		DELETE FROM friendlist WHERE userId = #{userId} AND friendId = #{friendId}
+	</delete>
 	
 </mapper>
