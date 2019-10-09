@@ -75,7 +75,7 @@
 
 	<c:forEach items="${list}" var="item">
 
-		<tr onClick ="location.href='show/${item.NO}'" style="text-align:center;">
+		<tr onClick ="location.href='show/${item.NO}'" style="text-align:center; cursor:pointer;" >
 		<td >${item.NO}</td>
 		<td style="text-align:left;">${item.TITLE} 
 			<c:if test='${item.CMT_CNT > 0}'>

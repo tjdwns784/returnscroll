@@ -19,7 +19,9 @@
 	  <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
 	  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
 	  
-	 
+	  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<!-- include summernote css/js-->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
 	
 </head>
     
@@ -34,29 +36,16 @@
 	<!-- Custom scripts for this template -->
 	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
         
-        
-         <!-- include libraries(jQuery, bootstrap) -->
-	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!-- include libraries(jQuery, bootstrap) -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-	<!-- include summernote css/js-->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
 	<!-- include summernote-ko-KR -->
 	<script src="/resources/js/summernote-ko-KR.js"></script>
 	
-	<script>
-	$(document).ready(function() {
-		  $('#summernote').summernote({
-	 	    	placeholder: 'content',
-		        minHeight: 370,
-		        maxHeight: null,
-		        lang : 'ko-KR'
-		  });
-		});
-	</script>
+	
 	<div style="width:80%; margin:0 auto;">
-		<form method="post">
+		<form method="post" id='frm' name='frm'>
 		<br><br>
 		제목   :   <input type="text" name="title" style="width:95%"><br>
 		<input type="hidden" name="writer" value="${unick}">
@@ -64,11 +53,49 @@
 			<textarea id="summernote" name="content" ></textarea>
 			<hr>
 			<input id="cancelBtn" type="button" value="목록으로" onclick="location.href='../returnscroll/qna'"/>
-			<input type="submit" value="등록">
+			<input type="button" value="등록" onclick="goWrite(this.form)">
 	
 		</form>
 	</div>
+	
+	
 	<script>
+	$(document).ready(function() {
+		var sendFile = function (file, el) {
+			console.log('sendFile');
+		      var form_data = new FormData();
+		      form_data.append('file', file);
+		      $.ajax({
+		        data: form_data,
+		        type: "POST",
+		        url: 'write2',
+		        cache: false,
+		        contentType: false,
+		        enctype: 'multipart/form-data',
+		        processData: false,
+		        success: function(url) {
+		        	console.log('url', url);
+		        	$('#summernote').summernote('insertImage', url);
+		        }
+		      });
+		    }
+		$('#summernote').summernote({
+	        height: 300,
+	        minHeight: null,
+	        maxHeight: null,
+	        lang : 'ko-KR',
+	        callbacks: {
+	          onImageUpload: function(files, editor, welEditable) {
+	        	  console.log('onimageupload')
+	            for (var i = files.length - 1; i >= 0; i--) {
+	              sendFile(files[i], this);
+	            }
+	          }
+	        }
+	      });
+	})
+	
+	
 	function goWrite(frm){
 		var title = frm.title.value;
 		var content = frm.content.value;
@@ -83,7 +110,10 @@
 		}
 		frm.submit();
 	}
+	
 	</script>
+
+	
 
 </body>
 

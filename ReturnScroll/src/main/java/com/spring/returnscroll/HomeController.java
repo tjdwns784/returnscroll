@@ -269,7 +269,7 @@ public class HomeController  {
 		}else {
 			String useid = (String) httpSession.getAttribute("uid");
 			String unick = articleservice.selectByNick(useid);
-			//System.out.println(unick);
+			
 			model.addAttribute("unick",unick);
 			return "write_qna";
 					
@@ -280,12 +280,47 @@ public class HomeController  {
 	//게시판에 글쓰기
 	@RequestMapping(value = "/write", method=RequestMethod.POST)
 	public String writePost(@RequestParam Map<String,Object> map) {
-		  
+		
 		articleservice.insert(map);
 		System.out.println(map);
-
+		
 		return "redirect:qna";
 	}
+	//게시판에 글쓰기
+	@RequestMapping(value = "/write2", method=RequestMethod.POST)
+	@ResponseBody
+	public String writePost2(MultipartHttpServletRequest mReq) {
+		List<MultipartFile> mFiles = mReq.getFiles("file");
+		
+		// C:\dev\workspace-sts\.metadata\.plugins\org.eclipse.wst.server.core\tmp4\wtpwebapps\ReturnScroll\WEB-INF\classes
+		String webAppPath = this.getClass().getClassLoader().getResource("").getPath();
+		webAppPath = webAppPath.substring(0, webAppPath.indexOf("WEB-INF")) + "/resources/save_img";
+		
+		File saveDir = new File(webAppPath);
+		if(!saveDir.isDirectory()) {
+			saveDir.mkdirs();
+		}
+		
+		String oFileName = "";
+		for(MultipartFile mFile : mFiles) {
+			// C:\dev\workspace-sts\.metadata\.plugins\org.eclipse.wst.server.core\tmp4\wtpwebapps\ReturnScroll\resources\save_img
+			oFileName = mFile.getOriginalFilename();
+			try {
+				mFile.transferTo(new File(webAppPath + "/" + oFileName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		System.out.println("controller write2");
+		
+		return "/returnscroll/resources/save_img/" + oFileName;
+	}
+	
+
 	
 	//게시판 글쓴것 보기 
 	@RequestMapping(value = "/show/{no}")
@@ -298,7 +333,6 @@ public class HomeController  {
 		}else {
 			
 			model.addAttribute("article",articleservice.selectById(no));
-			///////////
 			
 			int endNum = page * 10;
 			int startNum = endNum - 10;
@@ -306,21 +340,17 @@ public class HomeController  {
 			map.put("page", page);
 			map.put("startNum", startNum);
 			map.put("no",no);
-			///////////
-			//System.out.println("map:"+map);
-			//List<Map<String, Object>> list = articleservice.selectByComment(no);
+		
 			List<Map<String, Object>> list = articleservice.selectByComment(map);
 			model.addAttribute("list2", list);
-			//System.out.println("list: " + list);
+			
 			
 			String useid = (String) httpSession.getAttribute("uid");
 			String unick = articleservice.selectByNick(useid);
 			model.addAttribute("unick",unick);
-			///////
-			
+		
 			// 전체 qna 게시물 개수
 			// 전체 페이지 알아내기
-			
 			int cTotal = articleservice.selectCommentCount(map);
 			//System.out.println(cTotal);
 			model.addAttribute("cTotal",cTotal);
@@ -339,7 +369,8 @@ public class HomeController  {
 				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 				return "redirect:login";
 			}else {
-				model.addAttribute(no);
+				model.addAttribute("article",articleservice.selectById(no));
+				//model.addAttribute(no);
 				String useid = (String) httpSession.getAttribute("uid");
 				String unick = articleservice.selectByNick(useid);
 				//System.out.println(unick);
@@ -372,7 +403,7 @@ public class HomeController  {
 	}
 	
 	//게시판 댓글삭제하기
-		@RequestMapping(value = "/commentDelete/{cno}")
+	@RequestMapping(value = "/commentDelete/{cno}")
 			public String commentDelete( 
 					@PathVariable("cno") int cno, @RequestParam(value="no", required = false) int no, HttpServletRequest req) {
 				
