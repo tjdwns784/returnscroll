@@ -130,8 +130,60 @@ public class MemberController {
 			model.addAttribute("msg", "다시 로그인 해주세요.");
 			return "fail";					
 		}						
+	}	
+	
+	// 카카오 로그인
+	@RequestMapping(value = "/loginKakao", method = RequestMethod.GET)				
+	public String loginKakao(Model model, @RequestParam Map<String, Object> map, HttpServletRequest req ) {			
+				
+		Map<String, Object> user = memberservice.loginKakao((String) map.get("kakao"));		
+		HttpSession session = req.getSession();		
+		System.out.println("map");		
+		System.out.println(user);		
+				
+		session.setAttribute("uid", user.get("uid"));		
+		return "redirect:/index";		
+	}			
+
+	// 페이스북 로그인
+	@RequestMapping(value = "/loginFacebook", method = RequestMethod.GET)				
+	public String loginFacebook(Model model, @RequestParam Map<String, Object> map, HttpServletRequest req ) {			
+				
+		Map<String, Object> user = memberservice.loginFacebook((String) map.get("facebook"));		
+		HttpSession session = req.getSession();		
+		System.out.println("map");		
+		System.out.println(user);		
+				
+		session.setAttribute("uid", user.get("uid"));		
+		return "redirect:/index";		
 	}		
 	
+	// 네이버 로그인
+	@RequestMapping(value = "/loginNaver", method = RequestMethod.GET)				
+	public String loginNaver(Model model, @RequestParam Map<String, Object> map, HttpServletRequest req ) {			
+				
+		Map<String, Object> user = memberservice.loginNaver((String) map.get("naver"));		
+		HttpSession session = req.getSession();		
+		System.out.println("map");		
+		System.out.println(user);		
+				
+		session.setAttribute("uid", user.get("uid"));		
+		return "redirect:/index";		
+	}			
+	
+	// 구글 로그인
+	@RequestMapping(value = "/loginGoogle", method = RequestMethod.GET)				
+	public String loginGoogle(Model model, @RequestParam Map<String, Object> map, HttpServletRequest req ) {			
+				
+		Map<String, Object> user = memberservice.loginGoogle((String) map.get("google"));		
+		HttpSession session = req.getSession();		
+		System.out.println("map");		
+		System.out.println(user);		
+				
+		session.setAttribute("uid", user.get("uid"));		
+		return "redirect:/index";		
+	}		
+
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)							
 	public String logout(Model model, HttpServletRequest req) {							
@@ -238,20 +290,36 @@ public class MemberController {
 	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPost(@RequestParam Map<String, Object> map, HttpServletResponse response ) throws IOException {
-		String upw = (String) map.get("upw");
+		if(map.containsKey("kakao")) {
+			String kakao = (String) map.get("kakao");
+			kakao = "kakao_" + kakao;
+			map.put("uid", kakao);
+		}
 		
+		if(map.containsKey("facebook")) {
+			String facebook = (String) map.get("facebook");
+			facebook = "facebook_" + facebook;
+			map.put("uid", facebook);
+		}
+		
+		String upw = (String) map.get("upw");
 		String result2="";
-	    try {
-	        MessageDigest md5 = MessageDigest.getInstance("MD5");
-	        byte[] byteValue = md5.digest(upw.getBytes());
-	             
-	        Base64 base64EnDe =new Base64();
-	 
-	        result2 = base64EnDe.encodeToString(byteValue).replaceAll("\r\n","");
-	    }catch (NoSuchAlgorithmException e) {
-	        e.printStackTrace();
-	    }
-	    map.put("upw", result2);
+		
+		if(upw != null) {
+		    try {
+		        MessageDigest md5 = MessageDigest.getInstance("MD5");
+		        byte[] byteValue = md5.digest(upw.getBytes());
+		             
+		        Base64 base64EnDe =new Base64();
+		 
+		        result2 = base64EnDe.encodeToString(byteValue).replaceAll("\r\n","");
+		    }catch (NoSuchAlgorithmException e) {
+		        e.printStackTrace();
+		    }
+		} else { // 소셜 로그인하였을때  db에 등록되는 비밀번호 값
+			result2 = "random_062411171228";
+		}
+		map.put("upw", result2);
 		
 		String y = (String) map.get("year");
 		String m = (String) map.get("month");
@@ -266,6 +334,7 @@ public class MemberController {
 		
 		map.put("birth", y + m + d);
 		map.put("phone", p1 + p2 + p3);
+		
 		int result = memberservice.join(map);
 		if (result == 1) {
 			out.println("<script language='javascript'>");
@@ -282,7 +351,63 @@ public class MemberController {
 		}
 
 	}
-
+	
+	// 카카오 중복확인
+	@RequestMapping(value = "/kakaoDup", method = RequestMethod.GET)				
+	@ResponseBody				
+	public int dupKakao(HttpServletRequest req) {				
+		String result = memberservice.kakaoDup(req.getParameter("kakao"));
+		// 중복 검사 해서 아이디가 존재 할경우 1을 넘기고 없으면 0을넘김			
+		int a = 0;			
+		if (result != null) {			
+			a = 1;		
+		}			
+					
+		return a;			
+	}		
+	
+	// 페이스북 중복확인
+	@RequestMapping(value = "/facebookDup", method = RequestMethod.GET)				
+	@ResponseBody				
+	public int dupFacebook(HttpServletRequest req) {				
+		String result = memberservice.facebookDup(req.getParameter("facebook"));
+		// 중복 검사 해서 아이디가 존재 할경우 1을 넘기고 없으면 0을넘김			
+		int a = 0;			
+		if (result != null) {			
+			a = 1;		
+		}			
+					
+		return a;			
+	}			
+		
+	// 네이버 중복확인
+	@RequestMapping(value = "/naverDup", method = RequestMethod.GET)				
+	@ResponseBody				
+	public int dupNaver(HttpServletRequest req) {				
+		String result = memberservice.naverDup(req.getParameter("naver"));
+		// 중복 검사 해서 아이디가 존재 할경우 1을 넘기고 없으면 0을넘김			
+		int a = 0;			
+		if (result != null) {			
+			a = 1;		
+		}			
+					
+		return a;			
+	}			
+		
+	// 구글 중복확인
+	@RequestMapping(value = "/googleDup", method = RequestMethod.GET)				
+	@ResponseBody				
+	public int dupGoogle(HttpServletRequest req) {				
+		String result = memberservice.googleDup(req.getParameter("google"));
+		// 중복 검사 해서 아이디가 존재 할경우 1을 넘기고 없으면 0을넘김			
+		int a = 0;			
+		if (result != null) {			
+			a = 1;		
+		}			
+					
+		return a;			
+	}			
+		
 	// ID 중복확인
 	@RequestMapping(value = "/idDup", method = RequestMethod.GET)
 	@ResponseBody

@@ -40,7 +40,27 @@ public class UsersDao {
 	public int join(Map<String, Object> map) {
 		return ss.insert("users.insert", map);
 	}
-
+	
+	// 카카오 로그인
+	public Map<String, Object> loginKakao(String kakao) {				
+		return ss.selectOne("users.loginKakao", kakao);		
+	}	
+	
+	// 페이스북 로그인
+	public Map<String, Object> loginFacebook(String facebook) {				
+		return ss.selectOne("users.loginFacebook", facebook);		
+	}	
+		
+	// 네이버 로그인
+	public Map<String, Object> loginNaver(String naver) {				
+		return ss.selectOne("users.loginNaver", naver);		
+	}	
+		
+	// 구글 로그인
+	public Map<String, Object> loginGoogle(String google) {				
+		return ss.selectOne("users.loginGoogle", google);		
+	}	
+		
 	// 로그인
 	public Map<String, Object> login(Map<String, Object> map) {
 		return ss.selectOne("users.login", map);
@@ -54,6 +74,26 @@ public class UsersDao {
 	// 회원 탈퇴
 	public int userDelete(Map<String, Object> map) {
 		return ss.delete("users.delete", map);
+	}
+	
+	// 카카오 아이디 중복
+	public String dupKakao(String kakao) {
+		return ss.selectOne("users.kakao", kakao);
+	}
+		
+	// 페이스북 아이디 중복
+	public String dupFacebook(String facebook) {
+		return ss.selectOne("users.facebook", facebook);
+	}
+		
+	// 네이버 아이디 중복
+	public String dupNaver(String naver) {
+		return ss.selectOne("users.naver", naver);
+	}
+	
+	// 구글 아이디 중복
+	public String dupGoogle(String google) {
+		return ss.selectOne("users.google", google);
 	}
 	
 	// 아이디 중복

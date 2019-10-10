@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 	language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,28 +64,45 @@
 		<div class="container text-align:left my-auto">
 			<div style="border: 1px solid; padding: 10px; text-align:center;">
 				<form method="POST" > 
-					<div class="form-group">
-						<label for="user_id">아이디</label>
-						 <input type="text" style="width:70px; height:45px;"
-							class="form-control" id="user_id" name="uid" placeholder="ID"
-							required="required">
-						<p id='msgid' style="color: red"></p>
-						<div class="check_font" id="id_check"></div>
-					</div>
-					<div class="form-group">
-						<label for="user_pw">비밀번호</label> <input type="password" 
-							class="form-control" id="user_pw" name="upw"
-							placeholder="Password" required="required">
-						<p id='msgpw' style="color: red"></p>
-						<div class="check_font" id="pw_check"></div>
-					</div>
-					<div class="form-group">
-						<label for="user_pw2">비밀번호 확인</label> <input type="password"
-							class="form-control" id="user_pw2" name="upw2"
-							placeholder="Confirm Password" required="required">
-						<p id='msgpw2' style="color: red"></p>
-						<div class="check_font" id="pw2_check"></div>
-					</div>
+				<!-- 카카오 -->
+				<input type="hidden" name="kakao" value="${param.kakao}">
+				<input type="hidden" name="kakao" value="${param.facebook}">
+					<c:if test="${param.kakao == null && param.facebook == null}">
+						<div class="form-group">
+							<label for="user_id">아이디</label>
+							 <input type="text" style="width:70px; height:45px;"
+								class="form-control" id="user_id" name="uid" placeholder="ID"
+								required="required">
+							<p id='msgid' style="color: red"></p>
+							<div class="check_font" id="id_check"></div>
+						</div>
+						<div class="form-group">
+							<label for="user_pw">비밀번호</label> <input type="password" 
+								class="form-control" id="user_pw" name="upw"
+								placeholder="Password" required="required">
+							<p id='msgpw' style="color: red"></p>
+							<div class="check_font" id="pw_check"></div>
+						</div>
+						<div class="form-group">
+							<label for="user_pw2">비밀번호 확인</label> <input type="password"
+								class="form-control" id="user_pw2" name="upw2"
+								placeholder="Confirm Password" required="required">
+							<p id='msgpw2' style="color: red"></p>
+							<div class="check_font" id="pw2_check"></div>
+						</div>
+					</c:if>
+					<c:if test="${param.kakao != null}">
+					<h3>카카오 회원가입 화면</h3>
+					<p></p>
+					<p>카카오 회원은 아이디와 비밀번호를 입력하실필요없습니다.</p>
+					</c:if>
+
+					<c:if test="${param.facebook != null}">
+					<h3>페이스북 회원가입 화면</h3>
+					<p></p>
+					<p>페이스북 회원은 아이디와 비밀번호를 입력하실필요없습니다.</p>
+					</c:if>
+					
 					<div class="form-group">
 						<label for="user_name">이름</label> <input type="text"
 							class="form-control" id="user_name" name="uname"
@@ -206,15 +224,18 @@
 		var isNick = 0							
 									
 									
-		$("#reg_submit").click(function(event){							
-			if(isId==0){						
-				event.preventDefault();					
-				alert("아이디를 확인해 주세요.")					
-			}						
-			if(isPw==0){						
-				event.preventDefault();					
-				alert("패스워드를 확인해 주세요.")					
-			}						
+		$("#reg_submit").click(function(event){
+			if(('${param.kakao}' == null && '${param.kakao}' == '') || ('${param.facebook}' == null && '${param.facebook}' == '')) {
+				if(isId==0){						
+					event.preventDefault();					
+					alert("아이디를 확인해 주세요.")					
+				}						
+				if(isPw==0){						
+					event.preventDefault();					
+					alert("패스워드를 확인해 주세요.")					
+				}						
+			}
+			
 			if(isNick==0){						
 				event.preventDefault();					
 				alert("별명을 확인해 주세요.")					
@@ -263,44 +284,44 @@
 					}				
 			})						
 									
-				$("#user_id").focusout(()=>{					
-									
-									
-						// 이메일 검증 스크립트 작성			
-						var passVal = $("#user_id").val();			
-						var regExp =  /^[A-Za-z0-9]{5,15}$/;			
-						// 검증에 사용할 정규식 변수 regExp에 저장			
-						if (passVal.match(regExp) != null) {			
-							$.ajax({		
-							url:"idDup",		
-							data : {id : $("#user_id").val()},		
-							success: function(res){		
-							console.log(res);		
-									
-							if(res==0 && $("#user_id").val() !="" ){		
-								$("#msgid").text("사용가능한 아이디 입니다.")	
-								$("#msgid").css("color","blue")	
-								isId = 1
-							}else if(res==0 && $("#user_id").val() =="" ){
-								$("#msgid").text("공백은 불가합니다.")	
-								$("#msgid").css("color","red")	
-								isId = 0	
-							}else {		
-								$("#msgid").text("이미 존재하는 아이디 입니다.")	
-								$("#msgid").css("color","red")	
-								isId = 0	
-									}
-							}		
-							});		
-									
-						}			
-						else {			
-							$("#msgid").text("아이디는 5~15자로 구성되야 합니다")		
-							$("#msgid").css("color","red")		
-							isId = 0		
-									
-						}			
-				})	
+					$("#user_id").focusout(()=>{               
+				                           
+				                           
+				                  // 이메일 검증 스크립트 작성         
+				                  var passVal = $("#user_id").val();         
+				                  var regExp =  /^[A-Za-z0-9]{5,15}$/;         
+				                  // 검증에 사용할 정규식 변수 regExp에 저장         
+				                  if (passVal.match(regExp) != null) {         
+				                     $.ajax({      
+				                     url:"idDup",      
+				                     data : {id : $("#user_id").val()},      
+				                     success: function(res){      
+				                     console.log(res);      
+				                           
+				                     if(res==0 && $("#user_id").val() !="" ){      
+				                        $("#msgid").text("사용가능한 아이디 입니다.")   
+				                        $("#msgid").css("color","blue")   
+				                        isId = 1
+				                     }else if(res==0 && $("#user_id").val() =="" ){
+				                        $("#msgid").text("공백은 불가합니다.")   
+				                        $("#msgid").css("color","red")   
+				                        isId = 0   
+				                     }else {      
+				                        $("#msgid").text("이미 존재하는 아이디 입니다.")   
+				                        $("#msgid").css("color","red")   
+				                        isId = 0   
+				                           }
+				                     }      
+				                     });      
+				                           
+				                  }         
+				                  else {         
+				                     $("#msgid").text("아이디는 5~15자로 구성되야 합니다")      
+				                     $("#msgid").css("color","red")      
+				                     isId = 0      
+				                           
+				                  }         
+				            })   
 										
 				$("#user_nick").focusout(()=>{					
 					$.ajax({				
@@ -347,7 +368,7 @@
 						$("#msgpw2").text("비밀번호가 다릅니다.")			
 						$("#msgpw2").css("color","red")			
 						isPw = 0			
-					}				
+					}	
 				})
 			$("#user_pw").focusout(()=>{						
 									

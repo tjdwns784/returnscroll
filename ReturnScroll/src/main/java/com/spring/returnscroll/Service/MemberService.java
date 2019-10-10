@@ -139,6 +139,26 @@ public class MemberService {
 
 	}
 	
+	// 카카오 로그인
+	public Map<String, Object> loginKakao(String kakao) {				
+		return usersDao.loginKakao(kakao);		
+	}	
+	
+	// 페이스북 로그인
+	public Map<String, Object> loginFacebook(String facebook) {				
+		return usersDao.loginFacebook(facebook);		
+	}	
+
+	// 네이버 로그인
+	public Map<String, Object> loginNaver(String naver) {				
+		return usersDao.loginNaver(naver);		
+	}	
+	
+	// 구글 로그인
+	public Map<String, Object> loginGoogle(String google) {				
+		return usersDao.loginGoogle(google);		
+	}	
+	
 	// 로그인
 	public Map<String, Object> login(Map<String, Object> map) {
 		return usersDao.login(map);
@@ -153,23 +173,40 @@ public class MemberService {
 	public int userDelete(Map<String, Object> map) {
 		return usersDao.userDelete(map);
 	}
-	
+		
 	// ID 중복검사
 	public String idDup(String id) {
 		return usersDao.dup(id);
-
 	}
 	
+	// 카카오 중복검사
+	public String kakaoDup(String kakao) {
+		return usersDao.dupKakao(kakao);
+	}
+	
+	// 페이스북 중복검사
+	public String facebookDup(String facebook) {
+		return usersDao.dupFacebook(facebook);
+	}
+		
+	// 네이버 중복검사
+	public String naverDup(String naver) {
+		return usersDao.dupNaver(naver);
+	}
+	
+	// 구글 중복검사
+	public String googleDup(String google) {
+		return usersDao.dupGoogle(google);
+	}
+
 	// 닉네임 중복검사
 	public String nickDup(String nick) {
 		return usersDao.dupNick(nick);
-
 	}
 	
 	// EMAIL 중복검사
 	public String emailDup(String email) {
 		return usersDao.dupEmail(email);
-
 	}
 
 	// 채팅창 멤버초대

@@ -101,8 +101,11 @@
 			<a id="custom-login-btn" href="javascript:loginWithKakao()">
 <img id="kakao-login-btn" src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="235"/>
 </a>
-			<a href="http://localhost:8080/returnscroll/index">로그아웃</a>
-
+				<div class="fb-login-button" onlogin="checkLoginState();" data-width="200px" data-size="large" data-button-type="login_with"
+  						data-auto-logout-link="true" data-use-continue-as="false"></div>
+  						
+  				<div class="g-signin2" id="google-login-button" data-onsuccess="onSignIn" data-theme="dark">google</div>
+<!-- 			<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"> </fb:login-button> -->
 		</div>
 		<div class="overlay"></div>
     </form>
@@ -150,98 +153,256 @@
 	<!-- Custom scripts for this template -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-	<script>
-		function enterkey() {
-	        if (window.event.keyCode == 13) {
-	             // 엔터키가 눌렸을 때 실행할 내용
-	        	  var action = $('#btnLogin').attr("href");
-	 	          var form_data = {
-	 	            "uid" : $('#uid').val(),
-	 	            "upw" : $('#upw').val()
-	 	         };
-	 	         $.ajax({
-	 	            type : "POST",
-	 	            url : action,
-	 	            data : form_data,
-	 	            success : function(res) {
-	 	            	
-	 	               if (res == "success") {
-	 	                  alert("환영합니다!");
-	 	                  sendit();
-	 	                  location = "index"
-	 	               } else {
-	 	                  alert("아이디 또는 비밀번호가 잘못되었습니다");
-	 	               }
-	 	            },
-	 	            error : function() {
-	 	               alert("Error");
-	 	            }
-	 	         });
-	 	         return false;
-	           
-	        }
-		}
-// 		$('#btnLogin').click(function() {
-// 			$('form')[0].method = 'post';
-// 			$('form')[0].submit();
-// 			return false;
-// 		});
-	    $('#btnLogin').click(function() {
-	         var action = $('#btnLogin').attr("href");
-	         var form_data = {
-	            "uid" : $('#uid').val(),
-	            "upw" : $('#upw').val()
-	         };
-	         $.ajax({
-	            type : "POST",
-	            url : action,
-	            data : form_data,
-	            success : function(res) {
-	            	
-	               if (res == "success") {
-	                  alert("환영합니다!");
-	                  sendit();
-	                  location = "index"
-	               } else {
-	                  alert("아이디 또는 비밀번호가 잘못되었습니다");
-	               }
-	            },
-	            error : function() {
-	               alert("Error");
-	            }
-	         });
-	         return false;
 
-	      });
-	    </script>
+<script>
+		function enterkey() {
+			if (window.event.keyCode == 13) {
+				// 엔터키가 눌렸을 때 실행할 내용
+				var action = $('#btnLogin').attr("href");
+				var form_data = {
+					"uid" : $('#uid').val(),
+					"upw" : $('#upw').val()
+				};
+				$.ajax({
+					type : "POST",
+					url : action,
+					data : form_data,
+					success : function(res) {
+
+						if (res == "success") {
+							alert("환영합니다!");
+							sendit();
+							location = "index"
+						} else {
+							alert("아이디 또는 비밀번호가 잘못되었습니다");
+						}
+					},
+					error : function() {
+						alert("Error");
+					}
+				});
+				return false;
+
+			}
+		}
+		// 		$('#btnLogin').click(function() {
+		// 			$('form')[0].method = 'post';
+		// 			$('form')[0].submit();
+		// 			return false;
+		// 		});
+		$('#btnLogin').click(function() {
+			var action = $('#btnLogin').attr("href");
+			var form_data = {
+				"uid" : $('#uid').val(),
+				"upw" : $('#upw').val()
+			};
+			$.ajax({
+				type : "POST",
+				url : action,
+				data : form_data,
+				success : function(res) {
+
+					if (res == "success") {
+						alert("환영합니다!");
+						sendit();
+						location = "index"
+					} else {
+						alert("아이디 또는 비밀번호가 잘못되었습니다");
+					}
+				},
+				error : function() {
+					alert("Error");
+				}
+			});
+			return false;
+
+		});
+</script>
+<script>
+
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : '1155530134645895',
+				cookie : true, // enable cookies to allow the server to access the session
+				xfbml : true, // parse social plugins on this page
+				version : 'v4.0' // use graph api version 2.8
+			});
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
+			});
+		};
+
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		var accessToken;
+		function statusChangeCallback(response) {
+
+			console.log('statusChangeCallback');
+
+			if (response.status === 'connected') {
+				console.log(response.authResponse.accessToken);
+				// Logged into your app and Facebook.
+				accessToken = response.authResponse.accessToken;
+				testAPI();
+			} else if (response.status === 'not_authorized') {
+				document.getElementById('status').innerHTML = 'Please log '
+						+ 'into this app.';
+			} else {
+				document.getElementById('status').innerHTML = 'Please log '
+						+ 'into Facebook.';
+			}
+
+		}
+
+		function checkLoginState() {
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
+			});
+		}
+
+		function testAPI() {
+			console.log('Welcome! Fetching your information.... ');
+			FB.api('/me', {
+				"fields" : "id,name,email"
+			}, function(response) {
+				// Insert your code here
+				console.log('Successful login for: ' + response.name, response.email, response.id);
+				///////////////////////////////////////////////////////////////////////////////
+				var id = response.id;
+				
+				$.ajax({					
+							url : "facebookDup",				
+							data : {				
+							facebook : id			
+							},				
+							success : function(res) {				
+								console.log(res);			
+											
+								if (res == 0) {			
+									location = 'join?facebook=' + id + ''		
+								} else if (res == 1) {			
+									location = 'loginFacebook?facebook=' + id + ''		
+								}			
+							}				
+						});			
+				document.getElementById('status').innerHTML = JSON
+						.stringify(response);
+			});
+		}
+</script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type='text/javascript'>
-  //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('4de13c38b225e4c65f11521d264e7212');
-    // 카카오 로그인 버튼을 생성합니다.
-    function loginWithKakao() {
-	    Kakao.Auth.loginForm({
-	      success: function(authObj) {
-	    	  Kakao.API.request({
-		    	  url: '/v2/user/me',
-		    	  success: function(res) {
-		    		  console.log(res);
-		    		  var name = res.properties.nickname;
-		    		  var image = res.properties.profile_image;
-		    		  var html = '<h1>' + name + '<h1>';
-		    		  html += '<img src="' + image + '">';
-		    		  $('body').append(html);
-		    		  
-			     }
-		      })
-      		},
-	      fail: function(err) {
-	         alert(JSON.stringify(err));
-	      }
-    	});
-    }
-  //]]>
+<script>											
+	//<![CDATA[										
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.										
+	Kakao.init('4de13c38b225e4c65f11521d264e7212');										
+	// 카카오 로그인 버튼을 생성합니다.										
+	function loginWithKakao() {										
+		Kakao.Auth.loginForm({									
+			success : function(authObj) {								
+				console.log(JSON.stringify(authObj));							
+											
+				Kakao.API.request({							
+					url : '/v2/user/me',						
+					success : function(res) {						
+						var id = res.id;					
+						$.ajax({					
+							url : "kakaoDup",				
+							data : {				
+							kakao : id			
+							},				
+							success : function(res) {				
+								console.log(res);			
+											
+								if (res == 0) {			
+									location = 'join?kakao=' + id + ''		
+								} else if (res == 1) {			
+									location = 'loginKakao?kakao=' + id + ''		
+								}			
+							}				
+						});					
+											
+					},						
+					fail : function(error) {						
+						alert(JSON.stringify(error));
+					}						
+				});							
+											
+				//			let userCode = JSON.stringify(authObj);				
+											
+			},								
+			fail : function(err) {								
+				alert(JSON.stringify(err));							
+			}								
+		});									
+	}										
+	//]]>															
+</script>
+<script async defer src="https://apis.google.com/js/api.js" 
+onload="this.onload=function(){};HandleGoogleApiLibrary()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+<script>
+			//Called when Google Javascript API Javascript is loaded
+			function HandleGoogleApiLibrary() {
+				// Load "client" & "auth2" libraries
+				gapi.load('client:auth2',  {
+					callback: function() {
+						// Initialize client & auth libraries
+						gapi.client.init({
+					    	apiKey: 'AAz6Q1QyVVQjCeFp4g1xSlKW',
+					    	clientId: '630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com',
+					    	scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me'
+						}).then(
+							function(success) {
+						  		// Libraries are initialized successfully
+					  			// You can now make API calls
+							}, 
+							function(error) {
+								// Error occurred
+								// console.log(error) to find the reason
+						  	}
+						);
+					},
+					onerror: function() {
+						// Failed to load libraries
+					}
+				});
+			}
+			//Call login API on a click event
+			$("#google-login-button").on('click', function() {
+				// API call for Google login
+				gapi.auth2.getAuthInstance().signIn().then(
+					function(success) {
+						// Login API call is successful	
+					},
+					function(error) {
+						// Error occurred
+						// console.log(error) to find the reason
+					}
+				);
+			});
+			//API call to get user profile information
+			gapi.client.request({ path: 'https://www.googleapis.com/plus/v1/people/me' }).then(
+				function(success) {
+					// API call is successful
+			
+					var user_info = JSON.parse(success.body);
+			
+					// user profile information
+					console.log(user_info);
+				},
+				function(error) {
+					// Error occurred
+					// console.log(error) to find the reason
+				}
+			);
 </script>
 <script>
     window.onload = function() {
