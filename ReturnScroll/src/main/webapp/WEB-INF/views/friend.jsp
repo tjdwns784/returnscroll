@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <html lang="en">
 
 <head>
@@ -58,10 +60,11 @@
 
 #modal .modal_content {
   width:500px;
-  margin:100px;
+  margin-left: 200px;
   padding:70px 30px;
   background:#fff;
   border:2px solid #666;
+  text-align: center;
 }
 
 #modal .modal_layer {
@@ -115,12 +118,12 @@
 			        <th></th>
 			      </tr>
 			    </thead>
-			    <tbody>
+			    <tbody id="tbody">
 			      <tr>
-			        <td id="number"></td>
-			        <td id="findUserId"></td>
-			        <td id="findUserNick"></td>
-			        <td id="inviteLink"></td>
+<!-- 			        <td id="number"></td> -->
+<!-- 			        <td id="findUserId"></td> -->
+<!-- 			        <td id="findUserNick"></td> -->
+<!-- 			        <td id="inviteLink"></td> -->
 			      </tr>
 			    </tbody>
 			  </table>
@@ -145,17 +148,31 @@
 			          <table class="table">
 					    <thead>
 					      <tr>
+					      	<th style="width: 1px;"></th>
 					        <th>No</th>
 					        <th>친구 ID</th>
 					        <th>닉네임</th>
-					        <th> - </th>
-					        <th> - </th>
+					        <th> 비고 </th>
+					        <th>  </th>
 					      </tr>
 					    </thead>
 					    <c:if test="${not empty friendList}">
 					    <c:forEach var="lists" items="${friendList }" varStatus="status" >
 					    <tbody>
 					      <tr>
+					      	<td style="width: 1px;">
+						        <c:forEach var="session" items="${sessionList }" >
+						        	<c:if test="${not loop_flag}">
+							        	<c:if test ="${session eq lists.friendId}">
+							        		<c:set var="loop_flag" value="true" />
+							        		<p><img src="resources/img/on.png" style="width: 25px;"></p>
+							        	</c:if>
+						        	</c:if>
+						        </c:forEach>
+						        <c:if test="${not loop_flag}">
+						        	<p><img src="resources/img/off.png" style="width: 25px;"></p>
+						        </c:if>
+					        </td>
 					        <td>${status.count }</td>
 					        <td>${lists.friendId }</td>
 					        <td>${lists.nick }</td>
@@ -186,11 +203,9 @@
     </div>
     <div class="overlay"></div>
   </header>
-  
 
 
-
-  <!-- Footer -->
+	<!-- Footer -->
   <footer class="footer text-center">
     <div class="container">
       <ul class="list-inline mb-5">
@@ -232,7 +247,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.4:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.11:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     
     <!-- 모달 띄우고 내리는거 -->
@@ -271,19 +286,32 @@
 				success:function(data){
 					console.log('[결과데이터] data: '+data);
 					
+					
 					// console.log('[결과데이터] id: '+data.get('uid')+", nick: "+data.get('nick'));
 					// 검색 창 비우기
 					$("#uid").empty();
+// 					$("#tbody").empty();
 					// data
 					$("#searchResult").append(uid+" 에 대한 검색결과 입니다.")
 					// 검색결과 만큼 데이터가 나와야함
 					// 테이블로 고치기!!
+// 					<tr>
+// 				        <td id="number"></td>
+// 				        <td id="findUserId"></td>
+// 				        <td id="findUserNick"></td>
+// 				        <td id="inviteLink"></td>
+// 				      </tr>
+					var html = "";
 					for (var i=1;i<(Object.keys(data).length);i++){
-						$("#number").append(i);
-						$("#findUserId").append(data['uid']);
-						$("#findUserNick").append(data['nick'])
-						$("#inviteLink").append("<input type='button' onclick='inviteUser(\""+data['uid']+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' />");
+						html += "<tr><td>"+i+"</td><td>"+data['uid']+"</td><td>"+data['nick']+"</td>";
+						html += "<td><input type='button' onclick='inviteUser(\""+data['uid']+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' /></td></tr>"
+						
+// 						$("#number").append(i);
+// 						$("#findUserId").append(data['uid']);
+// 						$("#findUserNick").append(data['nick'])
+// 						$("#inviteLink").append("<input type='button' onclick='inviteUser(\""+data['uid']+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' />");
 					}
+					$("#tbody").append(html);
 				},
 				error:function(request, status, errorThrown){
 					$("#searchResult").empty();
@@ -306,7 +334,7 @@
            
          alert(user+'님에게 친구추가를 신청했습니다');
          // 채팅에 접속
-         var socket = io("http://192.168.0.4:82");
+         var socket = io("http://192.168.0.11:82");
          
          var recipient = user; // 받는사람
          var sender = $('#userID').val();  // 보낸사람

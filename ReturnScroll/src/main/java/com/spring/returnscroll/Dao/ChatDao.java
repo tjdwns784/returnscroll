@@ -47,8 +47,8 @@ public class ChatDao {
 	}
 
 	// user의 친구리스트를 불러옴
-	public Map<String, Object> friendListCheck(String sender) {
-		return ss.selectOne("chat.friendListCheck", sender);
+	public List<Map<String, Object>> friendListCheck(String sender) {
+		return ss.selectList("chat.friendListCheck", sender);
 	}
 
 	public void newFriendList(Map<String, String> map) {

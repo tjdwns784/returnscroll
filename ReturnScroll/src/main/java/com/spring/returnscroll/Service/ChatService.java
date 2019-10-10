@@ -47,7 +47,7 @@ public class ChatService {
 		chatDao.accept(map);
 	}
 
-	public Map<String, Object> friendListCheck(String sender) {
+	public List<Map<String, Object>> friendListCheck(String sender) {
 		return chatDao.friendListCheck(sender);
 	}
 

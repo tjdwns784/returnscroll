@@ -141,7 +141,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
-                <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box box-warning direct-chat direct-chat-warning" style="padding:50px;">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
                     <div id="putUser" style='float: right;'>${uid}님 반갑습니다</div>
                     <div class="box-header with-border">
@@ -196,7 +196,7 @@
                         </div>
                         <div style='margin-bottom: 10px;margin-right: 10px;float: right;'>
 	                        <button onclick="location.href='/returnscroll/chat/createRoom'" class="btn btn-warning btn-flat">채팅방 생성</button>
-	                        <button onclick="location.href='/returnscroll/chat/allRoom'" class="btn btn-warning btn-flat">전체 방 보기</button>
+<!-- 	                        <button onclick="location.href='/returnscroll/chat/allRoom'" class="btn btn-warning btn-flat">전체 방 보기</button> -->
 	                        <button onclick="location.href='/returnscroll/friend'" id='friendList' type="button" class="btn btn-warning btn-flat">친구관리</button>
                         </div>
                         <!-- /.direct-chat-pane -->
@@ -258,7 +258,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.4:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.11:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script>

@@ -3,15 +3,13 @@ package com.spring.returnscroll;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.spring.returnscroll.Service.ArticleService;
 import com.spring.returnscroll.Service.ChatService;
 import com.spring.returnscroll.Service.MemberService;
+import com.spring.returnscroll.listener.LoginSessionListener;
 
 
 @Controller
@@ -243,8 +242,8 @@ public class HomeController  {
 		chatService.newFriendList(map);
 
 		// INSERT 및 UPDATE를 진행한 후, 결과를 다시 들고옴
-		Map<String, Object> senderList = chatService.friendListCheck(sender);
-		Map<String, Object> recipientList = chatService.friendListCheck(recipient);
+		List<Map<String, Object>> senderList = chatService.friendListCheck(sender);
+		List<Map<String, Object>> recipientList = chatService.friendListCheck(recipient);
 
 		return sender;
 	}
@@ -303,6 +302,12 @@ public class HomeController  {
 			List<Map<String, Object>> friendList = chatService.friendList(uid);
 			model.addAttribute("friendList",friendList);
 			System.out.println("[[[[[[[[[[[friendList 값 "+friendList+"]]]]]]]]]]]]");
+			
+			Map<String, HttpSession> sessionList = LoginSessionListener.map;
+			Set<String> keySet = sessionList.keySet();
+			
+			System.out.println(sessionList);
+			model.addAttribute("sessionList", keySet);
 			
 			return "friend";
 		}	
