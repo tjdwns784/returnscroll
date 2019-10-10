@@ -17,13 +17,62 @@
 
   <!-- Custom CSS -->
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
+  <%-- <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  --%> <style>
+   @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  
+  body, table, div, p, h1 , h4 {font-family:'Nanum Gothic';}
+  
+  button{
+	  background:#000000;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:40px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	}
+	button:hover{
+	  background:#fff;
+	  color:#000000;
+	}
+	button:before,button:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #000000;
+	  transition:400ms ease all;
+	}
+	button:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	button:hover:before,button:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
+	a.menu-toggle > i {
+		margin-top: 18px;
+	}
+	
+	#sidebar-wrapper {
+		margin-top: -2%;
+	}
+  </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -37,24 +86,24 @@
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
          
-
-번호 : ${article.NO}
+<h1 style="margin-left:5%;margin-top:2%;">Q&A 글쓰기</h1>
+<hr style="width:90%; background:#FFCC33; height:2px" >
+<div style="margin-left:5%;">
+<h4> ${article.NO} | ${article.TITLE} </h4>
+<p style="text-align: right;margin-right: 5%;"> 조회수 : ${article.HIT} | 작성자 : ${article.WRITER} | 작성일자 : ${article.WRITE_DATE}</p>
 <br>
-제목 : ${article.TITLE}
+<div> 
+ ${article.CONTENT}
+ </div>
 <br>
-내용 : ${article.CONTENT}
-<br>
-조회수 : ${article.HIT}
-<br>
-작성자 : ${article.WRITER}
-<br>
-작성일자 : ${article.WRITE_DATE}
-<br>
+</div>
+<div style="text-align:center">
 
 <button id="btnUpdate"  onclick="location.href='../articleUpdate/${article.NO}'">수정</button>
 <button id="btnDelete"  onclick="location.href='../articleDelete/${article.NO}'">삭제</button>
 <button id="btnQna"  onclick="location.href='../qna'">목록</button>
-<hr>
+</div>
+<hr style="width:90%; background:#FFCC33; height:2px" >
 
 <script>
 
@@ -69,11 +118,11 @@ var artid = "${article.WRITER}";
 </script>
 
 
-<div style="text-align :center;">
+<div style="margin-left: 5%;">
 <input type="text" id="comment" style="width: 90%; height:10%;" onkeydown="enterkey();">
 <button onclick="addComment()" style="height:10%;">등록</button>
 </div>
-<hr>
+<hr width="90%">
 
 <table class="table" style="width:95%; margin: 0 auto;">
 	 <tbody>
@@ -89,9 +138,8 @@ var artid = "${article.WRITER}";
 	</c:forEach>
 	</tbody>
 </table>
-
 <div class="container" style="width:90%;">
-  <ul class="pagination">
+  <ul class="pagination" style="justify-content: center;">
   <%
   	int ct = (Integer) request.getAttribute("cTotal");
   	int showNum = ct/10;
@@ -128,11 +176,12 @@ var artid = "${article.WRITER}";
     <c:forEach begin="${startPage}" end="${endPage}" var="pnum" step="1">
 	   <c:if test='${nowPage == pnum}'> 
     		<li class="page-item active">
+    		<a class="page-link" style="background-color:#FFCC33; border-color: #FFCC33;" href="../show/${no}?page=${pnum}">${pnum}</a></li> 
     	</c:if>
     	<c:if test='${nowPage != pnum}'> 
     		<li class="page-item">
-    	</c:if>
-    	<a class="page-link" href="../show/${no}?page=${pnum}">${pnum}</a></li>    
+    		<a class="page-link" href="../show/${no}?page=${pnum}">${pnum}</a></li> 
+    	</c:if>   
     </c:forEach>
    
     <c:if test='${endPage < showNum}'>
@@ -158,11 +207,12 @@ function addComment(){
 			"content":comment		
 		},
 		success:function(res){
-			//alert("댓글달기완료");
-			$("#comment").val("");
+			//alert(res);
+// 			$("#comment").val("");
 			location.reload();
 		}
-	})
+	});
+	return false;
 }
 function enterkey() {
     if (window.event.keyCode == 13) {

@@ -16,6 +16,7 @@
 
   <!-- Custom CSS -->
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
+  
   <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
   
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
@@ -34,6 +35,11 @@
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
     <style>
+    
+     @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); 
+
+  	body, table, div, p ,h1,button, td,option{font-family:'Nanum Gothic';} 
+  	
         * {
             padding: 0;
             margin: 0;
@@ -44,7 +50,6 @@
         body {
             color: #666;
             font-size: 15px;
-            font-family: 'Noto Sans', sans-serif;
             word-break: keep-all;
             word-wrap: break-word;
             white-space: normal;
@@ -303,6 +308,8 @@
         .btn_pageNum:active {
             background-color: #fce1d8;
         }
+        
+       
 </style>
 	
 	<p id="result" name="result" value=" " ></p>

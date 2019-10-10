@@ -46,6 +46,14 @@ public class HomeController  {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/index2", method = RequestMethod.GET)
+	public String home2(Locale locale, Model model) {
+
+		return "index2";
+	}
+	
+
+	
 	//지도 기본
 	@RequestMapping(value = "/map", method = RequestMethod.GET)
 	public String map(Locale locale, Model model) {
@@ -66,7 +74,7 @@ public class HomeController  {
 		
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
-			return "redirect:login";
+			return "redirect:/login";
 		}else {
 			return "tmap";
 				
@@ -79,7 +87,7 @@ public class HomeController  {
 	public String chat(Locale locale, Model model, HttpSession httpSession) {
 		// 로그인이 안돼어있으면 로그인 화면으로 가게하기
 		if(httpSession.getAttribute("uid") == null) {
-			return "redirect:login";
+			return "redirect:/login";
 		}else {
 			// 세션아이디 값 얻기
 			Object userId = httpSession.getAttribute("uid");
@@ -113,7 +121,7 @@ public class HomeController  {
 	public String chatAllRoom(Locale locale, Model model, HttpSession httpSession) {
 		// 로그인이 안돼어있으면 로그인 화면으로 가게하기
 		if(httpSession.getAttribute("uid") == null) {
-			return "redirect:login";
+			return "redirect:/login";
 		}else {
 			// 세션아이디 값 얻기
 			Object userId = httpSession.getAttribute("uid");
@@ -263,7 +271,7 @@ public class HomeController  {
 	@RequestMapping(value = "/friend", method = RequestMethod.GET)
 	public String friend(Model model ,HttpSession httpSession){
 		if(httpSession.getAttribute("uid") == null) {
-			return "redirect:login";
+			return "redirect:/login";
 		}else {
 			// 세션아이디 값 얻기
 			Object userId = httpSession.getAttribute("uid");
@@ -317,7 +325,7 @@ public class HomeController  {
 
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
-			return "redirect:login";
+			return "redirect:/login";
 		}else {
 			int endNum = page * 10;
 			int startNum = endNum - 10;
@@ -359,7 +367,7 @@ public class HomeController  {
 	public String write(Model model, HttpSession httpSession) {
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
-			return "redirect:login";
+			return "redirect:/login";
 		}else {
 			String useid = (String) httpSession.getAttribute("uid");
 			String unick = articleservice.selectByNick(useid);
@@ -423,7 +431,7 @@ public class HomeController  {
 			@RequestParam Map<String, Object> map) {
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
-			return "redirect:login";
+			return "redirect:/login";
 		}else {
 			
 			model.addAttribute("article",articleservice.selectById(no));
@@ -461,7 +469,7 @@ public class HomeController  {
 		public String articleUpdate(Model model, @PathVariable("no") int no, HttpSession httpSession) {
 			if(httpSession.getAttribute("uid") == null) {
 				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
-				return "redirect:login";
+				return "redirect:/login";
 			}else {
 				model.addAttribute("article",articleservice.selectById(no));
 				//model.addAttribute(no);
@@ -487,7 +495,7 @@ public class HomeController  {
 		public String articleDelete(Model model, @PathVariable("no") int no, HttpSession httpSession) {
 			if(httpSession.getAttribute("uid") == null) {
 				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
-				return "redirect:login";
+				return "redirect:/login";
 			}else {
 				
 				articleservice.deleteArticle(no);
@@ -509,8 +517,9 @@ public class HomeController  {
 
 	//댓글입력
 	@RequestMapping(value = "/addComment")
+	@ResponseBody
 	public String addComment(@RequestParam Map<String,Object> map) {
 		articleservice.insertComment(map);
-		return "show_qna";
+		return "ok";
 	}
 }
