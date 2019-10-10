@@ -110,7 +110,8 @@
 			    <thead>
 			      <tr>
 			        <th>No</th>
-			        <th>회원 ID</th>
+			        <th>ID</th>
+			        <th>닉네임</th>
 			        <th></th>
 			      </tr>
 			    </thead>
@@ -118,6 +119,7 @@
 			      <tr>
 			        <td id="number"></td>
 			        <td id="findUserId"></td>
+			        <td id="findUserNick"></td>
 			        <td id="inviteLink"></td>
 			      </tr>
 			    </tbody>
@@ -267,14 +269,21 @@
 				type:'GET',
 				data: postData,
 				success:function(data){
-					//console.log('결과데이터는'+data);
+					console.log('[결과데이터] data: '+data);
+					
+					// console.log('[결과데이터] id: '+data.get('uid')+", nick: "+data.get('nick'));
 					// 검색 창 비우기
 					$("#uid").empty();
 					// data
-					$("#searchResult").append(data+" 에 대한 검색결과 입니다.")
-					$("#number").append(1);
-					$("#findUserId").append(data);
-					$("#inviteLink").append("<input type='button' onclick='inviteUser(\""+data+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' />");
+					$("#searchResult").append(uid+" 에 대한 검색결과 입니다.")
+					// 검색결과 만큼 데이터가 나와야함
+					// 테이블로 고치기!!
+					for (var i=1;i<(Object.keys(data).length);i++){
+						$("#number").append(i);
+						$("#findUserId").append(data['uid']);
+						$("#findUserNick").append(data['nick'])
+						$("#inviteLink").append("<input type='button' onclick='inviteUser(\""+data['uid']+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' />");
+					}
 				},
 				error:function(request, status, errorThrown){
 					$("#searchResult").empty();
@@ -401,14 +410,35 @@
                 type:'GET',
                 data: createData,
                 success:function(data){
-                	console.log('방금 생성한 방의 번호 '+data);
-                	location.href="http://localhost:8080/returnscroll/chat/"+data;
+                	console.log('방금 생성한 방의 번호: '+data+", data의 타입 : "+typeof data);
+                	var url = "http://localhost:8080/returnscroll/chat/"+data+"";
+                	console.log('접속할 url은 '+url);
+                	window.open(url); // 접속 성공했고, 
+                	// friendId에게 채팅방에 초대됬다는 알람을 보내줌
+                	inviteFriend(data, uid, friendId); 
+                	
                 },
                 error:function(request, status, errorThrown){
                    alert('방 생성 실패ㄴ');
                 }
              })
     	}
+  		// 방번호, 보내는 사람 아이디, 받는사람 아이디를 보내줌,
+  		function inviteFriend(roomNumber, sender, recipient){
+  			var chatInvite = {"roomNumber":roomNumber,"sender":sender,"recipient":recipient};
+  			// 데이터베이스에 집어 넣기
+  			$.ajax({
+                url:"http://localhost:8080/returnscroll/friend/friendInviteRoom",
+                type:'GET',
+                data: chatInvite,
+                success:function(data){
+                	
+                },
+                error:function(request, status, errorThrown){
+                   alert('방 생성 실패ㄴ');
+                }
+             })
+  		}
     </script>
 
 </body>

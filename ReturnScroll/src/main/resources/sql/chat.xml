@@ -30,7 +30,7 @@
 		(NULL, #{roomName}, #{createUser},NOW())
 	</insert>
 	
-	<select id="roomNumber" parameterType="map" resultType="_int">
+	<select id="roomNumber" parameterType="map" resultType="string">
 		SELECT roomId
 		FROM chatroom
 		WHERE roomName = #{roomName} AND roomKing = #{createUser}
@@ -87,5 +87,20 @@
 	<delete id="deleteFriend" parameterType="map">
 		DELETE FROM friendlist WHERE userId = #{userId} AND friendId = #{friendId}
 	</delete>
+	
+	<insert id="roomInvite" parameterType="map">
+		INSERT INTO chatinvite (roomNumber, sender, recipient, confirm)
+		VALUES (#{roomNumber},#{sender},#{recipient},0)
+	</insert>
+	
+	<select id="inviteList" parameterType="string" resultType="map">
+		SELECT roomNumber AS num, sender AS s, recipient AS r, confirm
+		FROM chatinvite WHERE recipient = #{value} AND confirm = 0
+	</select>
+	
+	<update id="roomInviteCheck" parameterType="map">
+		UPDATE chatinvite SET confirm = 1
+		WHERE roomNumber = #{roomNumber} AND sender = #{sender} AND recipient = #{recipient}
+	</update>
 	
 </mapper>

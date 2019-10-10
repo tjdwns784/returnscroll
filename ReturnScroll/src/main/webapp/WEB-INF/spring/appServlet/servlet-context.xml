@@ -33,7 +33,7 @@
       <property name="suffix" value=".jsp" />
    </bean>
    
-<<<<<<< HEAD
+
    <context:component-scan base-package="com.spring.returnscroll" />
    
       <!-- DataSource -->
@@ -44,12 +44,12 @@
         <property name="username" value="root"></property>
         <property name="password" value="mysql"></property>
     </bean>
-=======
+
    <context:component-scan base-package="com.spring.returnscroll" use-default-filters="false">
        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
    </context:component-scan>
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+
 
     <!-- SqlSessionFactoryBean -->
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
