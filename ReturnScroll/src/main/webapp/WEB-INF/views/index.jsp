@@ -31,7 +31,19 @@
   <!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
 	
+
 	<!-- Header -->
+
+	<style>
+ 
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  
+  body, table, div, a, li, ul{font-family:'Nanum Gothic';}
+      
+  </style>
+
+  <!-- Header -->
+
   <header class="masthead d-flex">
   <c:if test="${not empty inviteList }">
 		<div class='dropdown' style='float: right;'>

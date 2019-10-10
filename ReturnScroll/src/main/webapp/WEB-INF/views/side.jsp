@@ -3,6 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 
+ <style>
+ 
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  
+  body, table, div, a, li, ul{font-family:'Nanum Gothic';}
+      
+  </style>
+
 	<a class="menu-toggle rounded" style="z-index:11000;"> <i class="fas fa-bars"></i>
 	</a>
 	<nav id="sidebar-wrapper" style="z-index:10000;">
