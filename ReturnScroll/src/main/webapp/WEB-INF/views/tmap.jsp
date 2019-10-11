@@ -453,6 +453,7 @@
          			height : "800px",
          		});
          		
+         		//위치 정보 받아오기
          		navigator.geolocation.getCurrentPosition(function(pos) {
     				latitude = pos.coords.latitude;
     				longitude = pos.coords.longitude;
@@ -570,6 +571,7 @@
         			console.log('lonlat : ' + lonlat); 
         			
         		}, 3000);
+				
          	}
 			
 			function stopMyLocation(){

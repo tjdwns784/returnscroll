@@ -31,9 +31,6 @@
   <!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
 	
-
-	<!-- Header -->
-
 	<style>
  
   @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -78,11 +75,8 @@
 	}
       
   </style>
-
-
-  
-  <div style="text-align:center;">
-       <img src="resources/img/img_returnscroll1.png"><br>
+   <div style="text-align:center;">
+       <img src="resources/img/img_returnscroll1.png" style="max-width:100%; height:auto;"><br>
       
       <button onclick="location.href='/returnscroll/login'">Login</button>
       <br><br><br>
@@ -120,7 +114,7 @@
       <h1 class="mb-1" style="margin-top:-10%">Return Scroll</h1>
       <h3 class="mb-5">
         <em>집에 조심히 가자구~!</em>
-        <img src="resources/img/혼신의힘을다한작품.jpg">
+        <img src="resources/img/혼신의힘을다한작품.jpg" style="max-width:100%; height:auto;">
       </h3>
       <a class="btn btn-primary btn-xl js-scroll-trigger" href="/returnscroll/login">Login</a>
     </div>
