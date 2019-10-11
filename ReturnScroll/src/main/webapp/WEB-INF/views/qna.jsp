@@ -78,9 +78,9 @@
 	  width:100%;
 	  transition:800ms ease all;
 	}
-	#sidebar-wrapper {
-		margin-top: -2%;
-	}
+ 	#sidebar-wrapper {
+		margin-top: -1.2%;
+	} 
 	
 	
 <!--반응형 테이블 -->
@@ -174,6 +174,9 @@ table th {
   }
  
 }
+  /* .masthead {
+  	padding-top: 4rem; 
+  } */
   </style>
     </head>
 <body id="page-top">
@@ -188,7 +191,13 @@ table th {
 	<!-- Custom scripts for this template -->
 	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
+ <!--  <header class="masthead d-flex"> -->
+ <header>
+    <div class="container my-auto">
+ 
+
 <h1 style="margin-left:5%;margin-top:2%;">Q&A 게시판</h1>
+<!-- <h1 class="mb-1">Q&A 게시판</h1> -->
 <hr style="width:90%; background:#FFCC33; height:2px" >
 
 
@@ -314,6 +323,10 @@ table th {
     </c:if>
   </ul>
 </div>
+
+</div>
+</header>
+
 <script>
 	function enterkey() {
 	    if (window.event.keyCode == 13) {
