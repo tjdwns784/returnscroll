@@ -302,6 +302,12 @@ public class MemberController {
 			map.put("uid", facebook);
 		}
 		
+		if(map.containsKey("google")) {
+			String google = (String) map.get("google");
+			google = "google_" + google;
+			map.put("uid", google);
+		}
+		
 		String upw = (String) map.get("upw");
 		String result2="";
 		

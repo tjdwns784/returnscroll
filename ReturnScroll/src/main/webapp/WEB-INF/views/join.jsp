@@ -66,8 +66,9 @@
 				<form method="POST" > 
 				<!-- 카카오 -->
 				<input type="hidden" name="kakao" value="${param.kakao}">
-				<input type="hidden" name="kakao" value="${param.facebook}">
-					<c:if test="${param.kakao == null && param.facebook == null}">
+				<input type="hidden" name="facebook" value="${param.facebook}">
+				<input type="hidden" name="google" value="${param.google}">
+					<c:if test="${param.kakao == null && param.facebook == null && param.google == null}">
 						<div class="form-group">
 							<label for="user_id">아이디</label>
 							 <input type="text" style="width:70px; height:45px;"
@@ -90,6 +91,7 @@
 							<p id='msgpw2' style="color: red"></p>
 							<div class="check_font" id="pw2_check"></div>
 						</div>
+						
 					</c:if>
 					<c:if test="${param.kakao != null}">
 					<h3>카카오 회원가입 화면</h3>
@@ -101,6 +103,12 @@
 					<h3>페이스북 회원가입 화면</h3>
 					<p></p>
 					<p>페이스북 회원은 아이디와 비밀번호를 입력하실필요없습니다.</p>
+					</c:if>
+					
+					<c:if test="${param.google != null}">
+					<h3>구글 회원가입 화면</h3>
+					<p></p>
+					<p>구글 회원은 아이디와 비밀번호를 입력하실필요없습니다.</p>
 					</c:if>
 					
 					<div class="form-group">
@@ -225,7 +233,7 @@
 									
 									
 		$("#reg_submit").click(function(event){
-			if(('${param.kakao}' == null && '${param.kakao}' == '') || ('${param.facebook}' == null && '${param.facebook}' == '')) {
+			if(('${param.kakao}' == null && '${param.kakao}' == '') || ('${param.facebook}' == null && '${param.facebook}' == '') || ('${param.google}' == null && '${param.google}' == '')) {
 				if(isId==0){						
 					event.preventDefault();					
 					alert("아이디를 확인해 주세요.")					

@@ -56,9 +56,9 @@
 	<!-- 회원 가입-->
 	<insert id="insert" parameterType="map">
 		INSERT INTO USERS
-		(UID, UPW, UNAME, NICK, BIRTH, PHONE, EMAIL, KAKAO, FACEBOOK, NAVER, GOOGLE, TWITTER)
+		(UID, UPW, UNAME, NICK, BIRTH, PHONE, EMAIL, KAKAO, FACEBOOK, NAVER, GOOGLE)
 		VALUES
-		(#{uid}, #{upw}, #{uname},#{nick},#{birth},#{phone},#{email},#{kakao},#{facebook},#{naver},#{google},#{twitter})
+		(#{uid}, #{upw}, #{uname},#{nick},#{birth},#{phone},#{email},#{kakao},#{facebook},#{naver},#{google})
 	</insert>
 	
 	<!-- 로그인 -->

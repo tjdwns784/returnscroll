@@ -10,7 +10,10 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com">
+    
+    
 <title>귀환주문서</title>
 
 <!-- Bootstrap Core CSS -->
@@ -104,9 +107,9 @@
 				<div class="fb-login-button" onlogin="checkLoginState();" data-width="200px" data-size="large" data-button-type="login_with"
   						data-auto-logout-link="true" data-use-continue-as="false"></div>
   						
-  				<div class="g-signin2" id="google-login-button" data-onsuccess="onSignIn" data-theme="dark">google</div>
-<!-- 			<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"> </fb:login-button> -->
-		</div>
+			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">google</div>
+			<a href="#" onclick="signOut();">Sign Out</a>
+			
 		<div class="overlay"></div>
     </form>
    
@@ -346,63 +349,46 @@
 	}										
 	//]]>															
 </script>
-<script async defer src="https://apis.google.com/js/api.js" 
-onload="this.onload=function(){};HandleGoogleApiLibrary()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
-			//Called when Google Javascript API Javascript is loaded
-			function HandleGoogleApiLibrary() {
-				// Load "client" & "auth2" libraries
-				gapi.load('client:auth2',  {
-					callback: function() {
-						// Initialize client & auth libraries
-						gapi.client.init({
-					    	apiKey: 'AAz6Q1QyVVQjCeFp4g1xSlKW',
-					    	clientId: '630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com',
-					    	scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.me'
-						}).then(
-							function(success) {
-						  		// Libraries are initialized successfully
-					  			// You can now make API calls
-							}, 
-							function(error) {
-								// Error occurred
-								// console.log(error) to find the reason
-						  	}
-						);
-					},
-					onerror: function() {
-						// Failed to load libraries
-					}
-				});
-			}
-			//Call login API on a click event
-			$("#google-login-button").on('click', function() {
-				// API call for Google login
-				gapi.auth2.getAuthInstance().signIn().then(
-					function(success) {
-						// Login API call is successful	
-					},
-					function(error) {
-						// Error occurred
-						// console.log(error) to find the reason
-					}
-				);
-			});
-			//API call to get user profile information
-			gapi.client.request({ path: 'https://www.googleapis.com/plus/v1/people/me' }).then(
-				function(success) {
-					// API call is successful
-			
-					var user_info = JSON.parse(success.body);
-			
-					// user profile information
-					console.log(user_info);
-				},
-				function(error) {
-					// Error occurred
-					// console.log(error) to find the reason
+function signOut() {
+	var auth2 = gapi.auth2.getAuthInstance();
+	auth2.signOut().then(function () {
+		console.log('user singed out');
+	});
+	auth2.disconnect();
+}
+</script>
+<script>
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log("Email: " + profile.getEmail());
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+            ///////////////////////////////////////////////////////////////
+            var id = profile.getId();					
+			$.ajax({					
+				url : "googleDup",				
+				data : {				
+				google : id			
+				},				
+				success : function(res) {				
+					console.log(res);			
+								
+					if (res == 0) {			
+						location = 'join?google=' + id + ''		
+					} else if (res == 1) {			
+						location = 'loginGoogle?google=' + id + ''		
+					}			
+				},fail : function(error) {						
+						console.log("error");
 				}
-			);
+			});		
+        };
 </script>
 <script>
     window.onload = function() {
