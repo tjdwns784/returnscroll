@@ -72,6 +72,10 @@
 	#sidebar-wrapper {
 		margin-top: -2%;
 	}
+	
+	a.page-link {
+		color:#662500;
+	}
   </style>
 </head>
 <body>
@@ -90,7 +94,7 @@
 <hr style="width:90%; background:#FFCC33; height:2px" >
 <div style="margin-left:5%;">
 <h4> ${article.NO} | ${article.TITLE} </h4>
-<p style="text-align: right;margin-right: 5%;"> 조회수 : ${article.HIT} | 작성자 : ${article.WRITER} | 작성일자 : ${article.WRITE_DATE}</p>
+<h6 style="text-align: right;margin-right: 5%;"> 조회수 : ${article.HIT} | 작성자 : ${article.WRITER} | 작성일자 : ${article.WRITE_DATE}</h6>
 <br>
 <div> 
  ${article.CONTENT}
@@ -103,7 +107,7 @@
 <button id="btnDelete"  onclick="location.href='../articleDelete/${article.NO}'">삭제</button>
 <button id="btnQna"  onclick="location.href='../qna'">목록</button>
 </div>
-<hr style="width:90%; background:#FFCC33; height:2px" >
+<hr style="width:90%;" >
 
 <script>
 
@@ -193,7 +197,12 @@ var artid = "${article.WRITER}";
   </ul>
 </div>
 
-
+<div>
+<br><br>
+    <hr style="width:90%; background:#FFCC33; height:2px" >
+      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
+      <br>
+      </div>
 
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"> </script>
 <script>

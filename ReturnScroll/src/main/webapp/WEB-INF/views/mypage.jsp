@@ -25,40 +25,88 @@
 </head>
 
 <body id="page-top">
+<style>
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); 
+  body, table, div, p ,h1,button, td,option{font-family:'Nanum Gothic'; font-weight:bold;} 
+  
+  button{
+	  background:#000000;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:40px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	}
+	button:hover{
+	  background:#fff;
+	  color:#000000;
+	}
+	button:before,button:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #000000;
+	  transition:400ms ease all;
+	}
+	button:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	button:hover:before,button:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
+</style>
 
-  <!-- Navigation -->
-	<jsp:include page="side.jsp"></jsp:include>
+ <!-- Navigation -->
+<jsp:include page="side.jsp"></jsp:include>
+  <!-- Bootstrap core JavaScript -->
+  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Custom scripts for this template -->
+  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
-<br>						
+<h1 style="margin-left:5%;margin-top:2%;">My Page</h1>
+<hr style="width:90%; background:#FFCC33; height:2px" >
+<br><br>
+<div style="width:90%; margin: 0 auto;">
 	<ul class="list-group">					
-						
-						
+					
 		<li class="list-group-item">아이디 : ${map.uid}</li>				
 		<li class="list-group-item">이름 : ${map.uname}</li>				
 		<li class="list-group-item">별명 : ${map.nick}</li>				
 		<li class="list-group-item">생년월일 : ${map.birth}</li>				
 		<li class="list-group-item">휴대폰 : ${map.phone}</li>				
-		<li class="list-group-item">이메일 : ${map.email}</li>			
-			
-	<button id="edit" class="btn btn-warning btn-sm"					
-			onclick='userUpdate()'>수정</button>			
-		<button id="del" class="btn btn-danger btn-sm"				
-			onclick='userDelete()'>회원탈퇴</button>			
+		<li class="list-group-item">이메일 : ${map.email}</li>	
+	</ul>		
+		<br><br><br><br>
+		
+		<div style="text-align:center;">
+		<button id="edit" 				
+			onclick='userUpdate()' style="height:40px; font-size: 17px;">수정</button>
+		<button id="del"			
+			onclick='userDelete()' style="height:40px; font-size: 17px;">회원탈퇴</button>			
+		</div>
 
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-  <!-- Bootstrap core JavaScript -->
-  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
+  </div>
+  
+  <div>
+	<br><br><br><br>
+    <hr style="width:90%; background:#FFCC33; height:2px" >
+      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
+      </div>
 
 	<script>				
 		function userUpdate() {			
@@ -68,14 +116,7 @@
 		function userDelete() {			
 			location = '/returnscroll/userDelete';		
 		}			
-					
-// 		function checkMyPost() {			
-// 			location = '../checkMyPost';		
-// 		};			
-					
-// 		function checkMyReply() {			
-// 			location = '../checkMyReply';		
-// 		};			
+		
 	</script>	
 </body>
 

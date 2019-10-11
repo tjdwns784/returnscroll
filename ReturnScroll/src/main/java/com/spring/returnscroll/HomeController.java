@@ -46,14 +46,6 @@ public class HomeController  {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/index2", method = RequestMethod.GET)
-	public String home2(Locale locale, Model model) {
-
-		return "index2";
-	}
-	
-
-	
 	//지도 기본
 	@RequestMapping(value = "/map", method = RequestMethod.GET)
 	public String map(Locale locale, Model model) {

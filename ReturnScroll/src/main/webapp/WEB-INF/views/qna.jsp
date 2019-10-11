@@ -18,14 +18,14 @@
   <!-- Custom CSS -->
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
   
-  
-<%--  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" > 
+  <%-- 
+  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" > 
    <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-   --%>
+    --%>
   <style>
  
    @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); 
@@ -36,6 +36,10 @@
       background-color: #FFFF99;
     }
     
+    a.page-link {
+		color:#662500;
+	}
+	
 	button{
 	  background:#000000;
 	  color:#fff;
@@ -75,6 +79,7 @@
 	#sidebar-wrapper {
 		margin-top: -2%;
 	}
+	
   </style>
     </head>
 <body id="page-top">
@@ -145,7 +150,7 @@
 	
 	</tbody>
 </table>
-<hr style="width:90%; background:#FFCC33; height:2px" >
+<hr style="width:90%;" >
 <button onclick="location.href='write'" style="float:right; margin-right:5%; margin-bottom: 0.5%;"> 글쓰기 </button>
 <button onclick="location.href='qna?searchText=${unick}' +'&searchItem=c_writer' + '&searchOrd= ';" style="float: right; margin-right: 1%;"> 내댓글 </button>
 <button onclick="location.href='qna?searchText=${unick}' +'&searchItem=a_writer' + '&searchOrd= ';" style="float: right; margin-right: 1%;"> 내게시글 </button>
@@ -238,6 +243,9 @@
 	})
 	
 </script>
-
-<hr width="90%">
+<div>
+<br><br>
+    <hr style="width:90%; background:#FFCC33; height:2px" >
+      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
+      </div>
 </body>

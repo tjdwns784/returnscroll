@@ -105,13 +105,19 @@
 		<input type="hidden" name="writer" value="${unick}">
 		<br><br> 
 			<textarea id="summernote" name="content" ></textarea>
-			<hr style="width:100%; background:#FFCC33; height:2px" >
+			<hr style="width:100%;" >
 			<div style="text-align:center;">
 			<input id="cancelBtn" type="button" value="이전" onclick="location.href='../returnscroll/qna'"/>
 			<input type="button" value="등록" onclick="goWrite(this.form)"/>
 			</div>
 		</form>
 	</div>
+	
+	<div>
+<br><br>
+    <hr style="width:90%; background:#FFCC33; height:2px" >
+      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
+      </div>
 	
 	
 	<script>
@@ -171,6 +177,7 @@
 	}
 	
 	</script>
+
 
 	
 
