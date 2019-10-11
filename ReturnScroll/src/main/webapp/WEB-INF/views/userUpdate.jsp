@@ -84,12 +84,15 @@
 	<div class="form-group">
 
 		<div id="uid">
-			ID : <input name="uid" value="${uid}" readonly="readonly">
-		</div>
+			<label for="user_id">아이디</label> 
+			<input name="uid" value="${uid}" readonly="readonly" class="form-control">
+		</div><br>
+		
 		<label for="user_pw">비밀번호</label> <input type="password" class="form-control" id="user_pw" name="upw" placeholder="Password" required>
 		<p id='msgpw' style="color: red"></p>
 		<div class="check_font" id="pw_check"></div>
 	</div>
+	
 	<div class="form-group">
 		<label for="user_pw2">비밀번호 확인</label> <input type="password" class="form-control" id="user_pw2" name="upw2" placeholder="Confirm Password" required>
 		<p id='msgpw2' style="color: red"></p>
@@ -103,7 +106,7 @@
 						<div class="check_font" id="name_check"></div>
 	</div>
 	<div class="form-group">
-						<label for="user_phone">핸드폰 번호:</label> 
+						<label for="user_phone">핸드폰 번호</label> <br>
 						<select name="p1" style="width:85px; height:40px;">
 							<option value="010" <c:if test="${info.p1 == '010'}">selected</c:if>>010
 							</option>
@@ -128,11 +131,12 @@
 						<p id='msgemail' style="color: red"></p>
 						<div class="check_font" id="email_check"></div>
 	</div>
-	<br>
+	<br><br>
 	
 	<hr style="width:100%;" >
 	<div style="margin:0 auto; text-align:center;">
 		<!-- submit 서버와 통신을 하게 되는 버튼 -->
+		<a href="/returnscroll/mypage"><input type="button" value="이전으로"></a>
 		<input type="submit" id="userupdate"  value="정보수정">
 		<a href="/returnscroll/userDelete"><input type="button" value="회원탈퇴"></a>
 	</div>

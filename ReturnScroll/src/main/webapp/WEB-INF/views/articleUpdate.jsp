@@ -17,12 +17,62 @@
 	
 	  <!-- Custom CSS -->
 	  <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
-	  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" >
+	 <%--  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" > --%>
 	  
-	  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<!--   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
 	<!-- include summernote css/js-->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
 	
+	<style>
+ 
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  
+  body, table, div, p, h1 {font-family:'Nanum Gothic';}
+
+	input[type=button]{
+	  background:#000000;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:40px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	}
+	input[type=button]:hover{
+	  background:#fff;
+	  color:#000000;
+	}
+	input[type=button]:before,input[type=button]:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #000000;
+	  transition:400ms ease all;
+	}
+	input[type=button]:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	input[type=button]:hover:before,input[type=button]:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
+	a.menu-toggle > i {
+		margin-top: 18px;
+	}
+	#sidebar-wrapper {
+		margin-top: -2%;
+	}	
+    
+  </style>
 
 </head>
 <body>
@@ -43,19 +93,33 @@
 	<!-- include summernote-ko-KR -->
 	<script src="/resources/js/summernote-ko-KR.js"></script>
 
-	<div style="width:80%; margin:0 auto;">
+
+	<h1 style="margin-left:5%;margin-top:2%;">Q&A 글쓰기</h1>
+	<hr style="width:90%; background:#FFCC33; height:2px" >
+	
+	<div style="width:90%; margin:0 auto;">
 	<form method="post" id='frm' name='frm'>
-		<br><br>
+
 		<input type="hidden" name="no" value="${no}"><br>
 		제목   :   <input type="text" name="title" style="width:95%" value="${article.TITLE}"><br>
 		<input type="hidden" name="writer" value="${unick}">
-		<br><br> 
+		<br>
 			<textarea id="summernote" name="content" >${article.CONTENT}</textarea>
 			<hr>
+			<div style="text-align:center;">
 			<input id="cancelBtn" type="button" value="취소" onclick="location.href='../show/${no}'"/>
 			<input type="button" value="수정" onclick="goWrite(this.form)">
+			</div>
 	</form>
 	</div>
+	
+		<div>
+<br><br>
+    <hr style="width:90%; background:#FFCC33; height:2px" >
+      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
+      </div>
+	
+	
 <script>
 	$(document).ready(function() {
 		var sendFile = function (file, el) {
