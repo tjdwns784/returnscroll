@@ -31,6 +31,9 @@ public class LoginSessionListener implements HttpSessionAttributeListener {
 
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent se) {
+		HttpSession session = se.getSession();
+		String uid = (String) session.getAttribute("uid");
+		map.remove(uid);
 //		System.out.println("removed");
 //		System.out.println(map);
 //		HttpSession session = se.getSession();
