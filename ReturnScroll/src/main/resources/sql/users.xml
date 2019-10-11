@@ -56,17 +56,81 @@
 	<!-- 회원 가입-->
 	<insert id="insert" parameterType="map">
 		INSERT INTO USERS
-		(UID, UPW, UNAME, NICK, BIRTH, PHONE, EMAIL)
+		(UID, UPW, UNAME, NICK, BIRTH, PHONE, EMAIL, KAKAO, FACEBOOK, NAVER, GOOGLE)
 		VALUES
-		(#{uid}, #{upw}, #{uname},#{nick},#{birth},#{phone},#{email})
+		(#{uid}, #{upw}, #{uname},#{nick},#{birth},#{phone},#{email},#{kakao},#{facebook},#{naver},#{google})
 	</insert>
 	
 	<!-- 로그인 -->
 	<select id="login" parameterType="string" resultType="map">
 		SELECT *
 		FROM `USERS` WHERE UID = #{uid} 
-<!-- 		AND UPW = #{upw} -->
+		<!-- 		AND UPW = #{upw} -->
 	</select>
+	
+	<!-- 카카오 로그인 -->
+	<select id="loginKakao" parameterType="string" resultType="map">				
+		SELECT * 
+		FROM `USERS`
+		WHERE KAKAO = 
+		#{VALUE}		
+	</select>		
+		
+	<!-- 페이스북 로그인 -->
+	<select id="loginFacebook" parameterType="string" resultType="map">				
+		SELECT * 
+		FROM `USERS`
+		WHERE FACEBOOK = 
+		#{VALUE}		
+	</select>	
+		
+	<!-- 네이버 로그인 -->
+	<select id="loginNaver" parameterType="string" resultType="map">				
+		SELECT * 
+		FROM `USERS`
+		WHERE NAVER = 
+		#{VALUE}		
+	</select>
+			
+	<!-- 구글 로그인 -->
+	<select id="loginGoogle" parameterType="string" resultType="map">				
+		SELECT * 
+		FROM `USERS`
+		WHERE GOOGLE = 
+		#{VALUE}		
+	</select>	
+		
+	<!-- 카카오 중복 -->
+	<select id="kakao" parameterType="string" resultType="string">				
+		SELECT		
+		UNAME		
+		FROM `USERS` WHERE KAKAO = 
+		#{VALUE}		
+	</select>		
+	
+	<!-- 페이스북 중복 -->
+	<select id="facebook" parameterType="string" resultType="string">				
+		SELECT		
+		UNAME		
+		FROM `USERS` WHERE FACEBOOK = 
+		#{VALUE}		
+	</select>		
+	
+	<!-- 네이버 중복 -->
+	<select id="naver" parameterType="string" resultType="string">				
+		SELECT		
+		UNAME		
+		FROM `USERS` WHERE NAVER = 
+		#{VALUE}		
+	</select>		
+	
+	<!-- 구글 중복 -->
+	<select id="google" parameterType="string" resultType="string">				
+		SELECT		
+		UNAME		
+		FROM `USERS` WHERE GOOGLE = 
+		#{VALUE}		
+	</select>		
 	
 	<!-- 회원 아이디 중복검사-->
 	<select id="uid" parameterType="string" resultType="string">

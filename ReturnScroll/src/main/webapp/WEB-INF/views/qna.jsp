@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
       	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      
         <title>Q&A</title>
     	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
     	 <!-- Bootstrap Core CSS -->

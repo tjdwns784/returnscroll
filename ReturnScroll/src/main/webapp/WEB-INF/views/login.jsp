@@ -10,7 +10,10 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com">
+    
+    
 <title>귀환주문서</title>
 
 <!-- Bootstrap Core CSS -->
@@ -101,9 +104,12 @@
 			<a id="custom-login-btn" href="javascript:loginWithKakao()">
 <img id="kakao-login-btn" src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="235"/>
 </a>
-			<a href="http://localhost:8080/returnscroll/index">로그아웃</a>
-
-		</div>
+				<div class="fb-login-button" onlogin="checkLoginState();" data-width="200px" data-size="large" data-button-type="login_with"
+  						data-auto-logout-link="true" data-use-continue-as="false"></div>
+  						
+			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">google</div>
+			<a href="#" onclick="signOut();">Sign Out</a>
+			
 		<div class="overlay"></div>
     </form>
    
@@ -150,98 +156,239 @@
 	<!-- Custom scripts for this template -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-	<script>
-		function enterkey() {
-	        if (window.event.keyCode == 13) {
-	             // 엔터키가 눌렸을 때 실행할 내용
-	        	  var action = $('#btnLogin').attr("href");
-	 	          var form_data = {
-	 	            "uid" : $('#uid').val(),
-	 	            "upw" : $('#upw').val()
-	 	         };
-	 	         $.ajax({
-	 	            type : "POST",
-	 	            url : action,
-	 	            data : form_data,
-	 	            success : function(res) {
-	 	            	
-	 	               if (res == "success") {
-	 	                  alert("환영합니다!");
-	 	                  sendit();
-	 	                  location = "index"
-	 	               } else {
-	 	                  alert("아이디 또는 비밀번호가 잘못되었습니다");
-	 	               }
-	 	            },
-	 	            error : function() {
-	 	               alert("Error");
-	 	            }
-	 	         });
-	 	         return false;
-	           
-	        }
-		}
-// 		$('#btnLogin').click(function() {
-// 			$('form')[0].method = 'post';
-// 			$('form')[0].submit();
-// 			return false;
-// 		});
-	    $('#btnLogin').click(function() {
-	         var action = $('#btnLogin').attr("href");
-	         var form_data = {
-	            "uid" : $('#uid').val(),
-	            "upw" : $('#upw').val()
-	         };
-	         $.ajax({
-	            type : "POST",
-	            url : action,
-	            data : form_data,
-	            success : function(res) {
-	            	
-	               if (res == "success") {
-	                  alert("환영합니다!");
-	                  sendit();
-	                  location = "index"
-	               } else {
-	                  alert("아이디 또는 비밀번호가 잘못되었습니다");
-	               }
-	            },
-	            error : function() {
-	               alert("Error");
-	            }
-	         });
-	         return false;
 
-	      });
-	    </script>
+<script>
+		function enterkey() {
+			if (window.event.keyCode == 13) {
+				// 엔터키가 눌렸을 때 실행할 내용
+				var action = $('#btnLogin').attr("href");
+				var form_data = {
+					"uid" : $('#uid').val(),
+					"upw" : $('#upw').val()
+				};
+				$.ajax({
+					type : "POST",
+					url : action,
+					data : form_data,
+					success : function(res) {
+
+						if (res == "success") {
+							alert("환영합니다!");
+							sendit();
+							location = "index"
+						} else {
+							alert("아이디 또는 비밀번호가 잘못되었습니다");
+						}
+					},
+					error : function() {
+						alert("Error");
+					}
+				});
+				return false;
+
+			}
+		}
+		// 		$('#btnLogin').click(function() {
+		// 			$('form')[0].method = 'post';
+		// 			$('form')[0].submit();
+		// 			return false;
+		// 		});
+		$('#btnLogin').click(function() {
+			var action = $('#btnLogin').attr("href");
+			var form_data = {
+				"uid" : $('#uid').val(),
+				"upw" : $('#upw').val()
+			};
+			$.ajax({
+				type : "POST",
+				url : action,
+				data : form_data,
+				success : function(res) {
+
+					if (res == "success") {
+						alert("환영합니다!");
+						sendit();
+						location = "index"
+					} else {
+						alert("아이디 또는 비밀번호가 잘못되었습니다");
+					}
+				},
+				error : function() {
+					alert("Error");
+				}
+			});
+			return false;
+
+		});
+</script>
+<script>
+
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : '1155530134645895',
+				cookie : true, // enable cookies to allow the server to access the session
+				xfbml : true, // parse social plugins on this page
+				version : 'v4.0' // use graph api version 2.8
+			});
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
+			});
+		};
+
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		var accessToken;
+		function statusChangeCallback(response) {
+
+			console.log('statusChangeCallback');
+
+			if (response.status === 'connected') {
+				console.log(response.authResponse.accessToken);
+				// Logged into your app and Facebook.
+				accessToken = response.authResponse.accessToken;
+				testAPI();
+			} else if (response.status === 'not_authorized') {
+				document.getElementById('status').innerHTML = 'Please log '
+						+ 'into this app.';
+			} else {
+				document.getElementById('status').innerHTML = 'Please log '
+						+ 'into Facebook.';
+			}
+
+		}
+
+		function checkLoginState() {
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
+			});
+		}
+
+		function testAPI() {
+			console.log('Welcome! Fetching your information.... ');
+			FB.api('/me', {
+				"fields" : "id,name,email"
+			}, function(response) {
+				// Insert your code here
+				console.log('Successful login for: ' + response.name, response.email, response.id);
+				///////////////////////////////////////////////////////////////////////////////
+				var id = response.id;
+				
+				$.ajax({					
+							url : "facebookDup",				
+							data : {				
+							facebook : id			
+							},				
+							success : function(res) {				
+								console.log(res);			
+											
+								if (res == 0) {			
+									location = 'join?facebook=' + id + ''		
+								} else if (res == 1) {			
+									location = 'loginFacebook?facebook=' + id + ''		
+								}			
+							}				
+						});			
+				document.getElementById('status').innerHTML = JSON
+						.stringify(response);
+			});
+		}
+</script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type='text/javascript'>
-  //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('4de13c38b225e4c65f11521d264e7212');
-    // 카카오 로그인 버튼을 생성합니다.
-    function loginWithKakao() {
-	    Kakao.Auth.loginForm({
-	      success: function(authObj) {
-	    	  Kakao.API.request({
-		    	  url: '/v2/user/me',
-		    	  success: function(res) {
-		    		  console.log(res);
-		    		  var name = res.properties.nickname;
-		    		  var image = res.properties.profile_image;
-		    		  var html = '<h1>' + name + '<h1>';
-		    		  html += '<img src="' + image + '">';
-		    		  $('body').append(html);
-		    		  
-			     }
-		      })
-      		},
-	      fail: function(err) {
-	         alert(JSON.stringify(err));
-	      }
-    	});
-    }
-  //]]>
+<script>											
+	//<![CDATA[										
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.										
+	Kakao.init('4de13c38b225e4c65f11521d264e7212');										
+	// 카카오 로그인 버튼을 생성합니다.										
+	function loginWithKakao() {										
+		Kakao.Auth.loginForm({									
+			success : function(authObj) {								
+				console.log(JSON.stringify(authObj));							
+											
+				Kakao.API.request({							
+					url : '/v2/user/me',						
+					success : function(res) {						
+						var id = res.id;					
+						$.ajax({					
+							url : "kakaoDup",				
+							data : {				
+							kakao : id			
+							},				
+							success : function(res) {				
+								console.log(res);			
+											
+								if (res == 0) {			
+									location = 'join?kakao=' + id + ''		
+								} else if (res == 1) {			
+									location = 'loginKakao?kakao=' + id + ''		
+								}			
+							}				
+						});					
+											
+					},						
+					fail : function(error) {						
+						alert(JSON.stringify(error));
+					}						
+				});							
+											
+				//			let userCode = JSON.stringify(authObj);				
+											
+			},								
+			fail : function(err) {								
+				alert(JSON.stringify(err));							
+			}								
+		});									
+	}										
+	//]]>															
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+function signOut() {
+	var auth2 = gapi.auth2.getAuthInstance();
+	auth2.signOut().then(function () {
+		console.log('user singed out');
+	});
+	auth2.disconnect();
+}
+</script>
+<script>
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log("Email: " + profile.getEmail());
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+            ///////////////////////////////////////////////////////////////
+            var id = profile.getId();					
+			$.ajax({					
+				url : "googleDup",				
+				data : {				
+				google : id			
+				},				
+				success : function(res) {				
+					console.log(res);			
+								
+					if (res == 0) {			
+						location = 'join?google=' + id + ''		
+					} else if (res == 1) {			
+						location = 'loginGoogle?google=' + id + ''		
+					}			
+				},fail : function(error) {						
+						console.log("error");
+				}
+			});		
+        };
 </script>
 <script>
     window.onload = function() {
