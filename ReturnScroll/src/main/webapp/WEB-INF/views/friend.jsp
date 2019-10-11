@@ -246,7 +246,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.11:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.31:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     
     <!-- 모달 띄우고 내리는거 -->
@@ -344,6 +344,7 @@
          socket.on('c_add_friend_result', function(msg){
             alert(msg);
          })
+         consol
       }
 	</script>
 
