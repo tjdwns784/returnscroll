@@ -64,11 +64,12 @@
 		<div class="container text-align:left my-auto">
 			<div style="border: 1px solid; padding: 10px; text-align:center;">
 				<form method="POST" > 
-				<!-- 카카오 -->
+				<!-- 소셜 로그인 -->
 				<input type="hidden" name="kakao" value="${param.kakao}">
 				<input type="hidden" name="facebook" value="${param.facebook}">
 				<input type="hidden" name="google" value="${param.google}">
-					<c:if test="${param.kakao == null && param.facebook == null && param.google == null}">
+				<input type="hidden" name="naver" value="${param.naver}">
+					<c:if test="${param.kakao == null && param.facebook == null && param.google == null && param.naver == null}">
 						<div class="form-group">
 							<label for="user_id">아이디</label>
 							 <input type="text" style="width:70px; height:45px;"
@@ -109,6 +110,12 @@
 					<h3>구글 회원가입 화면</h3>
 					<p></p>
 					<p>구글 회원은 아이디와 비밀번호를 입력하실필요없습니다.</p>
+					</c:if>
+					
+					<c:if test="${param.naver != null}">
+					<h3>네이버 회원가입 화면</h3>
+					<p></p>
+					<p>네이버 회원은 아이디와 비밀번호를 입력하실필요없습니다.</p>
 					</c:if>
 					
 					<div class="form-group">
@@ -233,7 +240,7 @@
 									
 									
 		$("#reg_submit").click(function(event){
-			if(('${param.kakao}' == null && '${param.kakao}' == '') || ('${param.facebook}' == null && '${param.facebook}' == '') || ('${param.google}' == null && '${param.google}' == '')) {
+			if(('${param.kakao}' == null && '${param.kakao}' == '') || ('${param.facebook}' == null && '${param.facebook}' == '') || ('${param.google}' == null && '${param.google}' == '') || ('${param.naver}' == null && '${param.naver}' == '')) {
 				if(isId==0){						
 					event.preventDefault();					
 					alert("아이디를 확인해 주세요.")					
