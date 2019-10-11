@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	// 채팅에 접속 
-    var socket = io("http://192.168.0.31:82");
+    var socket = io("http://192.168.0.3:82");
 	
   // 2. 소켓에 이벤트를 등록하여 접속 됬음을 알게 되면 사용자의 이름을 받는다
     // (세션이 있었다면 : 이름, 아이디 사용)
@@ -27,51 +27,59 @@ $(document).ready(function() {
     
     // 현재 대화방 참여자 목록을 표시... 배열을 받음
     socket.on('c_send_member', (member) => {
-      var members = JSON.stringify(member);
-      console.log('입장한 방에 현재 멤버(member)는' + member);
-      console.log('json변형 데이터' + members);
+      console.log('입장한 방에 현재 멤버(member)는' + member[0].nick);
       // 참여자를 화면에 표시
       memberShow(member);
     })
     
     function memberShow(member){
-    	var keys = Object.keys(member);
+    	// $("#memberList").empty();
+    	console.log('여기로 들어오는지...')
     	var html = "";
-    	for(var i in keys){
-    		html += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+data[i].nick
+    	for(var i =0 ; i<Object.keys( member ).length ; i++){
+    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
+    		html += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+member[i].nick+"";
     		html += "<span class='caret'></span></button>"
 			html += "<ul class='dropdown-menu' style='list-style:none;'>"
 			html += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
-			html += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
+//			html += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
 			html += "</ul></div>";
     	}
 
-    	for(var i=0;i<member.length;i++){
+    	/*for(var i=0;i<member.length;i++){
     		users += member[i] + "님  ";
-    	}
-    	users+="</h6>";
-    	console.log('이 방에 참여자')
+    	}*/
+    	$("#memberList").append(html);
     	//$("#members").append(users);
     }
     
     // 현재 대화방 참여자 목록을 표시... 배열을 받음
     socket.on('c_send_updateMember', (member) => {
-      var members = JSON.stringify(member);
-      console.log('새로운 사람 : '+member)
-      console.log('json변형 데이터' + members);
+      console.log('새로운 사람 : '+member);
       // 참여자를 화면에 표시
       memberUpdate(member);
     })
     
     function memberUpdate(member){
     	// 해당 태그 내부요소들을 비움(?)
-    	$("#members").empty();
-    	var users="<h6>현재 대화 참여자 : ";
-    	for(var i=0;i<member.length;i++){
-    		users += member[i] + "님  ";
+    	$("#memberList").empty();
+    	console.log('[update] 여기로 들어오는지...')
+    	var html = "";
+    	for(var i =0;i<Object.keys( member ).length;i++){
+    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
+    		html += "<div class='dropdown' style='" +
+    				"float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+member[i].nick+"";
+    		html += "<span class='caret'></span></button>"
+			html += "<ul class='dropdown-menu' style='list-style:none;'>"
+			html += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
+//			html += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
+			html += "</ul></div>";
     	}
-    	users+="</h6>";
-    	//$("#members").append(users);
+
+    	/*for(var i=0;i<member.length;i++){
+    		users += member[i] + "님  ";
+    	}*/
+    	$("#memberList").append(html);
     }
 
     // 클라이언트가 메시지를 작성하고, 엔터 or send키 클릭을 통해서 메시지를 서버로 전송
@@ -85,11 +93,11 @@ $(document).ready(function() {
     })
     
     // 이 문서상에 존재하는 모든 요소들 중에 id 값이 sendBtn인 요소
-    $('buttin[id=sendBtn]').on('click', (evt)=>{
+    $('#sendBtn').on('click', (evt)=>{
         console.log('메시지 전송');
         sendMsg();
     })
-    
+    ;
     // 메시지 전송
     function sendMsg(){
       socket.emit('s_send_msg', $('input[name=message]').val(), new Date() );

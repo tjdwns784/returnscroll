@@ -168,6 +168,10 @@ public class HomeController  {
 		model.addAttribute("RoomNum",roomNum);
 		Map<String, Object> map2 = chatService.roomIn(roomNum);
 		model.addAttribute("room",map2);
+		
+		// 현재 여기 접속중인 회원의 정보를 보내줌,
+		List<Map<String, Object>> userList = chatService.roomMember(roomNum);
+		model.addAttribute("roomUser",userList);
 
 		// 룸정보를 보내줌(현재 디비는 구분되지만 소켓쪽에서 인식을 못함)
 		return "chat";
@@ -293,12 +297,11 @@ public class HomeController  {
 			// user의 친구 리스트 불러오기
 			List<Map<String, Object>> friendList = chatService.friendList(uid);
 			model.addAttribute("friendList",friendList);
-			System.out.println("[[[[[[[[[[[friendList 값 "+friendList+"]]]]]]]]]]]]");
 			
 			Map<String, HttpSession> sessionList = LoginSessionListener.map;
 			Set<String> keySet = sessionList.keySet();
 			
-			System.out.println(sessionList);
+			System.out.println("세션리스트 값 : "+sessionList);
 			model.addAttribute("sessionList", keySet);
 			
 			return "friend";
