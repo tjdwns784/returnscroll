@@ -51,14 +51,15 @@
 }
 
 #modal button {
-  display:inline-block;
-  width:100px;
+  display:initial;
+  width:0px;
   margin-left:calc(100% - 100px - 10px);
 }
 
 #modal .modal_content {
-  width:300px;
-  margin:100px auto;
+  width:800px;
+  height: 500px;
+  margin:0px 50px; 
   padding:20px 10px;
   background:#fff;
   border:2px solid #666;
@@ -98,19 +99,38 @@
 	<div id="modal">
    
 	    <div class="modal_content">
-	        <h2>친구초대</h2><br>
-	        <p>초대할 친구를 검색하세요</p>
-	        <form method="GET" id="find">
-		        ID : <input type="text" name="uid" id="uid" >
-	        </form>
-		    <button id="findId">검색</button>
-	        
-	         <br>
-	        
-	        <div id="uidList" ></div>
-	
-	        <button type="button" id="modal_close_btn">창 닫기</button>
-	      
+        	<button type="button" id="modal_close_btn" style='border: none;background: none;float: right;padding-right: 50px;'>
+        	<img src="resources/img/error.png" style='width: 20px;'></button>
+	        <h4 style='display: inline-block;'>${uid} 님의 친구 목록</h4><br>
+	        <div id="searchResult" style="padding-bottom: 10px;"></div>
+	          <table class="table">
+			    <thead>
+			      <tr>
+			        <th>No</th>
+			        <th>친구 ID</th>
+			        <th>닉네임</th>
+			        <th> - </th>
+			      </tr>
+			    </thead>
+			    <c:if test="${not empty friendList}">
+			    <c:forEach var="lists" items="${friendList }" varStatus="status" >
+			    <tbody>
+			      <tr>
+			        <td>${status.count }</td>
+			        <td>${lists.friendId }</td>
+			        <td>${lists.nick }</td>
+			        <td>
+			        	<input type='button' onclick='deleteFriend("${lists.friendId}");' value='친구삭제' style='border:none; background:none; display:inline-block;' />
+			        </td>
+			      </tr>
+			    </tbody>
+			    </c:forEach>
+			  </c:if>
+			  <c:if test="${empty friendList}">
+			    <h5>친구목록이 비어있습니다</h5>
+			  </c:if>
+			  </table>
+
 	    </div>
 	   
 	    <div class="modal_layer"></div>
@@ -121,11 +141,29 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
-                <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box box-warning direct-chat direct-chat-warning" style="padding:50px;">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
                     <div id="putUser" style='float: right;'>${uid}님 반갑습니다</div>
                     <div class="box-header with-border">
                         <h1 class="box-title">채팅방 리스트</h1><br>
+                        <c:if test="${not empty addFriend}">
+                           <div id="addFriend"></div>
+                           <div class='dropdown' style='float: right;'>
+                              <button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>
+                            <span class='caret'><img src="resources/img/alarm.png" style='width: 20px;'></span>
+                         </button>
+                          <c:forEach var="list" items="${addFriend }" varStatus="count" >
+                         <ul class='dropdown-menu' style='list-style:none;'>
+                            <li><a class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>${list.sender}님이 친구신청을 하였습니다</a></li>
+                           <li><a class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>
+                           <input type='hidden' id='senderId' value='${list.sender}'/>
+                              <button type='button' id='friendYes' >수락하기</button>
+                              <button type='button' id='friendNo'>거절하기</button></a></li>
+                        </ul>
+                        </c:forEach>
+                     	</div>
+                        </c:if>
+                        
                     </div>
                     
                     
@@ -158,7 +196,8 @@
                         </div>
                         <div style='margin-bottom: 10px;margin-right: 10px;float: right;'>
 	                        <button onclick="location.href='/returnscroll/chat/createRoom'" class="btn btn-warning btn-flat">채팅방 생성</button>
-	                        <button onclick="location.href='/returnscroll/chat/allRoom'" class="btn btn-warning btn-flat">전체 방 보기</button>
+<!-- 	                        <button onclick="location.href='/returnscroll/chat/allRoom'" class="btn btn-warning btn-flat">전체 방 보기</button> -->
+	                        <button onclick="location.href='/returnscroll/friend'" id='friendList' type="button" class="btn btn-warning btn-flat">친구관리</button>
                         </div>
                         <!-- /.direct-chat-pane -->
                     </div>
@@ -206,6 +245,8 @@
     <i class="fas fa-angle-up"></i>
   </a>
   <input type='hidden' id='nick' value='${nick}'>
+  <input type='hidden' id='recipient' value='${uid}'>
+  <input type='hidden' id='userID' value='${uid}'>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -217,8 +258,88 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.95:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.11:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script>
+       $('#friendYes').click(function(){
+          var sender = $('#senderId').val();
+          var recipient = $('#recipient').val();
+          var data = {"sender" : sender , "recipient" : recipient};
+          console.log('친구수락 버튼을 눌렀을 때 보내려는 데이터 : '+data.sender+","+data.recipient);
+          
+          $.ajax({
+            url:"http://localhost:8080/returnscroll/chat/addfriend",
+            type:'GET',
+            data: data,
+            success:function(data){
+               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
+                  alert(data+'님의 친구요청을 수락하였습니다.')
+            },
+            error:function(request, status, errorThrown){
+               alert('친구요청 수락 실패');
+            }
+         })
+       });
+       $('#friendNo').click(function(){
+          var sender = $('#senderId').val();
+          var recipient = $('#recipient').val();
+          var data = {"sender" : sender , "recipient" : recipient};
+          
+          $.ajax({
+            url:"http://localhost:8080/returnscroll/chat/addfriendReject",
+            type:'GET',
+            data: data,
+            success:function(data){
+               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
+                  alert(data+'님의 친구요청을 거절하였습니다.')
+            },
+            error:function(request, status, errorThrown){
+               alert('친구요청 수락 실패');
+            }
+         })
+       });
+    </script>
+    
+    <script type="text/javascript">
+//     $("#friendList").click(function(){
+//         $("#modal").fadeIn();
+//     });
+   
+//      $("#modal_close_btn").click(function(){
+//         $("#modal").fadeOut();
+//     });    
+
+    </script>
+    
+    <script>
+    	function deleteFriend(friendId){
+    		var userId = $('#userID').val();
+    		var data = {"userId" : userId , "friendId" : friendId};
+    		console.log('친구 삭제 할때 보내는 데이터 값 '+data.userId +",  "+data.friendId);
+    		var check = confirm(friendId+"님을 삭제하시겠습니까?");
+        	  if(check) {
+        		  alert("확인버튼 클릭");
+        		  $.ajax({
+                      url:"http://localhost:8080/returnscroll/chat/deleteFriend",
+                      type:'GET',
+                      data: data,
+                      success:function(data){
+                         //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
+                            alert(data+'님을 삭제하였습니다.')
+                      },
+                      error:function(request, status, errorThrown){
+                         alert('친구 삭제 실패');
+                      }
+                   })
+        	  }
+        	  else {
+        		  alert(friendId+"님을 친구목록에 유지하겠습니다");
+        	  }
+   		
+    		
+    	}
+    </script>
 
 </body>
 

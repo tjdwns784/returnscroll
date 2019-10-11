@@ -7,60 +7,106 @@
 <meta charset="UTF-8">
 <title>returnscroll 회원수정</title>
 <!-- Bootstrap Core CSS -->
-<link
-	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-
+<link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom Fonts -->
-<link
-	href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
-	rel="stylesheet" type="text/css">
-<link
-	href="${pageContext.request.contextPath}/resources/vendor/simple-line-icons/css/simple-line-icons.css"
-	rel="stylesheet">
-
+<link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css"	rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/vendor/simple-line-icons/css/simple-line-icons.css" 	rel="stylesheet">
 <!-- Custom CSS -->
-<link
-	href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css"	rel="stylesheet">
 </head>
 <body>
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
+	<!-- Bootstrap core JavaScript -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+	<script	src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Plugin JavaScript -->
+	<script	src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Custom scripts for this template -->
+	<script	src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
+	<style>
+ 
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  
+  body, table, div, p, h1, form {font-family:'Nanum Gothic'; font-weight:bold;}
 
-<h1>회원정보 수정</h1>
+	input[type=button], input[type=submit]{
+	  background:#000000;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:40px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	}
+	input[type=button]:hover, input[type=submit]:hover{
+	  background:#fff;
+	  color:#000000;
+	}
+	input[type=button]:before,input[type=button]:after, input[type=submit]:before,input[type=submit]:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #000000;
+	  transition:400ms ease all;
+	}
+	input[type=button]:after, input[type=submit]:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	input[type=button]:hover:before,input[type=button]:hover:after, input[type=submit]:hover:before,input[type=submit]:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
+	a.menu-toggle > i {
+		margin-top: 18px;
+	}
+	#sidebar-wrapper {
+		margin-top: -2%;
+	}	
+    
+  </style>
+	<h1 style="margin-left:5%;margin-top:2%;">My Page</h1>
+	<hr style="width:90%; background:#FFCC33; height:2px" >
 
+<div style="width:90%; margin:0 auto">
+<br><br>
 	<form action="/returnscroll/userUpdateAction" method="post">
 	<div class="form-group">
 
 		<div id="uid">
-			ID : <input name="uid" value="${uid}" readonly="readonly">
-		</div>
-						<label for="user_pw">비밀번호</label> <input type="password" 
-							class="form-control" id="user_pw" name="upw"
-							placeholder="Password" required>
-						<p id='msgpw' style="color: red"></p>
-						<div class="check_font" id="pw_check"></div>
-					</div>
-					<div class="form-group">
-						<label for="user_pw2">비밀번호 확인</label> <input type="password"
-							class="form-control" id="user_pw2" name="upw2"
-							placeholder="Confirm Password" required>
-						<p id='msgpw2' style="color: red"></p>
-						<div class="check_font" id="pw2_check"></div>
-					</div>
-					<div class="form-group">
+			<label for="user_id">아이디</label> 
+			<input name="uid" value="${uid}" readonly="readonly" class="form-control">
+		</div><br>
+		
+		<label for="user_pw">비밀번호</label> <input type="password" class="form-control" id="user_pw" name="upw" placeholder="Password" required>
+		<p id='msgpw' style="color: red"></p>
+		<div class="check_font" id="pw_check"></div>
+	</div>
+	
+	<div class="form-group">
+		<label for="user_pw2">비밀번호 확인</label> <input type="password" class="form-control" id="user_pw2" name="upw2" placeholder="Confirm Password" required>
+		<p id='msgpw2' style="color: red"></p>
+		<div class="check_font" id="pw2_check"></div>
+	</div>
+   <div class="form-group">
 						<label for="user_nick">별명</label> <input type="text"
 							class="form-control" id="user_nick" name="nick"
 							placeholder="NickName" required value="${info.nick}">
 						<p id='msgnick' style="color: red"></p>
 						<div class="check_font" id="name_check"></div>
-					</div>
-					<div class="form-group">
-						<label for="user_phone">핸드폰 번호:</label> 
+	</div>
+	<div class="form-group">
+						<label for="user_phone">핸드폰 번호</label> <br>
 						<select name="p1" style="width:85px; height:40px;">
 							<option value="010" <c:if test="${info.p1 == '010'}">selected</c:if>>010
 							</option>
@@ -75,35 +121,34 @@
 							<option value="019" <c:if test="${info.p1 == '019'}">selected</c:if>>019
 							</option>
 						</select>
-						-<input name="p2" required="required" style="width:85px; height:40px;" maxlength="4" value="${info.p2}">
-						-<input name="p3" required="required" style="width:85px; height:40px;" maxlength="4" value="${info.p3}">
+						- <input name="p2" required="required" style="width:85px; height:40px;" maxlength="4" value="${info.p2}">
+						- <input name="p3" required="required" style="width:85px; height:40px;" maxlength="4" value="${info.p3}">
 						<div class="check_font" id="phone_check"></div>
-					</div>
-					<div class="form-group">
-						<label for="user_email">이메일</label> <input type="text"
-							class="form-control" name="email" id="user_email"
-							placeholder="E-mail" required>
+	</div>
+	<div class="form-group">
+						<label for="user_email">이메일</label> 
+						<input type="text" class="form-control" name="email" id="user_email"  value="${info.email}" placeholder="E-mail" required>
 						<p id='msgemail' style="color: red"></p>
 						<div class="check_font" id="email_check"></div>
-					</div>
+	</div>
+	<br><br>
+	
+	<hr style="width:100%;" >
+	<div style="margin:0 auto; text-align:center;">
 		<!-- submit 서버와 통신을 하게 되는 버튼 -->
+		<a href="/returnscroll/mypage"><input type="button" value="이전으로"></a>
 		<input type="submit" id="userupdate"  value="정보수정">
 		<a href="/returnscroll/userDelete"><input type="button" value="회원탈퇴"></a>
+	</div>
+		</form>
+		</div>
+				
+	<div>
+	<br><br>	<br><br>
+    <hr style="width:90%; background:#FFCC33; height:2px" >
+      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
+      </div>
 
-				</form>
-					<!-- Bootstrap core JavaScript -->
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Plugin JavaScript -->
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<!-- Custom scripts for this template -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 	<script>
 		var isPw = 0							
 		var isEmail = 0							

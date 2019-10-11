@@ -11,6 +11,8 @@ public class LoginSessionListener implements HttpSessionAttributeListener {
 
 	public static Map<String, HttpSession> map = new HashMap<String, HttpSession>();
 
+	public static Map<String, String> sessionList = new HashMap<String, String>();
+	
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent se) {
 		// 로그인 시 등 세션에 값을 입력하면 동작하는 부분
@@ -32,6 +34,17 @@ public class LoginSessionListener implements HttpSessionAttributeListener {
 		HttpSession session = se.getSession();
 		String uid = (String) session.getAttribute("uid");
 		map.remove(uid);
+//		System.out.println("removed");
+//		System.out.println(map);
+//		HttpSession session = se.getSession();
+//		String uid = (String) session.getAttribute("uid");
+//		
+//		System.out.println(uid);
+//		
+//		map.remove(uid);
+//		session.invalidate();
+//		
+//		System.out.println(map);
 	}
 
 	@Override

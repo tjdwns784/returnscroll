@@ -181,7 +181,7 @@
                             <input type="text" name="message" placeholder="메세지를 입력하세요" class="form-control">
                             <span class="input-group-btn">
                                 <button id='sendBtn' type="button" class="btn btn-warning btn-flat">보내기</button>
-                                <button id='addFriend' type="button" class="btn btn-warning btn-flat">친구추가</button>
+<!--                                 <button id='addFriend' type="button" class="btn btn-warning btn-flat">친구추가</button> -->
                             </span>
                         </div>
                     </div>
@@ -240,9 +240,9 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.95:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.11:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script>
+    <script src="${pageContext.request.contextPath}/resources/chat.js"/></script>
     
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">
@@ -311,16 +311,25 @@
 
 	</script>
 	<script>
-		function inviteUser(user){
-			alert('초대할 유저 : '+user);
-			// 채팅에 접속
-			var socket = io("http://192.168.0.95:82");
-			
-			var user_id = user;
-			
-			soc
-			
-		}
+	 function inviteUser(user){
+
+         $("#modal").fadeOut();
+           
+         alert(user+'님에게 친구추가를 신청했습니다');
+         // 채팅에 접속
+         var socket = io("http://192.168.0.11:82");
+         
+         var recipient = user; // 받는사람
+         var sender = $('#userid').val();  // 보낸사람
+         
+         // insert문 수행
+         socket.emit('s_add_friend',sender,recipient);
+         
+         socket.on('c_add_friend_result', function(msg){
+            alert(msg);
+         })
+      }
+
 	</script>
 	
 	<!-- 현재 대화방에 참여중인 상대를 불러옴 -->

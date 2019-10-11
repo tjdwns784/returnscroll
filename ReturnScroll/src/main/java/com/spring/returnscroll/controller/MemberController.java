@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.returnscroll.Service.MemberService;
+import com.spring.returnscroll.listener.LoginSessionListener;
 
 @Controller
 public class MemberController {
@@ -32,7 +33,7 @@ public class MemberController {
 	public String mypage(Locale locale, Model model, HttpSession httpSession) {
 			if(httpSession.getAttribute("uid") == null) {
 				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
-				return "redirect:login";
+				return "redirect:/login";
 			}else {
 				Object userId = httpSession.getAttribute("uid");
 				String uid = userId.toString();
@@ -187,7 +188,10 @@ public class MemberController {
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)							
 	public String logout(Model model, HttpServletRequest req) {							
-		HttpSession session = req.getSession();						
+		HttpSession session = req.getSession();
+		String uid = (String) session.getAttribute("uid");
+		LoginSessionListener.map.remove(uid);
+		
 		session.invalidate();						
 		return "redirect:/index";						
 	}	

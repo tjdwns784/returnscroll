@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.returnscroll.Dao.ArticleDao;
 
@@ -70,6 +71,8 @@ public class ArticleService {//qna게시판
 		public int selectCommentCount(Map<String, Object> map) {
 			return articleDao.selectCommentCount(map);
 		}
+		
+	
 	
 
 }
