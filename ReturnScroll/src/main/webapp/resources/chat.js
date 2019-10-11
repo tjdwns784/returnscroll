@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	// 채팅에 접속 
-    var socket = io("http://192.168.0.11:82");
+    var socket = io("http://192.168.0.31:82");
 	
   // 2. 소켓에 이벤트를 등록하여 접속 됬음을 알게 되면 사용자의 이름을 받는다
     // (세션이 있었다면 : 이름, 아이디 사용)
@@ -27,21 +27,38 @@ $(document).ready(function() {
     
     // 현재 대화방 참여자 목록을 표시... 배열을 받음
     socket.on('c_send_member', (member) => {
+      var members = JSON.stringify(member);
+      console.log('입장한 방에 현재 멤버(member)는' + member);
+      console.log('json변형 데이터' + members);
       // 참여자를 화면에 표시
       memberShow(member);
     })
     
     function memberShow(member){
-    	var users="<h6>";
+    	var keys = Object.keys(member);
+    	var html = "";
+    	for(var i in keys){
+    		html += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+data[i].nick
+    		html += "<span class='caret'></span></button>"
+			html += "<ul class='dropdown-menu' style='list-style:none;'>"
+			html += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
+			html += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
+			html += "</ul></div>";
+    	}
+
     	for(var i=0;i<member.length;i++){
     		users += member[i] + "님  ";
     	}
     	users+="</h6>";
+    	console.log('이 방에 참여자')
     	//$("#members").append(users);
     }
     
     // 현재 대화방 참여자 목록을 표시... 배열을 받음
     socket.on('c_send_updateMember', (member) => {
+      var members = JSON.stringify(member);
+      console.log('새로운 사람 : '+member)
+      console.log('json변형 데이터' + members);
       // 참여자를 화면에 표시
       memberUpdate(member);
     })
