@@ -312,6 +312,11 @@ public class MemberController {
 			map.put("uid", google);
 		}
 		
+		if(map.containsKey("naver")) {
+			String naver = (String) map.get("naver");
+			naver = "naver_" + naver;
+			map.put("uid", naver);
+		}
 		String upw = (String) map.get("upw");
 		String result2="";
 		
@@ -456,4 +461,12 @@ public class MemberController {
 
 		return a;
 	}
+	
+	@RequestMapping(value = "/callback", method = RequestMethod.GET)
+	public String callback() {
+		
+		return "callback";
+	}
+	
+	
 }

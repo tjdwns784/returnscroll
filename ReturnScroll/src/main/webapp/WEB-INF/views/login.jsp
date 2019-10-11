@@ -10,8 +10,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<meta name="google-signin-scope" content="profile email">
-<meta name="google-signin-client_id" content="630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com">
     
     
 <title>귀환주문서</title>
@@ -53,7 +51,7 @@
 
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
-	
+	<div>
     <form id="loginForm" name="loginForm">
         <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,150 C0,65 120,65 120,150" fill="#e0a243" stroke="#000" stroke-width="2.5" />
@@ -108,11 +106,13 @@
   						data-auto-logout-link="true" data-use-continue-as="false"></div>
   						
 			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">google</div>
-			<a href="#" onclick="signOut();">Sign Out</a>
-			
+					<!-- 네이버아이디로로그인 버튼 노출 영역 -->
+<!-- 			  <div id="naver_id_login"></div> -->
+			  <div id="naverIdLogin"></div>
+			  
 		<div class="overlay"></div>
     </form>
-   
+   </div>
 
 	<!-- Footer -->
 	<footer class="footer text-center">
@@ -221,7 +221,65 @@
 
 		});
 </script>
-<script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+
+<!-- 	<script type="text/javascript" -->
+<!-- 		src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" -->
+<!-- 		charset="utf-8"></script> -->
+	<script type="text/javascript">
+	var naverLogin = new naver.LoginWithNaverId(
+			{
+				clientId: "0xG1suQ90VZU_QsoAafW",
+				callbackUrl: "http://localhost:8080/returnscroll/callback",
+				isPopup: true, /* 팝업을 통한 연동처리 여부 */
+				loginButton: {color: "green", type: 1, height: 60} /* 로그인 버튼의 타입을 지정 */
+			}
+		);
+
+		naverLogin.init();
+		
+// 		var naver_id_login = new naver_id_login("0xG1suQ90VZU_QsoAafW",
+// 				"http://localhost:8080/returnscroll/callback");
+// 		var state = naver_id_login.getUniqState();
+// 		naver_id_login.setButton("white", 2, 40);
+// 		naver_id_login.setDomain("http://localhost:8080/returnscroll");
+// 		naver_id_login.setState(state);
+// 		naver_id_login.setPopup();
+// 		naver_id_login.init_naver_id_login();
+
+
+
+
+// 		alert(naver_id_login.oauthParams.access_token);
+// 		// 네이버 사용자 프로필 조회
+// 		naver_id_login.get_naver_userprofile("naverSignInCallback()");
+// 		// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+// 		function naverSignInCallback() {
+// 			alert(naver_id_login.getProfileData('email'));
+// 			alert(naver_id_login.getProfileData('nickname'));
+// 			alert(naver_id_login.getProfileData('age'));
+// 		}
+
+		function getNaverId(id) {
+			
+			$.ajax({					
+						url : "naverDup",				
+						data : {				
+							naver : id			
+						},				
+						success : function(res) {				
+							console.log(res);			
+										
+							if (res == 0) {			
+								location = 'join?naver=' + id + ''		
+							} else if (res == 1) {			
+								location = 'loginNaver?naver=' + id + ''		
+							}			
+						}				
+					});			
+		}
+	</script>
+	<script>
 
 		window.fbAsyncInit = function() {
 			FB.init({
@@ -351,15 +409,6 @@
 </script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
-function signOut() {
-	var auth2 = gapi.auth2.getAuthInstance();
-	auth2.signOut().then(function () {
-		console.log('user singed out');
-	});
-	auth2.disconnect();
-}
-</script>
-<script>
         function onSignIn(googleUser) {
             // Useful data for your client-side scripts:
             var profile = googleUser.getBasicProfile();
@@ -391,47 +440,47 @@ function signOut() {
         };
 </script>
 <script>
-    window.onload = function() {
- 
-        if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
-            document.loginForm.uid.value = getCookie("id"); //input 이름이 id인곳에 getCookie("id")값을 넣어줌
-            document.loginForm.idsave.checked = true; // 체크는 체크됨으로
-        }
- 
-    }
- 
-    function setCookie(name, value, expiredays) //쿠키 저장함수
-    {
-        var todayDate = new Date();
-        todayDate.setDate(todayDate.getDate() + expiredays);
-        document.cookie = name + "=" + escape(value) + "; path=/; expires="
-                + todayDate.toGMTString() + ";"
-    }
- 
-    function getCookie(Name) { // 쿠키 불러오는 함수
-        var search = Name + "=";
-        if (document.cookie.length > 0) { // if there are any cookies
-            offset = document.cookie.indexOf(search);
-            if (offset != -1) { // if cookie exists
-                offset += search.length; // set index of beginning of value
-                end = document.cookie.indexOf(";", offset); // set index of end of cookie value
-                if (end == -1)
-                    end = document.cookie.length;
-                return unescape(document.cookie.substring(offset, end));
-            }
-        }
-    }
- 
-    function sendit() {
-        if (document.loginForm.idsave.checked == true) { // 아이디 저장을 체크 하였을때
-            setCookie("id", document.loginForm.uid.value, 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
-        } else { // 아이디 저장을 체크 하지 않았을때
-            setCookie("id", document.loginForm.uid.value, 0); //날짜를 0으로 저장하여 쿠키삭제
-        }
- 
-        document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
- 
-    }
+	    window.onload = function() {
+	 
+	        if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
+	            document.loginForm.uid.value = getCookie("id"); //input 이름이 id인곳에 getCookie("id")값을 넣어줌
+	            document.loginForm.idsave.checked = true; // 체크는 체크됨으로
+	        }
+	 
+	    }
+	 
+	    function setCookie(name, value, expiredays) //쿠키 저장함수
+	    {
+	        var todayDate = new Date();
+	        todayDate.setDate(todayDate.getDate() + expiredays);
+	        document.cookie = name + "=" + escape(value) + "; path=/; expires="
+	                + todayDate.toGMTString() + ";"
+	    }
+	 
+	    function getCookie(Name) { // 쿠키 불러오는 함수
+	        var search = Name + "=";
+	        if (document.cookie.length > 0) { // if there are any cookies
+	            offset = document.cookie.indexOf(search);
+	            if (offset != -1) { // if cookie exists
+	                offset += search.length; // set index of beginning of value
+	                end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+	                if (end == -1)
+	                    end = document.cookie.length;
+	                return unescape(document.cookie.substring(offset, end));
+	            }
+	        }
+	    }
+	 
+	    function sendit() {
+	        if (document.loginForm.idsave.checked == true) { // 아이디 저장을 체크 하였을때
+	            setCookie("id", document.loginForm.uid.value, 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
+	        } else { // 아이디 저장을 체크 하지 않았을때
+	            setCookie("id", document.loginForm.uid.value, 0); //날짜를 0으로 저장하여 쿠키삭제
+	        }
+	 
+	        document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
+	 
+	    }
 </script>
 </body>
 
