@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com">
 
  <style>
  
@@ -14,7 +16,6 @@
   	background : #FF9900;
   	font-weight : bold;
   }
-  
   </style>
 
 	<a class="menu-toggle rounded" style="z-index:11000;"> <i class="fas fa-bars"></i>
@@ -39,8 +40,28 @@
 		<c:if test="${uid != null}">
 			<div style="bottom: 0;position: absolute;margin-bottom: 10px; margin-left:20px;">
 				${uid} 님이 접속중입니다.<br> 
-				<a href="http://localhost:8080/returnscroll/logout" style="color:red">로그아웃</a>
+				<a id="logout" href="http://localhost:8080/returnscroll/logout" style="color:red">로그아웃</a>
 			</div>
 		</c:if>
 		
 	</nav>
+
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>		
+<!-- 	<script src="https://apis.google.com/js/platform.js" async defer></script> -->
+<script>
+		function onLoad() {
+		    gapi.load('auth2', function() {
+		      gapi.auth2.init();
+		    });
+		  }
+		$('#logout').click(function(e) {
+	// 		e.preventDefault();
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				console.log('user singed out');
+			});
+			auth2.disconnect();
+		})
+</script>
