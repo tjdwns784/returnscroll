@@ -4,6 +4,7 @@
 
  <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Q&A 글수정</title>
         <script src="https://apis.openapi.sk.com/tmap/js?version=1&format=javascript&appKey=8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2"></script>
     	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -75,7 +76,7 @@
   </style>
 
 </head>
-<body>
+<body id="page-top">
 	 <!-- Navigation -->
     <jsp:include page="side.jsp"></jsp:include>
     <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -94,7 +95,7 @@
 	<script src="/resources/js/summernote-ko-KR.js"></script>
 
 
-	<h1 style="margin-left:5%;margin-top:2%;">Q&A 글쓰기</h1>
+	<h1 style="margin-left:5%;margin-top:2%;">Q&A 글 수정하기</h1>
 	<hr style="width:90%; background:#FFCC33; height:2px" >
 	
 	<div style="width:90%; margin:0 auto;">
@@ -112,6 +113,11 @@
 			</div>
 	</form>
 	</div>
+	
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
 	
 		<div>
 <br><br>

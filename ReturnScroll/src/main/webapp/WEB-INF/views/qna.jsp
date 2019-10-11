@@ -5,7 +5,8 @@
 <html lang="en">
 <head>
       	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      
+      	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
         <title>Q&A</title>
     	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
     	 <!-- Bootstrap Core CSS -->
@@ -29,12 +30,12 @@
     --%>
   <style>
  
-   @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); 
+   @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
   body, table, div, p ,h1,button, td,option{font-family:'Nanum Gothic';} 
    
    .table-hover > tbody > tr:hover {
-      background-color: #FFFF99;
+      background-color: #CCCCCC;
     }
     
     a.page-link {
@@ -81,6 +82,98 @@
 		margin-top: -2%;
 	}
 	
+	
+<!--반응형 테이블 -->
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+#tt {
+ text-align : left;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+
+
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  #tt {
+ text-align : right;
+}
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+ 
+}
   </style>
     </head>
 <body id="page-top">
@@ -107,7 +200,7 @@
 		<option value="o_hit" <c:if test='${param.searchOrd == "o_hit"}'>selected</c:if>>조회순</option>
 	</select>
 	<!-- <input type ="button" value="목록새로고침" onclick="location.href='qna?searchText= ' +'&searchItem= ' + '&searchOrd= ';" > -->
-	<button onclick="location.href='qna?searchText= ' +'&searchItem= ' + '&searchOrd= ';"> 목록새로고침 </button>
+	<button onclick="location.href='qna?searchText= ' +'&searchItem= ' + '&searchOrd= ';"> 목록고침 </button>
 	</div>
 	<div class="search" style="float:right; margin-right: 5%; margin-bottom: 1%">
 		<select id="searchItem" name="searchItem" style="height: 40px;width:100px">
@@ -125,26 +218,28 @@
 
 <table class="table table-hover" style="width:90%; margin: 0 auto;">
 <thead class="thead-dark" style="text-align:center;">
-<th style="width:10%;"> 번호 </th>
-<th style="width:55%;"> 제목 </th>
-<th style="width:10%;"> 작성자 </th>
-<th style="width:15%;"> 작성일 </th>
-<th style="width:10%;"> 조회수</th>
+<tr>
+<th style="width:10%;">번호</th>
+<th style="width:55%;">제목</th>
+<th style="width:10%;">작성자</th>
+<th style="width:15%;">작성일</th>
+<th style="width:10%;">조회수</th>
+</tr>
 </thead>
 <tbody>
 
 	<c:forEach items="${list}" var="item">
 
-		<tr onClick ="location.href='show/${item.NO}'" style="text-align:center; cursor:pointer;" >
-		<td >${item.NO}</td>
-		<td style="text-align:left;">${item.TITLE} 
+		<tr onClick ="location.href='show/${item.NO}'" style="cursor:pointer;" >
+		<td data-label="번호"  >${item.NO}</td>
+		<td data-label="제목" id="tt">${item.TITLE} 
 			<c:if test='${item.CMT_CNT > 0}'>
 			[${item.CMT_CNT}]
 			</c:if>
 		</td>
-		<td >${item.WRITER}</td>
-		<td >${item.WRITE_DATE}</td>
-		<td >${item.HIT}</td>
+		<td data-label="작성자" >${item.WRITER}</td>
+		<td data-label="작성일" >${item.WRITE_DATE}</td>
+		<td data-label="조회수" >${item.HIT}</td>
 		</tr>
 		
 	</c:forEach>
@@ -152,16 +247,19 @@
 	</tbody>
 </table>
 <hr style="width:90%;" >
+<button onclick="location.href='qna?searchText=${unick}' +'&searchItem=a_writer' + '&searchOrd= ';" style="float: left;  margin-right: 1%; margin-left:5%"> 내게시글 </button>
+<button onclick="location.href='qna?searchText=${unick}' +'&searchItem=c_writer' + '&searchOrd= ';" style="float: left;"> 내댓글 </button>
+
+
 <button onclick="location.href='write'" style="float:right; margin-right:5%; margin-bottom: 0.5%;"> 글쓰기 </button>
-<button onclick="location.href='qna?searchText=${unick}' +'&searchItem=c_writer' + '&searchOrd= ';" style="float: right; margin-right: 1%;"> 내댓글 </button>
-<button onclick="location.href='qna?searchText=${unick}' +'&searchItem=a_writer' + '&searchOrd= ';" style="float: right; margin-right: 1%;"> 내게시글 </button>
+
 <%-- 
 <input type ="button" value="글쓰기" onclick="location.href='write'" class="btn btn-info" style="float:right; margin-right:2.5%; margin-bottom: 0.5%;">
 <input type ="button" value="내댓글" onclick="location.href='qna?searchText=${unick}' +'&searchItem=c_writer' + '&searchOrd= ';" class="btn btn-info" 
 				style="float: right; margin-right: 1%;">
 <input type ="button" value="내게시글" onclick="location.href='qna?searchText=${unick}' +'&searchItem=a_writer' + '&searchOrd= ';" class="btn btn-info" 
 				style="float: right; margin-right: 1%;"> --%>
-
+<br><br><br>
 <div class="container" style="width:90%;" >
   <ul class="pagination" style="justify-content: center;">
     <% int t = (Integer)request.getAttribute("total"); 
@@ -244,9 +342,16 @@
 	})
 	
 </script>
+
+<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
 <div>
 <br><br>
     <hr style="width:90%; background:#FFCC33; height:2px" >
       <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
       </div>
+  
+	
 </body>

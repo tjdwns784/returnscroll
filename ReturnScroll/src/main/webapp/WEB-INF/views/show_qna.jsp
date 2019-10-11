@@ -4,6 +4,7 @@
 
  <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Q&A</title>
         <script src="https://apis.openapi.sk.com/tmap/js?version=1&format=javascript&appKey=8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2"></script>
     	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -28,7 +29,6 @@
    @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
   
   body, table, div, p, h1 , h4 {font-family:'Nanum Gothic';}
-  
   button{
 	  background:#000000;
 	  color:#fff;
@@ -78,7 +78,7 @@
 	}
   </style>
 </head>
-<body>
+<body id="page-top">
     <!-- Navigation -->
     <jsp:include page="side.jsp"></jsp:include>
     <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -122,13 +122,23 @@ var artid = "${article.WRITER}";
 </script>
 
 
-<div style="margin-left: 5%;">
+<div style="margin-left: 5%; max-width:90%;">
+<img id="co" src="../resources/img/comment.png" style=" width: 3%;height: 5%;"><strong>${cTotal}  comments</strong><br>
 <input type="text" id="comment" style="width: 90%; height:10%;" onkeydown="enterkey();">
 <button onclick="addComment()" style="height:10%;">등록</button>
 </div>
 <hr width="90%">
+<div style="width:90%; margin-left:5%;">
+	<c:forEach items="${list2}" var="item">
+			<h6 margin-bottom: 1.5%;>${item.WRITER} &nbsp;&nbsp;| &nbsp;&nbsp;${item.WRITE_DATE} &nbsp;&nbsp; 
+			<c:if test='${item.WRITER == unick}'><a href="../commentDelete/${item.CNO}?no=${article.NO}"> 삭제</a></c:if>	</h6>
+			${item.CONTENT}
+			<hr>		
+		
+	</c:forEach>
+</div>
 
-<table class="table" style="width:95%; margin: 0 auto;">
+<%-- <table class="table" style="width:95%; margin: 0 auto;">
 	 <tbody>
 	<c:forEach items="${list2}" var="item">
 		<tr style="text-align:center;">
@@ -141,7 +151,7 @@ var artid = "${article.WRITER}";
 		</tr>
 	</c:forEach>
 	</tbody>
-</table>
+</table> --%>
 <div class="container" style="width:90%;">
   <ul class="pagination" style="justify-content: center;">
   <%
@@ -203,6 +213,11 @@ var artid = "${article.WRITER}";
       <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
       <br>
       </div>
+      
+      <!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
 
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"> </script>
 <script>

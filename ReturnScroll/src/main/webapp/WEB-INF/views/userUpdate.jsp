@@ -137,15 +137,15 @@
 	<hr style="width:100%;" >
 	<div style="margin:0 auto; text-align:center;">
 		<!-- submit 서버와 통신을 하게 되는 버튼 -->
-		<a href="/returnscroll/mypage"><input type="button" value="이전으로"></a>
-		<input type="submit" id="userupdate"  value="정보수정">
-		<a href="/returnscroll/userDelete"><input type="button" value="회원탈퇴"></a>
+		<a href="/returnscroll/mypage"><input type="button" value="이전"></a>
+		<input type="submit" id="userupdate"  value="수정">
+		
 	</div>
 		</form>
 		</div>
 				
 	<div>
-	<br><br>	<br><br>
+	<br><br><br><br>
     <hr style="width:90%; background:#FFCC33; height:2px" >
       <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
       </div>

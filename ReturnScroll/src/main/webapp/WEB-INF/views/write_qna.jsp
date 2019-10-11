@@ -4,6 +4,7 @@
 
  <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Q&A 글쓰기</title>
         <script src="https://apis.openapi.sk.com/tmap/js?version=1&format=javascript&appKey=8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2"></script>
     	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -77,7 +78,7 @@
 	
 </head>
     
- <body>
+ <body id="page-top">
     <!-- Navigation -->
     <jsp:include page="side.jsp"></jsp:include>
     <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -113,6 +114,10 @@
 		</form>
 	</div>
 	
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
 	<div>
 <br><br>
     <hr style="width:90%; background:#FFCC33; height:2px" >

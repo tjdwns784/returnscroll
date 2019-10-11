@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>returnscroll 회원탈퇴</title>
 <!-- Bootstrap Core CSS -->
 <link
@@ -25,25 +26,86 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css"
 	rel="stylesheet">
+	
+	<style>
+ 
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  
+  body, table, div, p, h1, form {font-family:'Nanum Gothic'; font-weight:bold;}
+
+	input[type=button], input[type=submit]{
+	  background:#000000;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:40px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	}
+	input[type=button]:hover, input[type=submit]:hover{
+	  background:#fff;
+	  color:#000000;
+	}
+	input[type=button]:before,input[type=button]:after, input[type=submit]:before,input[type=submit]:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #000000;
+	  transition:400ms ease all;
+	}
+	input[type=button]:after, input[type=submit]:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	input[type=button]:hover:before,input[type=button]:hover:after, input[type=submit]:hover:before,input[type=submit]:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
+	a.menu-toggle > i {
+		margin-top: 18px;
+	}
+	#sidebar-wrapper {
+		margin-top: -2%;
+	}	
+    
+  </style>
 </head>
 <body>
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
-	<h1>회원탈퇴</h1>
+	<h1 style="margin-left:5%;margin-top:2%;">회원탈퇴</h1>
+	<hr style="width:90%; background:#FFCC33; height:2px" >
+	<div style="width:90%; margin:0 auto">
 	
 	<form action="userDeleteAction" method="post">
 
 		<div id="uid">
-			ID :  <input name="uid" value="${uid}" readonly="readonly" required="required">
+			ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp; <input name="uid" value="${uid}" readonly="readonly" required="required">
 		</div>
+		<br>
 		<div id="upw">
-			Password : <input type="password" name="upw" maxlength="15" required="required">
+			Password : &nbsp; <input type="password" name="upw" maxlength="15" required="required">
 		</div>
-
-		<input type="submit" id="bye" name="bye" url="/returnscroll/userDeleteAction"  value="회원탈퇴">
+	<br>
+		<a href="/returnscroll/mypage"><input type="button" value="이전" style="margin-left: 5.5%;"></a>
+		<input type="submit" id="bye" name="bye" url="/returnscroll/userDeleteAction"  value="탈퇴" >
 
 	</form>
-	
+	</div>
+
+<div>
+	<br><br><br><br>
+    <hr style="width:90%; background:#FFCC33; height:2px" >
+      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
+      </div>	
 </body>
 	<!-- Bootstrap core JavaScript -->
 	<script

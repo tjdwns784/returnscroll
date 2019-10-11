@@ -3,6 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Tmap</title>
         <script src="https://apis.openapi.sk.com/tmap/js?version=1&format=javascript&appKey=8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2"></script>
     	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -16,17 +17,8 @@
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
  <%--  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" > --%>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
- </head>
- <body>
-    <!-- Navigation -->
-    <jsp:include page="side.jsp"></jsp:include>
-    	  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-		  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		  <!-- Plugin JavaScript -->
-		  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-		  <!-- Custom scripts for this template -->
-		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-    <style>
+  
+  <style>
     @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); 
   	body, table, div, p ,h1,button, td,option{font-family:'Nanum Gothic';} 
 
@@ -66,8 +58,7 @@
 	  background:#000000;
 	  color:#fff;
 	  border:none;
-	  position:relative;
-	  height:70px;
+	  height:40px;
 	  font-size:1em;
 	  padding:0 2em;
 	  cursor:pointer;
@@ -348,30 +339,42 @@
 	  #selectArrive:hover {
       background-color: #FFFF99;
     }
-        
+  
        
 </style>
 	
+ </head>
+ <body id="page-top">
+    <!-- Navigation -->
+    <jsp:include page="side.jsp"></jsp:include>
+    	  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+		  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		  <!-- Plugin JavaScript -->
+		  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+		  <!-- Custom scripts for this template -->
+		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
+    
 	<!-- <p id="result" name="result" value=" " ></p> -->
 	<h1 style="margin-left:2.5%;margin-top:2%;">Map</h1>
 	<hr style="width:95%; background:#FFCC33; height:2px; margin-left:2.5%;" >
 	
 	<div style="width:100%;">
 		<form method='post' enctype='multipart/form-data' style="margin-left: 2.5%;">
-		<div style="width:65%;">
+		<div style="width:100%; max-width:100%; height:auto; margin-bottom: 1%;">
 			출발 : <input type='text' name='start' readonly style="width : 90%; margin-bottom:10px;"><br>
 			도착 : <input type='text' name='arrive' readonly style="width : 90%;">
 		</div>
-		<div style="width:35%; float:right; margin-top: -70px;">
+		<div style="width:100%; display:inline-block; max-width:100%; height:auto; margin-left:2.5%">
+		
 			<input type='button' value='경로찾기' onclick = "findRoot()" > &nbsp;&nbsp;&nbsp;&nbsp;
 			<input type='button' value='경로취소' onclick = "removeRoot()" >&nbsp;&nbsp;&nbsp;&nbsp;
 			 <input type='button' value='친구찾기' onclick = "findMyLocation()">&nbsp;&nbsp;&nbsp;&nbsp;
-			  <input type='button' value='친구찾기 중지' onclick = "stopMyLocation()"><br>
+			  <input type='button' value='친구찾기 중지' onclick = "stopMyLocation()"><br> 
 		</div>
 		</form>
 	</div>
 <hr style="margin-left:2.5%; width:95%; background:#FFCC33; height:2px" >
-<div class="mainDiv" style="margin-left:2.5%; width: 22.5%; height: 30%; z-index: 1000; float:left; ">
+<div class="mainDiv" style="margin-left:2.5%; width: 22.5%; height: 30%; z-index: 1000; float:left; max-width:100%; height:auto; ">
 	<input type="hidden" id="inpPage" type="text" value="1">
 	<input type="hidden" id="inpTotLimit" type="text" value="7">
     <div id="divtop">
@@ -417,8 +420,14 @@
         <div id="pageZone"></div>	
 </div>	
     
-    	<div id="map_div" style="float:left;"></div> 
-    	  <br><br><br>
+<div id="map_div" style="float:left; max-width:100%; height:auto;" ></div> 
+  <br><br><br>
+    	  
+    	  
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
       
     	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
          <script>

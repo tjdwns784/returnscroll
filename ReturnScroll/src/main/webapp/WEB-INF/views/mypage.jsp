@@ -27,7 +27,8 @@
 <body id="page-top">
 <style>
   @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); 
-  body, table, div, p ,h1,button, td,option{font-family:'Nanum Gothic'; font-weight:bold;} 
+  body, table, div, p ,h1,button, td,option{font-family:'Nanum Gothic';} 
+  body, table, div, p ,h1,td,option{font-family:'Nanum Gothic'; font-weight:bold;} 
   
   button{
 	  background:#000000;
@@ -65,6 +66,10 @@
 	  width:100%;
 	  transition:800ms ease all;
 	}
+	
+	#sidebar-wrapper {
+		margin-top: -2%;
+	}
 </style>
 
  <!-- Navigation -->
@@ -96,7 +101,7 @@
 		<button id="edit" 				
 			onclick='userUpdate()' style="height:40px; font-size: 17px;">수정</button>
 		<button id="del"			
-			onclick='userDelete()' style="height:40px; font-size: 17px;">회원탈퇴</button>			
+			onclick='userDelete()' style="height:40px; font-size: 17px;">탈퇴</button>			
 		</div>
 
 
