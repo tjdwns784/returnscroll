@@ -33,6 +33,7 @@
       <property name="suffix" value=".jsp" />
    </bean>
 
+
    <context:component-scan base-package="com.spring.returnscroll" />
    
       <!-- DataSource -->
@@ -52,6 +53,7 @@
        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
    </context:component-scan>
+
     <!-- SqlSessionFactoryBean -->
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="mapperLocations" value="classpath:sql/*.xml" />

@@ -27,7 +27,7 @@ public class ChatDao {
 	public void createRoom(Map<String, Object> map) {
 		ss.insert("chat.createRoom",map);
 	}
-	public int roomNumber(Map<String, Object> map ) {
+	public String roomNumber(Map<String, Object> map ) {
 		return ss.selectOne("chat.roomNumber",map);
 	}
 	public void addUser(Map<String, Object> map) {
@@ -47,8 +47,8 @@ public class ChatDao {
 	}
 
 	// user의 친구리스트를 불러옴
-	public Map<String, Object> friendListCheck(String sender) {
-		return ss.selectOne("chat.friendListCheck", sender);
+	public List<Map<String, Object>> friendListCheck(String sender) {
+		return ss.selectList("chat.friendListCheck", sender);
 	}
 
 	public void newFriendList(Map<String, String> map) {
@@ -60,5 +60,17 @@ public class ChatDao {
  
 	public int deleteFriend(Map<String, String> map) {
 		return ss.delete("chat.deleteFriend",map);
+	}
+	
+	public void roomInvite(Map<String, Object> map) {
+		ss.insert("chat.roomInvite",map);
+	}
+	
+	public List<Map<String, Object>> inviteList (String uid){
+		return ss.selectList("chat.inviteList",uid);
+	}
+	
+	public void roomInviteCheck(Map<String, Object> map) {
+		ss.update("chat.roomInviteCheck",map);
 	}
 }

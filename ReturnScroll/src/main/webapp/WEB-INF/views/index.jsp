@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 
 <head>
@@ -30,6 +31,9 @@
   <!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
 	
+
+	<!-- Header -->
+
 	<style>
  
   @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -75,6 +79,7 @@
       
   </style>
 
+
   
   <div style="text-align:center;">
        <img src="resources/img/img_returnscroll1.png"><br>
@@ -84,6 +89,43 @@
       <hr style="width:90%; background:#FFCC33; height:2px" >
       <p class="text-muted small mb-0">Copyright &copy; ReturnScroll 2019</p>
   </div>
+
+  <!-- Header -->
+
+  <header class="masthead d-flex">
+  <c:if test="${not empty inviteList }">
+		<div class='dropdown' style='float: right;'>
+			<button class='btn btn-default' type='button' data-toggle='dropdown'
+				style='border: none; background: none; display: inline-block;'>
+				<span class='caret'><img src="resources/img/alarm.png"
+					style='width: 20px;'></span>
+			</button>
+			<c:forEach var="list" items="${inviteList }" varStatus="count">
+				<ul class='dropdown-menu' style='list-style: none;'>
+					<li><a class='dropdown-item disabled'
+						style='padding-bottom: 10px; padding-top: 10px;'>${list.s}님이 회원님을 ${list.num }번 방으로 초대하였습니다</a></li>
+					<li><a class='dropdown-item'style='padding-bottom: 10px; padding-top: 10px;'>
+					 	<input type='hidden' id='senderId' value='${list.num}' />
+						<button type='button' id='inviteYes' onclick='enterInvite("${list.num}","${list.s }","${list.r }");'> 입장하기</button>
+						<button type='button' id='inviteNo' onclick='rejectInvite("${list.num}","${list.s }","${list.r }");'>거절하기</button></a>
+					</li>
+				</ul>
+			</c:forEach>
+		</div>
+	</c:if>
+	<c:if test="${empty inviteList }">
+		<div></div>
+	</c:if>
+    <div class="container text-center my-auto">
+      <h1 class="mb-1" style="margin-top:-10%">Return Scroll</h1>
+      <h3 class="mb-5">
+        <em>집에 조심히 가자구~!</em>
+        <img src="resources/img/혼신의힘을다한작품.jpg">
+      </h3>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="/returnscroll/login">Login</a>
+    </div>
+    <div class="overlay"></div>
+  </header>
 
 
   <!-- Bootstrap core JavaScript -->
@@ -95,7 +137,44 @@
 
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-
+      <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		// 초대수락
+		function enterInvite(roomNumber, sender, recipient){
+			var inviteData = {"roomNumber": roomNumber,"sender": sender,"recipient": recipient}
+			console.log('초대수락 버튼 ');
+			console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
+			$.ajax({
+                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
+                type:'GET',
+                data: inviteData,
+                success:function(data){
+                	console.log('결과 데이터는 '+data);
+                	window.location.href="http://localhost:8080/returnscroll/chat/"+data;
+                },
+                error:function(request, status, errorThrown){
+                   alert('방 입장 실패'+errorThrown);
+                }
+             })
+		}
+		// 초대거절하기
+		function rejectInvite(roomNumber, sender, recipient){
+			var inviteData = {"roomNumber": roomNumber,"sender": sender,"recipient": recipient}
+			console.log('거절수락 버튼 ');
+			console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
+			$.ajax({
+                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
+                type:'GET',
+                data: inviteData,
+                success:function(data){
+                	alert(sender+"님의 채팅창 초대를 거절하였습니다.");
+                },
+                error:function(request, status, errorThrown){
+                   alert('초대 거절 실패');
+                }
+             })
+		}
+	</script>
 </body>
 
 </html>

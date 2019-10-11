@@ -30,7 +30,7 @@ public class ChatService {
 	public void createRoom(Map<String, Object> map) {
 		chatDao.createRoom(map);
 	}
-	public int roomNumber(Map<String, Object> map ) {
+	public String roomNumber(Map<String, Object> map ) {
 		return chatDao.roomNumber(map);
 	}
 	public void addUser(Map<String, Object> map) {
@@ -47,7 +47,7 @@ public class ChatService {
 		chatDao.accept(map);
 	}
 
-	public Map<String, Object> friendListCheck(String sender) {
+	public List<Map<String, Object>> friendListCheck(String sender) {
 		return chatDao.friendListCheck(sender);
 	}
 
@@ -60,6 +60,16 @@ public class ChatService {
 	}
 	public int deleteFriend(Map<String, String> map) {
 		return chatDao.deleteFriend(map);
+	}
+	public void roomInvite(Map<String, Object> map) {
+		chatDao.roomInvite(map);
+	}
+	
+	public List<Map<String, Object>> inviteList (String uid){
+		return chatDao.inviteList(uid);
+	}
+	public void roomInviteCheck(Map<String, Object> map) {
+		chatDao.roomInviteCheck(map);
 	}
 
 }
