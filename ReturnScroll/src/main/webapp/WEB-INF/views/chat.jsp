@@ -156,9 +156,26 @@
                         </div>
                         
 					<div id="members">
-						<p style="text-align:center;">대화 참여자 </p> 
-						<div id="memberList"></div>
-					</div>
+						<p style="text-align:center;">대화 참여자 </p>
+							<div id="memberList">
+<%-- 								<c:forEach var="item" items="${roomUser }" varStatus="stu"> --%>
+<%-- 								<div>${stu.count }</div> --%>
+<!-- 									<div class='dropdown' style='float: left;'> -->
+<!-- 										<button class='btn btn-default' type='button' -->
+<!-- 											data-toggle='dropdown' -->
+<!-- 											style='border: none; background: none; display: inline-block;'> -->
+<%-- 											${item.nick }<span class='caret'></span> --%>
+<!-- 										</button> -->
+<!-- 										<ul class='dropdown-menu' style='list-style: none;'> -->
+<!-- 											<li><a href='/returnscroll/tmap' class='dropdown-item' -->
+<!-- 												style='padding-bottom: 10px; padding-top: 10px;'>현재위치확인</a></li> -->
+<!-- 											<li><a href='#' class='dropdown-item disabled' -->
+<!-- 												style='padding-bottom: 10px; padding-top: 10px;'>회원정보보기</a></li> -->
+<!-- 										</ul> -->
+<!-- 									</div> -->
+<%-- 								</c:forEach> --%>
+							</div>
+						</div>
 					
 					<button id='sendBtn' type="button" class="btn btn-warning btn-flat"
 					onclick="location.href='/returnscroll/chat'" style='float: right; margin-top: 10px;'>채팅방 나가기</button>
@@ -178,9 +195,9 @@
                     <!-- 채팅 메세지 입력 처리 -->
                     <div class="box-footer">
                         <div class="input-group">
-                            <input type="text" name="message" placeholder="메세지를 입력하세요" class="form-control">
+                            <input type="text" name="message" id="msg" placeholder="메세지를 입력하세요" class="form-control">
                             <span class="input-group-btn">
-                                <button id='sendBtn' type="button" class="btn btn-warning btn-flat">보내기</button>
+                                <button id='sendBtn' type="button" onclick="sendMsg();" class="btn btn-warning btn-flat">보내기</button>
 <!--                                 <button id='addFriend' type="button" class="btn btn-warning btn-flat">친구추가</button> -->
                             </span>
                         </div>
@@ -240,7 +257,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.31:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.3:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script>
     
@@ -334,35 +351,58 @@
 	
 	<!-- 현재 대화방에 참여중인 상대를 불러옴 -->
 	<script>
- 		$(document).ready(function(){
-			// 입력한 아이디값 받기
- 			var roomId = ${room.roomId};
- 			var roomData = {"roomId" : roomId};
 
-			$.ajax({
-				url:"http://localhost:8080/returnscroll/chat/roomData",
-				type:'GET',
-				data: roomData,
-				success:function(data){
-					//console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-					var nick_list = "<h6>";
-					for(var i=0;i<data.length;i++){
-						nick_list += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+data[i].nick
-						nick_list += "<span class='caret'></span></button>"
-						nick_list += "<ul class='dropdown-menu' style='list-style:none;'>"
-						nick_list += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
-						nick_list += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
-						nick_list += "</ul></div>";
-					}
-					nick_list += "</h6>";
-					console.log("현재 참여자 리스트 : " +nick_list);
-					$("#memberList").append(nick_list);
-				},
-				error:function(request, status, errorThrown){
-					alert('현재 대화 참여자 불러오기 실패');
-				}
-			})
-		});
+//  		$(document).ready(function(){
+// 			// 입력한 아이디값 받기
+//  			var roomId = ${room.roomId};
+//  			var roomData = {"roomId" : roomId};
+
+// 			$.ajax({
+// 				url:"http://localhost:8080/returnscroll/chat/roomData",
+// 				type:'GET',
+// 				data: roomData,
+// 				success:function(data){
+// 					//console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
+// 					var nick_list = "<h6>";
+// 					for(var i=0;i<data.length;i++){
+// 						nick_list += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+data[i].nick
+// 						nick_list += "<span class='caret'></span></button>"
+// 						nick_list += "<ul class='dropdown-menu' style='list-style:none;'>"
+// 						nick_list += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
+// 						nick_list += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
+// 						nick_list += "</ul></div>";
+// 					}
+// 					nick_list += "</h6>";
+// 					console.log("현재 참여자 리스트 : " +nick_list);
+// 					$("#memberList").append(nick_list);
+// 				},
+// 				error:function(request, status, errorThrown){
+// 					alert('현재 대화 참여자 불러오기 실패');
+// 				}
+// 			})
+// 		});
+
+	</script>
+	<script>
+
+// 		$('#sendBtn').on('click', function(evt) {
+// 			console.log('메시지 전송'+$('#msg').val());
+// 			socket.emit('s_send_msg', $('#msg').val(), new Date());
+// 			// 입력창 초기화
+// 			$('#msg').val('');
+// 		})
+
+		// 메시지 전송
+		function sendMsg() {
+			var socket = io("http://192.168.0.3:82");
+			console.log('메시지 전송'+$('#msg').val());
+			var user_id = $('#userid').val();
+			console.log('메세지를 보내려고 하는 회원의 아이디 '+user_id);
+			//socket.emit('s_send_userId',user_id);
+			socket.emit('s_send_msg_btn', user_id, $('#msg').val(),new Date());
+			// 입력창 초기화
+			$('#msg').val('');
+		}
 	</script>
 </body>
 

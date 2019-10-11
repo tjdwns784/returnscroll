@@ -73,26 +73,14 @@
 	  width:100%;
 	  transition:800ms ease all;
 	}
-      
+
   </style>
    <div style="text-align:center;">
-       <img src="resources/img/img_returnscroll1.png" style="max-width:100%; height:auto;"><br>
-      
-      <button onclick="location.href='/returnscroll/login'">Login</button>
-      <br><br><br>
-      <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0">Copyright &copy; ReturnScroll 2019</p>
-  </div>
-
-  <!-- Header -->
-
-  <header class="masthead d-flex">
-  <c:if test="${not empty inviteList }">
-		<div class='dropdown' style='float: right;'>
-			<button class='btn btn-default' type='button' data-toggle='dropdown'
-				style='border: none; background: none; display: inline-block;'>
-				<span class='caret'><img src="resources/img/alarm.png"
-					style='width: 20px;'></span>
+   <c:if test="${not empty inviteList }">
+		<div class='dropdown' style='z-index:1;display: flex;'>
+			<button data-toggle='dropdown' id='alarms' style='border: none; background: none; display: inline-block;width: fit-content; height: auto;'>
+				<span class='caret'>
+				<img src="resources/img/alarm.png" style='width: 50px; margin: 5px;'></span>
 			</button>
 			<c:forEach var="list" items="${inviteList }" varStatus="count">
 				<ul class='dropdown-menu' style='list-style: none;'>
@@ -110,6 +98,18 @@
 	<c:if test="${empty inviteList }">
 		<div></div>
 	</c:if>
+       <img src="resources/img/img_returnscroll1.png" style="max-width:100%; height:auto;"><br>
+      
+      <button onclick="location.href='/returnscroll/login'">Login</button>
+      <br><br><br>
+      <hr style="width:90%; background:#FFCC33; height:2px" >
+      <p class="text-muted small mb-0">Copyright &copy; ReturnScroll 2019</p>
+  </div>
+
+  <!-- Header -->
+
+  <header class="masthead d-flex">
+  
     <div class="container text-center my-auto">
        <img src="resources/img/리턴스크롤.jpg" style="margin-top:-10%" >
        <br>
