@@ -106,23 +106,6 @@
       <p class="text-muted small mb-0">Copyright &copy; ReturnScroll 2019</p>
   </div>
 
-  <!-- Header -->
-
-  <header class="masthead d-flex">
-  
-    <div class="container text-center my-auto">
-       <img src="resources/img/리턴스크롤.jpg" style="margin-top:-10%" >
-       <br>
-      <h1 class="mb-1" style="margin-top:-2%">Return Scroll</h1>
-      <h3 class="mb-5">
-        <em>집에 조심히 가자구~!</em>
-        <img src="resources/img/혼신의힘을다한작품.jpg" style="max-width:100%; height:auto;">
-      </h3>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="/returnscroll/login">Login</a>
-    </div>
-    <div class="overlay"></div>
-  </header>
-
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>

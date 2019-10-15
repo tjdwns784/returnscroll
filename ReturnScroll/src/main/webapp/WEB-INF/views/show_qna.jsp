@@ -89,7 +89,7 @@
 		
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-         
+ 
 <h1 style="margin-left:5%;margin-top:2%;">Q&A 글쓰기</h1>
 <hr style="width:90%; background:#FFCC33; height:2px" >
 <div style="margin-left:5%;">
@@ -218,6 +218,7 @@ var artid = "${article.WRITER}";
 	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
 		<i class="fas fa-angle-up"></i>
 	</a>
+
 
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"> </script>
 <script>

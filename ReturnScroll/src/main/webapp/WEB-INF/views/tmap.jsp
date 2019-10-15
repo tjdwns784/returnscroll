@@ -374,6 +374,7 @@
 		</form>
 	</div>
 <hr style="margin-left:2.5%; width:95%; background:#FFCC33; height:2px" >
+<!-- 주소 검색 -->
 <div class="mainDiv" style="margin-left:2.5%; width: 22.5%; height: 30%; z-index: 1000; float:left; max-width:100%; height:auto; ">
 	<input type="hidden" id="inpPage" type="text" value="1">
 	<input type="hidden" id="inpTotLimit" type="text" value="7">
@@ -419,7 +420,8 @@
         </div>
         <div id="pageZone"></div>	
 </div>	
-    
+  
+ <!-- 지도 -->
 <div id="map_div" style="float:left; max-width:100%; height:auto;" ></div> 
   <br><br><br>
     	  
@@ -469,7 +471,7 @@
     	
              		map.setCenter(new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857"), 15);
              		
-  
+  					//시작마커
              		lonlat = new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857");
              		
              		//////////////리버스지오코딩///////////////////
@@ -509,6 +511,7 @@
             			}
             		}); 
              	
+             		//도착마커
             		lonlat2 = new Tmap.LonLat(longitude + 0.001,latitude + 0.001).transform("EPSG:4326", "EPSG:3857");
             	
             		var params2 = {
@@ -557,6 +560,7 @@
 
          	} 
 
+         	//위치찾기
 			function findMyLocation(){
 				
 				markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
@@ -583,6 +587,7 @@
 				
          	}
 			
+         	//위치찾기 종료
 			function stopMyLocation(){
 					
         		clearInterval(flocation);
@@ -590,6 +595,7 @@
         		console.log("친구찾기 중지");
          	}
          	
+         	//길찾기
          	function findRoot(){
          		try {
          			removeRoot();
@@ -622,7 +628,7 @@
         	
          	}
          	
-         	
+         	//길찾기 제거
 			function removeRoot(){		
 				map.removeLayer(vectorLayer);
 				markers1.setVisibility(true);
@@ -753,7 +759,7 @@
 				return txt;
 			}
 			////////////////////////////////////
- ////////////////////     
+		//주소검색    
 		var newRoadAddr = '';
 
 		function isValidate() {
@@ -943,6 +949,8 @@
 			
 		}
 		
+		
+		//주소검색시 도착마커로 
 		function arriveAddr(){
 			var roadAddr = newRoadAddr;
 			console.log(roadAddr);

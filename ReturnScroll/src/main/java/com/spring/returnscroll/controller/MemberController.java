@@ -294,26 +294,26 @@ public class MemberController {
 	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPost(@RequestParam Map<String, Object> map, HttpServletResponse response ) throws IOException {
-		if(map.containsKey("kakao")) {
-			String kakao = (String) map.get("kakao");
+		String kakao = (String) map.get("kakao");
+		if(!kakao.equals("")) {
 			kakao = "kakao_" + kakao;
 			map.put("uid", kakao);
 		}
 		
-		if(map.containsKey("facebook")) {
-			String facebook = (String) map.get("facebook");
+		String facebook = (String) map.get("facebook");
+		if(!facebook.equals("")) {
 			facebook = "facebook_" + facebook;
 			map.put("uid", facebook);
 		}
 		
-		if(map.containsKey("google")) {
-			String google = (String) map.get("google");
+		String google = (String) map.get("google");
+		if(!google.equals("")) {
 			google = "google_" + google;
 			map.put("uid", google);
 		}
 		
-		if(map.containsKey("naver")) {
-			String naver = (String) map.get("naver");
+		String naver = (String) map.get("naver");
+		if(!naver.equals("")) {
 			naver = "naver_" + naver;
 			map.put("uid", naver);
 		}

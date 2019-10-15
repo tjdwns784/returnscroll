@@ -40,7 +40,7 @@
 		<c:if test="${uid != null}">
 			<div style="bottom: 0;position: absolute;margin-bottom: 10px; margin-left:20px;">
 				${uid} 님이 접속중입니다.<br> 
-				<a id="logout" href="http://localhost:8080/returnscroll/logout" style="color:red">로그아웃</a>
+				<a id="logout" href="../returnscroll/logout" style="color:red">로그아웃</a>
 			</div>
 		</c:if>
 		
