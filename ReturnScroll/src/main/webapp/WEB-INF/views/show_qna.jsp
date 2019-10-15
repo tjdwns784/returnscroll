@@ -90,7 +90,7 @@
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
  
-<h1 style="margin-left:5%;margin-top:2%;">Q&A 글쓰기</h1>
+<h1 style="margin-left:5%;margin-top:2%;">Q&A 게시글</h1>
 <hr style="width:90%; background:#FFCC33; height:2px" >
 <div style="margin-left:5%;">
 <h4> ${article.NO} | ${article.TITLE} </h4>
@@ -183,10 +183,10 @@ var artid = "${article.WRITER}";
   
   %>
      <c:if test='${page > 10}'>
-    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage - 10}">Previous</a></li>
+    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage - 10}">◀</a></li>
     </c:if>
     <c:if test='${page <= 10}'>
-    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage - 10}">Previous</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage - 10}">◀</a></li>
     </c:if>
     
     <c:forEach begin="${startPage}" end="${endPage}" var="pnum" step="1">
@@ -201,10 +201,10 @@ var artid = "${article.WRITER}";
     </c:forEach>
    
     <c:if test='${endPage < showNum}'>
-    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage + 10}">Next</a></li>
+    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage + 10}">▶</a></li>
     </c:if>
      <c:if test='${endPage >= showNum}'>
-    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage + 10}">Next</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage + 10}">▶</a></li>
     </c:if>
   </ul>
 </div>

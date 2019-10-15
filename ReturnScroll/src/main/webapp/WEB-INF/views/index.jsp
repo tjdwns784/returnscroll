@@ -43,6 +43,7 @@
 	  border:none;
 	  position:relative;
 	  height:40px;
+	  width:100px;
 	  font-size:1em;
 	  padding:0 2em;
 	  cursor:pointer;
@@ -101,6 +102,7 @@
        <img src="resources/img/img_returnscroll1.png" style="max-width:100%; height:auto;"><br>
       
       <button onclick="location.href='/returnscroll/login'">Login</button>
+      <button onclick="location.href='/returnscroll/join'">Join</button>
       <br><br><br>
       <hr style="width:90%; background:#FFCC33; height:2px" >
       <p class="text-muted small mb-0">Copyright &copy; ReturnScroll 2019</p>
