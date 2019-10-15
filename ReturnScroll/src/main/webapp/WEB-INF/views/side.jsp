@@ -4,17 +4,53 @@
 <!DOCTYPE html>
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com">
-
+<header>
+<br>
+<img id=img src="resources/img/리턴2.jpg">
+<h1 id='header' style="text-align:center; margin-right:100px;" ><span>Return Scroll</span></h1>
+<hr style="width:95%; background:#FFCC33; height:2px" >
+</header>
  <style>
- 
   @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
  
   
-  body, table, div, a, li, ul{font-family:'Nanum Gothic';}
+  h1,body, table, div, a, li, ul{font-family:'Nanum Gothic';}
+
+  	#img {
+  		float: left;
+  		width: 65px;
+  		margin-left: 100px;
+  	}
+    
+  @media (max-width: 600px) {
+  	#img {
+  		width: 60px;
+  	}
+  }
+
+  @media (min-width: 601px) and (max-width: 1000px) {
+  	#img {
+  		width: 100px;
+  	}
+  }
+
+  
+  @media (max-width: 600px) {
+  	#header {
+  		font-size: 60px;
+  	}
+  }
+
+  @media (min-width: 601px) and (max-width: 1000px) {
+  	#header {
+  		font-size: 100px;
+  	}
+  }
 
   #sidebar-wrapper { 
   	background : #FF9900;
   	font-weight : bold;
+  	top: 0;
   }
   </style>
 
@@ -26,8 +62,6 @@
 				href="/returnscroll/">Menu</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/">Home</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
-				href="/returnscroll/join">Join</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/tmap">Map</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"

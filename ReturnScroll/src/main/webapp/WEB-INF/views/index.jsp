@@ -98,14 +98,12 @@
 	<c:if test="${empty inviteList }">
 		<div></div>
 	</c:if>
-       <img src="resources/img/img_returnscroll1.png" style="max-width:100%; height:auto;"><br>
+       <img src="resources/img/리턴2.jpg" style="max-width:100%; height:auto;"><br>
       
       <button onclick="location.href='/returnscroll/login'">Login</button>
-      <br><br><br>
-      <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0">Copyright &copy; ReturnScroll 2019</p>
-  </div>
+	<jsp:include page="footer.jsp"></jsp:include>
 
+  </div>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>

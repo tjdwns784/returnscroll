@@ -51,6 +51,7 @@
 
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
+	
 	<div>
     <form id="loginForm" name="loginForm">
         <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
@@ -114,27 +115,7 @@
     </form>
    </div>
 
-	<!-- Footer -->
-	<footer class="footer text-center">
-		<div class="container">
-			<ul class="list-inline mb-5">
-				<li class="list-inline-item"><a
-					class="social-link rounded-circle text-white mr-3" href="#"> <i
-						class="icon-social-facebook"></i>
-				</a></li>
-				<li class="list-inline-item"><a
-					class="social-link rounded-circle text-white mr-3" href="#"> <i
-						class="icon-social-twitter"></i>
-				</a></li>
-				<li class="list-inline-item"><a
-					class="social-link rounded-circle text-white" href="#"> <i
-						class="icon-social-github"></i>
-				</a></li>
-			</ul>
-			<p class="text-muted small mb-0">Copyright &copy; Your Website
-				2019</p>
-		</div>
-	</footer>
+	<jsp:include page="footer.jsp"></jsp:include>
 
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">

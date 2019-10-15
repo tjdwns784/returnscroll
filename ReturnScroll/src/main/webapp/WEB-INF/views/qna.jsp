@@ -278,16 +278,5 @@
 	})
 	
 </script>
-
-<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
-<div>
-<br><br>
-    <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
-      </div>
-  
-	
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>

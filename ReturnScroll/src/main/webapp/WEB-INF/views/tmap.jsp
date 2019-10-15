@@ -332,10 +332,6 @@
 		.blackText{
 		color:black;
 	}
-	#sidebar-wrapper {
-		margin-top: -2%;
-	}
-	
 	  #selectArrive:hover {
       background-color: #FFFF99;
     }
@@ -430,7 +426,7 @@
 	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
 		<i class="fas fa-angle-up"></i>
 	</a>
-      
+      	<jsp:include page="footer.jsp"></jsp:include>
     	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
          <script>
          	var map;

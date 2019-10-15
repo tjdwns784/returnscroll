@@ -106,13 +106,7 @@
 
 
   </div>
-  
-  <div>
-	<br><br><br><br>
-    <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
-      </div>
-
+	<jsp:include page="footer.jsp"></jsp:include>
 	<script>				
 		function userUpdate() {			
 			location = '/returnscroll/userUpdate';		
