@@ -94,7 +94,7 @@
 <hr style="width:90%; background:#FFCC33; height:2px" >
 <div style="margin-left:5%;">
 <h4> ${article.NO} | ${article.TITLE} </h4>
-<h6 style="text-align: right;margin-right: 5%;"> 조회수 : ${article.HIT} | 작성자 : ${article.WRITER} | 작성일자 : ${article.WRITE_DATE}</h6>
+<h6 style="text-align: right;margin-right: 5%;"> ${article.WRITER} | ${article.WRITE_DATE} |  ${article.HIT} </h6>
 <br>
 <div> 
  ${article.CONTENT}
@@ -123,9 +123,11 @@ var artid = "${article.WRITER}";
 
 
 <div style="margin-left: 5%; max-width:90%;">
-<img id="co" src="../resources/img/comment.png" style=" width: 3%;height: 5%;"><strong>${cTotal}  comments</strong><br>
-<input type="text" id="comment" style="width: 90%; height:10%;" onkeydown="enterkey();">
-<button onclick="addComment()" style="height:10%;">등록</button>
+	<img id="co" src="../resources/img/comment.png" style=" width: 3%;height: 5%;"><strong>${cTotal}  comments</strong><br>
+	<div>
+	<input type="text" id="comment" style="width:90%; height:10%;" onkeydown="enterkey();">
+	<button onclick="addComment()" style="height:10%; width:10%">등록</button>
+	</div>
 </div>
 <hr width="90%">
 <div style="width:90%; margin-left:5%;">

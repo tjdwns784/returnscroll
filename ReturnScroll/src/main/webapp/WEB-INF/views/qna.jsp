@@ -82,98 +82,22 @@
 		margin-top: -1.2%;
 	} 
 	
+	#writeBtn {
 	
-<!--반응형 테이블 -->
+		float:right; 
+		margin-right:5%;
+		margin-bottom: 0.5%;
+			
+	}
+	@media (max-width : 992px){
+	
+		#writeBtn {
+			text-align :center;
+			float:none;
+			margin-right:-5%
+		}
+	}
 
-table {
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  table-layout: fixed;
-}
-
-table caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-
-table tr {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: .35em;
-}
-
-#tt {
- text-align : left;
-}
-
-table th,
-table td {
-  padding: .625em;
-  text-align: center;
-}
-
-table th {
-  font-size: .85em;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-@media screen and (max-width: 600px) {
-
-
-  table {
-    border: 0;
-  }
-
-  table caption {
-    font-size: 1.3em;
-  }
-  
-  table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-  
-  table tr {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: .625em;
-  }
-  #tt {
- text-align : right;
-}
-  table td {
-    border-bottom: 1px solid #ddd;
-    display: block;
-    font-size: .8em;
-    text-align: right;
-  }
-  
-  table td::before {
-    /*
-    * aria-label has no advantage, it won't be read inside a table
-    content: attr(aria-label);
-    */
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  table td:last-child {
-    border-bottom: 0;
-  }
- 
-}
   /* .masthead {
   	padding-top: 4rem; 
   } */
@@ -202,14 +126,13 @@ table th {
 
 
 
-	<div class="order" style="float:left; margin-left: 5%;">
-	<select id="orderItem" name="orderItem" style="height: 40px;width: 70px">
-		<option value="o_no" selected>번호순</option>
-		<option value="o_date" <c:if test='${param.searchOrd == "o_date"}'>selected</c:if>>최신순</option>
-		<option value="o_hit" <c:if test='${param.searchOrd == "o_hit"}'>selected</c:if>>조회순</option>
-	</select>
-	<!-- <input type ="button" value="목록새로고침" onclick="location.href='qna?searchText= ' +'&searchItem= ' + '&searchOrd= ';" > -->
-	<button onclick="location.href='qna?searchText= ' +'&searchItem= ' + '&searchOrd= ';"> 목록고침 </button>
+	<div class="order d-none d-lg-block" style="float:left; margin-left: 5%;">
+		<select id="orderItem" name="orderItem" style="height: 40px;width: 70px">
+			<option value="o_no" selected>번호순</option>
+			<option value="o_date" <c:if test='${param.searchOrd == "o_date"}'>selected</c:if>>최신순</option>
+			<option value="o_hit" <c:if test='${param.searchOrd == "o_hit"}'>selected</c:if>>조회순</option>
+		</select>
+		<button onclick="location.href='qna?searchText= ' +'&searchItem= ' + '&searchOrd= ';"> 목록고침 </button>
 	</div>
 	<div class="search" style="float:right; margin-right: 5%; margin-bottom: 1%">
 		<select id="searchItem" name="searchItem" style="height: 40px;width:100px">
@@ -225,30 +148,29 @@ table th {
 
 
 
-<table class="table table-hover" style="width:90%; margin: 0 auto;">
-<thead class="thead-dark" style="text-align:center;">
-<tr>
-<th style="width:10%;">번호</th>
-<th style="width:55%;">제목</th>
-<th style="width:10%;">작성자</th>
-<th style="width:15%;">작성일</th>
-<th style="width:10%;">조회수</th>
+<table class="table table-hover" style="width:90%; margin: 0 auto; text-align:center;">
+<thead class="thead-dark" style="text-align:center;" >
+<tr >
+<th  class="d-none d-lg-table-cell" style="width:10%;" >번호</th>
+<th  class="d-none d-lg-table-cell" style="width:55%;" >제목</th>
+<th  class="d-none d-lg-table-cell" style="width:10%;" >작성자</th>
+<th  class="d-none d-lg-table-cell" style="width:15%;" >작성일</th>
+<th  class="d-none d-lg-table-cell" style="width:10%;" >조회수</th>
 </tr>
 </thead>
 <tbody>
-
 	<c:forEach items="${list}" var="item">
 
-		<tr onClick ="location.href='show/${item.NO}'" style="cursor:pointer;" >
-		<td data-label="번호"  >${item.NO}</td>
-		<td data-label="제목" id="tt">${item.TITLE} 
+		<tr  onClick ="location.href='show/${item.NO}'" style="cursor:pointer;" >
+		<td  >${item.NO}</td>
+		<td style="text-align:left;">${item.TITLE} 
 			<c:if test='${item.CMT_CNT > 0}'>
 			[${item.CMT_CNT}]
 			</c:if>
 		</td>
-		<td data-label="작성자" >${item.WRITER}</td>
-		<td data-label="작성일" >${item.WRITE_DATE}</td>
-		<td data-label="조회수" >${item.HIT}</td>
+		<td class="d-none d-lg-table-cell">${item.WRITER}</td>
+		<td class="d-none d-lg-table-cell">${item.WRITE_DATE}</td>
+		<td class="d-none d-lg-table-cell">${item.HIT}</td>
 		</tr>
 		
 	</c:forEach>
@@ -256,12 +178,13 @@ table th {
 	</tbody>
 </table>
 <hr style="width:90%;" >
+<div class="d-none d-lg-block">
 <button onclick="location.href='qna?searchText=${unick}' +'&searchItem=a_writer' + '&searchOrd= ';" style="float: left;  margin-right: 1%; margin-left:5%"> 내게시글 </button>
 <button onclick="location.href='qna?searchText=${unick}' +'&searchItem=c_writer' + '&searchOrd= ';" style="float: left;"> 내댓글 </button>
-
-
-<button onclick="location.href='write'" style="float:right; margin-right:5%; margin-bottom: 0.5%;"> 글쓰기 </button>
-
+</div>
+<div id="writeBtn">
+<button  onclick="location.href='write'" > 글쓰기 </button>
+</div>
 <%-- 
 <input type ="button" value="글쓰기" onclick="location.href='write'" class="btn btn-info" style="float:right; margin-right:2.5%; margin-bottom: 0.5%;">
 <input type ="button" value="내댓글" onclick="location.href='qna?searchText=${unick}' +'&searchItem=c_writer' + '&searchOrd= ';" class="btn btn-info" 
