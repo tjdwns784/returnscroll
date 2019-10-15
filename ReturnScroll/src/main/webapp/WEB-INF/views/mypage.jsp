@@ -92,7 +92,7 @@
 		<li class="list-group-item">이름 : ${map.uname}</li>				
 		<li class="list-group-item">별명 : ${map.nick}</li>				
 		<li class="list-group-item">생년월일 : ${map.birth}</li>				
-		<li class="list-group-item">휴대폰 : ${map.phone}</li>				
+		<li class="list-group-item">휴대폰 번호: ${map.phone}</li>				
 		<li class="list-group-item">이메일 : ${map.email}</li>	
 	</ul>		
 		<br><br><br><br>

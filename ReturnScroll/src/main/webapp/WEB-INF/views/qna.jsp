@@ -221,10 +221,10 @@
     	
     %>
     <c:if test='${page > 10}'>
-    	<li class="page-item"><a class="page-link" href="qna?page=${startPage - 10}">Previous</a></li>
+    	<li class="page-item"><a class="page-link" href="qna?page=${startPage - 10}">◀</a></li>
     </c:if>
     <c:if test='${page <= 10}'>
-    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage - 10}">Previous</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage - 10}">◀</a></li>
     </c:if>
 
     <c:forEach begin="<%=startPage %>" end="<%=endPage%>" var="pnum" step="1">
@@ -239,10 +239,10 @@
     </c:forEach>
     
     <c:if test='${endPage < showNum}'>
-    	<li class="page-item"><a class="page-link" href="qna?page=${startPage + 10}">Next</a></li>
+    	<li class="page-item"><a class="page-link" href="qna?page=${startPage + 10}">▶</a></li>
     </c:if>
      <c:if test='${endPage >= showNum}'>
-    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage + 10}">Next</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage + 10}">▶</a></li>
     </c:if>
   </ul>
 </div>

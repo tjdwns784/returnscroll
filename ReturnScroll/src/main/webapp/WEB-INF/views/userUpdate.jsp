@@ -76,7 +76,7 @@
 	}	
     
   </style>
-	<h1 style="margin-left:5%;margin-top:2%;">My Page</h1>
+	<h1 style="margin-left:5%;margin-top:2%;">회원수정</h1>
 	<hr style="width:90%; background:#FFCC33; height:2px" >
 
 <div style="width:90%; margin:0 auto">
@@ -107,7 +107,7 @@
 						<div class="check_font" id="name_check"></div>
 	</div>
 	<div class="form-group">
-						<label for="user_phone">핸드폰 번호</label> <br>
+						<label for="user_phone">휴대폰 번호</label> <br>
 						<select name="p1" style="width:85px; height:40px;">
 							<option value="010" <c:if test="${info.p1 == '010'}">selected</c:if>>010
 							</option>
