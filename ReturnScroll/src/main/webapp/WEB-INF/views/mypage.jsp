@@ -67,9 +67,13 @@
 	  transition:800ms ease all;
 	}
 	
-	#sidebar-wrapper {
-		margin-top: -2%;
+	@media (max-width : 600px){
+	
+		#h1_title{
+			font-size:2rem;
+		}
 	}
+	
 </style>
 
  <!-- Navigation -->
@@ -82,10 +86,10 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
-<h1 style="margin-left:5%;margin-top:2%;">My Page</h1>
-<hr style="width:90%; background:#FFCC33; height:2px" >
+<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">My Page</h1>
+<hr style="width:95%; background:#FFCC33; height:2px" >
 <br><br>
-<div style="width:90%; margin: 0 auto;">
+<div style="width:95%; margin: 0 auto;">
 	<ul class="list-group">					
 					
 		<li class="list-group-item">아이디 : ${map.uid}</li>				
