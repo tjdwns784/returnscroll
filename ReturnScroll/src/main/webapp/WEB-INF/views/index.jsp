@@ -109,23 +109,10 @@
       <br><br>
       <button onclick="location.href='/returnscroll/login'">Login</button>
       <button onclick="location.href='/returnscroll/join'">Join</button>
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
   </div>
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
-
-
-=======
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
