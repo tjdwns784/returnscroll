@@ -121,7 +121,7 @@
 
    <!--  <div class="container my-auto"> -->
  
-
+<div id="body">
 <h1 id="h1_title" style="margin-left:5%;margin-top:2%;">Q&A 게시판</h1>
 <!-- <h1 class="mb-1">Q&A 게시판</h1> -->
 <hr style="width:95%; background:#FFCC33; height:2px" >
@@ -248,9 +248,8 @@
     </c:if>
   </ul>
 </div>
-
-
-
+	<jsp:include page="footer.jsp"></jsp:include>
+</div>
 
 <script>
 	function enterkey() {
@@ -280,5 +279,4 @@
 	})
 	
 </script>
-	<jsp:include page="footer.jsp"></jsp:include>
 </body>

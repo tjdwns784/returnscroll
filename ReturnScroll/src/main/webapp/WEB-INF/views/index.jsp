@@ -80,7 +80,7 @@
  	 }
 
   </style>
-   <div style="text-align:center;">
+   <div style="text-align:center;" id='body'>
    <c:if test="${not empty inviteList }">
 		<div class='dropdown' style='z-index:1;display: flex;'>
 			<button data-toggle='dropdown' id='alarms' style='border: none; background: none; display: inline-block;width: fit-content; height: auto;'>
@@ -110,11 +110,13 @@
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
-  
   </div>
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

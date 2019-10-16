@@ -378,6 +378,7 @@
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
     
 	<!-- <p id="result" name="result" value=" " ></p> -->
+	<div id="body">
 	<h1 id="h1_title" style="margin-left:2.5%;margin-top:2%;">Map</h1>
 	<hr style="width:95%; background:#FFCC33; height:2px; margin-left:2.5%;" >
 	
@@ -448,7 +449,7 @@
 <div id="map_div"></div> 
   <br><br>
     	  
-    	  
+    	</div>  
       
     	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
          <script>
