@@ -143,26 +143,29 @@
                     <div id="putUser" style='float: right;'>${uid}님 반갑습니다</div>
                     <div class="box-header with-border">
                         <h1 class="box-title">채팅방 리스트</h1><br>
-                        <c:if test="${not empty addFriend}">
-                           <div id="addFriend"></div>
-                           <div class='dropdown' style='float: right;'>
-                              <button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>
-                            <span class='caret'><img src="resources/img/alarm.png" style='width: 20px;'></span>
-                         </button>
-                          <c:forEach var="list" items="${addFriend }" varStatus="count" >
-                         <ul class='dropdown-menu' style='list-style:none;'>
-                            <li><a class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>${list.sender}님이 친구신청을 하였습니다</a></li>
-                           <li><a class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>
-                           <input type='hidden' id='senderId' value='${list.sender}'/>
-                              <button type='button' id='friendYes' >수락하기</button>
-                              <button type='button' id='friendNo'>거절하기</button></a></li>
-                        </ul>
-                        </c:forEach>
-                     	</div>
-                        </c:if>
-                        
+                           <c:if test="${not empty inviteList }">
+							<div class='dropdown-menu-left' style='z-index:1;float: right;'>
+								<button data-toggle='dropdown' id='alarms' style='border: none; background: none; display: inline-block;width: fit-content; height: auto;'>
+									<span class='caret'>
+									<img src="resources/img/alarm.png" style='width: 25px; '></span>
+								</button>
+								<c:forEach var="list" items="${inviteList }" varStatus="count">
+									<ul class='dropdown-menu' style='list-style: none;'>
+										<li><a class='dropdown-item disabled'
+											style='padding-bottom: 10px; padding-top: 10px;'>${list.s}님이 회원님을<br> ${list.num }번 방으로 초대하였습니다</a></li>
+										<li><a class='dropdown-item'style='padding-bottom: 10px; padding-top: 10px;'>
+										 	<input type='hidden' id='senderId' value='${list.num}' />
+											<button type='button' id='inviteYes' onclick='enterInvite("${list.num}","${list.s }","${list.r }");'> 입장하기</button>
+											<button type='button' id='inviteNo' onclick='rejectInvite("${list.num}","${list.s }","${list.r }");'>거절하기</button></a>
+										</li>
+									</ul>
+								</c:forEach>
+							</div>
+						</c:if>
+						<c:if test="${empty inviteList }">
+							<div></div>
+						</c:if>
                     </div>
-                    
                     
                     
                     <!-- 채팅 메세지 표시 -->
@@ -185,11 +188,7 @@
 						  </table>
                           
                         </div>
-                        <div style='margin-bottom: 10px;margin-right: 10px;float: right;'>
-	                        <button onclick="location.href='/returnscroll/chat/createRoom'" class="btn btn-warning btn-flat">채팅방 생성</button>
-<!-- 	                        <button onclick="location.href='/returnscroll/chat/allRoom'" class="btn btn-warning btn-flat">전체 방 보기</button> -->
-	                        <button onclick="location.href='/returnscroll/friend'" id='friendList' type="button" class="btn btn-warning btn-flat">친구관리</button>
-                        </div>
+
                         <!-- /.direct-chat-pane -->
                     </div>
                     
@@ -212,8 +211,8 @@
   </a>
   
   <div class="btn-group btn-group-lg" id="sticker" style='width: inherit;'>
-	  <button type="button" class="btn btn-primary"><img alt="user" src="resources/img/user.png" style='width:50px;'></button>
-	  <button type="button" class="btn btn-primary"><img alt="user" src="resources/img/speech-bubble.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="user" src="resources/img/user.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="user" src="resources/img/speech-bubble.png" style='width:50px;'></button>
 	</div>
 
 	<jsp:include page="footer.jsp"></jsp:include>
@@ -237,7 +236,7 @@
 	<script src="jquery.sticky.js"></script>
 <script>
 		// sticky
-		$(document).ready(function(){
+		$(window).load(function(){
 			$("#sticker").sticky({topSpacing:0});
 		});
   
@@ -318,6 +317,46 @@
    		
     		
     	}
+    	
+    	
+    	// 초대수락
+		function enterInvite(roomNumber, sender, recipient){
+			var inviteData = {"roomNumber": roomNumber,"sender": sender,"recipient": recipient}
+			console.log('초대수락 버튼 ');
+			console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
+			$.ajax({
+                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
+                type:'GET',
+                data: inviteData,
+                success:function(data){
+                	console.log('결과 데이터는 '+data);
+                	window.location.href="http://localhost:8080/returnscroll/chat/"+data;
+                },
+                error:function(request, status, errorThrown){
+                   alert('방 입장 실패'+errorThrown);
+                }
+             })
+		}
+		// 초대거절하기
+		function rejectInvite(roomNumber, sender, recipient){
+			var inviteData = {"roomNumber": roomNumber,"sender": sender,"recipient": recipient}
+			console.log('거절수락 버튼 ');
+			console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
+			$.ajax({
+                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
+                type:'GET',
+                data: inviteData,
+                success:function(data){
+                	alert(sender+"님의 채팅창 초대를 거절하였습니다.");
+                },
+                error:function(request, status, errorThrown){
+                   alert('초대 거절 실패');
+                }
+             })
+		}
+		
+		
+		
     </script>
 
 </body>

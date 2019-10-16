@@ -71,5 +71,8 @@ public class ChatService {
 	public void roomInviteCheck(Map<String, Object> map) {
 		chatDao.roomInviteCheck(map);
 	}
+	public Map<String, Object> userInfo(String uids){
+		return chatDao.userInfo(uids);
+	}
 
 }
