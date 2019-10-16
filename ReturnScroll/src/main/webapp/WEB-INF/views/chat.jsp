@@ -197,7 +197,7 @@
                         <div class="input-group">
                             <input type="text" name="message" id="msg" placeholder="메세지를 입력하세요" class="form-control">
                             <span class="input-group-btn">
-                                <button id='sendBtn' type="button" onclick="sendMsg();" class="btn btn-warning btn-flat">보내기</button>
+                                <button id='sendBtn' type="button"  class="btn btn-warning btn-flat">보내기</button>
 <!--                                 <button id='addFriend' type="button" class="btn btn-warning btn-flat">친구추가</button> -->
                             </span>
                         </div>
@@ -217,7 +217,7 @@
 
   <!-- Footer -->
   <footer class="footer text-center">
-    <div class="container">
+    <div class="container">  
       <ul class="list-inline mb-5">
         <li class="list-inline-item">
           <a class="social-link rounded-circle text-white mr-3" href="#">
@@ -257,7 +257,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.3:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.18:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script>
     
@@ -282,73 +282,6 @@
 
     </script>
     
-    <!-- 아이디로 친구 찾기 -->
-	<script>
- 		$(document).on('click','#findId',function(){
-			// 입력한 아이디값 받기
- 			var uid = $('#uid').val();
- 			var postData = {"uid" : uid};
-			var dataUrl = "http://localhost:8080/returnscroll/chat/findId";
-			
-			$("#uid").val('');
-			$("#searchResult").empty();
-			$("#number").empty();
-			$("#findUserId").empty();
-			$("#inviteLink").empty();
-
-			$.ajax({
-				url:dataUrl,
-				type:'GET',
-				data: postData,
-				success:function(data){
-					//console.log('결과데이터는'+data);
-					// 검색 창 비우기
-					$("#uid").empty();
-					// data
-					$("#searchResult").append(data+" 에 대한 검색결과 입니다.")
-					$("#number").append(1);
-					$("#findUserId").append(data);
-					//$("#inviteLink").append("<a href='/returnscroll/chat/"+${room.roomId}+"/"+data+"' target='_blank'> 추가하기 </a>");
-					//$("#inviteLink").append("<a href='/returnscroll/chat/"+${room.roomId}+"' onclick='inviteUser("+data+")'> 추가하기 </a>");
-					//$("#inviteLink").append("<a href='' onclick='inviteUser("+data+")'> 추가하기 </a>");
-					$("#inviteLink").append("<input type='button' onclick='inviteUser(\""+data+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' />");
-				},
-				error:function(request, status, errorThrown){
-					$("#searchResult").empty();
-					$("#number").empty();
-					$("#findUserId").empty();
-					$("#inviteLink").empty();
-					$("#searchResult").append("검색결과가 없습니당")
-					alert('아이디가 존재하지 않습니다');
-				}
-			})
-			
-			return false;
-		});
-
-	</script>
-	<script>
-	 function inviteUser(user){
-
-         $("#modal").fadeOut();
-           
-         alert(user+'님에게 친구추가를 신청했습니다');
-         // 채팅에 접속
-         var socket = io("http://192.168.0.31:82");
-         
-         var recipient = user; // 받는사람
-         var sender = $('#userid').val();  // 보낸사람
-         
-         // insert문 수행
-         socket.emit('s_add_friend',sender,recipient);
-         
-         socket.on('c_add_friend_result', function(msg){
-            alert(msg);
-         })
-      }
-
-	</script>
-	
 	<!-- 현재 대화방에 참여중인 상대를 불러옴 -->
 	<script>
 
@@ -393,16 +326,16 @@
 // 		})
 
 		// 메시지 전송
-		function sendMsg() {
-			var socket = io("http://192.168.0.3:82");
-			console.log('메시지 전송'+$('#msg').val());
-			var user_id = $('#userid').val();
-			console.log('메세지를 보내려고 하는 회원의 아이디 '+user_id);
-			//socket.emit('s_send_userId',user_id);
-			socket.emit('s_send_msg_btn', user_id, $('#msg').val(),new Date());
-			// 입력창 초기화
-			$('#msg').val('');
-		}
+// 		function sendMsg() {
+// 			var socket = io("http://192.168.0.6:82");
+// 			console.log('메시지 전송'+$('#msg').val());
+// 			var user_id = $('#userid').val();
+// 			console.log('메세지를 보내려고 하는 회원의 아이디 '+user_id);
+// 			//socket.emit('s_send_userId',user_id);
+// 			socket.emit('s_send_msg_btn', user_id, $('#msg').val(),new Date());
+// 			// 입력창 초기화
+// 			$('#msg').val('');
+// 		}
 	</script>
 </body>
 

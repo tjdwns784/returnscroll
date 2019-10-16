@@ -91,12 +91,10 @@
 	<jsp:include page="side.jsp"></jsp:include>
 
   <!-- Header -->
-  <header class="masthead d-flex">
-    <div class="container my-auto">
-      <h1 class="mb-1">Return Scroll 채팅방</h1>
-      
-      	<!-- 모달창 -->
-	<div id="modal">
+ 
+  
+  <!-- 모달창 -->
+  <div id="modal">
    
 	    <div class="modal_content">
         	<button type="button" id="modal_close_btn" style='border: none;background: none;float: right;padding-right: 50px;'>
@@ -136,7 +134,7 @@
 	    <div class="modal_layer"></div>
     
 	</div>
-      
+     
 	<section class="content">
         <div class="row">
             <div class="col-md-12">
@@ -209,10 +207,45 @@
             </div>
         </div>
     </section>
+<<<<<<< HEAD
+  
+
+
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <ul class="list-inline mb-5">
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white mr-3" href="#">
+            <i class="icon-social-facebook"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white mr-3" href="#">
+            <i class="icon-social-twitter"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white" href="#">
+            <i class="icon-social-github"></i>
+          </a>
+        </li>
+      </ul>
+      <p class="text-muted small mb-0">Copyright &copy; Your Website 2019</p>
+    </div>
+  </footer> 
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+=======
     </div>
     <div class="overlay"></div>
   </header>
 	<jsp:include page="footer.jsp"></jsp:include>
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
   <input type='hidden' id='nick' value='${nick}'>
   <input type='hidden' id='recipient' value='${uid}'>
   <input type='hidden' id='userID' value='${uid}'>
@@ -227,7 +260,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.3:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.18:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script>

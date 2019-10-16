@@ -219,7 +219,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.3:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.18:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     
     <!-- 모달 띄우고 내리는거 -->
@@ -306,7 +306,7 @@
            
          alert(user+'님에게 친구추가를 신청했습니다');
          // 채팅에 접속
-         var socket = io("http://192.168.0.3:82");
+         var socket = io("http://192.168.0.18:82");
          
          var recipient = user; // 받는사람
          var sender = $('#userID').val();  // 보낸사람
