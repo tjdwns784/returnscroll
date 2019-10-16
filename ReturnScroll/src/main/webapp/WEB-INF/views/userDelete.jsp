@@ -88,12 +88,12 @@
 <body>
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
+	<div id="body">
 	<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">회원탈퇴</h1>
 	<hr style="width:95%; background:#FFCC33; height:2px" >
 	<div style="width:90%; margin:0 auto">
 	
 	<form action="userDeleteAction" method="post">
-
 		<div id="uid">
 			아이디&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp; <input name="uid" value="${uid}" readonly="readonly" required="required">
 		</div>
@@ -104,12 +104,13 @@
 	<br>
 	<div id="btn">
 		<a href="/returnscroll/mypage"><input type="button" value="이전" style="margin-left: 4.5%;"></a>
-		<input type="submit" id="bye" name="bye" url="/returnscroll/userDeleteAction"  value="탈퇴" >
+		<input type="submit" id="bye" name="bye" url="/returnscroll/userDeleteAction"  value="탈퇴" style="margin-bottom:1%">
 	</div>
+	<img id=bye src="/returnscroll/resources/img/또르르.jpg" style="width:40%">
 	</form>
 	</div>
-
       <jsp:include page="footer.jsp"></jsp:include>
+	</div>
 </body>
 	<!-- Bootstrap core JavaScript -->
 	<script

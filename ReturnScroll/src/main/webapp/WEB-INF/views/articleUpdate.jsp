@@ -99,7 +99,7 @@
 	<!-- include summernote-ko-KR -->
 	<script src="/resources/js/summernote-ko-KR.js"></script>
 
-
+<div id="body">
 	<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">Q&A 글 수정하기</h1>
 	<hr style="width:95%; background:#FFCC33; height:2px" >
 	
@@ -120,7 +120,7 @@
 	</div>
 	
 	<jsp:include page="footer.jsp"></jsp:include>
-	
+	</div>
 	
 <script>
 	$(document).ready(function() {

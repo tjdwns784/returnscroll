@@ -80,6 +80,7 @@
 	
 
   </style>
+  <div id="body">
 	<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">회원수정</h1>
 	<hr style="width:95%; background:#FFCC33; height:2px" >
 
@@ -93,7 +94,7 @@
 			<input name="uid" value="${uid}" readonly="readonly" class="form-control">
 		</div><br>
 		
-		<label for="user_pw">비밀번호</label> <input type="password" class="form-control" id="user_pw" name="upw" placeholder="Password" required>
+		<label for="user_pw">비밀번호</label> <input type="password" class="form-control" id="user_pw" name="upw" placeholder="" required>
 		<p id='msgpw' style="color: red"></p>
 		<div class="check_font" id="pw_check"></div>
 	</div>
@@ -150,6 +151,7 @@
 				
 	
 	<jsp:include page="footer.jsp"></jsp:include>
+	</div>
 	<script>
 		var isPw = 0							
 		var isEmail = 0							

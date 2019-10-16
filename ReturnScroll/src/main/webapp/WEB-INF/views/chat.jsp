@@ -101,7 +101,7 @@
       	<!-- 모달창 -->
 	<div id="modal">
    
-	    <div class="modal_content">
+	    <div class="modal_content" id='body'>
 	        <h2 style="text-align: center;">친구초대</h2><br>
 	        <p style="text-align: center;">초대할 친구를 검색하세요</p>
 	        <form method="GET" id="find"  style="text-align: center;">

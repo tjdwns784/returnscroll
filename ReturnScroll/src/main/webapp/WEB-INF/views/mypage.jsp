@@ -85,7 +85,7 @@
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-
+<div id="body">
 <h1 id="h1_title" style="margin-left:5%;margin-top:2%;">My Page</h1>
 <hr style="width:95%; background:#FFCC33; height:2px" >
 <br><br>
@@ -111,6 +111,7 @@
 
   </div>
 	<jsp:include page="footer.jsp"></jsp:include>
+	</div>
 	<script>				
 		function userUpdate() {			
 			location = '/returnscroll/userUpdate';		

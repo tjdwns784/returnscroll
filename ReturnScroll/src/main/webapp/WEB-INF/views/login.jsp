@@ -37,9 +37,6 @@
 
 <link rel="stylesheet" href="resources/style.css">
 <style>
-	img[id=kakao-login-btn] {
-		margin-top: 7%; margin-bottom: 7%; width:235px; height:60px;
-	}
 	nav#sidebar-wrapper {
 		top: 0px !important;
 	}
@@ -54,7 +51,7 @@
 	
 	<div>
     <form id="loginForm" name="loginForm">
-        <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:3%">
             <path d="M0,150 C0,65 120,65 120,150" fill="#e0a243" stroke="#000" stroke-width="2.5" />
             <g class="ears">
                 <path d="M46,32 L46,30 C46,16 26,16 26,30 L26,32" fill="#e0a243" stroke="#000" stroke-width="2.5" stroke-linecap="round" transform="rotate(-10,38,24)" />
@@ -81,11 +78,11 @@
 			<h3 class="mb-5"></h3>
 			<form class="form-inline-block" action="login" method="post">
 				<div class="form-group" style="margin-top: -10%">
-					<label for="uid">ID:</label> <input type="text"
-						class="form-control" name="uid" id="uid" placeholder="아이디 입력" style="margin-top: -1%">
+					<label for="uid"></label> <input type="text"
+						class="form-control" name="uid" id="uid" placeholder="아이디 입력" style="margin-top: -10%; margin-bottom: -10%">
 				</div>
 				<div class="form-group">
-					<label for="upw">Password:</label> <input type="password"
+					<label for="upw"></label> <input type="password"
 						class="form-control" name="upw" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;" onkeyup="enterkey();" type="text"  value="">
 				</div>
 				<br>
@@ -97,19 +94,33 @@
 					</div>
 				</form>
 			<a class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/login" id="btnLogin" style="width:115px; margin-top: 5%">Login</a> 
+				href="/returnscroll/login" id="btnLogin" style="width:115px; height: 35px; margin-top: 3%; margin-bottom: 5%;  line-height:0.1;">Login</a> 
 			<a class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/join" style="width:115px; margin-top: 5%">Join</a>
+				href="/returnscroll/join" style="width:115px; height: 35px; margin-top: 3%; margin-bottom: 5%;  line-height:0.1;">Join</a>
+				
+			<!-- 카카오 로그인 -->
 			<a id="custom-login-btn" href="javascript:loginWithKakao()">
-<img id="kakao-login-btn" src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="235"/>
-</a>
-				<div class="fb-login-button" onlogin="checkLoginState();" data-width="200px" data-size="large" data-button-type="login_with"
-  						data-auto-logout-link="true" data-use-continue-as="false"></div>
+		<img id="kakao-login-btn" src="/returnscroll/resources/img/kakaotalk.jpg" style="margin-right:2.7%; margin-" border="0" alt=""/></a>
+		
+			<!-- 페이스북 로그인 -->
+			<a href="#" onclick="fb_login()"><img src="/returnscroll/resources/img/facebook.jpg" style="margin-right:2.7%;" border="0" alt=""></a>
   						
-			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">google</div>
-					<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-<!-- 			  <div id="naver_id_login"></div> -->
-			  <div id="naverIdLogin"></div>
+			<!-- 구글 로그인 -->
+			<div id="gSignInWrapper" style="display: inline-block; margin-right:2.7%;">
+		    	<div id="customBtn" >
+		        <span class="icon"></span>
+		        <span id="a" class="customGPlusSignIn" onclick="if(this.innerHTML ==='Logout') {signOut();} return false;"> 
+		        	<img src="/returnscroll/resources/img/googleplus.jpg" border="0" alt="">
+		        </span>
+		    </div>
+		  </div>
+		  
+		   <!-- 네이버 로그인 -->
+		  <div id="naverIdLogin" style="display: inline-block; margin-right:2.7%;">
+		  	<a id="naverIdLogin_loginButton" href="#" role="button">
+		  		<img src="/returnscroll/resources/img/naver.jpg" border="0" alt="">
+		  	</a>
+		  </div>
 			  
 		<div class="overlay"></div>
     </form>
@@ -202,64 +213,6 @@
 
 		});
 </script>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-
-<!-- 	<script type="text/javascript" -->
-<!-- 		src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" -->
-<!-- 		charset="utf-8"></script> -->
-	<script type="text/javascript">
-	var naverLogin = new naver.LoginWithNaverId(
-			{
-				clientId: "0xG1suQ90VZU_QsoAafW",
-				callbackUrl: "http://localhost:8080/returnscroll/callback",
-				isPopup: true, /* 팝업을 통한 연동처리 여부 */
-				loginButton: {color: "green", type: 1, height: 60} /* 로그인 버튼의 타입을 지정 */
-			}
-		);
-
-		naverLogin.init();
-		
-// 		var naver_id_login = new naver_id_login("0xG1suQ90VZU_QsoAafW",
-// 				"http://localhost:8080/returnscroll/callback");
-// 		var state = naver_id_login.getUniqState();
-// 		naver_id_login.setButton("white", 2, 40);
-// 		naver_id_login.setDomain("http://localhost:8080/returnscroll");
-// 		naver_id_login.setState(state);
-// 		naver_id_login.setPopup();
-// 		naver_id_login.init_naver_id_login();
-
-
-
-
-// 		alert(naver_id_login.oauthParams.access_token);
-// 		// 네이버 사용자 프로필 조회
-// 		naver_id_login.get_naver_userprofile("naverSignInCallback()");
-// 		// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-// 		function naverSignInCallback() {
-// 			alert(naver_id_login.getProfileData('email'));
-// 			alert(naver_id_login.getProfileData('nickname'));
-// 			alert(naver_id_login.getProfileData('age'));
-// 		}
-
-		function getNaverId(id) {
-			
-			$.ajax({					
-						url : "naverDup",				
-						data : {				
-							naver : id			
-						},				
-						success : function(res) {				
-							console.log(res);			
-										
-							if (res == 0) {			
-								location = 'join?naver=' + id + ''		
-							} else if (res == 1) {			
-								location = 'loginNaver?naver=' + id + ''		
-							}			
-						}				
-					});			
-		}
-	</script>
 	<script>
 
 		window.fbAsyncInit = function() {
@@ -269,9 +222,9 @@
 				xfbml : true, // parse social plugins on this page
 				version : 'v4.0' // use graph api version 2.8
 			});
-			FB.getLoginStatus(function(response) {
-				statusChangeCallback(response);
-			});
+// 			FB.getLoginStatus(function(response) {
+// 				statusChangeCallback(response);
+// 			});
 		};
 
 		(function(d, s, id) {
@@ -284,6 +237,49 @@
 			js.src = "https://connect.facebook.net/en_US/sdk.js";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
+		
+		function fb_login(){
+		    FB.login(function(response) {
+
+		        if (response.authResponse) {
+		            console.log('Welcome!  Fetching your information.... ');
+		            //console.log(response); // dump complete info
+		            access_token = response.authResponse.accessToken; //get access token
+		            user_id = response.authResponse.userID; //get FB UID
+
+		            FB.api('/me', function(response) {
+		                user_email = response.email; //get user email
+		                console.log(response)
+		          // you can store this data into your database  
+		                var id = response.id;
+						
+						$.ajax({					
+							url : "facebookDup",				
+							data : {				
+							facebook : id			
+							},				
+							success : function(res) {				
+								console.log(res);			
+											
+								if (res == 0) {			
+									location = 'join?facebook=' + id + ''		
+								} else if (res == 1) {			
+									location = 'loginFacebook?facebook=' + id + ''		
+								}			
+							}				
+						});			
+						document.getElementById('status').innerHTML = JSON.stringify(response);
+		            });
+
+		        } else {
+		            //user hit cancel button
+		            console.log('User cancelled login or did not fully authorize.');
+
+		        }
+		    }, {
+		        scope: 'email'
+		    });
+		}
 
 		var accessToken;
 		function statusChangeCallback(response) {
@@ -388,6 +384,7 @@
 	}										
 	//]]>															
 </script>
+<!-- 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
         function onSignIn(googleUser) {
@@ -420,6 +417,8 @@
 			});		
         };
 </script>
+-->
+
 <script>
 	    window.onload = function() {
 	 
@@ -463,6 +462,68 @@
 	 
 	    }
 </script>
+
+
+<script src="https://apis.google.com/js/api:client.js"></script>
+  <script> 
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+ 
+  function attachSignin(element) {
+    console.log("id");
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+    		console.log('click handler')
+    		console.log(googleUser)
+    		console.log(googleUser.El)
+    		
+    		
+//             document.querySelector('#a').innerHTML = 'Logout';
+//           document.getElementById('name').innerText = "Signed in: " +
+//               googleUser.getBasicProfile().getName();
+			var id = googleUser.El;
+        	$.ajax({					
+				url : "googleDup",				
+				data : {				
+					google : id			
+				},				
+				success : function(res) {				
+					console.log(res);			
+								
+					if (res == 0) {			
+						location = 'join?google=' + id + ''		
+					} else if (res == 1) {			
+						location = 'loginGoogle?google=' + id + ''		
+					}			
+				},fail : function(error) {						
+						console.log("error");
+				}
+			});	
+			
+        }, function(error) {
+          console.log(JSON.stringify(error, undefined, 2));
+        });
+  }
+          function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut();
+            auth2.disconnect();
+        }
+	startApp();
+  </script>
+
+
 </body>
 
 </html>

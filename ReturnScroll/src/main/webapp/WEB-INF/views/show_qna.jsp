@@ -112,7 +112,7 @@
 		
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
- 
+ <div id="body">
 <h1 id="h1_title" style="margin-left:5%;margin-top:2%;">Q&A 게시글</h1>
 <hr style="width:95%; background:#FFCC33; height:2px" >
 <div style="margin-left:5%;">
@@ -235,7 +235,7 @@ var artid = "${article.WRITER}";
 </div>
 
 	<jsp:include page="footer.jsp"></jsp:include>
-
+	</div>
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"> </script>
 <script>
 function addComment(){

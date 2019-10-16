@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com">
+
+<footer>
 <!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
 		<i class="fas fa-angle-up"></i>
@@ -15,3 +17,4 @@
       <p class="text-muted small mb-0" style="text-align:center; margin-bottom:10px;">Creator 배성준 박수빈 진예지</p>
       <br><br>
 </div>
+</footer>
