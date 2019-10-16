@@ -83,10 +83,6 @@
 
   </style>
    <div style="text-align:center;" id='body'>
-<<<<<<< HEAD
-  
-       <img src="resources/img/리턴2.jpg" style="max-width:100%; height:564px;"><br>
-=======
    <c:if test="${not empty inviteList }">
 		<div class='dropdown' style='z-index:1;display: flex;'>
 			<button data-toggle='dropdown' id='alarms' style='border: none; background: none; display: inline-block;width: fit-content; height: auto;'>
@@ -110,7 +106,6 @@
 		<div></div>
 	</c:if>
        <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
       <br><br>
       <button onclick="location.href='/returnscroll/login'">Login</button>
       <button onclick="location.href='/returnscroll/join'">Join</button>
@@ -118,18 +113,6 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 
   </div>
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
-
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -141,8 +124,6 @@
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
       <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
-<<<<<<< HEAD
-=======
 		// 초대수락
 		function enterInvite(roomNumber, sender, recipient){
 			var inviteData = {"roomNumber": roomNumber,"sender": sender,"recipient": recipient}
@@ -178,7 +159,6 @@
                 }
              })
 		}
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 		
 	</script>
 </body>
