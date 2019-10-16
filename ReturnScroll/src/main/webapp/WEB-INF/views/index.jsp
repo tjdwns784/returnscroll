@@ -83,53 +83,19 @@
 
   </style>
    <div style="text-align:center;" id='body'>
-<<<<<<< HEAD
-  
+
        <img src="resources/img/리턴2.jpg" style="max-width:100%; height:564px;"><br>
-=======
-   <c:if test="${not empty inviteList }">
-		<div class='dropdown' style='z-index:1;display: flex;'>
-			<button data-toggle='dropdown' id='alarms' style='border: none; background: none; display: inline-block;width: fit-content; height: auto;'>
-				<span class='caret'>
-				<img src="resources/img/alarm.png" style='width: 50px; margin: 5px;'></span>
-			</button>
-			<c:forEach var="list" items="${inviteList }" varStatus="count">
-				<ul class='dropdown-menu' style='list-style: none;'>
-					<li><a class='dropdown-item disabled'
-						style='padding-bottom: 10px; padding-top: 10px;'>${list.s}님이 회원님을 ${list.num }번 방으로 초대하였습니다</a></li>
-					<li><a class='dropdown-item'style='padding-bottom: 10px; padding-top: 10px;'>
-					 	<input type='hidden' id='senderId' value='${list.num}' />
-						<button type='button' id='inviteYes' onclick='enterInvite("${list.num}","${list.s }","${list.r }");'> 입장하기</button>
-						<button type='button' id='inviteNo' onclick='rejectInvite("${list.num}","${list.s }","${list.r }");'>거절하기</button></a>
-					</li>
-				</ul>
-			</c:forEach>
-		</div>
-	</c:if>
-	<c:if test="${empty inviteList }">
-		<div></div>
-	</c:if>
-       <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+
+
       <br><br>
       <button onclick="location.href='/returnscroll/login'">Login</button>
       <button onclick="location.href='/returnscroll/join'">Join</button>
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
   </div>
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -141,47 +107,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
       <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-	<script>
-<<<<<<< HEAD
-=======
-		// 초대수락
-		function enterInvite(roomNumber, sender, recipient){
-			var inviteData = {"roomNumber": roomNumber,"sender": sender,"recipient": recipient}
-			console.log('초대수락 버튼 ');
-			console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
-			$.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
-                type:'GET',
-                data: inviteData,
-                success:function(data){
-                	console.log('결과 데이터는 '+data);
-                	window.location.href="http://localhost:8080/returnscroll/chat/"+data;
-                },
-                error:function(request, status, errorThrown){
-                   alert('방 입장 실패'+errorThrown);
-                }
-             })
-		}
-		// 초대거절하기
-		function rejectInvite(roomNumber, sender, recipient){
-			var inviteData = {"roomNumber": roomNumber,"sender": sender,"recipient": recipient}
-			console.log('거절수락 버튼 ');
-			console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
-			$.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
-                type:'GET',
-                data: inviteData,
-                success:function(data){
-                	alert(sender+"님의 채팅창 초대를 거절하였습니다.");
-                },
-                error:function(request, status, errorThrown){
-                   alert('초대 거절 실패');
-                }
-             })
-		}
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
-		
-	</script>
+
 </body>
 
 </html>
