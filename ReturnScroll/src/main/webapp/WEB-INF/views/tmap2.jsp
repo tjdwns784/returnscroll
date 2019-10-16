@@ -332,29 +332,24 @@
     }
     
     #map_div{
-			width:100%;
-			height:750px;
+			float:left;
+			width:72.5%;
+			height:650px;
 	}
 	
 	#ft{
-		margin-top:-5%;
+		margin-top:30%;
 	}
-	
-	#map_btn{
-		width:95%;
-		margin-left:2.5%;
-		
-	}
-	    
+    
     @media (max-width:600px){
 		#map_div{
+			float:none;
 			width:100%;
 			height:500px;
 		}
 		#ft{
 			margin-top:-15%;
 		}
-		
 		input[type=button]{
 		  height:30px;
 		  font-size:0.9em;
@@ -366,16 +361,6 @@
 		#h1_title{
 			font-size:2rem;
 		}
-		
-		.modal-content{
-			margin-top : 70px;
-		}
-		
-		#map_btn{
-			margin-left:9.5%;
-		
-		}
-		
 	}
   
        
@@ -402,40 +387,26 @@
 			출발 : <input type='text' name='start' readonly style="width : 90%; margin-bottom:10px;"><br>
 			도착 : <input type='text' name='arrive' readonly style="width : 90%;">
 		</div>
-		<div id="map_btn" >
-			<input type="button"  value='주소검색' data-toggle="modal" data-target="#findAddr">
-			<input type='button' id='f_btn' value='경로찾기' onclick = "findRoot()" >
-			<input type='button' id='r_btn' value='경로취소' onclick = "removeRoot()" style="/* visibility:hidden; */ display:none;" >
-			 <input type='button' id='fl_btn' value='친구찾기' onclick = "findMyLocation()">
-			  <input type='button' id='sl_btn' value='친구찾기 중지' onclick = "stopMyLocation()" style="/* visibility:hidden; */ display:none;"><br> 
+		
+		   <!-- Button trigger modal -->
+		<input type="button"  value='주소검색' class="btn" data-toggle="modal" data-target="#findAddr"><br>
+		<div style="width:95%; margin-left:2.5%">
+		
+			<input type='button' value='경로찾기' onclick = "findRoot()" > &nbsp;&nbsp;&nbsp;&nbsp;
+			<input type='button' value='경로취소' onclick = "removeRoot()" >&nbsp;&nbsp;&nbsp;&nbsp;
+			 <input type='button' value='친구찾기' onclick = "findMyLocation()">&nbsp;&nbsp;&nbsp;&nbsp;
+			  <input type='button' value='친구찾기 중지' onclick = "stopMyLocation()"><br> 
 			  
 			
 		</div>
 		</form>
 	</div>
 <hr style="margin-left:2.5%; width:95%; background:#FFCC33; height:2px" >
-
- <!-- 지도 -->
-<div id="map_div"></div> 
-  <br><br>
-
-
-<!-- Modal -->
-<div class="modal fade" id="findAddr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-         </button>
-       </div>
-        <!--주소검색  --> 
-     <div class="modal-body">
-        <div class="mainDiv">
-        
-			<input type="hidden" id="inpPage" type="text" value="1">
-			<input type="hidden" id="inpTotLimit" type="text" value="7">
-		    <div id="divtop">
+<!-- 주소 검색 -->
+<div class="mainDiv d-none d-lg-block" style="margin-left:2.5%; width: 22.5%; z-index: 1000; float:left; ">
+	<input type="hidden" id="inpPage" type="text" value="1">
+	<input type="hidden" id="inpTotLimit" type="text" value="7">
+    <div id="divtop">
             <h3>
                 <span class="ico_sch"></span>
                 <span class="top_tit">주소 검색</span>
@@ -477,51 +448,20 @@
         </div>
         <div id="pageZone"></div>	
 </div>	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-      
+  
+ <!-- 지도 -->
+<div id="map_div"></div> 
+  <br><br>
+ 
     	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
          <script>
-         
-     	
-	  		function setLocation(lat, lng) {
-	  			latitude = lat;
-	  			longitude = lng;
-	  			
-	  			initTmap();
-	 		}
-  		         
-	  		function setLocation2(lat, lng) {
-	  			latitude = lat;
-	  			longitude = lng;
-	  			
-	  			//drawMarker(   );
-	  			//$('#test').text(latitude+'/'+longitude);
-	  			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
-        		var size = new Tmap.Size(24, 38);//아이콘 크기 설정
-        		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정 */
-        		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
-        		
-        		markers3 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
-        		map.addLayer(markers3); // 지도에 Markers 객체 추가
-        		
-        		marker3 = new Tmap.Marker(lonlat3, icon);//마커 생성
-        		markers3.addMarker(marker3);//레이어에 마커 추가
-        		
-	 		}
-  		         
          	var map;
          	var latitude, longitude;
 			var lonlate, lonlate2, lonlat3;
 			var gAppKey = '8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2';
-			var markers1, markers2, markers3;
+			var markers1, markers2;
 			var centerLL, targetLL;
-			var marker1, marker2, marker3;
+			var marker1, marker2;
 			var vectorLayer;
 		
 			var flocation;
@@ -531,10 +471,7 @@
      		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_s.png',size, offset);
          	
          	$(document).ready(function() {
-				// 안드로이드 폰에서 접속한 경우에만 실행
-				window.loc.sendLocation();
-         		
-         		
+        		initTmap();
         	});
          	
          	function setVariables(){    
@@ -548,10 +485,9 @@
          		});
          		
          		//위치 정보 받아오기
-//          		navigator.geolocation.getCurrentPosition(function(pos) {
-//     				latitude = pos.coords.latitude;
-//     				longitude = pos.coords.longitude;
-//     				alert(latitude + '/' + longitude)
+         		navigator.geolocation.getCurrentPosition(function(pos) {
+    				latitude = pos.coords.latitude;
+    				longitude = pos.coords.longitude;
     	
              		map.setCenter(new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857"), 15);
              		
@@ -640,7 +576,7 @@
              		map.events.register("click", map, onClick);
       
 
-//          		});
+         		});
 
          	} 
 
@@ -649,9 +585,6 @@
 				
 				markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
 				map.addLayer(markerLayer);//map에 마커 레이어 추가
-			
-        		document.getElementById("fl_btn").style.display="none";
-        		document.getElementById("sl_btn").style.display="inline";
      					
         		flocation = setInterval(function() {
         		
@@ -680,11 +613,6 @@
         		clearInterval(flocation);
         		markerLayer.clearMarkers();//레이어에 마커 제거
         		console.log("친구찾기 중지");
-        		
-        		/* document.getElementById("fl_btn").style.visibility="visible";
-        		document.getElementById("sl_btn").style.visibility="hidden"; */
-        		document.getElementById("fl_btn").style.display="inline";
-        		document.getElementById("sl_btn").style.display="none";
          	}
          	
          	//길찾기
@@ -717,10 +645,7 @@
         		tData.events.register("onProgress", tData, onProgress);//데이터 로드중에 발생하는 이벤트를 등록합니다.
         		tData.events.register("onError", tData, onError);//데이터 로드가 실패했을 떄 발생하는 이벤트를 등록합니다.
         		
-        		document.getElementById("r_btn").style.display="inline";
-        		document.getElementById("f_btn").style.display="none";
-        		/* document.getElementById("r_btn").style.visibility="visible";
-        		document.getElementById("f_btn").style.visibility="hidden"; */
+        	
          	}
          	
          	//길찾기 제거
@@ -728,12 +653,6 @@
 				map.removeLayer(vectorLayer);
 				markers1.setVisibility(true);
          		markers2.setVisibility(true);
-         		
-         		document.getElementById("r_btn").style.display="none";
-        		document.getElementById("f_btn").style.display="inline";
-         		/* document.getElementById("r_btn").style.visibility="hidden";
-         		document.getElementById("f_btn").style.visibility="visible"; */
-         		
          		
          	}
 
@@ -917,26 +836,6 @@
 		}
 		
 		// 검색 버튼
-		$('#inpSearch').click(function(){
-			// 유효성 검사
-			isValidate();
-			
-			var appKey= gAppKey;
-			var url = 'https://apis.openapi.sk.com/tmap/geo/postcode';
-		
-			var params = {
-					"coordType" : "WGS84GEO",
-					"addressFlag" : "F00",
-					"format" : "json",
-					"page" : $('#inpPage').val(),
-					"count" : $('#inpTotLimit').val(),
-					"addr" : $('#inpKeyword').val(),
-					"appKey" : appKey
-			};
-			$.get(url, params, success)
-			 .fail(fail);
-		});
-		
 		$('#inpSearch').click(function(){
 			// 유효성 검사
 			isValidate();

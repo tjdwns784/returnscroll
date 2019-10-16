@@ -76,7 +76,9 @@
 	}
 	
 	 @media (max-width: 600px) {
-  	
+  		#img_home{
+  			width:80%;
+  		}
  	 }
 
   </style>
@@ -103,20 +105,17 @@
 	<c:if test="${empty inviteList }">
 		<div></div>
 	</c:if>
-       <img src="resources/img/리턴2.jpg" style="max-width:100%; height:564px;"><br>
+       <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
       <br><br>
       <button onclick="location.href='/returnscroll/login'">Login</button>
       <button onclick="location.href='/returnscroll/join'">Join</button>
-<<<<<<< HEAD
+
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
   
   </div>
 
-=======
-	<jsp:include page="footer.jsp"></jsp:include>
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -164,6 +163,7 @@
                 }
              })
 		}
+		
 	</script>
 </body>
 
