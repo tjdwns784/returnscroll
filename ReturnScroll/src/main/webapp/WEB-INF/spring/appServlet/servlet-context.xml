@@ -42,7 +42,7 @@
 
        <!-- <property name="url" value="jdbc:log4jdbc:mysql://192.168.0.14:3306/returnscroll"></property>  -->
 
-        <property name="url" value="jdbc:log4jdbc:mysql://192.168.0.17:3306/returnscroll?allowMultiQueries=true"></property>
+        <property name="url" value="jdbc:log4jdbc:mysql://192.168.0.19:3306/returnscroll?allowMultiQueries=true"></property>
 
         
         <property name="username" value="root"></property>

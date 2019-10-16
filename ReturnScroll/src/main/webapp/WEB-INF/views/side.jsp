@@ -6,7 +6,7 @@
 <meta name="google-signin-client_id" content="630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com">
 <header>
 <br>
-<img id=img src="resources/img/리턴2.jpg">
+<img id=img src="/returnscroll/resources/img/리턴2.jpg">
 <h1 id='header' style="text-align:center; margin-right:100px;" ><span>Return Scroll</span></h1>
 <hr style="width:95%; background:#FFCC33; height:2px" >
 </header>
@@ -98,4 +98,27 @@
 			});
 			auth2.disconnect();
 		})
+			$("#sidebar-wrapper").focusout(()=>{					
+					$.ajax({				
+						url:"nickDup",					
+						data : {nick : $("#user_nick").val()},					
+						success: function(res){					
+						console.log(res);					
+											
+						if(res==0 && $("#user_nick").val() !="" ){					
+							$("#msgnick").text("사용가능한 닉네임 입니다.")				
+							$("#msgnick").css("color","blue")				
+							isNick = 1	
+						}else if(res==0 && $("#user_nick").val() =="" ){
+							$("#msgnick").text("공백은 불가합니다.")	
+							$("#msgnick").css("color","red")	
+							isNick = 0		
+						}else {					
+							$("#msgnick").text("이미 존재하는 닉네임 입니다.")				
+							$("#msgnick").css("color","red")				
+							isNick = 0				
+						}			
+					}					
+				});					
+			})					
 </script>

@@ -102,17 +102,13 @@
        <img src="resources/img/리턴2.jpg" style="max-width:100%; height:auto;"><br>
       
       <button onclick="location.href='/returnscroll/login'">Login</button>
+      <button onclick="location.href='/returnscroll/join'">Join</button>
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
-      <button onclick="location.href='/returnscroll/join'">Join</button>
-      <br><br><br>
-      <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0">Copyright &copy; ReturnScroll 2019</p>
+  
   </div>
 
-
-  </div>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
