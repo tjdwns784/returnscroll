@@ -163,9 +163,10 @@
 <tbody>
 	<c:forEach items="${list}" var="item">
 
-		<tr  onClick ="location.href='show/${item.NO}'" style="cursor:pointer;" >
+	<%-- 	<tr  onClick ="location.href='show/${item.NO}'" style="cursor:pointer;" > --%>
+	<tr>
 		<td  >${item.NO}</td>
-		<td style="text-align:left;">${item.TITLE} 
+		<td style="text-align:left; cursor:pointer;" ><a href="show/${item.NO}" >${item.TITLE}</a>
 			<c:if test='${item.CMT_CNT > 0}'>
 			[${item.CMT_CNT}]
 			</c:if>
