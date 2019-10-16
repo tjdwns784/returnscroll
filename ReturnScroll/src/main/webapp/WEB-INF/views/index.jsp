@@ -83,6 +83,8 @@
 
   </style>
    <div style="text-align:center;" id='body'>
+<<<<<<< HEAD
+=======
    <c:if test="${not empty inviteList }">
 		<div class='dropdown' style='z-index:1;display: flex;'>
 			<button data-toggle='dropdown' id='alarms' style='border: none; background: none; display: inline-block;width: fit-content; height: auto;'>
@@ -105,14 +107,23 @@
 	<c:if test="${empty inviteList }">
 		<div></div>
 	</c:if>
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
        <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
       <br><br>
       <button onclick="location.href='/returnscroll/login'">Login</button>
       <button onclick="location.href='/returnscroll/join'">Join</button>
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
   </div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -122,7 +133,6 @@
 
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-      <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
 		// 초대수락
 		function enterInvite(roomNumber, sender, recipient){
@@ -159,7 +169,10 @@
                 }
              })
 		}
+<<<<<<< HEAD
+=======
 		
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 	</script>
 </body>
 

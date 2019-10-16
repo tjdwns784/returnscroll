@@ -128,16 +128,20 @@
 <!-- 		src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" -->
 <!-- 		charset="utf-8"></script> -->
 	<script type="text/javascript">
-		var naverLogin = new naver.LoginWithNaverId(
-			{
-				clientId: "0xG1suQ90VZU_QsoAafW",
-				callbackUrl: "http://localhost:8080/returnscroll/callback",
-				isPopup: true, /* 팝업을 통한 연동처리 여부 */
-// 				loginButton: {color: "green", type: 1, height: 60} /* 로그인 버튼의 타입을 지정 */
-			}
-		);
-
-		naverLogin.init();
+		var naverLogin;
+		$(function() {
+			
+			naverLogin = new naver.LoginWithNaverId(
+				{
+					clientId: "0xG1suQ90VZU_QsoAafW",
+					callbackUrl: "http://localhost:8080/returnscroll/callback",
+					isPopup: true, /* 팝업을 통한 연동처리 여부 */
+	// 				loginButton: {color: "green", type: 1, height: 60} /* 로그인 버튼의 타입을 지정 */
+				}
+			);
+	
+			naverLogin.init();
+		})
 		
 		window.addEventListener('load', function () {
 			naverLogin.getLoginStatus(function (status) {
