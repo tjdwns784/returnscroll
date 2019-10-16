@@ -4,17 +4,65 @@
 <!DOCTYPE html>
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com">
-
+<header>
+<br>
+<img id=img src="/returnscroll/resources/img/리턴2.jpg">
+<h1 id='header' style="text-align:center; margin-right:100px;" ><span>Return Scroll</span></h1>
+<hr style="width:95%; background:#FFCC33; height:2px" >
+</header>
  <style>
  
-  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
  
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  @import url('https://fonts.googleapis.com/css?family=Merienda:700&display=swap');
+ 
+  header { background : #FFCC33; }
+  #header { 
+	    font-family:'Merienda';
+	    font-size:50px;
+  }
+  h1,body, table, div, a, li, ul{font-family:'Nanum Gothic';}
+
+  #img {
+  		float: left;
+  		width: 65px;
+  		margin-left: 100px;
+  	}
+    
+  @media (max-width: 600px) {
+  	#img {
+  		width: 50px;
+  		margin-left: 20px;
+  		margin-top: -10px;
+  	}
+  }
+
+  @media (min-width: 601px) and (max-width: 1000px) {
+  	#img {
+  		width: 100px;
+  		margin-left: 20px;
+  	}
+  }
+
   
-  body, table, div, a, li, ul{font-family:'Nanum Gothic';}
+  @media (max-width: 600px) {
+  	#header {
+  		
+  		font-size: 35px;
+  		margin-left:2px;
+  	}
+  }
+
+  @media (min-width: 601px) and (max-width: 1000px) {
+  	#header {
+  		font-size: 65px;
+  	}
+  }
 
   #sidebar-wrapper { 
   	background : #FF9900;
   	font-weight : bold;
+  	top: 0;
   }
   </style>
 
@@ -26,8 +74,6 @@
 				href="/returnscroll/">Menu</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/">Home</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
-				href="/returnscroll/join">Join</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 				href="/returnscroll/tmap">Map</a></li>
 			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
@@ -64,4 +110,27 @@
 			});
 			auth2.disconnect();
 		})
+			$("#sidebar-wrapper").focusout(()=>{					
+					$.ajax({				
+						url:"nickDup",					
+						data : {nick : $("#user_nick").val()},					
+						success: function(res){					
+						console.log(res);					
+											
+						if(res==0 && $("#user_nick").val() !="" ){					
+							$("#msgnick").text("사용가능한 닉네임 입니다.")				
+							$("#msgnick").css("color","blue")				
+							isNick = 1	
+						}else if(res==0 && $("#user_nick").val() =="" ){
+							$("#msgnick").text("공백은 불가합니다.")	
+							$("#msgnick").css("color","red")	
+							isNick = 0		
+						}else {					
+							$("#msgnick").text("이미 존재하는 닉네임 입니다.")				
+							$("#msgnick").css("color","red")				
+							isNick = 0				
+						}			
+					}					
+				});					
+			})					
 </script>

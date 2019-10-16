@@ -67,9 +67,13 @@
 	  transition:800ms ease all;
 	}
 	
-	#sidebar-wrapper {
-		margin-top: -2%;
+	@media (max-width : 600px){
+	
+		#h1_title{
+			font-size:2rem;
+		}
 	}
+	
 </style>
 
  <!-- Navigation -->
@@ -82,17 +86,17 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
-<h1 style="margin-left:5%;margin-top:2%;">My Page</h1>
-<hr style="width:90%; background:#FFCC33; height:2px" >
+<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">My Page</h1>
+<hr style="width:95%; background:#FFCC33; height:2px" >
 <br><br>
-<div style="width:90%; margin: 0 auto;">
+<div style="width:95%; margin: 0 auto;">
 	<ul class="list-group">					
 					
 		<li class="list-group-item">아이디 : ${map.uid}</li>				
 		<li class="list-group-item">이름 : ${map.uname}</li>				
 		<li class="list-group-item">별명 : ${map.nick}</li>				
 		<li class="list-group-item">생년월일 : ${map.birth}</li>				
-		<li class="list-group-item">휴대폰 : ${map.phone}</li>				
+		<li class="list-group-item">휴대폰 번호: ${map.phone}</li>				
 		<li class="list-group-item">이메일 : ${map.email}</li>	
 	</ul>		
 		<br><br><br><br>
@@ -106,13 +110,7 @@
 
 
   </div>
-  
-  <div>
-	<br><br><br><br>
-    <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
-      </div>
-
+	<jsp:include page="footer.jsp"></jsp:include>
 	<script>				
 		function userUpdate() {			
 			location = '/returnscroll/userUpdate';		

@@ -286,11 +286,15 @@ public class MemberController {
 
 	// 회원가입 불러오기
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String join(Locale locale, Model model) {
-
-		return "join";
+	public String join(Locale locale, Model model,HttpSession httpSession) {
+		if(httpSession.getAttribute("uid") == null) {
+			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+			return "join";
+		}else {
+			return "redirect:/login";
+		}	
 	}
-	
+
 	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPost(@RequestParam Map<String, Object> map, HttpServletResponse response ) throws IOException {

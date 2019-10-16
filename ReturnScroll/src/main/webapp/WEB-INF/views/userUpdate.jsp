@@ -71,13 +71,17 @@
 	a.menu-toggle > i {
 		margin-top: 18px;
 	}
-	#sidebar-wrapper {
-		margin-top: -2%;
-	}	
-    
+	@media (max-width : 600px){
+	
+		#h1_title{
+			font-size:2rem;
+		}
+	}
+	
+
   </style>
-	<h1 style="margin-left:5%;margin-top:2%;">My Page</h1>
-	<hr style="width:90%; background:#FFCC33; height:2px" >
+	<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">회원수정</h1>
+	<hr style="width:95%; background:#FFCC33; height:2px" >
 
 <div style="width:90%; margin:0 auto">
 <br><br>
@@ -107,7 +111,7 @@
 						<div class="check_font" id="name_check"></div>
 	</div>
 	<div class="form-group">
-						<label for="user_phone">핸드폰 번호</label> <br>
+						<label for="user_phone">휴대폰 번호</label> <br>
 						<select name="p1" style="width:85px; height:40px;">
 							<option value="010" <c:if test="${info.p1 == '010'}">selected</c:if>>010
 							</option>
@@ -144,12 +148,8 @@
 		</form>
 		</div>
 				
-	<div>
-	<br><br><br><br>
-    <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
-      </div>
-
+	
+	<jsp:include page="footer.jsp"></jsp:include>
 	<script>
 		var isPw = 0							
 		var isEmail = 0							

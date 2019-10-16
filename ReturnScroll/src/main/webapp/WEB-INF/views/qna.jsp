@@ -78,9 +78,7 @@
 	  width:100%;
 	  transition:800ms ease all;
 	}
- 	#sidebar-wrapper {
-		margin-top: -1.2%;
-	} 
+ 	
 	
 	#writeBtn {
 	
@@ -89,12 +87,16 @@
 		margin-bottom: 0.5%;
 			
 	}
-	@media (max-width : 992px){
+	@media (max-width : 600px){
 	
 		#writeBtn {
 			text-align :center;
 			float:none;
 			margin-right:-5%
+		}
+		
+		#h1_title{
+			font-size:2rem;
 		}
 	}
 
@@ -116,13 +118,13 @@
 	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
  <!--  <header class="masthead d-flex"> -->
- <header>
-    <div class="container my-auto">
+
+   <!--  <div class="container my-auto"> -->
  
 
-<h1 style="margin-left:5%;margin-top:2%;">Q&A 게시판</h1>
+<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">Q&A 게시판</h1>
 <!-- <h1 class="mb-1">Q&A 게시판</h1> -->
-<hr style="width:90%; background:#FFCC33; height:2px" >
+<hr style="width:95%; background:#FFCC33; height:2px" >
 
 
 
@@ -191,7 +193,7 @@
 				style="float: right; margin-right: 1%;">
 <input type ="button" value="내게시글" onclick="location.href='qna?searchText=${unick}' +'&searchItem=a_writer' + '&searchOrd= ';" class="btn btn-info" 
 				style="float: right; margin-right: 1%;"> --%>
-<br><br><br>
+<br>
 <div class="container" style="width:90%;" >
   <ul class="pagination" style="justify-content: center;">
     <% int t = (Integer)request.getAttribute("total"); 
@@ -221,10 +223,10 @@
     	
     %>
     <c:if test='${page > 10}'>
-    	<li class="page-item"><a class="page-link" href="qna?page=${startPage - 10}">Previous</a></li>
+    	<li class="page-item"><a class="page-link" href="qna?page=${startPage - 10}">◀</a></li>
     </c:if>
     <c:if test='${page <= 10}'>
-    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage - 10}">Previous</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage - 10}">◀</a></li>
     </c:if>
 
     <c:forEach begin="<%=startPage %>" end="<%=endPage%>" var="pnum" step="1">
@@ -239,16 +241,16 @@
     </c:forEach>
     
     <c:if test='${endPage < showNum}'>
-    	<li class="page-item"><a class="page-link" href="qna?page=${startPage + 10}">Next</a></li>
+    	<li class="page-item"><a class="page-link" href="qna?page=${startPage + 10}">▶</a></li>
     </c:if>
      <c:if test='${endPage >= showNum}'>
-    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage + 10}">Next</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage + 10}">▶</a></li>
     </c:if>
   </ul>
 </div>
 
-</div>
-</header>
+
+
 
 <script>
 	function enterkey() {
@@ -278,16 +280,5 @@
 	})
 	
 </script>
-
-<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
-<div>
-<br><br>
-    <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
-      </div>
-  
-	
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>

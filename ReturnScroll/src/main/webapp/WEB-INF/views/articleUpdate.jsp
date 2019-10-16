@@ -69,9 +69,14 @@
 	a.menu-toggle > i {
 		margin-top: 18px;
 	}
-	#sidebar-wrapper {
-		margin-top: -2%;
-	}	
+	@media (max-width : 600px){
+			
+		#h1_title{
+			font-size:2rem;
+		}
+	}
+	
+	
     
   </style>
 
@@ -95,10 +100,10 @@
 	<script src="/resources/js/summernote-ko-KR.js"></script>
 
 
-	<h1 style="margin-left:5%;margin-top:2%;">Q&A 글 수정하기</h1>
-	<hr style="width:90%; background:#FFCC33; height:2px" >
+	<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">Q&A 글 수정하기</h1>
+	<hr style="width:95%; background:#FFCC33; height:2px" >
 	
-	<div style="width:90%; margin:0 auto;">
+	<div style="width:95%; margin:0 auto;">
 	<form method="post" id='frm' name='frm'>
 
 		<input type="hidden" name="no" value="${no}"><br>
@@ -114,16 +119,7 @@
 	</form>
 	</div>
 	
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
-	
-		<div>
-<br><br>
-    <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
-      </div>
+	<jsp:include page="footer.jsp"></jsp:include>
 	
 	
 <script>
