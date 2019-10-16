@@ -83,16 +83,47 @@
 
   </style>
    <div style="text-align:center;" id='body'>
+<<<<<<< HEAD
+=======
+   <c:if test="${not empty inviteList }">
+		<div class='dropdown' style='z-index:1;display: flex;'>
+			<button data-toggle='dropdown' id='alarms' style='border: none; background: none; display: inline-block;width: fit-content; height: auto;'>
+				<span class='caret'>
+				<img src="resources/img/alarm.png" style='width: 50px; margin: 5px;'></span>
+			</button>
+			<c:forEach var="list" items="${inviteList }" varStatus="count">
+				<ul class='dropdown-menu' style='list-style: none;'>
+					<li><a class='dropdown-item disabled'
+						style='padding-bottom: 10px; padding-top: 10px;'>${list.s}님이 회원님을 ${list.num }번 방으로 초대하였습니다</a></li>
+					<li><a class='dropdown-item'style='padding-bottom: 10px; padding-top: 10px;'>
+					 	<input type='hidden' id='senderId' value='${list.num}' />
+						<button type='button' id='inviteYes' onclick='enterInvite("${list.num}","${list.s }","${list.r }");'> 입장하기</button>
+						<button type='button' id='inviteNo' onclick='rejectInvite("${list.num}","${list.s }","${list.r }");'>거절하기</button></a>
+					</li>
+				</ul>
+			</c:forEach>
+		</div>
+	</c:if>
+	<c:if test="${empty inviteList }">
+		<div></div>
+	</c:if>
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
        <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
       <br><br>
       <button onclick="location.href='/returnscroll/login'">Login</button>
       <button onclick="location.href='/returnscroll/join'">Join</button>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
   </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -138,6 +169,10 @@
                 }
              })
 		}
+<<<<<<< HEAD
+=======
+		
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 	</script>
 </body>
 
