@@ -117,7 +117,7 @@
 		  
 		   <!-- 네이버 로그인 -->
 		  <div id="naverIdLogin" style="display: inline-block; margin-right:2.7%;">
-		  	<a id="naverIdLogin_loginButton" href="#" role="button">
+		  	<a id="naverIdLogin_loginButton" role="button" href='#'>
 		  		<img src="/returnscroll/resources/img/naver.jpg" border="0" alt="">
 		  	</a>
 		  </div>
@@ -384,6 +384,65 @@
 	}										
 	//]]>															
 </script>
+
+<script src="https://apis.google.com/js/api:client.js"></script>
+  <script> 
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+ 
+  function attachSignin(element) {
+    console.log("id");
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+    		console.log('click handler')
+    		console.log(googleUser)
+    		console.log(googleUser.El)
+    		
+    		
+//             document.querySelector('#a').innerHTML = 'Logout';
+//           document.getElementById('name').innerText = "Signed in: " +
+//               googleUser.getBasicProfile().getName();
+			var id = googleUser.El;
+        	$.ajax({					
+				url : "googleDup",				
+				data : {				
+					google : id			
+				},				
+				success : function(res) {				
+					console.log(res);			
+								
+					if (res == 0) {			
+						location = 'join?google=' + id + ''		
+					} else if (res == 1) {			
+						location = 'loginGoogle?google=' + id + ''		
+					}			
+				},fail : function(error) {						
+						console.log("error");
+				}
+			});	
+			
+        }, function(error) {
+          console.log(JSON.stringify(error, undefined, 2));
+        });
+  }
+          function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut();
+            auth2.disconnect();
+        }
+	startApp();
+  </script>
 <!-- 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
@@ -462,66 +521,6 @@
 	 
 	    }
 </script>
-
-
-<script src="https://apis.google.com/js/api:client.js"></script>
-  <script> 
-  var googleUser = {};
-  var startApp = function() {
-    gapi.load('auth2', function(){
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      auth2 = gapi.auth2.init({
-        client_id: '630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
-      });
-      attachSignin(document.getElementById('customBtn'));
-    });
-  };
- 
-  function attachSignin(element) {
-    console.log("id");
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-    		console.log('click handler')
-    		console.log(googleUser)
-    		console.log(googleUser.El)
-    		
-    		
-//             document.querySelector('#a').innerHTML = 'Logout';
-//           document.getElementById('name').innerText = "Signed in: " +
-//               googleUser.getBasicProfile().getName();
-			var id = googleUser.El;
-        	$.ajax({					
-				url : "googleDup",				
-				data : {				
-					google : id			
-				},				
-				success : function(res) {				
-					console.log(res);			
-								
-					if (res == 0) {			
-						location = 'join?google=' + id + ''		
-					} else if (res == 1) {			
-						location = 'loginGoogle?google=' + id + ''		
-					}			
-				},fail : function(error) {						
-						console.log("error");
-				}
-			});	
-			
-        }, function(error) {
-          console.log(JSON.stringify(error, undefined, 2));
-        });
-  }
-          function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut();
-            auth2.disconnect();
-        }
-	startApp();
-  </script>
 
 
 </body>
