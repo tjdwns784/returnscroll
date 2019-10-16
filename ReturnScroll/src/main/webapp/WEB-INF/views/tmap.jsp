@@ -393,6 +393,7 @@
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
     
 	<!-- <p id="result" name="result" value=" " ></p> -->
+	<div id="body">
 	<h1 id="h1_title" style="margin-left:2.5%;margin-top:2%;">Map</h1>
 	<hr style="width:95%; background:#FFCC33; height:2px; margin-left:2.5%;" >
 	
@@ -477,6 +478,7 @@
         </div>
         <div id="pageZone"></div>	
 </div>	
+<<<<<<< HEAD
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -484,6 +486,14 @@
     </div>
   </div>
 </div>
+=======
+  
+ <!-- 지도 -->
+<div id="map_div"></div> 
+  <br><br>
+    	  
+    	</div>  
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
       
     	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
          <script>

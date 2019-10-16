@@ -110,27 +110,86 @@
 			});
 			auth2.disconnect();
 		})
-			$("#sidebar-wrapper").focusout(()=>{					
-					$.ajax({				
-						url:"nickDup",					
-						data : {nick : $("#user_nick").val()},					
-						success: function(res){					
-						console.log(res);					
-											
-						if(res==0 && $("#user_nick").val() !="" ){					
-							$("#msgnick").text("사용가능한 닉네임 입니다.")				
-							$("#msgnick").css("color","blue")				
-							isNick = 1	
-						}else if(res==0 && $("#user_nick").val() =="" ){
-							$("#msgnick").text("공백은 불가합니다.")	
-							$("#msgnick").css("color","red")	
-							isNick = 0		
-						}else {					
-							$("#msgnick").text("이미 존재하는 닉네임 입니다.")				
-							$("#msgnick").css("color","red")				
-							isNick = 0				
-						}			
-					}					
-				});					
-			})					
+		$("#sidebar-wrapper").focusout(()=>{
+			
+			});		
+		
+		$("body").on('click', '#body', function(){
+			$('.menu-toggle > i.fa-times').trigger('click');
+// 		 	$('#sidebar-wrapper').close();
+// 		 	$('.menu-toggle').removeClass('active');
+		});
 </script>
+
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+
+<!-- 	<script type="text/javascript" -->
+<!-- 		src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" -->
+<!-- 		charset="utf-8"></script> -->
+	<script type="text/javascript">
+		var naverLogin = new naver.LoginWithNaverId(
+			{
+				clientId: "0xG1suQ90VZU_QsoAafW",
+				callbackUrl: "http://localhost:8080/returnscroll/callback",
+				isPopup: true, /* 팝업을 통한 연동처리 여부 */
+// 				loginButton: {color: "green", type: 1, height: 60} /* 로그인 버튼의 타입을 지정 */
+			}
+		);
+
+		naverLogin.init();
+		
+		window.addEventListener('load', function () {
+			naverLogin.getLoginStatus(function (status) {
+				if (status) {
+					/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
+					setLoginStatus();
+				}
+			});
+		})
+		function setLoginStatus() {
+			$("#logout").click(function () {
+				naverLogin.logout();
+			});
+		}
+// 		var naver_id_login = new naver_id_login("0xG1suQ90VZU_QsoAafW",
+// 				"http://localhost:8080/returnscroll/callback");
+// 		var state = naver_id_login.getUniqState();
+// 		naver_id_login.setButton("white", 2, 40);
+// 		naver_id_login.setDomain("http://localhost:8080/returnscroll");
+// 		naver_id_login.setState(state);
+// 		naver_id_login.setPopup();
+// 		naver_id_login.init_naver_id_login();
+
+
+
+
+// 		alert(naver_id_login.oauthParams.access_token);
+// 		// 네이버 사용자 프로필 조회
+// 		naver_id_login.get_naver_userprofile("naverSignInCallback()");
+// 		// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+// 		function naverSignInCallback() {
+// 			alert(naver_id_login.getProfileData('email'));
+// 			alert(naver_id_login.getProfileData('nickname'));
+// 			alert(naver_id_login.getProfileData('age'));
+// 		}
+
+		function getNaverId(id) {
+			
+			$.ajax({					
+				url : "naverDup",				
+				data : {				
+					naver : id			
+				},				
+				success : function(res) {				
+					console.log(res);			
+								
+					if (res == 0) {			
+						location = 'join?naver=' + id + ''		
+					} else if (res == 1) {			
+						location = 'loginNaver?naver=' + id + ''		
+					}			
+				}				
+			});			
+		}
+	</script>

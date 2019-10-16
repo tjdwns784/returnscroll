@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	// 채팅에 접속 
-    var socket = io("http://192.168.0.3:82");
+    var socket = io("http://192.168.0.15:82");  
 	
   // 2. 소켓에 이벤트를 등록하여 접속 됬음을 알게 되면 사용자의 이름을 받는다
     // (세션이 있었다면 : 이름, 아이디 사용)
@@ -16,6 +16,10 @@ $(document).ready(function() {
       console.log("roomNumber는 무엇이냐 : "+room_num);
       socket.emit('s_send_userId',user_id);
       socket.emit('s_send_userName', user_nick, new Date(), room_num);
+    })
+    
+    socket.on('disconnect',function(){
+    	console.log('연결이 안되었을때')
     })
     
     // 서버가 메시지를 보내면 채팅창에 표시
@@ -104,14 +108,15 @@ $(document).ready(function() {
       // 입력창 초기화
       $('input[name=message]').val('');
     }
-
-//  <div class="direct-chat-text">
-//	${msg}
-//</div>
     
     // 메시지를 화면에 추가 처리
     function addMsg(sender, msg, time)
     {
+    	
+    	
+    	console.log(typeof time)
+    	time = time.substr(time.indexOf("T")+1,5);
+    	console.log(time)
     	// 관리자 메세지는 따로 ~~
       var flag = sender === user_nick ? 'right' : 'left';
       // 1. 메시지UI를 붙일 요소를 찾아서, 동적으로 html을 구성하여 추가한다.
@@ -124,29 +129,22 @@ $(document).ready(function() {
     	  
       }else if(flag == 'left'){ // 왼쪽 
     	  var html = "<div class='direct-chat-msg "+flag+"'>";
-    	  html += "<div class='direct-chat-info clearfix' style='display: inline-block'>";
-    	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:left!important;'>"+sender+"</span>";
-    	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:left!important;'>"+time+"</span>";
-    	  html += "<div class='direct-chat-text' style='text-align:"+flag+";'>"+msg+"</div>"
+    	  html += "<div class='direct-chat-info clearfix' style='display: inline'>";
+    	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:left!important;'>"+sender+"&nbsp;&nbsp;</span>";
+    	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:left!important;'>"+time+"</span><br>";
+    	  html += "<div class='direct-chat-text' style='text-align:"+flag+"; margin-right: 110px; display: table-cell;'>"+msg+"</div>"
     	  html += "</div>";
     	  html += "</div>";
       }else{  // 오른쪽 
     	  var html = "<div class='direct-chat-msg "+flag+"' style='text-align:right;'>";
-    	  html += "<div class='direct-chat-info clearfix' style='display: inline-block'>";
-    	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:right!important;' >"+time+"</span>";
-    	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:right!important;' >"+sender+"</span>";
-    	  html += "<div class='direct-chat-text' style='text-align:"+flag+";'>"+msg+"</div>"
+    	  html += "<div class='direct-chat-info clearfix' style='display: inline'>";
+    	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:right!important;' >"+time+"&nbsp;&nbsp;</span>";
+    	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:right!important;' >"+sender+"</span><br>";
+    	  html += "<div class='direct-chat-text' style='text-align:"+flag+"; display: table-cell;'>"+msg+"</div>"
     	  html += "</div>";
     	  html += "</div>";
       }
       
-//      var html = "<div class='direct-chat-msg "+flag+"'>";
-//    	  html += "<div class='direct-chat-info clearfix'>";
-//    	  html += "<span class='direct-chat-timestamp pull-right'>"+time+"</span>";
-//    	  html += "<span class='direct-chat-name pull-"+flag+"'>"+sender+"</span>";
-//    	  html += "<div class='direct-chat-text' style='text-align:"+flag+";'>"+msg+"</div>"
-//    	  html += "</div>";
-//    	  html += "</div>";
       html+= '<div class= row></div>'
       $('.direct-chat-messages').append(html);
       // 자동스크롤

@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="roomIn" parameterType="_int" resultType="map">
-		SELECT *
+		SELECT roomId, roomName, roomKing, roomDate
 		FROM chatroom
 		WHERE roomId = #{value}
 	</select>
