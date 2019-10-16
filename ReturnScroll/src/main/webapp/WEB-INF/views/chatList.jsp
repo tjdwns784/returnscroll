@@ -91,12 +91,10 @@
 	<jsp:include page="side.jsp"></jsp:include>
 
   <!-- Header -->
-  <header class="masthead d-flex">
-    <div class="container my-auto">
-      <h1 class="mb-1">Return Scroll 채팅방</h1>
-      
-      	<!-- 모달창 -->
-	<div id="modal">
+ 
+  
+  <!-- 모달창 -->
+  <div id="modal">
    
 	    <div class="modal_content">
         	<button type="button" id="modal_close_btn" style='border: none;background: none;float: right;padding-right: 50px;'>
@@ -136,7 +134,7 @@
 	    <div class="modal_layer"></div>
     
 	</div>
-      
+     
 	<section class="content">
         <div class="row">
             <div class="col-md-12">
@@ -209,9 +207,6 @@
             </div>
         </div>
     </section>
-    </div>
-    <div class="overlay"></div>
-  </header>
   
 
 
@@ -258,7 +253,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.3:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.18:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script>
