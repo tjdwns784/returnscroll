@@ -14,7 +14,7 @@
 <br><br>
     <hr style="width:95%; background:#FFCC33; height:2px;" >
       <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
-      <p class="text-muted small mb-0" style="text-align:center; margin-bottom:10px;">Creator 배성준 박수빈 진예지</p>
+      <p id='test' class="text-muted small mb-0" style="text-align:center; margin-bottom:10px;">Creator 배성준 박수빈 진예지</p>
       <br><br>
 </div>
 </footer>

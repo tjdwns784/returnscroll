@@ -6,7 +6,7 @@
 
 	<!-- 마이 페이지 이름 넣기 -->
 	<select id="mypage" resultType="map" parameterType="string">
-		SELECT * 
+		SELECT uid, upw, uname, nick, birth, phone, email, kakao, facebook, naver, google 
 		FROM USERS 
         WHERE UID = #{value}
 	</select>
@@ -63,14 +63,14 @@
 	
 	<!-- 로그인 -->
 	<select id="login" parameterType="string" resultType="map">
-		SELECT *
+		SELECT uid, upw, uname, nick, birth, phone, email, kakao, facebook, naver, google 
 		FROM `USERS` WHERE UID = #{uid} 
 		<!-- 		AND UPW = #{upw} -->
 	</select>
 	
 	<!-- 카카오 로그인 -->
 	<select id="loginKakao" parameterType="string" resultType="map">				
-		SELECT * 
+		SELECT uid, upw, uname, nick, birth, phone, email, kakao, facebook, naver, google  
 		FROM `USERS`
 		WHERE KAKAO = 
 		#{VALUE}		
@@ -78,7 +78,7 @@
 		
 	<!-- 페이스북 로그인 -->
 	<select id="loginFacebook" parameterType="string" resultType="map">				
-		SELECT * 
+		SELECT uid, upw, uname, nick, birth, phone, email, kakao, facebook, naver, google 
 		FROM `USERS`
 		WHERE FACEBOOK = 
 		#{VALUE}		
@@ -86,7 +86,7 @@
 		
 	<!-- 네이버 로그인 -->
 	<select id="loginNaver" parameterType="string" resultType="map">				
-		SELECT * 
+		SELECT uid, upw, uname, nick, birth, phone, email, kakao, facebook, naver, google  
 		FROM `USERS`
 		WHERE NAVER = 
 		#{VALUE}		
@@ -94,7 +94,7 @@
 			
 	<!-- 구글 로그인 -->
 	<select id="loginGoogle" parameterType="string" resultType="map">				
-		SELECT * 
+		SELECT uid, upw, uname, nick, birth, phone, email, kakao, facebook, naver, google  
 		FROM `USERS`
 		WHERE GOOGLE = 
 		#{VALUE}		
