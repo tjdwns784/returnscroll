@@ -90,7 +90,6 @@
   <!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
 
-  <!-- Header -->
  
   
   <!-- 모달창 -->
@@ -134,12 +133,12 @@
 	    <div class="modal_layer"></div>
     
 	</div>
-     
+    <div id='body'>
 	<section class="content">
         <div class="row">
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
-                <div class="box box-warning direct-chat direct-chat-warning" style="padding:50px;">
+                <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
                     <div id="putUser" style='float: right;'>${uid}님 반갑습니다</div>
                     <div class="box-header with-border">
@@ -173,19 +172,13 @@
 	                        <table class="table">
 							    <thead>
 							      <tr>
-							        <th>채팅방 NO</th>
 							        <th>채팅방 명</th>
-							        <th>현재 접속자 수</th>
-							        <th> </th>
 							      </tr>
 							    </thead>
 							    <c:forEach var="list" items="${list }" varStatus="count" >
 							    <tbody>
 							      <tr>
-							        <td>${list.ID }</td>
-							        <td>${list.NAME }</td>
-							        <td>${list.people }</td>
-							        <td><button onclick="location.href='/returnscroll/chat/${list.ID }'" class="btn btn-warning btn-flat">입장</button></td>
+							        <td><a href="/returnscroll/chat/${list.ID }">${list.NAME }</a></td>
 							      </tr>
 							    </tbody>
 							    </c:forEach>
@@ -207,45 +200,24 @@
             </div>
         </div>
     </section>
-<<<<<<< HEAD
+    </div>
+
   
 
 
-
-  <!-- Footer -->
-  <footer class="footer text-center">
-    <div class="container">
-      <ul class="list-inline mb-5">
-        <li class="list-inline-item">
-          <a class="social-link rounded-circle text-white mr-3" href="#">
-            <i class="icon-social-facebook"></i>
-          </a>
-        </li>
-        <li class="list-inline-item">
-          <a class="social-link rounded-circle text-white mr-3" href="#">
-            <i class="icon-social-twitter"></i>
-          </a>
-        </li>
-        <li class="list-inline-item">
-          <a class="social-link rounded-circle text-white" href="#">
-            <i class="icon-social-github"></i>
-          </a>
-        </li>
-      </ul>
-      <p class="text-muted small mb-0">Copyright &copy; Your Website 2019</p>
-    </div>
-  </footer> 
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-=======
-    </div>
-    <div class="overlay"></div>
-  </header>
+  
+  <div class="btn-group btn-group-lg" id="sticker" style='width: inherit;'>
+	  <button type="button" class="btn btn-primary"><img alt="user" src="resources/img/user.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-primary"><img alt="user" src="resources/img/speech-bubble.png" style='width:50px;'></button>
+	</div>
+
 	<jsp:include page="footer.jsp"></jsp:include>
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+
   <input type='hidden' id='nick' value='${nick}'>
   <input type='hidden' id='recipient' value='${uid}'>
   <input type='hidden' id='userID' value='${uid}'>
@@ -260,10 +232,15 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.18:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.15:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-
+	<script src="jquery.sticky.js"></script>
 <script>
+		// sticky
+		$(document).ready(function(){
+			$("#sticker").sticky({topSpacing:0});
+		});
+  
        $('#friendYes').click(function(){
           var sender = $('#senderId').val();
           var recipient = $('#recipient').val();

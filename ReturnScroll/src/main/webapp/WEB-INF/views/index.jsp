@@ -107,16 +107,13 @@
       <br><br>
       <button onclick="location.href='/returnscroll/login'">Login</button>
       <button onclick="location.href='/returnscroll/join'">Join</button>
-<<<<<<< HEAD
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
   
   </div>
 
-=======
-	<jsp:include page="footer.jsp"></jsp:include>
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
