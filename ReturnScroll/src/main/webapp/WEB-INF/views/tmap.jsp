@@ -46,13 +46,8 @@
             width: 1px;
             height: 1px;
         }
-        
-        .mainDiv {
-            width: 25%;
-            position: relative;
-/* 			max-width: 500px; */
-			margin:auto;
-        }
+              
+
         /*  button */
     input[type=button]{
 	  background:#000000;
@@ -335,6 +330,38 @@
 	  #selectArrive:hover {
       background-color: #FFFF99;
     }
+    
+    #map_div{
+			float:left;
+			width:72.5%;
+			height:650px;
+	}
+	
+	#ft{
+		margin-top:30%;
+	}
+    
+    @media (max-width:600px){
+		#map_div{
+			float:none;
+			width:100%;
+			height:500px;
+		}
+		#ft{
+			margin-top:-15%;
+		}
+		input[type=button]{
+		  height:30px;
+		  font-size:0.9em;
+		  padding:0 1em;
+		  transition:800ms ease all;
+		  outline:none;
+		}
+		
+		#h1_title{
+			font-size:2rem;
+		}
+	}
   
        
 </style>
@@ -351,7 +378,7 @@
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
     
 	<!-- <p id="result" name="result" value=" " ></p> -->
-	<h1 style="margin-left:2.5%;margin-top:2%;">Map</h1>
+	<h1 id="h1_title" style="margin-left:2.5%;margin-top:2%;">Map</h1>
 	<hr style="width:95%; background:#FFCC33; height:2px; margin-left:2.5%;" >
 	
 	<div style="width:100%;">
@@ -360,7 +387,7 @@
 			출발 : <input type='text' name='start' readonly style="width : 90%; margin-bottom:10px;"><br>
 			도착 : <input type='text' name='arrive' readonly style="width : 90%;">
 		</div>
-		<div style="width:100%; display:inline-block; max-width:100%; height:auto; margin-left:2.5%">
+		<div style="width:95%; margin-left:2.5%">
 		
 			<input type='button' value='경로찾기' onclick = "findRoot()" > &nbsp;&nbsp;&nbsp;&nbsp;
 			<input type='button' value='경로취소' onclick = "removeRoot()" >&nbsp;&nbsp;&nbsp;&nbsp;
@@ -371,7 +398,7 @@
 	</div>
 <hr style="margin-left:2.5%; width:95%; background:#FFCC33; height:2px" >
 <!-- 주소 검색 -->
-<div class="mainDiv" style="margin-left:2.5%; width: 22.5%; height: 30%; z-index: 1000; float:left; max-width:100%; height:auto; ">
+<div class="mainDiv d-none d-lg-block" style="margin-left:2.5%; width: 22.5%; z-index: 1000; float:left; ">
 	<input type="hidden" id="inpPage" type="text" value="1">
 	<input type="hidden" id="inpTotLimit" type="text" value="7">
     <div id="divtop">
@@ -418,15 +445,11 @@
 </div>	
   
  <!-- 지도 -->
-<div id="map_div" style="float:left; max-width:100%; height:auto;" ></div> 
-  <br><br><br>
+<div id="map_div"></div> 
+  <br><br>
     	  
     	  
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
-      	<jsp:include page="footer.jsp"></jsp:include>
+      
     	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
          <script>
          	var map;
@@ -456,8 +479,6 @@
          		setVariables();
          		map = new Tmap.Map({
          			div:'map_div',
-         			width : "72.5%",
-         			height : "800px",
          		});
          		
          		//위치 정보 받아오기
@@ -1047,6 +1068,9 @@
 		}
 			
 	</script>
-    
+    	
+    	<div id="ft" >
+    	<jsp:include page="footer.jsp"></jsp:include>
+    	</div>
     </body>
 </html>	

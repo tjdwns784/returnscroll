@@ -72,40 +72,44 @@
 	a.menu-toggle > i {
 		margin-top: 18px;
 	}
-	#sidebar-wrapper {
-		margin-top: -2%;
-	}	
+
+	 @media (max-width: 600px) {
+  		#btn {
+  			margin-left:60px;
+  		}
+  		
+		#h1_title{
+			font-size:2rem;
+		}
+  }
     
   </style>
 </head>
 <body>
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
-	<h1 style="margin-left:5%;margin-top:2%;">회원탈퇴</h1>
-	<hr style="width:90%; background:#FFCC33; height:2px" >
+	<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">회원탈퇴</h1>
+	<hr style="width:95%; background:#FFCC33; height:2px" >
 	<div style="width:90%; margin:0 auto">
 	
 	<form action="userDeleteAction" method="post">
 
 		<div id="uid">
-			ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp; <input name="uid" value="${uid}" readonly="readonly" required="required">
+			아이디&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp; <input name="uid" value="${uid}" readonly="readonly" required="required">
 		</div>
 		<br>
 		<div id="upw">
-			Password : &nbsp; <input type="password" name="upw" maxlength="15" required="required">
+			비밀번호 : &nbsp; <input type="password" name="upw" maxlength="15" required="required">
 		</div>
 	<br>
-		<a href="/returnscroll/mypage"><input type="button" value="이전" style="margin-left: 5.5%;"></a>
+	<div id="btn">
+		<a href="/returnscroll/mypage"><input type="button" value="이전" style="margin-left: 4.5%;"></a>
 		<input type="submit" id="bye" name="bye" url="/returnscroll/userDeleteAction"  value="탈퇴" >
-
+	</div>
 	</form>
 	</div>
 
-<div>
-	<br><br><br><br>
-    <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
-      </div>	
+      <jsp:include page="footer.jsp"></jsp:include>
 </body>
 	<!-- Bootstrap core JavaScript -->
 	<script

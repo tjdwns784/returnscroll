@@ -11,12 +11,19 @@
 <hr style="width:95%; background:#FFCC33; height:2px" >
 </header>
  <style>
-  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
  
-  
+ 
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  @import url('https://fonts.googleapis.com/css?family=Merienda:700&display=swap');
+ 
+  header { background : #FFCC33; }
+  #header { 
+	    font-family:'Merienda';
+	    font-size:50px;
+  }
   h1,body, table, div, a, li, ul{font-family:'Nanum Gothic';}
 
-  	#img {
+  #img {
   		float: left;
   		width: 65px;
   		margin-left: 100px;
@@ -24,26 +31,31 @@
     
   @media (max-width: 600px) {
   	#img {
-  		width: 60px;
+  		width: 50px;
+  		margin-left: 20px;
+  		margin-top: -10px;
   	}
   }
 
   @media (min-width: 601px) and (max-width: 1000px) {
   	#img {
   		width: 100px;
+  		margin-left: 20px;
   	}
   }
 
   
   @media (max-width: 600px) {
   	#header {
-  		font-size: 60px;
+  		
+  		font-size: 35px;
+  		margin-left:2px;
   	}
   }
 
   @media (min-width: 601px) and (max-width: 1000px) {
   	#header {
-  		font-size: 100px;
+  		font-size: 65px;
   	}
   }
 

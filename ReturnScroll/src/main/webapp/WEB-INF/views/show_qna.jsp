@@ -25,7 +25,8 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  --%> <style>
+  --%> 
+  <style>
    @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
   
   body, table, div, p, h1 , h4 {font-family:'Nanum Gothic';}
@@ -69,12 +70,34 @@
 		margin-top: 18px;
 	}
 	
-	#sidebar-wrapper {
-		margin-top: -2%;
-	}
-	
 	a.page-link {
 		color:#662500;
+	}
+	
+	#comment{
+		height:10%;
+		width:90%;
+	}
+	
+	#commentBtn{
+		height:10%; 
+		width:9%;
+	}
+	
+	@media (max-width:600px){
+		#comment{
+			height:10%;
+			width:76%;
+		}
+		
+		#commentBtn{
+			height:10%;
+			width:22%;
+		}
+		
+		#h1_title{
+			font-size:2rem;
+		}
 	}
   </style>
 </head>
@@ -90,8 +113,8 @@
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
  
-<h1 style="margin-left:5%;margin-top:2%;">Q&A 게시글</h1>
-<hr style="width:90%; background:#FFCC33; height:2px" >
+<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">Q&A 게시글</h1>
+<hr style="width:95%; background:#FFCC33; height:2px" >
 <div style="margin-left:5%;">
 <h4> ${article.NO} | ${article.TITLE} </h4>
 <h6 style="text-align: right;margin-right: 5%;"> ${article.WRITER} | ${article.WRITE_DATE} |  ${article.HIT} </h6>
@@ -123,12 +146,14 @@ var artid = "${article.WRITER}";
 
 
 <div style="margin-left: 5%; max-width:90%;">
-	<img id="co" src="../resources/img/comment.png" style=" width: 3%;height: 5%;"><strong>${cTotal}  comments</strong><br>
+	<img id="co" src="../resources/img/comment.png" style=" width: 4%;height: 5%;"><strong>&nbsp;${cTotal}  comments</strong><br>
 	<div>
-	<input type="text" id="comment" style="width:90%; height:10%;" onkeydown="enterkey();">
-	<button onclick="addComment()" style="height:10%; width:10%">등록</button>
+	<input type="text" id="comment" onkeydown="enterkey();">
+	<button id="commentBtn" onclick="addComment()" >등록</button>
 	</div>
 </div>
+
+
 <hr width="90%">
 <div style="width:90%; margin-left:5%;">
 	<c:forEach items="${list2}" var="item">
@@ -183,10 +208,10 @@ var artid = "${article.WRITER}";
   
   %>
      <c:if test='${page > 10}'>
-    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage - 10}">◀</a></li>
+    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage - 10}">ㅁ</a></li>
     </c:if>
     <c:if test='${page <= 10}'>
-    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage - 10}">◀</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage - 10}">이전</a></li>
     </c:if>
     
     <c:forEach begin="${startPage}" end="${endPage}" var="pnum" step="1">
@@ -201,26 +226,15 @@ var artid = "${article.WRITER}";
     </c:forEach>
    
     <c:if test='${endPage < showNum}'>
-    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item"><a class="page-link" href="../show/${no}?page=${startPage + 10}">다음</a></li>
     </c:if>
      <c:if test='${endPage >= showNum}'>
-    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="../show/${no}?page=${startPage + 10}">다음</a></li>
     </c:if>
   </ul>
 </div>
 
-<div>
-<br><br>
-    <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0" style="text-align:center;">Copyright &copy; ReturnScroll 2019</p>
-      <br>
-      </div>
-      
-      <!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
-
+	<jsp:include page="footer.jsp"></jsp:include>
 
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"> </script>
 <script>

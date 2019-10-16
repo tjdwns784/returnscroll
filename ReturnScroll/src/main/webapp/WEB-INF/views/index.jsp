@@ -74,6 +74,10 @@
 	  width:100%;
 	  transition:800ms ease all;
 	}
+	
+	 @media (max-width: 600px) {
+  	
+ 	 }
 
   </style>
    <div style="text-align:center;">
@@ -99,18 +103,11 @@
 	<c:if test="${empty inviteList }">
 		<div></div>
 	</c:if>
-       <img src="resources/img/리턴2.jpg" style="max-width:100%; height:auto;"><br>
-      
+       <img src="resources/img/리턴2.jpg" style="max-width:100%; height:564px;"><br>
+      <br><br>
       <button onclick="location.href='/returnscroll/login'">Login</button>
-
-	<jsp:include page="footer.jsp"></jsp:include>
-
       <button onclick="location.href='/returnscroll/join'">Join</button>
-      <br><br><br>
-      <hr style="width:90%; background:#FFCC33; height:2px" >
-      <p class="text-muted small mb-0">Copyright &copy; ReturnScroll 2019</p>
-  </div>
-
+	<jsp:include page="footer.jsp"></jsp:include>
 
   </div>
 
