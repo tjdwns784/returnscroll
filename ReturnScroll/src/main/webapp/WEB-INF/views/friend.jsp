@@ -58,8 +58,8 @@
 }
 
 #modal .modal_content {
-  width:500px;
-  margin-left: 200px;
+ /*  width:500px;
+  margin-left: 200px; */
   padding:70px 30px;
   background:#fff;
   border:2px solid #666;
@@ -98,8 +98,8 @@
 	        <h2 style="text-align: center;">친구초대</h2><br>
 	        <p style="text-align: center;">초대할 친구를 검색하세요</p>
 	        <form method="GET" id="find"  style="text-align: center;">
-		        ID : <input type="text" name="uid" id="uid" style="width: 300px; height: 35px;" placeholder="초대할 회원의 ID를 입력해주세요">
-		    	<button id="findId" class="btn btn-warning btn-flat" style="float: right; margin: unset;" >검색</button>
+		        <input type="text" name="uid" id="uid" style="width: 250px; height: 35px;" placeholder="초대할 회원의 ID를 입력해주세요">
+		    	<button id="findId" class="btn btn-warning btn-flat" style="float: right; margin: unset; width: 50px; text-align: center; font-size: 10px; height: 35px;" >검색</button>
 			</form>
 	        
 	         <br>
@@ -107,7 +107,6 @@
 	          <table class="table">
 			    <thead>
 			      <tr>
-			        <th>No</th>
 			        <th>ID</th>
 			        <th>닉네임</th>
 			        <th></th>
@@ -132,29 +131,37 @@
   		  <div class="modal_layer"></div>
     
 	</div>
-<<<<<<< HEAD
+
       <div id='body'>
-=======
-      <div id="body">
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+
 	<section class="content">
         <div class="row">
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
-                <div class="box box-warning direct-chat direct-chat-warning" style='padding: 50px;'>
-                    <h4 style='display: inline-block;'>${uid} 님의 친구 목록</h4><br>
+                <div class="box box-warning direct-chat direct-chat-warning" '>
+                    <h5 style='display: inline-block; padding-top:10px;'>${uid} 님의 친구 목록</h5><br>
+                    <c:if test="${not empty addFriend}">
+                           <div id="addFriend"></div>
+                           <div class='dropdown-menu-left' style='float: right;'>
+                              <button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>
+                            <span class='caret'><img src="resources/img/alarm.png" style='width: 20px;'></span>
+                         </button>
+                          <c:forEach var="list" items="${addFriend }" varStatus="count" >
+                         <ul class='dropdown-menu' style='list-style:none;'>
+                            <li><a class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>${list.sender}님이 친구신청을 하였습니다</a></li>
+                           <li><a class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>
+                           <input type='hidden' id='senderId' value='${list.sender}'/>
+                              <button type='button' id='friendYes' >수락하기</button>
+                              <button type='button' id='friendNo'>거절하기</button></a></li>
+                        </ul>
+                        </c:forEach>
+                     	</div>
+                        </c:if>
+                        
+                        
 			        <div id="searchResult" style="padding-bottom: 10px;"></div>
-			          <table class="table">
-					    <thead>
-					      <tr>
-					      	<th style="width: 1px;"></th>
-					        <th>No</th>
-					        <th>친구 ID</th>
-					        <th>닉네임</th>
-					        <th> 비고 </th>
-					        <th>  </th>
-					      </tr>
-					    </thead>
+			          <table class="table" >
+					    
 					    <c:if test="${not empty friendList}">
 					    <c:forEach var="lists" items="${friendList }" varStatus="status" >
 					    <tbody>
@@ -172,15 +179,7 @@
 						        	<p><img src="resources/img/off.png" style="width: 25px;"></p>
 						        </c:if>
 					        </td>
-					        <td>${status.count }</td>
-					        <td>${lists.friendId }</td>
-					        <td>${lists.nick }</td>
-					        <td>
-					        	<input type='button' onclick='deleteFriend("${lists.friendId}");' value='친구삭제' style='border:none; background:none; display:inline-block;' />
-					        </td>
-					        <td>
-					        	<input type='button' onclick='newChat("${uid}","${lists.friendId}");' value='채팅하기' style='border:none; background:none; display:inline-block;' />
-					        </td>
+					        <td><a href="/returnscroll/friend/${lists.friendId }">${lists.friendId }</a></td>
 					      </tr>
 					    </tbody>
 					    </c:forEach>
@@ -193,25 +192,27 @@
                 </div>
                 <!--/.direct-chat -->
                 
-                <button id='addFriend' type="button" class="btn btn-warning btn-flat" style='float:right;'>친구추가</button>
-                <button onclick="location.href='/returnscroll/chat'"
-                 id='addFriend' type="button" class="btn btn-warning btn-flat" style='float:right;'>채팅목록 보기</button>
+                <button id='addFriend' type="button" class="btn btn-warning btn-flat" style='float:right; display:grid;'>친구추가</button>
+
             </div>
         </div>
     </section>
     </div>
 
-<<<<<<< HEAD
 
+  <div class="btn-group btn-group-lg" id="sticker" style='width: inherit;'>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="user" src="resources/img/user.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="user" src="resources/img/speech-bubble.png" style='width:50px;'></button>
+	</div>
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-=======
+
 	<jsp:include page="footer.jsp"></jsp:include>
 	</div>
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+
   <input type='hidden' id='nick' value='${nick}'>
   <input type='hidden' id='recipient' value='${uid}'>
   <input type='hidden' id='userID' value='${uid}'>
@@ -231,6 +232,10 @@
     
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">
+ // sticky
+	$(window).load(function(){
+		$("#sticker").sticky({topSpacing:0});
+	});
     $("#addFriend").click(function(){
     	$("#uid").val('');
     	$("#searchResult").empty();
@@ -282,8 +287,8 @@
 // 				      </tr>
 					var html = "";
 					for (var i=1;i<(Object.keys(data).length);i++){
-						html += "<tr><td>"+i+"</td><td>"+data['uid']+"</td><td>"+data['nick']+"</td>";
-						html += "<td><input type='button' onclick='inviteUser(\""+data['uid']+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' /></td></tr>"
+						html += "<tr><td>"+data['uid']+"</td><td>"+data['nick']+"</td>";
+						html += "<td><input type='button' onclick='inviteUser(\""+data['uid']+"\");' value='추가' style='border:none; background:none; display:inline-block;' /></td></tr>"
 						
 // 						$("#number").append(i);
 // 						$("#findUserId").append(data['uid']);
@@ -324,7 +329,6 @@
          socket.on('c_add_friend_result', function(msg){
             alert(msg);
          })
-         consol
       }
 	</script>
 

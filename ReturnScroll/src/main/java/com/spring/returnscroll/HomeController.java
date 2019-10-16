@@ -49,14 +49,7 @@ public class HomeController  {
 			Object userId = httpSession.getAttribute("uid");
 			String uid = userId.toString();
 			
-			List<Map<String, Object>> inviteList = chatService.inviteList(uid);
-			if(inviteList.isEmpty()) {
-	            // 리스트가 비어있으면 model에 저장 안함.
-				
-	         }else {
-	            // 리스트가 비어있지 않으면 ==> 친구요청이 있으면 !
-	        	 model.addAttribute("inviteList",inviteList);
-	         }
+			
 			
 			return "index";
 		}
@@ -104,13 +97,15 @@ public class HomeController  {
 			model.addAttribute("uid", uid);
 			model.addAttribute("nick", nick); // chat에 nick 보내기
 			
-			 // 친구요청이 왔는지 안왔는지를 알아내는 코드 .
-	         List<Map<String, Object>> addFriend = chatService.addFriend(uid);
-	         if(addFriend.isEmpty()) {
+			
+	         
+	         List<Map<String, Object>> inviteList = chatService.inviteList(uid);
+			if(inviteList.isEmpty()) {
 	            // 리스트가 비어있으면 model에 저장 안함.
+				
 	         }else {
 	            // 리스트가 비어있지 않으면 ==> 친구요청이 있으면 !
-	            model.addAttribute("addFriend",addFriend);
+	        	 model.addAttribute("inviteList",inviteList);
 	         }
 	
 			// 채팅방 리스트 불러오기
@@ -294,6 +289,15 @@ public class HomeController  {
 			model.addAttribute("uid", uid);
 			model.addAttribute("nick", nick); // chat에 nick 보내기
 			
+			 // 친구요청이 왔는지 안왔는지를 알아내는 코드 .
+	         List<Map<String, Object>> addFriend = chatService.addFriend(uid);
+	         if(addFriend.isEmpty()) {
+	            // 리스트가 비어있으면 model에 저장 안함.
+	         }else {
+	            // 리스트가 비어있지 않으면 ==> 친구요청이 있으면 !
+	            model.addAttribute("addFriend",addFriend);
+	         }
+	         
 			// user의 친구 리스트 불러오기
 			List<Map<String, Object>> friendList = chatService.friendList(uid);
 			model.addAttribute("friendList",friendList);
@@ -305,6 +309,33 @@ public class HomeController  {
 			model.addAttribute("sessionList", keySet);
 			
 			return "friend";
+		}	
+	}
+	
+	@RequestMapping(value = "/friend/{uid}", method = RequestMethod.GET)
+	public String friendView(Model model ,HttpSession httpSession,@PathVariable("uid") String uids){
+		if(httpSession.getAttribute("uid") == null) {
+			return "redirect:/login";
+		}else {
+			// 세션아이디 값 얻기
+			Object userId = httpSession.getAttribute("uid");
+			String uid = userId.toString();
+			String nick = memberservice.userNick(uid);
+			model.addAttribute("uid", uid);
+			model.addAttribute("nick", nick); // chat에 nick 보내기
+			
+			// user정보불러오기
+			Map<String, Object> friendInfo = chatService.userInfo(uids);
+			model.addAttribute("friendInfo",friendInfo);
+			
+			
+			Map<String, HttpSession> sessionList = LoginSessionListener.map;
+			Set<String> keySet = sessionList.keySet();
+			
+			System.out.println("세션리스트 값 : "+sessionList);
+			model.addAttribute("sessionList", keySet);
+			
+			return "friendView";
 		}	
 	}
 	

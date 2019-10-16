@@ -206,6 +206,11 @@
     </section>
 </div>
 
+  <div class="btn-group btn-group-lg" id="sticker" style='width: inherit;'>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="friendList" src="resources/img/user.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="chat" src="resources/img/speech-bubble.png" style='width:50px;'></button>
+	</div>
+
  
 	<jsp:include page="footer.jsp"></jsp:include>
   <!-- Scroll to Top Button-->
@@ -232,6 +237,11 @@
     
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">
+ // sticky
+	$(window).load(function(){
+		$("#sticker").sticky({topSpacing:0});
+	});
+ 
     $("#addFriend").click(function(){
     	$("#uid").val('');
     	$("#searchResult").empty();

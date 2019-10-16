@@ -73,4 +73,7 @@ public class ChatDao {
 	public void roomInviteCheck(Map<String, Object> map) {
 		ss.update("chat.roomInviteCheck",map);
 	}
+	public Map<String, Object> userInfo(String uids){
+		return ss.selectOne("chat.userInfo",uids);
+	}
 }

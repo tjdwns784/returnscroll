@@ -79,7 +79,7 @@
    </insert>
 	
 	<select id="friendList" parameterType="String" resultType="map">
-		SELECT f.friendId AS friendId, u.nick AS nick
+		SELECT f.friendId AS friendId, u.nick AS nick, u.phone AS phone, u.birth AS birth, u.email AS email
 		FROM friendlist f, users u
 		WHERE f.userId = #{value} AND f.friendId = u.uid
 	</select>
@@ -102,5 +102,9 @@
 		UPDATE chatinvite SET confirm = 1
 		WHERE roomNumber = #{roomNumber} AND sender = #{sender} AND recipient = #{recipient}
 	</update>
+	
+	<select id="userInfo" parameterType="string" resultType="map">
+		SELECT uid, uname, nick, birth, phone, email FROM users WHERE uid = #{value}
+	</select>
 	
 </mapper>
