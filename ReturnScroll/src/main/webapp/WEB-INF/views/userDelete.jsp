@@ -95,7 +95,7 @@
 	
 	<form action="userDeleteAction" method="post">
 		<div id="uid">
-			아이디&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp; <input name="uid" value="${uid}" readonly="readonly" required="required">
+			아이디&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp; <input name="uid" value="${uid.uid}" readonly="readonly" required="required">
 		</div>
 		<br>
 		<div id="upw">

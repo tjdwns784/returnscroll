@@ -123,7 +123,7 @@
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser">현재 접속자 아이디 : ${uid}<br> 닉네임 : ${nick }</div>
+                    <div id="putUser">현재 접속자 아이디 : ${uid.uid}<br> 닉네임 : ${uid.nick }</div>
                     <div id="roomNum">방번호 : ${room.roomId}</div>
                     
                     <div class="box-header with-border">
@@ -210,7 +210,7 @@
   <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-  <input type='hidden' id='nick' value='${nick}'>
+  <input type='hidden' id='nick' value='${uid.nick}'>
    <input id="roomNumber" type="hidden" valie='${room.roomId }'></input>
 
   <!-- Bootstrap core JavaScript -->

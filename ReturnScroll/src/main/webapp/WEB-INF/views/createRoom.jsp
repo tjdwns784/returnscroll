@@ -118,7 +118,7 @@
 								<input type="text" class="form-control" name="roomName" id="roomName"
 									style="width: 500px; display: initial;">
 							</div>
-							<input type="hidden" value="${uid }" name="createUser" >
+							<input type="hidden" value="${uid.uid }" name="createUser" >
 <!-- 							<button onclick="location.href='/returnscroll/chat'" -->
 <!-- 							 class="btn btn-warning btn-flat" style="float:right;margin-right: 30px;">취소하기</button> -->
 							<button type="submit" class="btn btn-warning btn-flat" style="float:right;margin-right: 10px;">생성하기</button>
@@ -167,7 +167,7 @@
   <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-  <input type='hidden' id='nick' value='${nick}'>
+  <input type='hidden' id='nick' value='${uid.nick}'>
    <input id="roomNumber" type="hidden" valie='${room.roomId }'></input>
 
   <!-- Bootstrap core JavaScript -->

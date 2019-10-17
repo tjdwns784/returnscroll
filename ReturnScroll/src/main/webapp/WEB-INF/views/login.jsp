@@ -37,6 +37,12 @@
 
 <link rel="stylesheet" href="resources/style.css">
 <style>
+	nav#sidebar-wrapper {
+		top: 0px !important;
+	}
+	body {
+		background:#fff;
+	}
    nav#sidebar-wrapper {
       top: 0px !important;
    }
@@ -46,6 +52,12 @@
 <body>
 <body id="page-top" > 
 
+	<!-- Navigation -->
+	<jsp:include page="side.jsp"></jsp:include>
+	
+	<div id="body">
+	<div>
+    <form id="loginForm" name="loginForm" style="margin-bottom:-1.5%">
    <!-- Navigation -->
    <jsp:include page="side.jsp"></jsp:include>
    
@@ -75,6 +87,55 @@
             <path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" />
         </svg>
         <div class="container text-center my-auto">
+			<h1 class="mb-1">Login</h1>
+			<h3 class="mb-5"></h3>
+			<form class="form-inline-block" action="login" method="post">
+				<div class="form-group" style="margin-top: -10%">
+					<label for="uid"></label> <input type="text"
+						title="아이디 입력" class="form-control" name="uid" id="uid" placeholder="아이디 입력" style="margin-top: -10%; margin-bottom: -10%">
+				</div>
+				<div class="form-group">
+					<label for="upw"></label> <input type="password"
+						title="비밀번호 입력" class="form-control" name="upw" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;" onkeyup="enterkey();" type="text"  value="">
+				</div>
+				<br>
+				<div class="checkbox">
+					<label><input name="idsave" type="checkbox"> 아이디 저장</label>
+				</div>
+					<div class="interval_height a_none">
+						<a title="아이디/비밀번호 찾기" href="/returnscroll/userSearch" id="btnSearch">아이디 / 비밀번호 찾기</a>
+					</div>
+				</form>
+			<a class="btn btn-primary btn-xl js-scroll-trigger"
+				href="/returnscroll/login" id="btnLogin" style="width:115px; height: 35px; margin-top: 3%; margin-bottom: 5%;  line-height:0.1;" title="Login">Login</a> 
+			<a class="btn btn-primary btn-xl js-scroll-trigger"
+				href="/returnscroll/join" style="width:115px; height: 35px; margin-top: 3%; margin-bottom: 5%;  line-height:0.1;" title="Join">Join</a>
+				
+			<!-- 카카오 로그인 -->
+			<a title="카카오 로그인" id="custom-login-btn" href="javascript:loginWithKakao()">
+		<img  id="kakao-login-btn" src="/returnscroll/resources/img/kakaotalk.jpg" style="margin-right:2.7%; margin-" border="0" alt=""/></a>
+		
+			<!-- 페이스북 로그인 -->
+			<a title="페이스북 로그인" 로그인" onclick="fb_login()"><img src="/returnscroll/resources/img/facebook.jpg" style="margin-right:2.7%;" border="0" alt=""></a>
+  						
+			<!-- 구글 로그인 -->
+			<div title="구글 로그인" id="gSignInWrapper" style="display: inline-block; margin-right:2.7%;">
+		    	<div id="customBtn" >
+		        <span class="icon"></span>
+		        <span id="a" class="customGPlusSignIn" onclick="if(this.innerHTML ==='Logout') {signOut();} return false;"> 
+		        	<img src="/returnscroll/resources/img/googleplus.jpg" border="0" alt="">
+		        </span>
+		    </div>
+		  </div>
+		  
+		   <!-- 네이버 로그인 -->
+		  <div id="naverIdLogin" style="display: inline-block; margin-right:2.7%;">
+		  	<a title="네이버 로그인" id="naverIdLogin_loginButton" role="button">
+		  		<img src="/returnscroll/resources/img/naver.jpg" border="0" alt="">
+		  	</a>
+		  </div>
+			  
+		<div class="overlay"></div>
          <h1 class="mb-1">Login</h1>
          <h3 class="mb-5"></h3>
          <form class="form-inline-block" action="login" method="post">
@@ -126,6 +187,10 @@
       <div class="overlay"></div>
     </form>
    </div>
+	<jsp:include page="footer.jsp"></jsp:include>
+</div>
+	
+	 <script src="resources/script.js"></script>
    <jsp:include page="footer.jsp"></jsp:include>
 </div>
    
@@ -475,6 +540,49 @@
 -->
 
 <script>
+
+	    window.onload = function() {
+	 
+	        if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
+	            document.loginForm.uid.value = getCookie("id"); //input 이름이 id인곳에 getCookie("id")값을 넣어줌
+	            document.loginForm.idsave.checked = true; // 체크는 체크됨으로
+	        }
+	 
+	    }
+	 
+	    function setCookie(name, value, expiredays) //쿠키 저장함수
+	    {
+	        var todayDate = new Date();
+	        todayDate.setDate(todayDate.getDate() + expiredays);
+	        document.cookie = name + "=" + escape(value) + "; path=/; expires="
+	                + todayDate.toGMTString() + ";"
+	    }
+	 
+	    function getCookie(Name) { // 쿠키 불러오는 함수
+	        var search = Name + "=";
+	        if (document.cookie.length > 0) { // if there are any cookies
+	            offset = document.cookie.indexOf(search);
+	            if (offset != -1) { // if cookie exists
+	                offset += search.length; // set index of beginning of value
+	                end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+	                if (end == -1)
+	                    end = document.cookie.length;
+	                return unescape(document.cookie.substring(offset, end));
+	            }
+	        }
+	    }
+	 
+	    function sendit() {
+	        if (document.loginForm.idsave.checked == true) { // 아이디 저장을 체크 하였을때
+	            setCookie("id", document.loginForm.uid.value, 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
+	        } else { // 아이디 저장을 체크 하지 않았을때
+	            setCookie("id", document.loginForm.uid.value, 0); //날짜를 0으로 저장하여 쿠키삭제
+	        }
+	 
+//	        document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
+	 
+	    }
+
        window.onload = function() {
     
            if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
@@ -516,6 +624,7 @@
            document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
     
        }
+
 </script>
 
 

@@ -35,8 +35,8 @@ public class MemberController {
 				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 				return "redirect:/login";
 			}else {
-				Object userId = httpSession.getAttribute("uid");
-				String uid = userId.toString();
+				Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+				String uid = (String) userId.get("uid");
 				Map<String, String> map = memberservice.mypage(uid);
 				model.addAttribute("map", map);
 				return "mypage";			
@@ -125,7 +125,7 @@ public class MemberController {
 	    Map<String, Object> user = memberservice.login(map);				
 								
 		if (user != null) {						
-			httpSession.setAttribute("uid", map.get("uid"));
+			httpSession.setAttribute("uid", user);
 			return "success";					
 		} else {						
 			model.addAttribute("msg", "다시 로그인 해주세요.");
@@ -142,7 +142,7 @@ public class MemberController {
 		System.out.println("map");		
 		System.out.println(user);		
 				
-		session.setAttribute("uid", user.get("uid"));		
+		session.setAttribute("uid", user);		
 		return "redirect:/index";		
 	}			
 
@@ -155,7 +155,7 @@ public class MemberController {
 		System.out.println("map");		
 		System.out.println(user);		
 				
-		session.setAttribute("uid", user.get("uid"));		
+		session.setAttribute("uid", user);	
 		return "redirect:/index";		
 	}		
 	
@@ -168,7 +168,7 @@ public class MemberController {
 		System.out.println("map");		
 		System.out.println(user);		
 				
-		session.setAttribute("uid", user.get("uid"));		
+		session.setAttribute("uid", user);	
 		return "redirect:/index";		
 	}			
 	
@@ -181,7 +181,7 @@ public class MemberController {
 		System.out.println("map");		
 		System.out.println(user);		
 				
-		session.setAttribute("uid", user.get("uid"));		
+		session.setAttribute("uid", user);	
 		return "redirect:/index";		
 	}		
 
@@ -189,8 +189,8 @@ public class MemberController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)							
 	public String logout(Model model, HttpServletRequest req) {							
 		HttpSession session = req.getSession();
-		String uid = (String) session.getAttribute("uid");
-		LoginSessionListener.map.remove(uid);
+		Map<String, Object> uid = (Map<String, Object>) session.getAttribute("uid");
+		LoginSessionListener.map.remove((String) uid.get("uid"));
 		
 		session.invalidate();						
 		return "redirect:/index";						
@@ -199,8 +199,8 @@ public class MemberController {
 	// 회원수정
 	@RequestMapping(value="/userUpdate", method = RequestMethod.GET)
 	public String userrUpdate(HttpSession session, Model model) { 
-		String uid = (String) session.getAttribute("uid");
-		Map<String, String> info = memberservice.mypage(uid);
+		Map<String, Object> uid = (Map<String, Object>) session.getAttribute("uid");
+		Map<String, String> info = memberservice.mypage((String) uid.get("uid"));
 		String phone = info.get("phone");
 		String p1 = phone.substring(0, 3);
 		String p2 = phone.substring(3, 7);

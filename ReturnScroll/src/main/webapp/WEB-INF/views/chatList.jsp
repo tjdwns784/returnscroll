@@ -90,6 +90,44 @@
   <!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
 
+ 
+  
+  <!-- 모달창 -->
+  <div id="modal">
+   
+	    <div class="modal_content">
+        	<button type="button" id="modal_close_btn" style='border: none;background: none;float: right;padding-right: 50px;'>
+        	<img src="resources/img/error.png" style='width: 20px;'></button>
+	        <h4 style='display: inline-block;'>${uid.uid} 님의 친구 목록</h4><br>
+	        <div id="searchResult" style="padding-bottom: 10px;"></div>
+	          <table class="table">
+			    <thead>
+			      <tr>
+			        <th>No</th>
+			        <th>친구 ID</th>
+			        <th>닉네임</th>
+			        <th> - </th>
+			      </tr>
+			    </thead>
+			    <c:if test="${not empty friendList}">
+			    <c:forEach var="lists" items="${friendList }" varStatus="status" >
+			    <tbody>
+			      <tr>
+			        <td>${status.count }</td>
+			        <td>${lists.friendId }</td>
+			        <td>${lists.nick }</td>
+			        <td>
+			        	<input type='button' onclick='deleteFriend("${lists.friendId}");' value='친구삭제' style='border:none; background:none; display:inline-block;' />
+			        </td>
+			      </tr>
+			    </tbody>
+			    </c:forEach>
+			  </c:if>
+			  <c:if test="${empty friendList}">
+			    <h5>친구목록이 비어있습니다</h5>
+			  </c:if>
+			  </table>
+
 
     <div id='body'>
 	<section class="content">
@@ -98,7 +136,7 @@
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser" style='float: right;'>${uid}님 반갑습니다</div>
+                    <div id="putUser" style='float: right;'>${uid.uid}님 반갑습니다</div>
                     <div class="box-header with-border">
                         <h1 class="box-title">채팅방 리스트</h1><br>
                            <c:if test="${not empty inviteList }">
@@ -175,9 +213,9 @@
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
-  <input type='hidden' id='nick' value='${nick}'>
-  <input type='hidden' id='recipient' value='${uid}'>
-  <input type='hidden' id='userID' value='${uid}'>
+  <input type='hidden' id='nick' value='${uid.nick}'>
+  <input type='hidden' id='recipient' value='${uid.uid}'>
+  <input type='hidden' id='userID' value='${uid.uid}'>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>

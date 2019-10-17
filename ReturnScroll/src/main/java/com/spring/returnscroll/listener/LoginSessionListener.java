@@ -17,23 +17,24 @@ public class LoginSessionListener implements HttpSessionAttributeListener {
 	public void attributeAdded(HttpSessionBindingEvent se) {
 		// 로그인 시 등 세션에 값을 입력하면 동작하는 부분
 		HttpSession session = se.getSession();
-		String uid = (String) session.getAttribute("uid");
+		Map<String, Object> uid = (Map<String, Object>) session.getAttribute("uid");
 		
-		boolean isLogged = map.containsKey(uid);
+		boolean isLogged = map.containsKey(uid.get("uid"));
 		if(isLogged) {
-			HttpSession loggedSession = map.get(uid);
+			HttpSession loggedSession = map.get(uid.get("uid"));
 			loggedSession.invalidate();
 		}
 		
-		map.put(uid, session);
+		map.put((String) uid.get("uid"), session);
 		
 	}
 
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent se) {
 		HttpSession session = se.getSession();
-		String uid = (String) session.getAttribute("uid");
-		map.remove(uid);
+		Map<String, Object> uid = (Map<String, Object>) session.getAttribute("uid");
+		
+		map.remove(uid.get("uid"));
 //		System.out.println("removed");
 //		System.out.println(map);
 //		HttpSession session = se.getSession();

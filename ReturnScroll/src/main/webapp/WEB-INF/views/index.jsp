@@ -84,6 +84,7 @@
    <div style="text-align:center;" id='body'>
        <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
       <br><br>
+
       
       <button id="loginbtn" onclick="location.href='/returnscroll/login'">Login</button>
       <button id="joinbtn" onclick="location.href='/returnscroll/join'">Join</button>
@@ -95,7 +96,18 @@
               </script>
       </c:if>
 
-   <jsp:include page="footer.jsp"></jsp:include>
+      <c:if test="${uid.uid == null}">
+	      <button id="loginbtn" onclick="location.href='/returnscroll/login'">Login</button>
+	      <button id="joinbtn" onclick="location.href='/returnscroll/join'">Join</button>
+      </c:if>
+      
+      <c:if test="${uid.uid != null}">
+    	<h1 id="welcome" style="margin-top:-1%; margin-bottom:-2%"><span id='unick' style='color:red'>${uid.nick}님</span> 환영합니다!</h1>
+	</c:if>
+
+	<jsp:include page="footer.jsp"></jsp:include>
+
+
 
   </div>
   <!-- Bootstrap core JavaScript -->
@@ -107,43 +119,8 @@
 
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-   <script>
-      // 초대수락
-      function enterInvite(roomNumber, sender, recipient){
-         var inviteData = {"roomNumber": roomNumber,"sender": sender,"recipient": recipient}
-         console.log('초대수락 버튼 ');
-         console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
-         $.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
-                type:'GET',
-                data: inviteData,
-                success:function(data){
-                   console.log('결과 데이터는 '+data);
-                   window.location.href="http://localhost:8080/returnscroll/chat/"+data;
-                },
-                error:function(request, status, errorThrown){
-                   alert('방 입장 실패'+errorThrown);
-                }
-             })
-      }
-      // 초대거절하기
-      function rejectInvite(roomNumber, sender, recipient){
-         var inviteData = {"roomNumber": roomNumber,"sender": sender,"recipient": recipient}
-         console.log('거절수락 버튼 ');
-         console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
-         $.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
-                type:'GET',
-                data: inviteData,
-                success:function(data){
-                   alert(sender+"님의 채팅창 초대를 거절하였습니다.");
-                },
-                error:function(request, status, errorThrown){
-                   alert('초대 거절 실패');
-                }
-             })
-      }
-   </script>
+
+
 </body>
 
 </html>

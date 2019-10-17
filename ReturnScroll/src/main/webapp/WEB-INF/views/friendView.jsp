@@ -99,7 +99,7 @@
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning" '>
-                    <h5 style='display: inline-block; padding-top:10px;'>${uid} 님의 친구 목록</h5><br>
+                    <h5 style='display: inline-block; padding-top:10px;'>${uid.uid} 님의 친구 목록</h5><br>
 			        <div id="searchResult" style="padding-bottom: 10px;"></div>
 			          <table class="table">
 					    <tbody>
@@ -128,7 +128,7 @@
 					  <div style="display: grid;">		        	
 					  <button type='button' onclick='deleteFriend("${lists.friendId}");' >친구삭제 </button>
 					  <br>
-		        	<button type='button' onclick='newChat("${uid}","${friendInfo.uid}");'>채팅하기</button>
+		        	<button type='button' onclick='newChat("${uid.uid}","${friendInfo.uid}");'>채팅하기</button>
 						</div>
 
                     <!-- /.box-footer-->
@@ -142,8 +142,8 @@
 
 
   <div class="btn-group btn-group-lg" id="sticker" style='width: inherit;'>
-	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="friendList" src="resources/img/user.png" style='width:50px;'></button>
-	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="chat" src="resources/img/speech-bubble.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="friendList" src="/returnscroll/resources/img/user.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="chat" src="/returnscroll/resources/img/speech-bubble.png" style='width:50px;'></button>
 	</div>
 
   <!-- Scroll to Top Button-->
@@ -154,9 +154,9 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 
-  <input type='hidden' id='nick' value='${nick}'>
-  <input type='hidden' id='recipient' value='${uid}'>
-  <input type='hidden' id='userID' value='${uid}'>
+  <input type='hidden' id='nick' value='${uid.nick}'>
+  <input type='hidden' id='recipient' value='${uid.uid}'>
+  <input type='hidden' id='userID' value='${uid.uid}'>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>

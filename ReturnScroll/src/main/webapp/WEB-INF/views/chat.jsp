@@ -141,7 +141,7 @@
                 <div class="box box-warning direct-chat direct-chat-warning" style="padding-top: 10px;">
                 
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser" style='float: right; padding-right:10px;'>${uid}(${nick })님 환영합니다</div>
+                    <div id="putUser" style='float: right; padding-right:10px;'>${uid.uid}(${uid.nick })님 환영합니다</div>
                     <div id="roomNum" style="padding-left: 10px;">${room.roomId}번 방</div>
                     
                     <div class="box-header with-border">
@@ -207,8 +207,8 @@
 </div>
 
   <div class="btn-group btn-group-lg" id="sticker" style='width: inherit;'>
-	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="friendList" src="resources/img/user.png" style='width:50px;'></button>
-	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="chat" src="resources/img/speech-bubble.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="friendList" src="/returnscroll/resources/img/user.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="chat" src="/returnscroll/resources/img/speech-bubble.png" style='width:50px;'></button>
 	</div>
 
  
@@ -217,8 +217,8 @@
   <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-  <input type='hidden' id='nick' value='${nick}'>
-    <input type='hidden' id='userid' value='${uid}'>
+  <input type='hidden' id='nick' value='${uid.nick}'>
+    <input type='hidden' id='userid' value='${uid.uid}'>
    <input id='roomNumber' type='hidden' value='${room.roomId }'></input>
 
   <!-- Bootstrap core JavaScript -->
