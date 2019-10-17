@@ -92,47 +92,6 @@
 	<jsp:include page="side.jsp"></jsp:include>
 
 
-      <div id="modal">
-   
-	    <div class="modal_content">
-	        <h2 style="text-align: center;">친구초대</h2><br>
-	        <p style="text-align: center;">초대할 친구를 검색하세요</p>
-	        <form method="GET" id="find"  style="text-align: center;">
-		        <input type="text" name="uid" id="uid" style="width: 300px; height: 35px;" placeholder="초대할 회원의 ID를 입력해주세요">
-		    	<button id="findId" class="btn btn-warning btn-flat" style="float: right; margin: unset;" >검색</button>
-			</form>
-	        
-	         <br>
-	        <div id="searchResult" style="padding-bottom: 10px;"></div>
-	          <table class="table">
-			    <thead>
-			      <tr>
-			        <th>No</th>
-			        <th>ID</th>
-			        <th>닉네임</th>
-			        <th></th>
-			      </tr>
-			    </thead>
-			    <tbody id="tbody">
-			      <tr>
-<!-- 			        <td id="number"></td> -->
-<!-- 			        <td id="findUserId"></td> -->
-<!-- 			        <td id="findUserNick"></td> -->
-<!-- 			        <td id="inviteLink"></td> -->
-			      </tr>
-			    </tbody>
-			  </table>
-			 
-	        <div id="uidList" style="margin: 20px;"></div>
-	
-	        <button type="button" id="modal_close_btn" class="btn btn-warning btn-flat" style="float: right;">창 닫기</button>
-	      
-	    </div>
-   
-  		  <div class="modal_layer"></div>
-    
-	</div>
-
       <div id='body'>
 
 	<section class="content">
@@ -211,162 +170,15 @@
   
   <script src="http://192.168.0.15:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    
-    <!-- 모달 띄우고 내리는거 -->
-    <script type="text/javascript">
- // sticky
-	$(window).load(function(){
-		$("#sticker").sticky({topSpacing:0});
-	});
-    $("#addFriend").click(function(){
-    	$("#uid").val('');
-    	$("#searchResult").empty();
-		$("#number").empty();
-		$("#findUserId").empty();
-		$("#inviteLink").empty();
-        $("#modal").fadeIn();
-    });
-   
-     $("#modal_close_btn").click(function(){
-        $("#modal").fadeOut();
-    });    
-    </script>
-     <!-- 아이디로 친구 찾기 -->
-	<script>
- 		$(document).on('click','#findId',function(){
-			// 입력한 아이디값 받기
- 			var uid = $('#uid').val();
- 			var postData = {"uid" : uid};
-			var dataUrl = "http://localhost:8080/returnscroll/chat/findId";
-			
-			$("#uid").val('');
-			$("#searchResult").empty();
-			$("#number").empty();
-			$("#findUserId").empty();
-			$("#inviteLink").empty();
 
-			$.ajax({
-				url:dataUrl,
-				type:'GET',
-				data: postData,
-				success:function(data){
-					console.log('[결과데이터] data: '+data);
-					
-					
-					// console.log('[결과데이터] id: '+data.get('uid')+", nick: "+data.get('nick'));
-					// 검색 창 비우기
-					$("#uid").empty();
-// 					$("#tbody").empty();
-					// data
-					$("#searchResult").append(uid+" 에 대한 검색결과 입니다.")
-					// 검색결과 만큼 데이터가 나와야함
-					// 테이블로 고치기!!
-// 					<tr>
-// 				        <td id="number"></td>
-// 				        <td id="findUserId"></td>
-// 				        <td id="findUserNick"></td>
-// 				        <td id="inviteLink"></td>
-// 				      </tr>
-					var html = "";
-					for (var i=1;i<(Object.keys(data).length);i++){
-						html += "<tr><td>"+i+"</td><td>"+data['uid']+"</td><td>"+data['nick']+"</td>";
-						html += "<td><input type='button' onclick='inviteUser(\""+data['uid']+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' /></td></tr>"
-						
-// 						$("#number").append(i);
-// 						$("#findUserId").append(data['uid']);
-// 						$("#findUserNick").append(data['nick'])
-// 						$("#inviteLink").append("<input type='button' onclick='inviteUser(\""+data['uid']+"\");' value='추가하기' style='border:none; background:none; display:inline-block;' />");
-					}
-					$("#tbody").append(html);
-				},
-				error:function(request, status, errorThrown){
-					$("#searchResult").empty();
-					$("#number").empty();
-					$("#findUserId").empty();
-					$("#inviteLink").empty();
-					$("#searchResult").append("검색결과가 없습니당")
-					alert('아이디가 존재하지 않습니다');
-				}
-			})
-			
-			return false;
-		});
-
-	</script>
-	<script>
-	 function inviteUser(user){
-
-         $("#modal").fadeOut();
-           
-         alert(user+'님에게 친구추가를 신청했습니다');
-         // 채팅에 접속
-         var socket = io("http://192.168.0.15:82");
-         
-         var recipient = user; // 받는사람
-         var sender = $('#userID').val();  // 보낸사람
-         
-         // insert문 수행
-         socket.emit('s_add_friend',sender,recipient);
-         
-         socket.on('c_add_friend_result', function(msg){
-            alert(msg);
-         })
-         consol
-      }
-	</script>
-
-<script>
-       $('#friendYes').click(function(){
-          var sender = $('#senderId').val();
-          var recipient = $('#recipient').val();
-          var data = {"sender" : sender , "recipient" : recipient};
-          console.log('친구수락 버튼을 눌렀을 때 보내려는 데이터 : '+data.sender+","+data.recipient);
-          
-          $.ajax({
-            url:"http://localhost:8080/returnscroll/chat/addfriend",
-            type:'GET',
-            data: data,
-            success:function(data){
-               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                  alert(data+'님의 친구요청을 수락하였습니다.')
-            },
-            error:function(request, status, errorThrown){
-               alert('친구요청 수락 실패');
-            }
-         })
-       });
-       $('#friendNo').click(function(){
-          var sender = $('#senderId').val();
-          var recipient = $('#recipient').val();
-          var data = {"sender" : sender , "recipient" : recipient};
-          
-          $.ajax({
-            url:"http://localhost:8080/returnscroll/chat/addfriendReject",
-            type:'GET',
-            data: data,
-            success:function(data){
-               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                  alert(data+'님의 친구요청을 거절하였습니다.')
-            },
-            error:function(request, status, errorThrown){
-               alert('친구요청 수락 실패');
-            }
-         })
-       });
-    </script>
-    
-    <script type="text/javascript">
-    $("#friendList").click(function(){
-        $("#modal").fadeIn();
-    });
-   
-     $("#modal_close_btn").click(function(){
-        $("#modal").fadeOut();
-    });    
-
-    </script>
+  
     
     <script>
+    
+	    $(window).load(function(){
+			$("#sticker").sticky({topSpacing:0});
+		});
+	    
     	function deleteFriend(friendId){
     		var userId = $('#userID').val();
     		var data = {"userId" : userId , "friendId" : friendId};

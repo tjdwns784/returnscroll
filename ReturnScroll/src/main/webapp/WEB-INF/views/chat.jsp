@@ -242,23 +242,6 @@
 		$("#sticker").sticky({topSpacing:0});
 	});
  
-    $("#addFriend").click(function(){
-    	$("#uid").val('');
-    	$("#searchResult").empty();
-		$("#number").empty();
-		$("#findUserId").empty();
-		$("#inviteLink").empty();
-        $("#modal").fadeIn();
-    });
-   
-     $("#modal_close_btn").click(function(){
-        $("#modal").fadeOut();
-    });    
-       
-/*      $("#sendBtn").click(function(){
-     	sendMsg();
-     }) */
-
     </script>
     
 	<!-- 현재 대화방에 참여중인 상대를 불러옴 -->
