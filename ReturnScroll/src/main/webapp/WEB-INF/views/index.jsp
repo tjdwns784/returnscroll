@@ -84,9 +84,13 @@
   </style>
    <div style="text-align:center;" id='body'>
 
+
        <img src="resources/img/리턴2.jpg" style="max-width:100%; height:564px;"><br>
 
 
+
+
+       <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
       <br><br>
       <button onclick="location.href='/returnscroll/login'">Login</button>
       <button onclick="location.href='/returnscroll/join'">Join</button>
@@ -95,7 +99,6 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 
   </div>
-
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -106,7 +109,10 @@
 
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
+
       <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+
 
 </body>
 

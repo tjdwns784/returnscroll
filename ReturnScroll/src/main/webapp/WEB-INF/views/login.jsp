@@ -75,6 +75,7 @@
             <path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" />
         </svg>
         <div class="container text-center my-auto">
+<<<<<<< HEAD
          <h1 class="mb-1">Login</h1>
          <h3 class="mb-5"></h3>
          <form class="form-inline-block" action="login" method="post">
@@ -124,6 +125,57 @@
         </div>
            
       <div class="overlay"></div>
+=======
+			<h1 class="mb-1">Login</h1>
+			<h3 class="mb-5"></h3>
+			<form class="form-inline-block" action="login" method="post">
+				<div class="form-group" style="margin-top: -10%">
+					<label for="uid"></label> <input type="text"
+						class="form-control" name="uid" id="uid" placeholder="아이디 입력" style="margin-top: -10%; margin-bottom: -10%">
+				</div>
+				<div class="form-group">
+					<label for="upw"></label> <input type="password"
+						class="form-control" name="upw" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;" onkeyup="enterkey();" type="text"  value="">
+				</div>
+				<br>
+				<div class="checkbox">
+					<label><input name="idsave" type="checkbox"> 아이디 저장</label>
+				</div>
+					<div class="interval_height a_none">
+						<a href="/returnscroll/userSearch" id="btnSearch">아이디 / 비밀번호 찾기</a>
+					</div>
+				</form>
+			<a class="btn btn-primary btn-xl js-scroll-trigger"
+				href="/returnscroll/login" id="btnLogin" style="width:115px; height: 35px; margin-top: 3%; margin-bottom: 5%;  line-height:0.1;">Login</a> 
+			<a class="btn btn-primary btn-xl js-scroll-trigger"
+				href="/returnscroll/join" style="width:115px; height: 35px; margin-top: 3%; margin-bottom: 5%;  line-height:0.1;">Join</a>
+				
+			<!-- 카카오 로그인 -->
+			<a id="custom-login-btn" href="javascript:loginWithKakao()">
+		<img id="kakao-login-btn" src="/returnscroll/resources/img/kakaotalk.jpg" style="margin-right:2.7%; margin-" border="0" alt=""/></a>
+		
+			<!-- 페이스북 로그인 -->
+			<a href="#" onclick="fb_login()"><img src="/returnscroll/resources/img/facebook.jpg" style="margin-right:2.7%;" border="0" alt=""></a>
+  						
+			<!-- 구글 로그인 -->
+			<div id="gSignInWrapper" style="display: inline-block; margin-right:2.7%;">
+		    	<div id="customBtn" >
+		        <span class="icon"></span>
+		        <span id="a" class="customGPlusSignIn" onclick="if(this.innerHTML ==='Logout') {signOut();} return false;"> 
+		        	<img src="/returnscroll/resources/img/googleplus.jpg" border="0" alt="">
+		        </span>
+		    </div>
+		  </div>
+		  
+		   <!-- 네이버 로그인 -->
+		  <div id="naverIdLogin" style="display: inline-block; margin-right:2.7%;">
+		  	<a id="naverIdLogin_loginButton" role="button" href='#'>
+		  		<img src="/returnscroll/resources/img/naver.jpg" border="0" alt="">
+		  	</a>
+		  </div>
+			  
+		<div class="overlay"></div>
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
     </form>
    </div>
    <jsp:include page="footer.jsp"></jsp:include>
@@ -380,7 +432,149 @@
    }                              
    //]]>                                             
 </script>
+<<<<<<< HEAD
+=======
 
+<script src="https://apis.google.com/js/api:client.js"></script>
+  <script> 
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '630134026179-rgc07okoujjobuonqp55itnh2lt42vic.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+ 
+  function attachSignin(element) {
+    console.log("id");
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+    		console.log('click handler')
+    		console.log(googleUser)
+    		console.log(googleUser.El)
+    		
+    		
+//             document.querySelector('#a').innerHTML = 'Logout';
+//           document.getElementById('name').innerText = "Signed in: " +
+//               googleUser.getBasicProfile().getName();
+			var id = googleUser.El;
+        	$.ajax({					
+				url : "googleDup",				
+				data : {				
+					google : id			
+				},				
+				success : function(res) {				
+					console.log(res);			
+								
+					if (res == 0) {			
+						location = 'join?google=' + id + ''		
+					} else if (res == 1) {			
+						location = 'loginGoogle?google=' + id + ''		
+					}			
+				},fail : function(error) {						
+						console.log("error");
+				}
+			});	
+			
+        }, function(error) {
+          console.log(JSON.stringify(error, undefined, 2));
+        });
+  }
+          function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut();
+            auth2.disconnect();
+        }
+	startApp();
+  </script>
+<!-- 
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log("Email: " + profile.getEmail());
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+            ///////////////////////////////////////////////////////////////
+            var id = profile.getId();					
+			$.ajax({					
+				url : "googleDup",				
+				data : {				
+				google : id			
+				},				
+				success : function(res) {				
+					console.log(res);			
+								
+					if (res == 0) {			
+						location = 'join?google=' + id + ''		
+					} else if (res == 1) {			
+						location = 'loginGoogle?google=' + id + ''		
+					}			
+				},fail : function(error) {						
+						console.log("error");
+				}
+			});		
+        };
+</script>
+-->
+
+<script>
+	    window.onload = function() {
+	 
+	        if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
+	            document.loginForm.uid.value = getCookie("id"); //input 이름이 id인곳에 getCookie("id")값을 넣어줌
+	            document.loginForm.idsave.checked = true; // 체크는 체크됨으로
+	        }
+	 
+	    }
+	 
+	    function setCookie(name, value, expiredays) //쿠키 저장함수
+	    {
+	        var todayDate = new Date();
+	        todayDate.setDate(todayDate.getDate() + expiredays);
+	        document.cookie = name + "=" + escape(value) + "; path=/; expires="
+	                + todayDate.toGMTString() + ";"
+	    }
+	 
+	    function getCookie(Name) { // 쿠키 불러오는 함수
+	        var search = Name + "=";
+	        if (document.cookie.length > 0) { // if there are any cookies
+	            offset = document.cookie.indexOf(search);
+	            if (offset != -1) { // if cookie exists
+	                offset += search.length; // set index of beginning of value
+	                end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+	                if (end == -1)
+	                    end = document.cookie.length;
+	                return unescape(document.cookie.substring(offset, end));
+	            }
+	        }
+	    }
+	 
+	    function sendit() {
+	        if (document.loginForm.idsave.checked == true) { // 아이디 저장을 체크 하였을때
+	            setCookie("id", document.loginForm.uid.value, 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
+	        } else { // 아이디 저장을 체크 하지 않았을때
+	            setCookie("id", document.loginForm.uid.value, 0); //날짜를 0으로 저장하여 쿠키삭제
+	        }
+	 
+	        document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
+	 
+	    }
+</script>
+
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+
+<<<<<<< HEAD
 <script src="https://apis.google.com/js/api:client.js"></script>
   <script> 
   var googleUser = {};
@@ -519,6 +713,8 @@
 </script>
 
 
+=======
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 </body>
 
 </html>
