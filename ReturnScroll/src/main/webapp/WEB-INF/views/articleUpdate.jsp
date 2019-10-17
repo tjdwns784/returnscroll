@@ -113,8 +113,8 @@
 			<textarea id="summernote" name="content" >${article.CONTENT}</textarea>
 			<hr>
 			<div style="text-align:center;">
-			<input type="button" value="수정" onclick="goWrite(this.form)">
 			<input id="cancelBtn" type="button" value="취소" onclick="location.href='../show/${no}'"/>
+			<input type="button" value="수정" onclick="goWrite(this.form)">
 			</div>
 	</form>
 	</div>
