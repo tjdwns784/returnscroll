@@ -139,7 +139,7 @@
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning" '>
-                    <h5 style='display: inline-block; padding-top:10px;'>${uid} 님의 친구 목록</h5><br>
+                    <h5 style='display: inline-block; padding-top:10px;'>${uid.uid} 님의 친구 목록</h5><br>
                     <c:if test="${not empty addFriend}">
                            <div id="addFriend"></div>
                            <div class='dropdown-menu-left' style='float: right;'>
@@ -213,9 +213,9 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 
-  <input type='hidden' id='nick' value='${nick}'>
-  <input type='hidden' id='recipient' value='${uid}'>
-  <input type='hidden' id='userID' value='${uid}'>
+  <input type='hidden' id='nick' value='${uid.nick}'>
+  <input type='hidden' id='recipient' value='${uid.uid}'>
+  <input type='hidden' id='userID' value='${uid.uid}'>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>

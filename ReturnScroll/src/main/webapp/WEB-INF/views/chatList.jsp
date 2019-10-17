@@ -98,7 +98,7 @@
 	    <div class="modal_content">
         	<button type="button" id="modal_close_btn" style='border: none;background: none;float: right;padding-right: 50px;'>
         	<img src="resources/img/error.png" style='width: 20px;'></button>
-	        <h4 style='display: inline-block;'>${uid} 님의 친구 목록</h4><br>
+	        <h4 style='display: inline-block;'>${uid.uid} 님의 친구 목록</h4><br>
 	        <div id="searchResult" style="padding-bottom: 10px;"></div>
 	          <table class="table">
 			    <thead>
@@ -140,7 +140,7 @@
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser" style='float: right;'>${uid}님 반갑습니다</div>
+                    <div id="putUser" style='float: right;'>${uid.uid}님 반갑습니다</div>
                     <div class="box-header with-border">
                         <h1 class="box-title">채팅방 리스트</h1><br>
                            <c:if test="${not empty inviteList }">
@@ -217,9 +217,9 @@
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
-  <input type='hidden' id='nick' value='${nick}'>
-  <input type='hidden' id='recipient' value='${uid}'>
-  <input type='hidden' id='userID' value='${uid}'>
+  <input type='hidden' id='nick' value='${uid.nick}'>
+  <input type='hidden' id='recipient' value='${uid.uid}'>
+  <input type='hidden' id='userID' value='${uid.uid}'>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>

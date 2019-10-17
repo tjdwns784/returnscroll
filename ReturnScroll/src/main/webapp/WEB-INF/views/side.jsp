@@ -70,22 +70,22 @@
 	</a>
 	<nav id="sidebar-wrapper" style="z-index:10000;">
 		<ul class="sidebar-nav">
-			<li class="sidebar-brand"><a class="js-scroll-trigger"
+			<li class="sidebar-brand"><a class="js-scroll-trigger" title="Menu"
 				href="/returnscroll/">Menu</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
+			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Home"
 				href="/returnscroll/">Home</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
+			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Map"
 				href="/returnscroll/tmap">Map</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
+			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Chat"
 				href="/returnscroll/chat">Chat</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
+			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Q&A"
 				href="/returnscroll/qna">Q&A</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger"
+			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="MyPage"
 				href="/returnscroll/mypage">MyPage</a></li>
 		</ul>
 		<c:if test="${uid != null}">
 			<div style="bottom: 0;position: absolute;margin-bottom: 10px; margin-left:20px;">
-				${uid} 님이 접속중입니다.<br> 
+				${uid.uid} 님이 접속중입니다.<br> 
 				<a id="logout" href="../returnscroll/logout" style="color:red">로그아웃</a>
 			</div>
 		</c:if>
@@ -110,10 +110,7 @@
 			});
 			auth2.disconnect();
 		})
-		$("#sidebar-wrapper").focusout(()=>{
-			
-			});		
-		
+
 		$("body").on('click', '#body', function(){
 			$('.menu-toggle > i.fa-times').trigger('click');
 // 		 	$('#sidebar-wrapper').close();
