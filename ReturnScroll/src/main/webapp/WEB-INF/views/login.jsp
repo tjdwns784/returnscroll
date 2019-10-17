@@ -40,6 +40,11 @@
    nav#sidebar-wrapper {
       top: 0px !important;
    }
+   
+   body {
+      background:#fff;
+   }
+   
 </style>
 
 </head>

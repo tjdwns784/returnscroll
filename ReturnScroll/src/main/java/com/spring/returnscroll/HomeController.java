@@ -627,4 +627,10 @@ public class HomeController  {
 		articleservice.insertComment(map);
 		return "ok";
 	}
+	
+	@RequestMapping(value = "/gps")
+	public String gps(Locale locale) {
+		
+		return "gps_socket";
+	}
 }
