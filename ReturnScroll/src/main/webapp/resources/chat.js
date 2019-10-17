@@ -21,6 +21,7 @@ $(document).ready(function() {
     
     
     socket.on('disconnect',function(){
+    	alert('채팅방 입장 실패.')
     	console.log('연결이 안되었을때')
     })
     

@@ -126,9 +126,9 @@
 </div>
 <div style="text-align:center">
 
-<button id="btnUpdate"  onclick="location.href='../articleUpdate/${article.NO}'">수정</button>
-<button id="btnDelete"  onclick="location.href='../articleDelete/${article.NO}'">삭제</button>
 <button id="btnQna"  onclick="location.href='../qna'">목록</button>
+<button id="btnDelete"  onclick="location.href='../articleDelete/${article.NO}'">삭제</button>
+<button id="btnUpdate"  onclick="location.href='../articleUpdate/${article.NO}'">수정</button>
 </div>
 <hr style="width:90%;" >
 
