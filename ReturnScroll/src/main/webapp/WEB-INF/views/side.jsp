@@ -70,17 +70,17 @@
    </a>
    <nav id="sidebar-wrapper" style="z-index:10000;">
       <ul class="sidebar-nav">
-         <li class="sidebar-brand"><a class="js-scroll-trigger"
+         <li class="sidebar-brand"><a class="js-scroll-trigger" title="Menu"
             href="/returnscroll/">Menu</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger"
+         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Home"
             href="/returnscroll/">Home</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger"
+         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Map"
             href="/returnscroll/tmap">Map</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger"
+         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Chat"
             href="/returnscroll/chat">Chat</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger"
+         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Q&A"
             href="/returnscroll/qna">Q&A</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger"
+         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="MyPage"
             href="/returnscroll/mypage">MyPage</a></li>
       </ul>
       <c:if test="${uid != null}">
@@ -121,7 +121,6 @@
 
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 
-<<<<<<< HEAD
 <!--    <script type="text/javascript" -->
 <!--       src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" -->
 <!--       charset="utf-8"></script> -->
@@ -162,48 +161,6 @@
 //       naver_id_login.setState(state);
 //       naver_id_login.setPopup();
 //       naver_id_login.init_naver_id_login();
-=======
-<!-- 	<script type="text/javascript" -->
-<!-- 		src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" -->
-<!-- 		charset="utf-8"></script> -->
-	<script type="text/javascript">
-		var naverLogin;
-		$(function() {
-			
-			naverLogin = new naver.LoginWithNaverId(
-				{
-					clientId: "0xG1suQ90VZU_QsoAafW",
-					callbackUrl: "http://localhost:8080/returnscroll/callback",
-					isPopup: true, /* 팝업을 통한 연동처리 여부 */
-	// 				loginButton: {color: "green", type: 1, height: 60} /* 로그인 버튼의 타입을 지정 */
-				}
-			);
-	
-			naverLogin.init();
-		})
-		
-		window.addEventListener('load', function () {
-			naverLogin.getLoginStatus(function (status) {
-				if (status) {
-					/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
-					setLoginStatus();
-				}
-			});
-		})
-		function setLoginStatus() {
-			$("#logout").click(function () {
-				naverLogin.logout();
-			});
-		}
-// 		var naver_id_login = new naver_id_login("0xG1suQ90VZU_QsoAafW",
-// 				"http://localhost:8080/returnscroll/callback");
-// 		var state = naver_id_login.getUniqState();
-// 		naver_id_login.setButton("white", 2, 40);
-// 		naver_id_login.setDomain("http://localhost:8080/returnscroll");
-// 		naver_id_login.setState(state);
-// 		naver_id_login.setPopup();
-// 		naver_id_login.init_naver_id_login();
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 
 
 
