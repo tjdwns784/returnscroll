@@ -384,8 +384,8 @@
 		  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-    
-	<!-- <p id="result" name="result" value=" " ></p> -->
+<!-- <p id="result" name="result" value=" " ></p> -->
+	
 	<div id="body">
 	<h1 id="h1_title" style="margin-left:2.5%;margin-top:2%;">Map</h1>
 	<hr style="width:95%; background:#FFCC33; height:2px; margin-left:2.5%;" >
@@ -402,20 +402,16 @@
 			<input type='button' id='r_btn' value='경로취소' onclick = "removeRoot()" style="/* visibility:hidden; */ display:none;" >
 			 <input type='button' id='fl_btn' value='친구찾기' onclick = "findMyLocation()">
 			  <input type='button' id='sl_btn' value='친구찾기 중지' onclick = "stopMyLocation()" style="/* visibility:hidden; */ display:none;"><br> 
-			  
-			
 		</div>
 		</form>
 	</div>
-<hr style="margin-left:2.5%; width:95%; background:#FFCC33; height:2px" >
+	<hr style="margin-left:2.5%; width:95%; background:#FFCC33; height:2px" >
 
- <!-- 지도 -->
-<div id="map_div"></div> 
-  <br><br>
+	 <!-- 지도 -->
+	<div id="map_div"></div> <br>
 
-
-<!-- Modal -->
-<div class="modal fade" id="findAddr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!-- Modal -->
+	<div class="modal fade" id="findAddr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -479,20 +475,16 @@
     </div>
   </div>
 </div>
-  
 
-      
-    	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-         <script>
-         
-     	
-	  		function setLocation(lat, lng) {
-	  			latitude = lat;
-	  			longitude = lng;
-	  			
-	  			initTmap();
-	 		}
-  		         
+  	<script>
+ 
+ 		function setLocation(lat, lng) {
+ 			latitude = lat;
+ 			longitude = lng;
+
+ 			initTmap();
+		}
+		         
 	  		function setLocation2(lat, lng) {
 	  			latitude = lat;
 	  			longitude = lng;
@@ -528,6 +520,7 @@
      		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_s.png',size, offset);
          	
          	$(document).ready(function() {
+        
 				// 안드로이드 폰에서 접속한 경우에만 실행
 				window.loc.sendLocation();
 //          		initTmap();
