@@ -91,10 +91,10 @@
 
 		<div id="uid">
 			<label for="user_id">아이디</label> 
-			<input name="uid" value="${uid}" readonly="readonly" class="form-control">
+			<input name="uid" value="${uid.uid}" readonly="readonly" class="form-control">
 		</div><br>
 		
-		<label for="user_pw">비밀번호</label> <input type="password" class="form-control" id="user_pw" name="upw" placeholder="" required>
+		<label for="user_pw">비밀번호</label> <input type="password" class="form-control" id="user_pw" name="upw" placeholder="Password" required>
 		<p id='msgpw' style="color: red"></p>
 		<div class="check_font" id="pw_check"></div>
 	</div>
@@ -185,7 +185,7 @@
 					url:"mpemailDup",					
 					data : {
 							email : $("#user_email").val(),
-							uid : '${uid}'
+							uid : '${uid.uid}'
 						},					
 					success: function(res){					
 						console.log(res);					
@@ -215,7 +215,7 @@
 						url:"mpnickDup",					
 						data : {
 							nick : $("#user_nick").val(),
-							uid : '${uid}'
+							uid : '${uid.uid}'
 						},					
 						success: function(res){					
 						console.log(res);					

@@ -139,7 +139,7 @@
             <div class="col-md-12">
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning" '>
-                    <h5 style='display: inline-block; padding-top:10px;'>${uid} 님의 친구 목록</h5><br>
+                    <h5 style='display: inline-block; padding-top:10px;'>${uid.uid} 님의 친구 목록</h5><br>
                     <c:if test="${not empty addFriend}">
                            <div id="addFriend"></div>
                            <div class='dropdown-menu-left' style='float: right;'>
@@ -213,9 +213,9 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 
-  <input type='hidden' id='nick' value='${nick}'>
-  <input type='hidden' id='recipient' value='${uid}'>
-  <input type='hidden' id='userID' value='${uid}'>
+  <input type='hidden' id='nick' value='${uid.nick}'>
+  <input type='hidden' id='recipient' value='${uid.uid}'>
+  <input type='hidden' id='userID' value='${uid.uid}'>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -383,75 +383,6 @@
 
     </script>
     
-    <script>
-    	function deleteFriend(friendId){
-    		var userId = $('#userID').val();
-    		var data = {"userId" : userId , "friendId" : friendId};
-    		console.log('친구 삭제 할때 보내는 데이터 값 '+data.userId +",  "+data.friendId);
-    		var check = confirm(friendId+"님을 삭제하시겠습니까?");
-        	  if(check) {
-        		  $.ajax({
-                      url:"http://localhost:8080/returnscroll/chat/deleteFriend",
-                      type:'GET',
-                      data: data,
-                      success:function(data){
-                         //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                            alert(data+'님을 삭제하였습니다.')
-                      },
-                      error:function(request, status, errorThrown){
-                         alert('친구 삭제 실패');
-                      }
-                   })
-        	  }
-        	  else {
-        		  alert(friendId+"님을 친구목록에 유지하겠습니다");
-        	  }
-   		
-    		
-    	}
-    </script>
-    
-    <script>
-  		// 새로운 채팅하기
-    	function newChat(uid, friendId){
-    		var newChatName = prompt('새로운 채팅방의 이름을 작성해주세요!');
-    		var createData = {"roomName": newChatName ,"createUser": uid, "friendId" : friendId};
-    		console.log("방생성할 때 보내는 데이터 : "+createData.roomName+", "+createData.createUser+", "+createData.friendId);
-    		$.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendChatRoom",
-                type:'GET',
-                data: createData,
-                success:function(data){
-                	console.log('방금 생성한 방의 번호: '+data+", data의 타입 : "+typeof data);
-                	var url = "http://localhost:8080/returnscroll/chat/"+data+"";
-                	console.log('접속할 url은 '+url);
-                	window.open(url); // 접속 성공했고, 
-                	// friendId에게 채팅방에 초대됬다는 알람을 보내줌
-                	inviteFriend(data, uid, friendId); 
-                	
-                },
-                error:function(request, status, errorThrown){
-                   alert('방 생성 실패ㄴ');
-                }
-             })
-    	}
-  		// 방번호, 보내는 사람 아이디, 받는사람 아이디를 보내줌,
-  		function inviteFriend(roomNumber, sender, recipient){
-  			var chatInvite = {"roomNumber":roomNumber,"sender":sender,"recipient":recipient};
-  			// 데이터베이스에 집어 넣기
-  			$.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendInviteRoom",
-                type:'GET',
-                data: chatInvite,
-                success:function(data){
-                	
-                },
-                error:function(request, status, errorThrown){
-                   alert('방 생성 실패');
-                }
-             })
-  		}
-    </script>
 
 </body>
 

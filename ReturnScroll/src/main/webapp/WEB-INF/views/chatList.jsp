@@ -98,7 +98,7 @@
 	    <div class="modal_content">
         	<button type="button" id="modal_close_btn" style='border: none;background: none;float: right;padding-right: 50px;'>
         	<img src="resources/img/error.png" style='width: 20px;'></button>
-	        <h4 style='display: inline-block;'>${uid} 님의 친구 목록</h4><br>
+	        <h4 style='display: inline-block;'>${uid.uid} 님의 친구 목록</h4><br>
 	        <div id="searchResult" style="padding-bottom: 10px;"></div>
 	          <table class="table">
 			    <thead>
@@ -128,11 +128,7 @@
 			  </c:if>
 			  </table>
 
-	    </div>
-	   
-	    <div class="modal_layer"></div>
-    
-	</div>
+
     <div id='body'>
 	<section class="content">
         <div class="row">
@@ -140,7 +136,7 @@
                 <!-- DIRECT CHAT -->
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <!-- 채팅 방 표시, 방 바꾸기 -->
-                    <div id="putUser" style='float: right;'>${uid}님 반갑습니다</div>
+                    <div id="putUser" style='float: right;'>${uid.uid}님 반갑습니다</div>
                     <div class="box-header with-border">
                         <h1 class="box-title">채팅방 리스트</h1><br>
                            <c:if test="${not empty inviteList }">
@@ -217,9 +213,9 @@
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
-  <input type='hidden' id='nick' value='${nick}'>
-  <input type='hidden' id='recipient' value='${uid}'>
-  <input type='hidden' id='userID' value='${uid}'>
+  <input type='hidden' id='nick' value='${uid.nick}'>
+  <input type='hidden' id='recipient' value='${uid.uid}'>
+  <input type='hidden' id='userID' value='${uid.uid}'>
 
   <!-- Bootstrap core JavaScript -->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -240,83 +236,9 @@
 			$("#sticker").sticky({topSpacing:0});
 		});
   
-       $('#friendYes').click(function(){
-          var sender = $('#senderId').val();
-          var recipient = $('#recipient').val();
-          var data = {"sender" : sender , "recipient" : recipient};
-          console.log('친구수락 버튼을 눌렀을 때 보내려는 데이터 : '+data.sender+","+data.recipient);
-          
-          $.ajax({
-            url:"http://localhost:8080/returnscroll/chat/addfriend",
-            type:'GET',
-            data: data,
-            success:function(data){
-               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                  alert(data+'님의 친구요청을 수락하였습니다.')
-            },
-            error:function(request, status, errorThrown){
-               alert('친구요청 수락 실패');
-            }
-         })
-       });
-       $('#friendNo').click(function(){
-          var sender = $('#senderId').val();
-          var recipient = $('#recipient').val();
-          var data = {"sender" : sender , "recipient" : recipient};
-          
-          $.ajax({
-            url:"http://localhost:8080/returnscroll/chat/addfriendReject",
-            type:'GET',
-            data: data,
-            success:function(data){
-               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                  alert(data+'님의 친구요청을 거절하였습니다.')
-            },
-            error:function(request, status, errorThrown){
-               alert('친구요청 수락 실패');
-            }
-         })
-       });
-    </script>
-    
-    <script type="text/javascript">
-//     $("#friendList").click(function(){
-//         $("#modal").fadeIn();
-//     });
-   
-//      $("#modal_close_btn").click(function(){
-//         $("#modal").fadeOut();
-//     });    
-
     </script>
     
     <script>
-    	function deleteFriend(friendId){
-    		var userId = $('#userID').val();
-    		var data = {"userId" : userId , "friendId" : friendId};
-    		console.log('친구 삭제 할때 보내는 데이터 값 '+data.userId +",  "+data.friendId);
-    		var check = confirm(friendId+"님을 삭제하시겠습니까?");
-        	  if(check) {
-        		  alert("확인버튼 클릭");
-        		  $.ajax({
-                      url:"http://localhost:8080/returnscroll/chat/deleteFriend",
-                      type:'GET',
-                      data: data,
-                      success:function(data){
-                         //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                            alert(data+'님을 삭제하였습니다.')
-                      },
-                      error:function(request, status, errorThrown){
-                         alert('친구 삭제 실패');
-                      }
-                   })
-        	  }
-        	  else {
-        		  alert(friendId+"님을 친구목록에 유지하겠습니다");
-        	  }
-   		
-    		
-    	}
     	
     	
     	// 초대수락

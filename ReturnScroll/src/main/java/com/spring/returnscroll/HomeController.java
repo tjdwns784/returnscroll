@@ -46,10 +46,8 @@ public class HomeController  {
 		}else {
 			// 초대가 왔다는 것을 알림
 			// 세션아이디 값 얻기
-			Object userId = httpSession.getAttribute("uid");
-			String uid = userId.toString();
-			
-			
+			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+			String uid = (String) userId.get("uid");
 			
 			return "index";
 		}
@@ -91,14 +89,9 @@ public class HomeController  {
 			return "redirect:/login";
 		}else {
 			// 세션아이디 값 얻기
-			Object userId = httpSession.getAttribute("uid");
-			String uid = userId.toString();
-			String nick = memberservice.userNick(uid);
-			model.addAttribute("uid", uid);
-			model.addAttribute("nick", nick); // chat에 nick 보내기
+			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+			String uid = (String) userId.get("uid");
 			
-			
-	         
 	         List<Map<String, Object>> inviteList = chatService.inviteList(uid);
 			if(inviteList.isEmpty()) {
 	            // 리스트가 비어있으면 model에 저장 안함.
@@ -124,13 +117,7 @@ public class HomeController  {
 		if(httpSession.getAttribute("uid") == null) {
 			return "redirect:/login";
 		}else {
-			// 세션아이디 값 얻기
-			Object userId = httpSession.getAttribute("uid");
-			String uid = userId.toString();
-			String nick = memberservice.userNick(uid);
-			model.addAttribute("uid", uid);
-			model.addAttribute("nick", nick); // chat에 nick 보내기
-			
+
 			// 채팅방 리스트 불러오기
 			List<Map<String, Object>> list = chatService.selectAllList();
 			model.addAttribute("list",chatService.selectAllList());
@@ -147,11 +134,8 @@ public class HomeController  {
 			,@PathVariable("roomNum") int roomNum) {
 		
 		// 접속자의 아이디 얻기
-		Object userId = httpSession.getAttribute("uid");
-		String uid = userId.toString();
-		String nick = memberservice.userNick(uid);
-		model.addAttribute("uid", uid);
-		model.addAttribute("nick", nick); // chat에 nick 보내기
+		Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+		String uid = (String) userId.get("uid");
 		
 		// 디비에 접속자 추가 (접속한 사람의 세션 값으로 ) if-else
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -182,12 +166,7 @@ public class HomeController  {
 	// 채팅방 생성 페이지 보여줌
 	@RequestMapping(value = "/chat/createRoom", method = RequestMethod.GET)
 	public String chatRoom(Locale locale, Model model, HttpSession httpSession) {
-		// 세션아이디 값 얻기
-		Object userId = httpSession.getAttribute("uid");
-		String uid = userId.toString();
-		String nick = memberservice.userNick(uid);
-		model.addAttribute("uid", uid);
-		model.addAttribute("nick", nick);
+
 		// 채팅방 생성페이지 보여줌
 		return "createRoom";
 	}
@@ -196,10 +175,7 @@ public class HomeController  {
 	@RequestMapping(value = "/chat/createRoom", method = RequestMethod.POST)
 	public String chatRoomPost(Locale locale, Model model, HttpSession httpSession,
 			@RequestParam Map<String, Object> map) {
-		// 세션아이디 값 얻기
-		Object userId = httpSession.getAttribute("uid");
-		String uid = userId.toString();
-		model.addAttribute("uid", uid);
+		
 		// createRoom에서 보낸 map의 값을 디비에 저장
 		chatService.createRoom(map);
 
@@ -283,11 +259,8 @@ public class HomeController  {
 			return "redirect:/login";
 		}else {
 			// 세션아이디 값 얻기
-			Object userId = httpSession.getAttribute("uid");
-			String uid = userId.toString();
-			String nick = memberservice.userNick(uid);
-			model.addAttribute("uid", uid);
-			model.addAttribute("nick", nick); // chat에 nick 보내기
+			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+			String uid = (String) userId.get("uid");
 			
 			 // 친구요청이 왔는지 안왔는지를 알아내는 코드 .
 	         List<Map<String, Object>> addFriend = chatService.addFriend(uid);
@@ -312,18 +285,11 @@ public class HomeController  {
 		}	
 	}
 	
-	@RequestMapping(value = "/friend/{uid}", method = RequestMethod.GET)
-	public String friendView(Model model ,HttpSession httpSession,@PathVariable("uid") String uids){
+	@RequestMapping(value = "/friend/{uid2}", method = RequestMethod.GET)
+	public String friendView(Model model ,HttpSession httpSession,@PathVariable("uid2") String uids){
 		if(httpSession.getAttribute("uid") == null) {
 			return "redirect:/login";
 		}else {
-			// 세션아이디 값 얻기
-			Object userId = httpSession.getAttribute("uid");
-			String uid = userId.toString();
-			String nick = memberservice.userNick(uid);
-			model.addAttribute("uid", uid);
-			model.addAttribute("nick", nick); // chat에 nick 보내기
-			
 			// user정보불러오기
 			Map<String, Object> friendInfo = chatService.userInfo(uids);
 			model.addAttribute("friendInfo",friendInfo);
@@ -332,9 +298,11 @@ public class HomeController  {
 			Map<String, HttpSession> sessionList = LoginSessionListener.map;
 			Set<String> keySet = sessionList.keySet();
 			
-			System.out.println("세션리스트 값 : "+sessionList);
 			model.addAttribute("sessionList", keySet);
 			
+			System.out.println(httpSession.getAttribute("uid"));
+			System.out.println(friendInfo);
+			System.out.println("세션리스트 값 : "+sessionList);
 			return "friendView";
 		}	
 	}
@@ -345,9 +313,9 @@ public class HomeController  {
 			@RequestParam("friendId") String friendId) {
 		
 		// 세션아이디 값 얻기
-		Object userId = httpSession.getAttribute("uid");
-		String uid = userId.toString();
-		model.addAttribute("uid", uid);
+		Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+		String uid = (String) userId.get("uid");
+		
 		// createRoom에서 보낸 map의 값을 디비에 저장
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println("roomName은"+roomName);
@@ -406,8 +374,8 @@ public class HomeController  {
 		}else {
 			// 초대가 왔다는 것을 알림
 			// 세션아이디 값 얻기
-			Object userId = httpSession.getAttribute("uid");
-			String uid = userId.toString();
+			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+			String uid = (String) userId.get("uid");
 			
 			List<Map<String, Object>> inviteList = chatService.inviteList(uid);
 			if(inviteList.isEmpty()) {
@@ -440,8 +408,10 @@ public class HomeController  {
 			
 			model.addAttribute("list",articleservice.select(map));
 			
-			String useid = (String) httpSession.getAttribute("uid");
-			String unick = articleservice.selectByNick(useid);
+			// 세션아이디 값 얻기
+			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+			String useid = (String) userId.get("uid");
+			String unick = (String) userId.get("nick");
 			model.addAttribute("unick",unick);
 			
 			// 전체 qna 게시물 개수
@@ -474,10 +444,12 @@ public class HomeController  {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 			return "redirect:/login";
 		}else {
-			String useid = (String) httpSession.getAttribute("uid");
-			String unick = articleservice.selectByNick(useid);
-			
+			// 세션아이디 값 얻기
+			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+			String useid = (String) userId.get("uid");
+			String unick = (String) userId.get("nick");
 			model.addAttribute("unick",unick);
+						
 			return "write_qna";
 					
 		}
@@ -552,10 +524,12 @@ public class HomeController  {
 			model.addAttribute("list2", list);
 			
 			
-			String useid = (String) httpSession.getAttribute("uid");
-			String unick = articleservice.selectByNick(useid);
+			// 세션아이디 값 얻기
+			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+			String useid = (String) userId.get("uid");
+			String unick = (String) userId.get("nick");
 			model.addAttribute("unick",unick);
-		
+						
 			// 전체 qna 게시물 개수
 			// 전체 페이지 알아내기
 			int cTotal = articleservice.selectCommentCount(map);
@@ -578,10 +552,13 @@ public class HomeController  {
 			}else {
 				model.addAttribute("article",articleservice.selectById(no));
 				//model.addAttribute(no);
-				String useid = (String) httpSession.getAttribute("uid");
-				String unick = articleservice.selectByNick(useid);
-				//System.out.println(unick);
+				// 세션아이디 값 얻기
+				Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+				String useid = (String) userId.get("uid");
+				String unick = (String) userId.get("nick");
 				model.addAttribute("unick",unick);
+				
+				//System.out.println(unick);
 				return "articleUpdate";		
 			}
 		}
