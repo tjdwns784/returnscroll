@@ -240,9 +240,10 @@
 			console.log('채팅 서버 접속해떠여');
 			var user = $('#userID').val();
 			
-			socket.on('connection',function(){
-				socket.emit('s_chating_room', user);
-			})
+// 			socket.on('connect',function(){
+// 				console.log('여기 들어오는지ㅣ..')
+// 				socket.emit('s_chating_room', user);
+// 			})
 			
 		})
 
