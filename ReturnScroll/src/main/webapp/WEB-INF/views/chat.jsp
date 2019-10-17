@@ -173,8 +173,10 @@
 							</div>
 						</div>
 					
+<!-- 					<button id='sendBtn' type="button" class="btn btn-warning btn-flat" -->
+<!-- 					onclick="location.href='/returnscroll/chat'" style='float: right; margin-top: 10px;'>채팅방 나가기</button> -->
 					<button id='sendBtn' type="button" class="btn btn-warning btn-flat"
-					onclick="location.href='/returnscroll/chat'" style='float: right; margin-top: 10px;'>채팅방 나가기</button>
+					onclick="exitChat('${uid.uid}','${room.roomId}');" style='float: right; margin-top: 10px;'>채팅방 나가기</button>
 					<br>
                     </div>
                     <!-- /.box-header -->
@@ -213,6 +215,8 @@
 
  
 	<jsp:include page="footer.jsp"></jsp:include>
+	
+	
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -235,12 +239,21 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script>
     
+<%--    <script src="${pageContext.request.contextPath}/resources/js/jquery.sticky.js"></script> --%>
+    
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">
  // sticky
-	$(window).load(function(){
-		$("#sticker").sticky({topSpacing:0});
-	});
+//  	$(window).load(function(){
+// 		$("#sticker").sticky({topSpacing:0});
+// 	}); 
+ 
+ 	// 채팅방 나가기 버튼을 눌렀을 때 실행되는 함수 (퇴장하는 회원, 퇴장하려는 방)
+	 function exitChat(user, roomId){
+		 var socket = io("http://192.168.0.15:82");
+		 socket.emit('disconnect');
+		 location.href="/returnscroll/chat";
+	 }
  
     </script>
     
