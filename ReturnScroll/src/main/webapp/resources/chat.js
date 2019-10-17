@@ -9,6 +9,7 @@ $(document).ready(function() {
     var user_id = $('#userid').val();
     var room_num = $('#roomNumber').val();
 
+    
     socket.on('connect', function(){
       // user_name = prompt('익명 닉네임 이름');
       console.log('회원의 닉네임' +user_nick);
@@ -17,6 +18,7 @@ $(document).ready(function() {
       socket.emit('s_send_userId',user_id);
       socket.emit('s_send_userName', user_nick, new Date(), room_num);
     })
+    
     
     socket.on('disconnect',function(){
     	console.log('연결이 안되었을때')

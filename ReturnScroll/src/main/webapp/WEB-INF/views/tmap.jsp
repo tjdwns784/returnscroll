@@ -335,11 +335,6 @@
 			width:100%;
 			height:750px;
 	}
-	
-	#ft{
-		margin-top:-5%;
-	}
-	
 	#map_btn{
 		width:95%;
 		margin-left:2.5%;
@@ -349,11 +344,9 @@
     @media (max-width:600px){
 		#map_div{
 			width:100%;
-			height:500px;
+			height:550px;
 		}
-		#ft{
-			margin-top:-15%;
-		}
+	
 		
 		input[type=button]{
 		  height:30px;
@@ -478,6 +471,10 @@
         </div>
         <div id="pageZone"></div>	
 </div>	
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -486,11 +483,7 @@
   </div>
 </div>
   
- <!-- 지도 -->
-<div id="map_div"></div> 
-  <br><br>
-    	  
-    	</div>  
+
       
     	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
          <script>
@@ -511,14 +504,14 @@
 	  			//$('#test').text(latitude+'/'+longitude);
 	  			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
         		var size = new Tmap.Size(24, 38);//아이콘 크기 설정
-        		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정 */
+        		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정 
         		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
         		
         		markers3 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
         		map.addLayer(markers3); // 지도에 Markers 객체 추가
         		
         		marker3 = new Tmap.Marker(lonlat3, icon);//마커 생성
-        		markers3.addMarker(marker3);//레이어에 마커 추가
+        		markers3.addMarker(marker3);//레이어에 마커 추가 
         		
 	 		}
   		         
@@ -540,7 +533,7 @@
          	$(document).ready(function() {
 				// 안드로이드 폰에서 접속한 경우에만 실행
 				window.loc.sendLocation();
-         		
+//          		initTmap();
          		
         	});
          	
@@ -659,6 +652,21 @@
 			
         		document.getElementById("fl_btn").style.display="none";
         		document.getElementById("sl_btn").style.display="inline";
+        		
+//         		setLocation2(lat, lng);
+        		
+//         		$('#test').text(latitude+'/'+longitude);
+        		
+//         		lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
+//         		var size = new Tmap.Size(24, 38);//아이콘 크기 설정
+//         		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정 
+//         		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
+        		
+//         		markers3 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
+//         		map.addLayer(markers3); // 지도에 Markers 객체 추가
+        		
+//         		marker3 = new Tmap.Marker(lonlat3, icon);//마커 생성
+//         		markers3.addMarker(marker3);//레이어에 마커 추가
      					
         		flocation = setInterval(function() {
         		
