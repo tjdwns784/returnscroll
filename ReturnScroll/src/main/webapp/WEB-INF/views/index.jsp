@@ -84,11 +84,6 @@
    <div style="text-align:center;" id='body'>
        <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
       <br><br>
-
-      
-      <button id="loginbtn" onclick="location.href='/returnscroll/login'">Login</button>
-      <button id="joinbtn" onclick="location.href='/returnscroll/join'">Join</button>
-      
       <c:if test="${uid != null}">
                <script>
             	document.getElementById("loginbtn").style.visibility="hidden";

@@ -453,7 +453,7 @@
         }
    startApp();
   </script>
-<!-- 
+
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
         function onSignIn(googleUser) {
