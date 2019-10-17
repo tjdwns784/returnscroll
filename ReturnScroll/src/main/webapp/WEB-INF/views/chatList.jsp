@@ -90,49 +90,7 @@
   <!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
 
- 
-  
-  <!-- 모달창 -->
-  <div id="modal">
-   
-	    <div class="modal_content">
-        	<button type="button" id="modal_close_btn" style='border: none;background: none;float: right;padding-right: 50px;'>
-        	<img src="resources/img/error.png" style='width: 20px;'></button>
-	        <h4 style='display: inline-block;'>${uid} 님의 친구 목록</h4><br>
-	        <div id="searchResult" style="padding-bottom: 10px;"></div>
-	          <table class="table">
-			    <thead>
-			      <tr>
-			        <th>No</th>
-			        <th>친구 ID</th>
-			        <th>닉네임</th>
-			        <th> - </th>
-			      </tr>
-			    </thead>
-			    <c:if test="${not empty friendList}">
-			    <c:forEach var="lists" items="${friendList }" varStatus="status" >
-			    <tbody>
-			      <tr>
-			        <td>${status.count }</td>
-			        <td>${lists.friendId }</td>
-			        <td>${lists.nick }</td>
-			        <td>
-			        	<input type='button' onclick='deleteFriend("${lists.friendId}");' value='친구삭제' style='border:none; background:none; display:inline-block;' />
-			        </td>
-			      </tr>
-			    </tbody>
-			    </c:forEach>
-			  </c:if>
-			  <c:if test="${empty friendList}">
-			    <h5>친구목록이 비어있습니다</h5>
-			  </c:if>
-			  </table>
 
-	    </div>
-	   
-	    <div class="modal_layer"></div>
-    
-	</div>
     <div id='body'>
 	<section class="content">
         <div class="row">
@@ -240,83 +198,9 @@
 			$("#sticker").sticky({topSpacing:0});
 		});
   
-       $('#friendYes').click(function(){
-          var sender = $('#senderId').val();
-          var recipient = $('#recipient').val();
-          var data = {"sender" : sender , "recipient" : recipient};
-          console.log('친구수락 버튼을 눌렀을 때 보내려는 데이터 : '+data.sender+","+data.recipient);
-          
-          $.ajax({
-            url:"http://localhost:8080/returnscroll/chat/addfriend",
-            type:'GET',
-            data: data,
-            success:function(data){
-               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                  alert(data+'님의 친구요청을 수락하였습니다.')
-            },
-            error:function(request, status, errorThrown){
-               alert('친구요청 수락 실패');
-            }
-         })
-       });
-       $('#friendNo').click(function(){
-          var sender = $('#senderId').val();
-          var recipient = $('#recipient').val();
-          var data = {"sender" : sender , "recipient" : recipient};
-          
-          $.ajax({
-            url:"http://localhost:8080/returnscroll/chat/addfriendReject",
-            type:'GET',
-            data: data,
-            success:function(data){
-               //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                  alert(data+'님의 친구요청을 거절하였습니다.')
-            },
-            error:function(request, status, errorThrown){
-               alert('친구요청 수락 실패');
-            }
-         })
-       });
-    </script>
-    
-    <script type="text/javascript">
-//     $("#friendList").click(function(){
-//         $("#modal").fadeIn();
-//     });
-   
-//      $("#modal_close_btn").click(function(){
-//         $("#modal").fadeOut();
-//     });    
-
     </script>
     
     <script>
-    	function deleteFriend(friendId){
-    		var userId = $('#userID').val();
-    		var data = {"userId" : userId , "friendId" : friendId};
-    		console.log('친구 삭제 할때 보내는 데이터 값 '+data.userId +",  "+data.friendId);
-    		var check = confirm(friendId+"님을 삭제하시겠습니까?");
-        	  if(check) {
-        		  alert("확인버튼 클릭");
-        		  $.ajax({
-                      url:"http://localhost:8080/returnscroll/chat/deleteFriend",
-                      type:'GET',
-                      data: data,
-                      success:function(data){
-                         //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                            alert(data+'님을 삭제하였습니다.')
-                      },
-                      error:function(request, status, errorThrown){
-                         alert('친구 삭제 실패');
-                      }
-                   })
-        	  }
-        	  else {
-        		  alert(friendId+"님을 친구목록에 유지하겠습니다");
-        	  }
-   		
-    		
-    	}
     	
     	
     	// 초대수락
