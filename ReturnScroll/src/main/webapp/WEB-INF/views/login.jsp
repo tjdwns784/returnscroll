@@ -37,14 +37,11 @@
 
 <link rel="stylesheet" href="resources/style.css">
 <style>
-	nav#sidebar-wrapper {
-		top: 0px !important;
-	}
-	body {
-		background:#fff;
-	}
    nav#sidebar-wrapper {
       top: 0px !important;
+   }
+   body {
+      background:#fff;
    }
 </style>
 
@@ -52,90 +49,46 @@
 <body>
 <body id="page-top" > 
 
-	<!-- Navigation -->
-	<jsp:include page="side.jsp"></jsp:include>
-	
-	<div id="body">
-	<div>
-    <form id="loginForm" name="loginForm" style="margin-bottom:-1.5%">
    <!-- Navigation -->
    <jsp:include page="side.jsp"></jsp:include>
    
    <div id="body">
    <div>
-    <form id="loginForm" name="loginForm">
+    <form id="loginForm" name="loginForm" style="margin-bottom:-1.5%">
         <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:3%">
-            <path d="M0,150 C0,65 120,65 120,150" fill="#e0a243" stroke="#000" stroke-width="2.5" />
+            <path d="M0,150 C0,65 120,65 120,150" fill="#FF9999" stroke="#FF0066" stroke-width="2.5" />
             <g class="ears">
-                <path d="M46,32 L46,30 C46,16 26,16 26,30 L26,32" fill="#e0a243" stroke="#000" stroke-width="2.5" stroke-linecap="round" transform="rotate(-10,38,24)" />
-                <path d="M74,32 L74,30 C74,16 94,16 94,30 L94,32" fill="#e0a243" stroke="#000" stroke-width="2.5" stroke-linecap="round" transform="rotate(10,82,24)" />
+                <path d="M36,32 L70,30 C16,16 26,16 26,30 L26,32" fill="#FF6666" stroke="#FF0066" stroke-width="2.5" stroke-linecap="round" transform="rotate(-10,38,24)" />
+                <path d="M64,32 L50,30 C104,16 94,16 94,30 L94,32" fill="#FF6666" stroke="#FF0066" stroke-width="2.5" stroke-linecap="round" transform="rotate(10,82,24)" />
+	            <circle cx="32" cy="26" r="3" fill="#000000" />
+                <circle cx="89" cy="26" r="3" fill="#000000" />
             </g>
-            <circle cx="60" cy="60" r="40" fill="#e0a243" stroke="#000" stroke-width="2.5" />
+            <circle cx="60" cy="60" r="40" fill="#FF9999" stroke="#FF0066" stroke-width="2.5" />
             <g class="eyes">
                 <!-- left eye and eyebrow-->
-                <line x1="37" x2="50" y1="46" y2="46" stroke="#000" stroke-width="3" stroke-linecap="round" />
-                <circle cx="44" cy="55" r="3" fill="#000" />
+                <line x1="37" x2="50" y1="46" y2="50" stroke="#000000" stroke-width="5" stroke-linecap="square" />
+                <circle cx="44" cy="55" r="4" fill="#000000" />
                 <!-- right eye and eyebrow -->
-                <line x1="70" x2="83" y1="46" y2="46" stroke="#000" stroke-width="3" stroke-linecap="round" />
-                <circle cx="76" cy="55" r="3" fill="#000" />
+                <line x1="70" x2="83" y1="50" y2="46" stroke="#000000" stroke-width="5" stroke-linecap="square" />
+                <circle cx="76" cy="55" r="4" fill="#000000" />
             </g>
             <g class="muzzle">
-                <path d="M60,66 C58.5,61 49,63 49,69 C49,75 58,77 60,71 M60,66 C61.5,61 71,63 71,69 C71,75 62,77 60,71" fill="#fff" />
-                <path d="M60,66 C58.5,61 49,63 49,69 C49,75 58,77 60,71 M60,66 C61.5,61 71,63 71,69 C71,75 62,77 60,71" fill="#fff" stroke="#000" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
-                <polygon points="59,63.5,60,63.4,61,63.5,60,65" fill="#000" stroke="#000" stroke-width="5" stroke-linejoin="round" />
+                <path d="M60,66 C58.5,61 49,63 49,69 C49,75 58,77 60,71 M60,66 C61.5,61 71,63 71,69 C71,75 62,77 60,71" fill="#fff" stroke="#000000" stroke-width="2.5" stroke-linejoin="square" stroke-linecap="square" />
+                <path d="M60,66 C58.5,61 49,63 49,69 C49,75 58,77 60,71 M60,66 C61.5,61 71,63 71,69 C71,75 62,77 60,71" fill="#fff" stroke="#000000" stroke-width="2.5" stroke-linejoin="square" stroke-linecap="square" />
+                <line x1="40" x2="53" y1="62" y2="66" stroke="#000000" stroke-width="1" stroke-linecap="square" />
+                <line x1="40" x2="53" y1="68" y2="68" stroke="#000000" stroke-width="1" stroke-linecap="square" />
+                <line x1="40" x2="53" y1="74" y2="70" stroke="#000000" stroke-width="1" stroke-linecap="square" />
+                <line x1="67" x2="80" y1="66" y2="62" stroke="#000000" stroke-width="1" stroke-linecap="square" />
+                <line x1="67" x2="80" y1="68" y2="68" stroke="#000000" stroke-width="1" stroke-linecap="square" />
+                <line x1="67" x2="80" y1="70" y2="74" stroke="#000000" stroke-width="1" stroke-linecap="square" />
+                <polygon points="59,63.5,60,63.4,61,63.5,60,65" fill="#000" stroke="#000000" stroke-width="5" stroke-linejoin="square" />
+                <circle cx="60" cy="81" r="7" fill="#000000" />
+                <circle cx="60" cy="84" r="4" fill="#FF6666" />
             </g>
-            <path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" />
+<!--             <path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" /> -->
+			</g>
         </svg>
         <div class="container text-center my-auto">
-			<h1 class="mb-1">Login</h1>
-			<h3 class="mb-5"></h3>
-			<form class="form-inline-block" action="login" method="post">
-				<div class="form-group" style="margin-top: -10%">
-					<label for="uid"></label> <input type="text"
-						title="아이디 입력" class="form-control" name="uid" id="uid" placeholder="아이디 입력" style="margin-top: -10%; margin-bottom: -10%">
-				</div>
-				<div class="form-group">
-					<label for="upw"></label> <input type="password"
-						title="비밀번호 입력" class="form-control" name="upw" id="upw" placeholder="암호 입력" style="margin-top: -1%; margin-bottom: -13%;" onkeyup="enterkey();" type="text"  value="">
-				</div>
-				<br>
-				<div class="checkbox">
-					<label><input name="idsave" type="checkbox"> 아이디 저장</label>
-				</div>
-					<div class="interval_height a_none">
-						<a title="아이디/비밀번호 찾기" href="/returnscroll/userSearch" id="btnSearch">아이디 / 비밀번호 찾기</a>
-					</div>
-				</form>
-			<a class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/login" id="btnLogin" style="width:115px; height: 35px; margin-top: 3%; margin-bottom: 5%;  line-height:0.1;" title="Login">Login</a> 
-			<a class="btn btn-primary btn-xl js-scroll-trigger"
-				href="/returnscroll/join" style="width:115px; height: 35px; margin-top: 3%; margin-bottom: 5%;  line-height:0.1;" title="Join">Join</a>
-				
-			<!-- 카카오 로그인 -->
-			<a title="카카오 로그인" id="custom-login-btn" href="javascript:loginWithKakao()">
-		<img  id="kakao-login-btn" src="/returnscroll/resources/img/kakaotalk.jpg" style="margin-right:2.7%; margin-" border="0" alt=""/></a>
-		
-			<!-- 페이스북 로그인 -->
-			<a title="페이스북 로그인" 로그인" onclick="fb_login()"><img src="/returnscroll/resources/img/facebook.jpg" style="margin-right:2.7%;" border="0" alt=""></a>
-  						
-			<!-- 구글 로그인 -->
-			<div title="구글 로그인" id="gSignInWrapper" style="display: inline-block; margin-right:2.7%;">
-		    	<div id="customBtn" >
-		        <span class="icon"></span>
-		        <span id="a" class="customGPlusSignIn" onclick="if(this.innerHTML ==='Logout') {signOut();} return false;"> 
-		        	<img src="/returnscroll/resources/img/googleplus.jpg" border="0" alt="">
-		        </span>
-		    </div>
-		  </div>
-		  
-		   <!-- 네이버 로그인 -->
-		  <div id="naverIdLogin" style="display: inline-block; margin-right:2.7%;">
-		  	<a title="네이버 로그인" id="naverIdLogin_loginButton" role="button">
-		  		<img src="/returnscroll/resources/img/naver.jpg" border="0" alt="">
-		  	</a>
-		  </div>
-			  
-		<div class="overlay"></div>
          <h1 class="mb-1">Login</h1>
          <h3 class="mb-5"></h3>
          <form class="form-inline-block" action="login" method="post">
@@ -187,10 +140,6 @@
       <div class="overlay"></div>
     </form>
    </div>
-	<jsp:include page="footer.jsp"></jsp:include>
-</div>
-	
-	 <script src="resources/script.js"></script>
    <jsp:include page="footer.jsp"></jsp:include>
 </div>
    
@@ -540,49 +489,6 @@
 -->
 
 <script>
-<<<<<<< HEAD
-	    window.onload = function() {
-	 
-	        if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
-	            document.loginForm.uid.value = getCookie("id"); //input 이름이 id인곳에 getCookie("id")값을 넣어줌
-	            document.loginForm.idsave.checked = true; // 체크는 체크됨으로
-	        }
-	 
-	    }
-	 
-	    function setCookie(name, value, expiredays) //쿠키 저장함수
-	    {
-	        var todayDate = new Date();
-	        todayDate.setDate(todayDate.getDate() + expiredays);
-	        document.cookie = name + "=" + escape(value) + "; path=/; expires="
-	                + todayDate.toGMTString() + ";"
-	    }
-	 
-	    function getCookie(Name) { // 쿠키 불러오는 함수
-	        var search = Name + "=";
-	        if (document.cookie.length > 0) { // if there are any cookies
-	            offset = document.cookie.indexOf(search);
-	            if (offset != -1) { // if cookie exists
-	                offset += search.length; // set index of beginning of value
-	                end = document.cookie.indexOf(";", offset); // set index of end of cookie value
-	                if (end == -1)
-	                    end = document.cookie.length;
-	                return unescape(document.cookie.substring(offset, end));
-	            }
-	        }
-	    }
-	 
-	    function sendit() {
-	        if (document.loginForm.idsave.checked == true) { // 아이디 저장을 체크 하였을때
-	            setCookie("id", document.loginForm.uid.value, 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
-	        } else { // 아이디 저장을 체크 하지 않았을때
-	            setCookie("id", document.loginForm.uid.value, 0); //날짜를 0으로 저장하여 쿠키삭제
-	        }
-	 
-//	        document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
-	 
-	    }
-=======
        window.onload = function() {
     
            if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
@@ -621,10 +527,9 @@
                setCookie("id", document.loginForm.uid.value, 0); //날짜를 0으로 저장하여 쿠키삭제
            }
     
-           document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
+//           document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
     
        }
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 </script>
 
 
