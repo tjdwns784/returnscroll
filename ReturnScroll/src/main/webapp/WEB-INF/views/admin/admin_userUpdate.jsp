@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>returnscroll 회원수정</title>
+<title>returnscroll 관리자 회원수정</title>
 <!-- Bootstrap Core CSS -->
 <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom Fonts -->
@@ -18,7 +18,7 @@
 </head>
 <body>
 	<!-- Navigation -->
-	<jsp:include page="side.jsp"></jsp:include>
+	<jsp:include page="../side.jsp"></jsp:include>
 	<!-- Bootstrap core JavaScript -->
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 	<script	src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -81,29 +81,19 @@
 
   </style>
   <div id="body">
-	<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">회원수정</h1>
+	<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">관리자 회원수정</h1>
 	<hr style="width:95%; background:#FFCC33; height:2px" >
 
 <div style="width:90%; margin:0 auto">
 <br><br>
-	<form action="/returnscroll/userUpdateAction" method="post">
+	<form action="/returnscroll/admin_userUpdateAction" method="post">
 	<div class="form-group">
 
 		<div id="uid">
 			<label for="user_id">아이디</label> 
-			<input name="uid" value="${uid.uid}" readonly="readonly" class="form-control">
+			<input name="uid" value="${info.uid}" readonly="readonly" class="form-control" style="margin-bottom: -1.4%;">
 		</div><br>
-		
-		<label for="user_pw">비밀번호</label> <input type="password" class="form-control" id="user_pw" name="upw" placeholder="Password" required>
-		<p id='msgpw' style="color: red"></p>
-		<div class="check_font" id="pw_check"></div>
-	</div>
-	
-	<div class="form-group">
-		<label for="user_pw2">비밀번호 확인</label> <input type="password" class="form-control" id="user_pw2" name="upw2" placeholder="Confirm Password" required>
-		<p id='msgpw2' style="color: red"></p>
-		<div class="check_font" id="pw2_check"></div>
-	</div>
+		</div>
    <div class="form-group">
 						<label for="user_nick">별명</label> <input type="text"
 							class="form-control" id="user_nick" name="nick"
@@ -138,28 +128,23 @@
 						<div class="check_font" id="email_check"></div>
 	</div>
 	<br><br>
+	
 	<div style="margin:0 auto; text-align:center;">
 		<!-- submit 서버와 통신을 하게 되는 버튼 -->
-		<a href="/returnscroll/mypage"><input type="button" value="이전"></a>
+		<a href="/returnscroll/admin_member"><input type="button" value="이전"></a>
 		<input type="submit" id="userupdate"  value="수정">
 		
 	</div>
 		</form>
 		</div>
-				
 	
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="../footer.jsp"></jsp:include>
 	</div>
 	<script>
-		var isPw = 0							
 		var isEmail = 0							
 		var isNick = 0							
 									
 		$("#userupdate").click(function(event){							
-			if(isPw==0){						
-				event.preventDefault();					
-				alert("패스워드를 확인해 주세요")					
-			}						
 			if(isNick==0){						
 				event.preventDefault();					
 				alert("별명을 확인해 주세요")					
@@ -180,10 +165,10 @@
 	//					$("#emailCheck").text("사용가능합니다.")			
 	//					$("#emailCheck").css("color","blue")			
 					$.ajax({				
-					url:"mpemailDup",					
+					url:"../admin_mpemailDup",					
 					data : {
 							email : $("#user_email").val(),
-							uid : '${uid.uid}'
+							uid : '${info.uid}'
 						},					
 					success: function(res){					
 						console.log(res);					
@@ -210,10 +195,10 @@
 	
 				$("#user_nick").focusout(()=>{					
 					$.ajax({				
-						url:"mpnickDup",					
+						url:"../admin_mpnickDup",					
 						data : {
 							nick : $("#user_nick").val(),
-							uid : '${uid.uid}'
+							uid : '${info.uid}'
 						},					
 						success: function(res){					
 						console.log(res);					
@@ -230,47 +215,6 @@
 					}					
 				});					
 			})					
-				$("#user_pw2").focusout(()=>{					
-					var pw = $("#user_pw").val()				
-					var pw2 = $("#user_pw2").val()	
-					var passVal = $("#user_pw").val();				
-					var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-					if(pw == ""){
-						$("#msgpw2").text("비밀번호를 입력하세요.")			
-						$("#msgpw2").css("color","red")			
-						isPw = 0
-					}
-					else if(passVal.match(regExp) == null){				
-						$("#msgpw2").text("비밀번호 형식을 맞춰주세요.")			
-						$("#msgpw2").css("color","red")			
-						isPw = 1		
-					}else if(pw == pw2){				
-						$("#msgpw2").text("비밀 번호가 일치합니다.")			
-						$("#msgpw2").css("color","blue")			
-						isPw = 1			
-					}else {				
-						$("#msgpw2").text("비밀번호가 다릅니다")			
-						$("#msgpw2").css("color","red")			
-						isPw = 0			
-					}				
-				})
-			$("#user_pw").focusout(()=>{						
-									
-					// 이메일 검증 스크립트 작성				
-					var passVal = $("#user_pw").val();				
-					var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;				
-					// 검증에 사용할 정규식 변수 regExp에 저장				
-					if (passVal.match(regExp) != null) {				
-						$("#msgpw").text("사용가능합니다.")			
-						$("#msgpw").css("color","blue")			
-						isPw = 1			
-					}				
-					else {				
-						$("#msgpw").text("비밀번호는 8~15자로 영어,숫자,특수문자를 포함해야 합니다")			
-						$("#msgpw").css("color","red")			
-						isPw = 0			
-					}				
-			})						
  	</script>		
 </body>
 </html>

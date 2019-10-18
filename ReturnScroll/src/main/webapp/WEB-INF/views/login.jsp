@@ -62,8 +62,8 @@
             <g class="ears">
                 <path d="M36,32 L70,30 C16,16 26,16 26,30 L26,32" fill="#FF6666" stroke="#FF0066" stroke-width="2.5" stroke-linecap="round" transform="rotate(-10,38,24)" />
                 <path d="M64,32 L50,30 C104,16 94,16 94,30 L94,32" fill="#FF6666" stroke="#FF0066" stroke-width="2.5" stroke-linecap="round" transform="rotate(10,82,24)" />
-	            <circle cx="32" cy="26" r="3" fill="#000000" />
-                <circle cx="89" cy="26" r="3" fill="#000000" />
+	            <circle cx="34" cy="28" r="5" fill="#000000" />
+                <circle cx="87" cy="28" r="5" fill="#000000" />
             </g>
             <circle cx="60" cy="60" r="40" fill="#FF9999" stroke="#FF0066" stroke-width="2.5" />
             <g class="eyes">
@@ -87,7 +87,7 @@
                 <circle cx="60" cy="81" r="7" fill="#000000" />
                 <circle cx="60" cy="84" r="4" fill="#FF6666" />
             </g>
-<!--             <path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" /> -->
+            <path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#ff6666" />
 			</g>
         </svg>
         <div class="container text-center my-auto">
@@ -177,10 +177,13 @@
                success : function(res) {
 
                   if (res == "success") {
-                     alert("환영합니다!");
+                	  if($('#uid').val() == 'admin')
+                		  alert("관리자님 어서오숑>ㅁ<");
+                     else alert("환영합니다!");
                      sendit();
                      location = "index"
-                  } else {
+                  }                  
+                  else {
                      alert("아이디 또는 비밀번호가 잘못되었습니다");
                   }
                },
@@ -210,6 +213,8 @@
             success : function(res) {
 
                if (res == "success") {
+            	   if($('#uid').val() == 'admin')
+             		  alert("관리자님 어서오숑>ㅁ<");
                   alert("환영합니다!");
                   sendit();
                   location = "index"
