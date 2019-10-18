@@ -9,16 +9,12 @@ $(document).ready(function() {
     var user_id = $('#userid').val();
     var room_num = $('#roomNumber').val();
 
-    
     socket.on('connect', function(){
-      // user_name = prompt('익명 닉네임 이름');
-      console.log('회원의 닉네임' +user_nick);
       // 서버로 닉네임을 전송 => 서버에 있는 이벤트를 발생시킨다
-      console.log("roomNumber는 무엇이냐 : "+room_num);
-      socket.emit('s_send_userId',user_id);
-      socket.emit('s_send_userName', user_nick, new Date(), room_num);
+      socket.emit('s_send_userId', user_id,room_num);
+      socket.emit('s_send_userName', user_id, user_nick, new Date(), room_num);
+      
     })
-    
     
     socket.on('disconnect',function(){
     	alert('채팅방 입장 실패.')

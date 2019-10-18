@@ -138,10 +138,10 @@ public class HomeController  {
 		String uid = (String) userId.get("uid");
 		
 		// 디비에 접속자 추가 (접속한 사람의 세션 값으로 ) if-else
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("uid",uid);
-		map.put("roomId",roomNum);
-		chatService.addUser(map);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("uid",uid);
+//		map.put("roomId",roomNum);
+//		chatService.addUser(map);
 		
 		// room에 입장한 회원추가 시키기 (insert)
 		model.addAttribute("RoomNum",roomNum);
@@ -171,7 +171,7 @@ public class HomeController  {
 		return "createRoom";
 	}
 	
-	// 새로운 채팅방 만들어서 DB저장(POST방식) 한 후 chat리스트로 돌아가기 
+	// 새로운 채팅방 만들어서 DB저장(POST방식) 한 후 ch-at리스트로 돌아가기 
 	@RequestMapping(value = "/chat/createRoom", method = RequestMethod.POST)
 	public String chatRoomPost(Locale locale, Model model, HttpSession httpSession,
 			@RequestParam Map<String, Object> map) {
@@ -196,6 +196,17 @@ public class HomeController  {
 		map.put("nick", nick);
 		return map;
 	}
+	
+	// 친구 추가할 때 회원의 아이디를 찾는거 (Ajax 통신)
+	@RequestMapping(value = "/chat/getRoomInfo", method = {RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody Map<String, String> getRoomInfo(@RequestParam("roomId") String roomId){
+		System.out.println("여기 들어옹니?");
+		Map<String, String> maps = chatService.getRoomInfo(roomId);
+		System.out.println("maps의 값 "+maps);
+		return maps;
+	}
+		
+		
 	// 친구요청 수락 후 서로 친구 리스트에 추가
 	@RequestMapping(value = "/chat/addfriend", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody String addFriend(@RequestParam("sender") String sender,

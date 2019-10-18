@@ -141,6 +141,7 @@
                     <div id="putUser" style='float: right;'>${uid.uid}님 반갑습니다</div>
                     <div class="box-header with-border">
                         <h1 class="box-title">채팅방 리스트</h1><br>
+                        
                            <c:if test="${not empty inviteList }">
 							<div class='dropdown-menu-left' style='z-index:1;float: right;'>
 								<button data-toggle='dropdown' id='alarms' style='border: none; background: none; display: inline-block;width: fit-content; height: auto;'>
@@ -160,9 +161,11 @@
 								</c:forEach>
 							</div>
 						</c:if>
+						
 						<c:if test="${empty inviteList }">
 							<div></div>
 						</c:if>
+						
                     </div>
                     
                     
@@ -176,13 +179,21 @@
 							        <th>채팅방 명</th>
 							      </tr>
 							    </thead>
-							    <c:forEach var="list" items="${list }" varStatus="count" >
+							    
+<%-- 							    <c:forEach var="list" items="${list }" varStatus="count" > --%>
+<!-- 							    <tbody> -->
+<!-- 							      <tr> -->
+<%-- 							        <td><a href="/returnscroll/chat/${list.ID }">${list.NAME }</a></td> --%>
+<!-- 							      </tr> -->
+<!-- 							    </tbody> -->
+<%-- 							    </c:forEach> --%>
+							    
 							    <tbody>
-							      <tr>
-							        <td><a href="/returnscroll/chat/${list.ID }">${list.NAME }</a></td>
+							      <tr id="chatLists">
+							        
 							      </tr>
 							    </tbody>
-							    </c:forEach>
+							    
 						  </table>
                           
                         </div>
@@ -237,20 +248,57 @@
 		// 현재 접속중인 채팅방 리스트를 보여주기 위함.
 		$(document).ready(function(){
 			var socket = io("http://192.168.0.15:82");
-			console.log('채팅 서버 접속해떠여');
+			console.log('채팅 서버 접속');
 			var user = $('#userID').val();
 			
-// 			socket.on('connect',function(){
-// 				console.log('여기 들어오는지ㅣ..')
-// 				socket.emit('s_chating_room', user);
-// 			})
+			// 이 페이지랑 소켓 서버 연결
+			socket.on('connect',function(){
+				console.log('여기 들어오는지ㅣ..')
+				// 현재 접속자가 어디 방에 접속중인지 알려줌.
+				socket.emit('s_chating_room', user);
+			})
 			
+			// 접속한 채팅방이 없을 때 호출.
+			socket.on('c_chating_room_none',function(){
+				alert('접속한 채팅방 없음.');
+			})
+			
+			socket.on('c_chating_room_list', function(list){
+				console.log('현재 채팅중인 방의 번호 : '+list);
+				console.log('타입'+typeof list);
+				// list(접속중인 방의 번호 리스트)로 방의 정보를 얻어옴
+				getRoomInfo(list);
+			})
+			
+			function getRoomInfo(list){
+				for(var i=0;i<list.length;i++){
+					console.log(list[i]);
+					console.log(typeof list[i])
+					// 그 방의 정보를 불러옴
+					$.ajax({
+						url: "chat/getRoomInfo",
+						type: 'GET',
+						data: {"roomId" : list[i]} ,
+						success:function(data){
+							console.log('결과 데이터 : '+data)
+							console.log(data.get['roomId'],data.get['roomName']);
+							var html  = "";
+							html += "<td><a href='/returnscroll/chat/'+"+data.get['roomId']+">"+data.get['roomName']+"</a></td>";
+							$('#chatLists').append(html);
+						}, error:function(request, status, errorThrown){
+							console.log('error'+request, status, errorThrown);
+						}
+					})
+				
+				}
+				
+			}
+						
 		})
 
     </script>
     
     <script>
-    	
     	
     	// 초대수락
 		function enterInvite(roomNumber, sender, recipient){

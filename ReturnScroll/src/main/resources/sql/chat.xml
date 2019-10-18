@@ -107,4 +107,8 @@
 		SELECT uid, uname, nick, birth, phone, email FROM users WHERE uid = #{value}
 	</select>
 	
+	<select id="getRoomInfo" parameterType="string" resultType="map">
+		SELECT roomId, roomName FROM chatroom WHERE roomId = #{value}
+	</select>
+	
 </mapper>

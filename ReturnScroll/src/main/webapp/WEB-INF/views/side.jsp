@@ -141,6 +141,7 @@
       </c:if>
       
    </nav>
+   
    <script
       src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>      

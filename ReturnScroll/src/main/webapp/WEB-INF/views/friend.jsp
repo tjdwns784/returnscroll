@@ -233,9 +233,9 @@
     <!-- 모달 띄우고 내리는거 -->
     <script type="text/javascript">
  // sticky
-	$(window).load(function(){
-		$("#sticker").sticky({topSpacing:0});
-	});
+// 	$(window).load(function(){
+// 		$("#sticker").sticky({topSpacing:0});
+// 	});
     $("#addFriend").click(function(){
     	$("#uid").val('');
     	$("#searchResult").empty();
@@ -340,7 +340,7 @@
           console.log('친구수락 버튼을 눌렀을 때 보내려는 데이터 : '+data.sender+","+data.recipient);
           
           $.ajax({
-            url:"http://localhost:8080/returnscroll/chat/addfriend",
+            url:"chat/addfriend",
             type:'GET',
             data: data,
             success:function(data){
