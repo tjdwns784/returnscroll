@@ -384,10 +384,7 @@
 		  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-<!--  -->  	  
-    	  <script src="http://localhost:82/socket.io/socket.io.js"></script>
-		  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<!-- <p id="result" name="result" value=" " ></p> -->
+<!-- <p id="result" name="result" value=" " ></p> -->
 	
 	<div id="body">
 	<h1 id="h1_title" style="margin-left:2.5%;margin-top:2%;">Map</h1>
@@ -403,8 +400,8 @@
 			<input type="button"  value='주소검색' data-toggle="modal" data-target="#findAddr">
 			<input type='button' id='f_btn' value='경로찾기' onclick = "findRoot()" >
 			<input type='button' id='r_btn' value='경로취소' onclick = "removeRoot()" style="/* visibility:hidden; */ display:none;" >
-			 <input type='button' id='fl_btn' value='친구찾기' onclick = "findMyLocation()">
-			  <input type='button' id='sl_btn' value='친구찾기 중지' onclick = "stopMyLocation()" style="/* visibility:hidden; */ display:none;"><br> 
+			 <input type='button' id='fl_btn' value='친구찾기' onclick = "findLocation()">
+			  <input type='button' id='sl_btn' value='친구찾기 중지' onclick = "stopLocation()" style="/* visibility:hidden; */ display:none;"><br> 
 		</div>
 		</form>
 	</div>
@@ -480,49 +477,18 @@
 </div>
 
   	<script>
-  	var socket;
  
  		function setLocation(lat, lng) {
  			latitude = lat;
  			longitude = lng;
-//////
-			try {
-				//socket = io("http://localhost:82");
-	 			 //소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
-	            socket.emit("send_latitude",latitude);
-				socket.on('send_latitude', function(msg){
-					consol.log("send_latitude : "+msg);	
-				});
-	          //소켓에 send_longitude라는 이벤트로 longitude를 담고 보내준다.
-	            socket.emit("send_longitude",longitude); 
-				socket.on('send_longitude', function(msg){
-					consol.log("send_longitude : "+msg);	
-				});
-			} catch(e) {}
-///////// 			
+
  			initTmap();
 		}
 		         
 	  		function setLocation2(lat, lng) {
 	  			latitude = lat;
 	  			longitude = lng;
-///////////	  	
-				try {
-					 //socket = io("http://localhost:82");
-		  			 //소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
-		            socket.emit("send_latitude",latitude);
-					socket.on('send_latitude', function(msg){
-						consol.log("send_latitude : "+msg);	
-					});
-		          //소켓에 send_longitude라는 이벤트로 longitude를 담고 보내준다.
-		            socket.emit("send_longitude",longitude); 
-					socket.on('send_longitude', function(msg){
-						//div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-						consol.log("send_longitude : "+msg);	
-					});
-				} catch(e) {}
-				
-////////////////////////	  			
+	  			
 	  			//drawMarker(   );
 	  			//$('#test').text(latitude+'/'+longitude);
 	  			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
@@ -554,7 +520,7 @@
      		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_s.png',size, offset);
          	
          	$(document).ready(function() {
-         		socket = io("http://localhost:82");
+        
 				// 안드로이드 폰에서 접속한 경우에만 실행
 				window.loc.sendLocation();
 //          		initTmap();
@@ -669,7 +635,7 @@
          	} 
 
          	//위치찾기
-			function findMyLocation(){
+			function findLocation(){
 				
 				markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
 				map.addLayer(markerLayer);//map에 마커 레이어 추가
@@ -714,7 +680,7 @@
          	}
 			
          	//위치찾기 종료
-			function stopMyLocation(){
+			function stopLocation(){
 					
         		clearInterval(flocation);
         		markerLayer.clearMarkers();//레이어에 마커 제거

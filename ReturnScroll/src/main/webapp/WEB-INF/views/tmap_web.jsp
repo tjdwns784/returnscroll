@@ -384,7 +384,11 @@
 		  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-    
+    		
+	<script src="http://localhost:82/socket.io/socket.io.js"></script>
+<!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
 	<!-- <p id="result" name="result" value=" " ></p> -->
 	<div id="body">
 	<h1 id="h1_title" style="margin-left:2.5%;margin-top:2%;">Map</h1>
@@ -480,38 +484,38 @@
   </div>
 </div>
   
-
-      
-    	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    	
          <script>
          
-     	
-	  		function setLocation(lat, lng) {
-	  			latitude = lat;
-	  			longitude = lng;
+         
+// 	  		function setLocation(lat, lng) {
+// 	  			latitude = lat;
+// 	  			longitude = lng;
 	  			
-	  			initTmap();
-	 		}
+// 	  			initTmap();
+// 	 		}
   		         
-	  		function setLocation2(lat, lng) {
-	  			latitude = lat;
-	  			longitude = lng;
+// 	  		function setLocation2(lat, lng) {
+// 	  			latitude = lat;
+// 	  			longitude = lng;
 	  			
-	  			//drawMarker(   );
-	  			//$('#test').text(latitude+'/'+longitude);
-	  			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
-        		var size = new Tmap.Size(24, 38);//아이콘 크기 설정
-        		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정 
-        		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
+// 	  			//drawMarker(   );
+// 	  			//$('#test').text(latitude+'/'+longitude);
+// 	  			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
+//         		var size = new Tmap.Size(24, 38);//아이콘 크기 설정
+//         		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정 
+//         		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
         		
-        		markers3 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
-        		map.addLayer(markers3); // 지도에 Markers 객체 추가
+//         		markers3 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
+//         		map.addLayer(markers3); // 지도에 Markers 객체 추가
         		
-        		marker3 = new Tmap.Marker(lonlat3, icon);//마커 생성
-        		markers3.addMarker(marker3);//레이어에 마커 추가 
+//         		marker3 = new Tmap.Marker(lonlat3, icon);//마커 생성
+//         		markers3.addMarker(marker3);//레이어에 마커 추가 
         		
-	 		}
-  		         
+// 	 		}
+  		   
+			var socket;
+			
          	var map;
          	var latitude, longitude;
 			var lonlate, lonlate2, lonlat3;
@@ -529,13 +533,41 @@
          	
          	$(document).ready(function() {
 				// 안드로이드 폰에서 접속한 경우에만 실행
-				window.loc.sendLocation();
-//          		initTmap();
+				//window.loc.sendLocation();
+         		initTmap();
          		
         	});
          	
          	function setVariables(){    
          	    zoom = 16;  // zoom level입니다.  0~19 레벨을 서비스 하고 있습니다. 
+         	}
+         	
+         	function setLocation(lat, lng){
+         		latitude = lat;
+         		longitude = lng;
+         		console.log("**********");
+         	}
+         	
+         	function setLocation2(lat, lng){
+         		latitude = lat;
+         		longitude = lng;
+         		
+         		try {
+					socket = io("http://localhost:82");
+		 			 //소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
+		            socket.emit("send_latitude2",latitude);
+					socket.on('send_latitude2', function(msg){
+						console.log("send_latitude2 : "+msg);	
+					});
+		          //소켓에 send_longitude라는 이벤트로 longitude를 담고 보내준다.
+		            socket.emit("send_longitude2",longitude); 
+					socket.on('send_longitude2', function(msg){
+						console.log("send_longitude2 : "+msg);
+						
+						alert(latitude + '/' + longitude)
+					});
+					
+				} catch(e) {}
          	}
          	
          	function initTmap(){
@@ -545,11 +577,31 @@
          		});
          		
          		//위치 정보 받아오기
-//          		navigator.geolocation.getCurrentPosition(function(pos) {
-//     				latitude = pos.coords.latitude;
-//     				longitude = pos.coords.longitude;
-//     				alert(latitude + '/' + longitude)
-    	
+         		navigator.geolocation.getCurrentPosition(function(pos) {
+    				latitude = pos.coords.latitude;
+    				longitude = pos.coords.longitude;
+    				//alert(latitude + '/' + longitude)
+    					console.log("@@@@@@@@@");
+    				 //window.loc.sendLocation();
+ //////
+					
+						socket = io("http://localhost:82");
+			 			 //소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
+			            socket.emit("send_latitude",latitude);
+						socket.on('send_latitude', function(msg){
+							console.log("send_latitude : "+msg);	
+						});
+						
+						
+			          //소켓에 send_longitude라는 이벤트로 longitude를 담고 보내준다.
+			            socket.emit("send_longitude",longitude); 
+						socket.on('send_longitude', function(msg){
+							console.log("send_longitude : "+msg);
+						});
+						alert(latitude + '/' + longitude)
+					
+///////// 	
+
              		map.setCenter(new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857"), 15);
              		
   					//시작마커
@@ -637,7 +689,7 @@
              		map.events.register("click", map, onClick);
       
 
-//          		});
+         		});
 
          	} 
 

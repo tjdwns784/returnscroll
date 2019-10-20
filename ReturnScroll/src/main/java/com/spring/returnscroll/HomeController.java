@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,13 +70,23 @@ public class HomeController  {
 	
 	//지도 티맵 - 사용하는것
 	@RequestMapping(value = "/tmap", method = RequestMethod.GET)
-	public String tmap(Locale locale, Model model, HttpSession httpSession) {
-		
+	public String tmap(Locale locale, Model model, HttpSession httpSession, @RequestHeader(required = false, value="user-agent") String userAgent) {
+				
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 			return "redirect:/login";
 		}else {
-			return "tmap";
+			
+			System.out.println(userAgent);
+			
+			if(userAgent != null) {
+				if(userAgent.indexOf("Android") > -1 && userAgent.indexOf("Mobile") > -1) {
+					System.out.println("안드로이드");
+					return "tmap_app";
+				}
+			}
+			System.out.println("웹");
+			return "tmap_web";
 				
 		}
 

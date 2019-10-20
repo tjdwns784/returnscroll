@@ -78,6 +78,11 @@
         #img_home{
            width:80%;
         }
+        
+        #welcome{
+        	font-size: 25px;
+        		
+        }
      }
 
   </style>
