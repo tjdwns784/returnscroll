@@ -118,12 +118,13 @@
 		<thead class="thead-dark" style="text-align:center;" >
 			<tr >
 			<th  class="d-none d-lg-table-cell" style="width:5%;" >번호</th>
-			<th  class="d-none d-lg-table-cell" style="width:25%;" >아이디</th>
+			<th  class="d-none d-lg-table-cell" style="width:20%;" >아이디</th>
 			<th  class="d-none d-lg-table-cell" style="width:5%;" >이름</th>
-			<th  class="d-none d-lg-table-cell" style="width:10%;" >별명</th>
+			<th  class="d-none d-lg-table-cell" style="width:15%;" >별명</th>
 			<th  class="d-none d-lg-table-cell" style="width:10%;" >생일</th>
-			<th  class="d-none d-lg-table-cell" style="width:15%;" >휴대폰</th>
-			<th  class="d-none d-lg-table-cell" style="width:20%;" >이메일</th>
+			<th  class="d-none d-lg-table-cell" style="width:10%;" >휴대폰</th>
+			<th  class="d-none d-lg-table-cell" style="width:15%;" >이메일</th>
+			<th  class="d-none d-lg-table-cell" style="width:10%;" >가입날짜</th>
 			<th  class="d-none d-lg-table-cell" style="width:10%;" >비고</th>
 			</tr>
 		</thead>
@@ -138,6 +139,7 @@
 			<td class="d-none d-lg-table-cell">${item.birth}</td>
 			<td class="d-none d-lg-table-cell">${item.phone}</td>
 			<td class="d-none d-lg-table-cell">${item.email}</td>
+			<td class="d-none d-lg-table-cell">${item.date}</td>
 			<td>
 				<a href="#" style="cursor: pointer" class="delete" uid="${item.uid}">삭제</a>
 				<a href="admin_userUpdate/${item.uid}" style="cursor: pointer" class="update">수정</a>
