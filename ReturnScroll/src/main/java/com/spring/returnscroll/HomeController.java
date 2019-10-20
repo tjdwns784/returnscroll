@@ -197,10 +197,12 @@ public class HomeController  {
 	// 친구 추가할 때 회원의 아이디를 찾는거 (Ajax 통신)
 	@RequestMapping(value = "/chat/findId", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody Map<String, String> chatPost(@RequestParam("uid") String uid){
+		// 닉네임으로 찾음
+		Map<String, String> findUser = chatService.friendInvite(uid);
 		
-		Map<String, String> findUser = memberservice.chatInvite(uid);
-		String uidFind = findUser.get("UID");
-		String nick = memberservice.userNick(uidFind);
+		
+		String uidFind = findUser.get("uid");
+		String nick = findUser.get("nick");
 		System.out.println("초대할 회원의 아이디 : "+uidFind);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid",uidFind);
@@ -208,10 +210,9 @@ public class HomeController  {
 		return map;
 	}
 	
-	// 친구 추가할 때 회원의 아이디를 찾는거 (Ajax 통신)
+	// 접속한 방의 정보를 불러오는 곳
 	@RequestMapping(value = "/chat/getRoomInfo", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody Map<String, String> getRoomInfo(@RequestParam("roomId") String roomId){
-		System.out.println("여기 들어옹니?");
 		Map<String, String> maps = chatService.getRoomInfo(roomId);
 		System.out.println("maps의 값 "+maps);
 		return maps;

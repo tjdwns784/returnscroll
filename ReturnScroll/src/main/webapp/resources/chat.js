@@ -29,25 +29,25 @@ $(document).ready(function() {
     })
     
     // 현재 대화방 참여자 목록을 표시... 배열을 받음
-    socket.on('c_send_member', (member) => {
-      console.log('입장한 방에 현재 멤버(member)는' + member[0].nick);
+    socket.on('c_send_member', (memberNick) => {
+      console.log('입장한 방에 현재 멤버(member)는' +  memberNick);
       // 참여자를 화면에 표시
-      memberShow(member);
+      memberShow(memberNick);
     })
     
-    function memberShow(member){
+    function memberShow(memberId, memberNick){
     	// $("#memberList").empty();
     	console.log('여기로 들어오는지...')
     	var html = "";
-    	for(var i =0 ; i<Object.keys( member ).length ; i++){
-    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
-    		html += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+member[i].nick+"";
+//    	for(var i =0 ; i<Object.keys( member ).length ; i++){
+//    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
+    		html += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+memberNick+"";
     		html += "<span class='caret'></span></button>"
 			html += "<ul class='dropdown-menu' style='list-style:none;'>"
 			html += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
 //			html += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
 			html += "</ul></div>";
-    	}
+//    	}
 
     	/*for(var i=0;i<member.length;i++){
     		users += member[i] + "님  ";
@@ -57,27 +57,27 @@ $(document).ready(function() {
     }
     
     // 현재 대화방 참여자 목록을 표시... 배열을 받음
-    socket.on('c_send_updateMember', (member) => {
-      console.log('새로운 사람 : '+member);
+    socket.on('c_send_updateMember', (memberNick) => {
+      console.log('새로운 사람 : '+ memberNick);
       // 참여자를 화면에 표시
-      memberUpdate(member);
+      memberUpdate( memberNick);
     })
     
-    function memberUpdate(member){
+    function memberUpdate(memberNick){
     	// 해당 태그 내부요소들을 비움(?)
-    	$("#memberList").empty();
+    	//$("#memberList").empty();
     	console.log('[update] 여기로 들어오는지...')
     	var html = "";
-    	for(var i =0;i<Object.keys( member ).length;i++){
-    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
+//    	for(var i =0;i<Object.keys( member ).length;i++){
+//    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
     		html += "<div class='dropdown' style='" +
-    				"float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+member[i].nick+"";
+    				"float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+memberNick+"";
     		html += "<span class='caret'></span></button>"
 			html += "<ul class='dropdown-menu' style='list-style:none;'>"
 			html += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
 //			html += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
 			html += "</ul></div>";
-    	}
+//    	}
 
     	/*for(var i=0;i<member.length;i++){
     		users += member[i] + "님  ";

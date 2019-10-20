@@ -98,7 +98,7 @@
 	        <h2 style="text-align: center;">친구초대</h2><br>
 	        <p style="text-align: center;">초대할 친구를 검색하세요</p>
 	        <form method="GET" id="find"  style="text-align: center;">
-		        <input type="text" name="uid" id="uid" style="width: 250px; height: 35px;" placeholder="초대할 회원의 ID를 입력해주세요">
+		        <input type="text" name="uid" id="uid" style="width: 250px; height: 35px;" placeholder="초대할 회원의 닉네임을 입력해주세요">
 		    	<button id="findId" class="btn btn-warning btn-flat" style="float: right; margin: unset; width: 50px; text-align: center; font-size: 10px; height: 35px;" >검색</button>
 			</form>
 	        
@@ -201,8 +201,8 @@
 
 
   <div class="btn-group btn-group-lg" id="sticker" style='width: inherit;'>
-	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="user" src="resources/img/user.png" style='width:50px;'></button>
-	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="user" src="resources/img/speech-bubble.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="user" src="/returnscroll/resources/img/user.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="user" src="/returnscroll/resources/img/speech-bubble.png" style='width:50px;'></button>
 	</div>
 
   <!-- Scroll to Top Button-->
@@ -255,7 +255,7 @@
 			// 입력한 아이디값 받기
  			var uid = $('#uid').val();
  			var postData = {"uid" : uid};
-			var dataUrl = "http://localhost:8080/returnscroll/chat/findId";
+			var dataUrl = "chat/findId";
 			
 			$("#uid").val('');
 			$("#searchResult").empty();
