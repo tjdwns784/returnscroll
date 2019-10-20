@@ -9,6 +9,9 @@
 <a href="/returnscroll/">
 <img id=img src="/returnscroll/resources/img/리턴2.jpg"></a>
 <h1 id='header' style="text-align:center; margin-right:100px;"><span onclick="location='/returnscroll'" style="cursor:pointer">Return Scroll</span></h1>
+<c:if test="${uid.uid == 'admin'}">
+<h2 id="admin" style="text-align:center;">관리자전용</h2>
+</c:if>
 <hr style="width:95%; background:#FFCC33; height:2px" >
 </header>
  <style>
@@ -27,7 +30,7 @@
   #img {
         float: left;
         width: 65px;
-        margin-left: 100px;
+        margin-left: 50px;
      }
     
   @media (max-width: 600px) {
@@ -65,6 +68,7 @@
      font-weight : bold;
      top: 0;
   }
+  [title=Admin]{font-size : 25px;}
   </style>
    <a class="menu-toggle rounded" style="z-index:11000;"> <i class="fas fa-bars"></i>
    </a>
@@ -82,65 +86,33 @@
             href="/returnscroll/qna">Q&A</a></li>
          <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="MyPage"
             href="/returnscroll/mypage">MyPage</a></li>
+         <c:if test="${uid.uid == 'admin'}">
+         <br>
+         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Admin"
+            href="/returnscroll/">관리자 전용 메뉴</a></li>
+         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Admin_member"
+            href="/returnscroll/admin_member">회원 관리</a></li>
+         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Admin_article"
+            href="/returnscroll/admin_article">게시물 관리</a></li>
+         </c:if>
       </ul>
-      <c:if test="${uid != null}">
-         <div style="bottom: 0;position: absolute;margin-bottom: 10px; margin-left:20px;">
+      
+      <c:if test="${uid != null && uid.uid == 'admin'}">
+         <div style="bottom: 0;position: absolute; font-weight: 100px; font-size: 19px; margin-bottom: 10px; margin-left:20px;">
+            	관리자  님이 접속중입니다.<br> 
+            <a id="logout" href="../returnscroll/logout" style="color:red">관리 끝</a>
+         </div>
+      </c:if>
+      
+      <c:if test="${uid != null && uid.uid != 'admin'}">
+         <div style="bottom: 0;position: absolute; margin-bottom: 10px; margin-left:20px;">
             ${uid.uid} 님이 접속중입니다.<br> 
             <a id="logout" href="../returnscroll/logout" style="color:red">로그아웃</a>
          </div>
       </c:if>
       
    </nav>
-	<a class="menu-toggle rounded" style="z-index:11000;"> <i class="fas fa-bars"></i>
-	</a>
-	<nav id="sidebar-wrapper" style="z-index:10000;">
-		<ul class="sidebar-nav">
-			<li class="sidebar-brand"><a class="js-scroll-trigger" title="Menu"
-				href="/returnscroll/">Menu</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Home"
-				href="/returnscroll/">Home</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Map"
-				href="/returnscroll/tmap">Map</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Chat"
-				href="/returnscroll/chat">Chat</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Q&A"
-				href="/returnscroll/qna">Q&A</a></li>
-			<li class="sidebar-nav-item"><a class="js-scroll-trigger" title="MyPage"
-				href="/returnscroll/mypage">MyPage</a></li>
-		</ul>
-		<c:if test="${uid != null}">
-			<div style="bottom: 0;position: absolute;margin-bottom: 10px; margin-left:20px;">
-				${uid.uid} 님이 접속중입니다.<br> 
-				<a id="logout" href="../returnscroll/logout" style="color:red">로그아웃</a>
-			</div>
-		</c:if>
-		
-	</nav>
-   <a class="menu-toggle rounded" style="z-index:11000;"> <i class="fas fa-bars"></i>
-   </a>
-   <nav id="sidebar-wrapper" style="z-index:10000;">
-      <ul class="sidebar-nav">
-         <li class="sidebar-brand"><a class="js-scroll-trigger" title="Menu"
-            href="/returnscroll/">Menu</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Home"
-            href="/returnscroll/">Home</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Map"
-            href="/returnscroll/tmap">Map</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Chat"
-            href="/returnscroll/chat">Chat</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Q&A"
-            href="/returnscroll/qna">Q&A</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="MyPage"
-            href="/returnscroll/mypage">MyPage</a></li>
-      </ul>
-      <c:if test="${uid != null}">
-         <div style="bottom: 0;position: absolute;margin-bottom: 10px; margin-left:20px;">
-            ${uid} 님이 접속중입니다.<br> 
-            <a id="logout" href="../returnscroll/logout" style="color:red">로그아웃</a>
-         </div>
-      </c:if>
-      
-   </nav>
+
    <script
       src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>      

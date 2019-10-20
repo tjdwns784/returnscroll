@@ -76,4 +76,7 @@ public class ChatDao {
 	public Map<String, Object> userInfo(String uids){
 		return ss.selectOne("chat.userInfo",uids);
 	}
+	public Map<String, String> getRoomInfo(String roomId) {
+		return ss.selectOne("chat.getRoomInfo",roomId);
+	}
 }

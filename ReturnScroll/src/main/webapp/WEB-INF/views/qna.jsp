@@ -196,7 +196,7 @@
 				style="float: right; margin-right: 1%;"> --%>
 <br>
 <div class="container" style="width:90%;" >
-  <ul class="pagination" style="justify-content: center;">
+  <ul class="pagination" style="justify-content: center; margin-top: 4%; margin-bottom: -3%;">
     <% int t = (Integer)request.getAttribute("total"); 
     	int showNum = t / 10;
     	if(t % 10 != 0) {

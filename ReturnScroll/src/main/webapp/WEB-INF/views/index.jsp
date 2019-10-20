@@ -89,21 +89,26 @@
    <div style="text-align:center;" id='body'>
        <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
       <br><br>
-      <c:if test="${uid != null}">
-               <script>
-            	document.getElementById("loginbtn").style.visibility="hidden";
-              	document.getElementById("joinbtn").style.visibility="hidden";
-              </script>
-      </c:if>
 
       <c:if test="${uid.uid == null}">
 	      <button id="loginbtn" onclick="location.href='/returnscroll/login'">Login</button>
 	      <button id="joinbtn" onclick="location.href='/returnscroll/join'">Join</button>
       </c:if>
       
-      <c:if test="${uid.uid != null}">
+      <c:if test="${uid != null}">
+               <script>
+            	document.getElementById("loginbtn").style.visibility="hidden";
+              	document.getElementById("joinbtn").style.visibility="hidden";
+              </script>
+      </c:if>
+      
+      <c:if test="${uid.uid != null && uid.uid == 'admin'}">
+    	<h1 id="welcome" style="margin-top:-1%; margin-bottom:-2%"><span id='unick' style='color:red'>대장님</span> 오셨나이까?</h1>
+	  </c:if>
+	  
+      <c:if test="${uid.uid != null && uid.uid != 'admin'}">
     	<h1 id="welcome" style="margin-top:-1%; margin-bottom:-2%"><span id='unick' style='color:red'>${uid.nick}님</span> 환영합니다!</h1>
-	</c:if>
+	  </c:if>
 
 	<jsp:include page="footer.jsp"></jsp:include>
 

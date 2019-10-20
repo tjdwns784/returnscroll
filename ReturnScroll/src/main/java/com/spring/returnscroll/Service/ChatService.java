@@ -74,5 +74,9 @@ public class ChatService {
 	public Map<String, Object> userInfo(String uids){
 		return chatDao.userInfo(uids);
 	}
+	
+	public Map<String, String> getRoomInfo(String roomId){
+		return chatDao.getRoomInfo(roomId);
+	}
 
 }

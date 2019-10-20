@@ -251,7 +251,7 @@
  	// 채팅방 나가기 버튼을 눌렀을 때 실행되는 함수 (퇴장하는 회원, 퇴장하려는 방)
 	 function exitChat(user, roomId){
 		 var socket = io("http://192.168.0.15:82");
-		 socket.emit('disconnect');
+		 socket.emit('s_chatRoom_exit',user, roomId);
 		 location.href="/returnscroll/chat";
 	 }
  
