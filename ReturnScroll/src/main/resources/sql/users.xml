@@ -8,6 +8,7 @@
 		SELECT uid, upw, uname, nick, birth, phone, email, kakao, facebook, naver, google, date
 		FROM USERS
 		ORDER BY DATE ASC
+		LIMIT #{startNum}, 10
 	</select>
 	
 	<!-- 관리자 멤버 전체 갯수 찾기 -->

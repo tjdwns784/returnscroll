@@ -39,32 +39,32 @@ public class AdminController {
 	
 	// 관리자 회원목록
 	@RequestMapping(value = "/admin_member", method = RequestMethod.GET)
-	public String admin_member(Model model, HttpServletRequest req, 
-			@RequestParam(value="page", defaultValue = "1") int page
-			/*@,RequestParam Map<String, Object> map*/) {	
+	public String admin_member(Locale locale, Model model, HttpServletRequest req, 
+			@RequestParam(value="page", defaultValue = "1") int page,
+			@RequestParam Map<String, Object> map) {	
 		
-		model.addAttribute("admin_member",adminService.admin_member());
 		
 		int endNum = page * 10;
 		int startNum = endNum - 10;
 		
-//		map.put("page", page);
-//		map.put("startNum", startNum);
+		map.put("page", page);
+		map.put("startNum", startNum);
+		
+		model.addAttribute("admin_member", adminService.admin_member(map));
 		
 		// 전체 qna 게시물 개수
 		// 전체 페이지 알아내기
-		int total = adminService.admin_selectTotalCount();
+		int total = adminService.admin_selectTotalCount(map);
 		model.addAttribute("total",total);
 		model.addAttribute("page",page);
 		
-//		String searchText = (String) map.get("searchText");
-//		String searchItem = (String) map.get("searchItem");
-//		String searchOrd = (String) map.get("searchOrd");
+		String searchText = (String) map.get("searchText");
+		String searchItem = (String) map.get("searchItem");
+		String searchOrd = (String) map.get("searchOrd");
 		
-//		model.addAttribute("searchText", searchText);
-//		model.addAttribute("searchItem", searchItem);
-//		model.addAttribute("searchOrd", searchOrd);
-		
+		model.addAttribute("searchText", searchText);
+		model.addAttribute("searchItem", searchItem);
+		model.addAttribute("searchOrd", searchOrd);
 		
 		return "/admin/admin_member";					
 	}
@@ -159,7 +159,7 @@ public class AdminController {
 			map.put("page", page);
 			map.put("startNum", startNum);
 			
-			model.addAttribute("list",articleservice.select(map));
+			model.addAttribute("list", articleservice.select(map));
 			
 			// 전체 qna 게시물 개수
 			// 전체 페이지 알아내기

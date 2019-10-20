@@ -60,7 +60,6 @@
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
 	<!-- Header -->
-	<header class="masthead d-flex">
 		<div class="container text-align:left my-auto">
 			<div style="border: 1px solid; padding: 10px; text-align:center;">
 				<form method="POST" > 
