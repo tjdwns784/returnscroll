@@ -1,6 +1,7 @@
 package com.spring.returnscroll.Dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,6 +13,17 @@ public class UsersDao {
 	@Autowired
 	SqlSessionTemplate ss;
 
+	
+	// 관리자 회원목록
+	public List<Map<String, Object>> admin_member() {
+		return ss.selectList("users.admin_member");
+	}
+		
+	// 관리자 회원목록 게시판 갯수 찾기
+	public int admin_selectTotalCount() {
+		return ss.selectOne("users.admin_selectTotalCount");
+	}
+		
 	// 메일에 가입한 이름 뜨게 하는거
 	public String mailId(String uid, String email) {
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -198,7 +198,7 @@ public class MemberController {
 	
 	// 회원수정
 	@RequestMapping(value="/userUpdate", method = RequestMethod.GET)
-	public String userrUpdate(HttpSession session, Model model) { 
+	public String userUpdate(HttpSession session, Model model) { 
 		Map<String, Object> uid = (Map<String, Object>) session.getAttribute("uid");
 		Map<String, String> info = memberservice.mypage((String) uid.get("uid"));
 		String phone = info.get("phone");

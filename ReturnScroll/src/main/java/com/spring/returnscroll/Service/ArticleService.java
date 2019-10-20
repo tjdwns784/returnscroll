@@ -72,7 +72,4 @@ public class ArticleService {//qna게시판
 			return articleDao.selectCommentCount(map);
 		}
 		
-	
-	
-
 }

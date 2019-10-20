@@ -159,6 +159,9 @@ var artid = "${article.WRITER}";
 	<c:forEach items="${list2}" var="item">
 			<h6 margin-bottom: 1.5%;>${item.WRITER} &nbsp;&nbsp;| &nbsp;&nbsp;${item.WRITE_DATE} &nbsp;&nbsp; 
 			<c:if test='${item.WRITER == unick}'><a href="../commentDelete/${item.CNO}?no=${article.NO}"> 삭제</a></c:if>	</h6>
+			<c:if test="${uid.uid == 'admin'}">
+			<a style="right: 5%;position: absolute; margin-top: -35px; font-size: 20px;" href="../commentDelete/${item.CNO}?no=${article.NO}"> 삭제</a>
+			</c:if>
 			${item.CONTENT}
 			<hr>		
 		
