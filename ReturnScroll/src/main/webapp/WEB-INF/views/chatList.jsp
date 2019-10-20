@@ -188,10 +188,10 @@
 <!-- 							    </tbody> -->
 <%-- 							    </c:forEach> --%>
 							    
-							    <tbody>
-							      <tr id="chatLists">
+							    <tbody id="chatLists">
+<!-- 							      <tr > -->
 							        
-							      </tr>
+<!-- 							      </tr> -->
 							    </tbody>
 							    
 						  </table>
@@ -220,8 +220,8 @@
   </a>
   
   <div class="btn-group btn-group-lg" id="sticker" style='width: inherit;'>
-	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="user" src="resources/img/user.png" style='width:50px;'></button>
-	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="user" src="resources/img/speech-bubble.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/friend'"><img alt="user" src="/returnscroll/resources/img/user.png" style='width:50px;'></button>
+	  <button type="button" class="btn btn-warning btn-flat" onclick="location.href='/returnscroll/chat'"><img alt="user" src="/returnscroll/resources/img/speech-bubble.png" style='width:50px;'></button>
 	</div>
 
 	<jsp:include page="footer.jsp"></jsp:include>
@@ -253,7 +253,6 @@
 			
 			// 이 페이지랑 소켓 서버 연결
 			socket.on('connect',function(){
-				console.log('여기 들어오는지ㅣ..')
 				// 현재 접속자가 어디 방에 접속중인지 알려줌.
 				socket.emit('s_chating_room', user);
 			})
@@ -264,36 +263,21 @@
 			})
 			
 			socket.on('c_chating_room_list', function(list){
-				console.log('현재 채팅중인 방의 번호 : '+list);
-				console.log('타입'+typeof list);
 				// list(접속중인 방의 번호 리스트)로 방의 정보를 얻어옴
-				getRoomInfo(list);
+				for(var i=0;i<list.length;i++){
+					console.log(list[i].roomId);
+					var html  = "";
+					html += "<tr><td><a href='/returnscroll/chat/"+list[i].roomId+"'>"+list[i].roomName+"</a></td></tr>";
+// 					html += "<tr><td><a onclick='insertChat("+list[i].roomId+");'>"+list[i].roomName+"</a></td></tr>";
+					$('#chatLists').append(html);
+				}
 			})
 			
-			function getRoomInfo(list){
-				for(var i=0;i<list.length;i++){
-					console.log(list[i]);
-					console.log(typeof list[i])
-					// 그 방의 정보를 불러옴
-					$.ajax({
-						url: "chat/getRoomInfo",
-						type: 'GET',
-						data: {"roomId" : list[i]} ,
-						success:function(data){
-							console.log('결과 데이터 : '+data)
-							console.log(data.get['roomId'],data.get['roomName']);
-							var html  = "";
-							html += "<td><a href='/returnscroll/chat/'+"+data.get['roomId']+">"+data.get['roomName']+"</a></td>";
-							$('#chatLists').append(html);
-						}, error:function(request, status, errorThrown){
-							console.log('error'+request, status, errorThrown);
-						}
-					})
-				
-				}
-				
-			}
-						
+// 			function insertChat(roomId){
+// 				socket.emit('s_show_chatMsg',roomId);
+// 			}
+			
+
 		})
 
     </script>

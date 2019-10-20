@@ -79,4 +79,8 @@ public class ChatDao {
 	public Map<String, String> getRoomInfo(String roomId) {
 		return ss.selectOne("chat.getRoomInfo",roomId);
 	}
+	
+	public Map<String, String> friendInvite(String uid){
+		return ss.selectOne("chat.friendInvite",uid);
+	}
 }
