@@ -79,14 +79,14 @@ public class HomeController  {
 			
 			System.out.println(userAgent);
 			
-			if(userAgent != null) {
-				if(userAgent.indexOf("Android") > -1 && userAgent.indexOf("Mobile") > -1) {
-					System.out.println("안드로이드");
-					return "tmap_app";
-				}
-			}
-			System.out.println("웹");
-			return "tmap_web";
+//			if(userAgent != null) {
+//				if(userAgent.indexOf("Android") > -1 && userAgent.indexOf("Mobile") > -1) {
+//					System.out.println("안드로이드");
+//					return "tmap_app";
+//				}
+//			}
+//			System.out.println("웹");
+			return "tmap";
 				
 		}
 

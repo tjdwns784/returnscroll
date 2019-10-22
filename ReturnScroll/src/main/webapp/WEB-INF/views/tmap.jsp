@@ -17,363 +17,8 @@
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
  <%--  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" > --%>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-  
-  <style>
-    @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); 
-  	body, table, div, p ,h1,button, td,option{font-family:'Nanum Gothic';} 
+  <link href="${pageContext.request.contextPath}/resources/css/map.css" rel="stylesheet"/>
 
-        table {
-            width: 100%;
-            border-spacing: 0;
-            border-collapse: collapse;
-        }
-        
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        ul,
-        ol {
-            list-style: none;
-        }
-        
-        .blind {
-            position: absolute;
-            overflow: hidden;
-            clip: rect(0px, 0px, 0px, 0px);
-            margin: 10px;
-            width: 1px;
-            height: 1px;
-        }
-              
-
-        /*  button */
-    input[type=button]{
-	  background:#000000;
-	  color:#fff;
-	  border:none;
-	  height:40px;
-	  font-size:1em;
-	  padding:0 2em;
-	  cursor:pointer;
-	  transition:800ms ease all;
-	  outline:none;
-	}
-	input[type=button]:hover{
-	  background:#fff;
-	  color:#000000;
-	}
-	input[type=button]:before,input[type=button]:after{
-	  content:'';
-	  position:absolute;
-	  top:0;
-	  right:0;
-	  height:2px;
-	  width:0;
-	  background: #000000;
-	  transition:400ms ease all;
-	}
-	input[type=button]:after{
-	  right:inherit;
-	  top:inherit;
-	  left:0;
-	  bottom:0;
-	}
-	input[type=button]:hover:before,input[type=button]:hover:after{
-	  width:100%;
-	  transition:800ms ease all;
-	}
-        
-        /* -------TOP------- */
-        
-        #divtop {
-            position: relative;
-            background: #ff7a00;
-            height: 45px;
-            text-align: center;
-        }
-        
-        #divtop h3 {
-            width: 200px;
-            height: 45px;
-            line-height: 45px;
-            margin: 0 auto;
-        }
-        
-        #divtop .top_tit {
-            font-size: 18px;
-            font-weight: 400;
-            position: relative;
-            color: #fff;
-        }
-        /* -------CONTENT------- */
-        
-        #divSearch {
-            padding: 15px 20px;
-            /*background: beige;*/
-        }
-        
-        #divSearch p {
-            font-size: 14px;
-            margin-top: 8px;
-            margin-left: 15px;
-            color: #333;
-        }
-        
-        #divSearch p b {
-            color: #ff7a00;
-        }
-        
-        #divSearch .search_box {
-            border-bottom: 2px solid #ff7a00;
-            padding: 0 15px;
-        }
-        
-        #divSearch .search_box .inputGrp {
-            overflow: hidden;
-        }
-        
-        .inputGrp .btn_sch {
-            background: transparent;
-            border: 0;
-            float: right;
-            height: 44px;
-            line-height: 44px;
-            outline: 0;
-            position: relative;
-        }
-        
-        .inputGrp .btn_sch .ico_sch {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            line-height: 24px;
-            position: relative;
-            cursor: pointer;
-            vertical-align: middle;
-        }
-        
-        .inputGrp .btn_sch .ico_sch:before,
-        .inputGrp .btn_sch .ico_sch:after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        
-        .inputGrp .btn_sch .ico_sch:before {
-            width: 13px;
-            height: 13px;
-            border: 2px solid #ff7a00;
-            border-radius: 100%;
-            -webkit-border-radius: 100%;
-            -moz-border-radius: 100%;
-        }
-        
-        .inputGrp .btn_sch .ico_sch:after {
-            width: 2px;
-            height: 10px;
-            background: #ff7a00;
-            transform: rotate(-45deg);
-            -webkit-transform: rotate(-45deg);
-            -moz-transform: rotate(-45deg);
-            -o-transform: rotate(-45deg);
-            -ms-transform: rotate(-45deg);
-            top: 12px;
-            left: 16px;
-        }
-        
-        .inputGrp .input_sch {
-            height: 44px;
-            background: #fff;
-            padding: 5px 9px 0 0px;
-            overflow: hidden;
-        }
-        
-        .inputGrp .input_sch input {
-            border: none;
-            padding: 0px;
-            margin: 0px;
-            width: 100%;
-            height: 100%;
-            outline: none;
-            font-size: 17px;
-        }
-        
-        #divSearchlist {
-            background: #f4f4f4;
-            padding: 20px;
-            clear: both;
-        }
-        #divSearchlist .result {
-            margin-bottom: 8px;
-        }
-        #divSearchlist .tb_wrap {
-            height: 400px;
-            overflow-y: auto;
-        }
-        
-        #divSearchlist table {
-            border-top: 1px solid #dbdbdb;
-            border-bottom: 1px solid #dbdbdb;
-        }
-        
-        #divSearchlist table thead * {
-            height: 0ox;
-            line-height: 0px;
-            text-indent: -9999px;
-            font-size: 0;
-            color: #fff;
-        }
-        
-        #divSearchlist table tbody td {
-            background: #fff;
-            padding: 10px 15px;
-            border-bottom: 1px solid #dbdbdb;
-        }
-        
-        ul.tb1 {
-            display: table;
-            width: 100%;
-        }
-        
-        ul.tb1>li.row {
-            display: table-row !important;
-        }
-        
-        ul.tb1>li.row div:nth-child(2) {
-            padding-bottom: 7px;
-        }
-        
-        ul.tb1>li.row>div.th {
-            display: table-cell;
-            width: 70px;
-        }
-        
-        ul.tb1>li.row span.label {
-            display: inline-block;
-            width: 60px;
-            text-align: center;
-            color: #fff;
-            padding: 2px 5px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-        
-        ul.tb1>li.row span.st {
-            background: #8faae4;
-        }
-        
-        ul.tb1>li.row span.num {
-            background: #b5bbd1;
-        }
-        
-        ul.tb1>li.row .post {
-            color: #ff2121;
-            font-size: 18px;
-        }
-        
-        /* Page navigation */
-        #pageZone {
-            padding: 5px 0;
-            text-align: center;
-        }
-        
-        .btn_pageNum {
-            width: 35px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            background-color: #f9f9f9;
-            border: 1px solid #eeeeee;
-            display: inline-block;
-            color: inherit;
-            font-size: 12px;
-        }
-        
-        .btn_pageNum_active {
-            background-color: #fce1d8;
-        }
-        
-        .btn_pageNum:hover {
-            background-color: #fef1ec;
-        }
-        
-        .btn_pageNum:active {
-            background-color: #fce1d8;
-        }
-        
-            	
-	/* 거리표시 팝업*/
-	.mPop{
-	    border: 1px;
-	    background-color: #FFF;
-	    font-size: 12px;
-	    border-color: #FF0000;
-	    border-style: solid;
-	    text-align: center;
-	}
-	/*공통사용 클래스*/
-	.mPopStyle {
-	    border: 1px;
-	    background-color: #FFF;
-	    font-size: 12px;
-	    border-color: #FF0000;
-	    border-style: solid;
-	    text-align:left;
-	}
-		.blackText{
-		color:black;
-	}
-	  #selectArrive:hover {
-      background-color: #FFFF99;
-    }
-    
-    #map_div{
-			width:100%;
-			height:750px;
-	}
-	#map_btn{
-		width:95%;
-		margin-left:2.5%;
-		
-	}
-	    
-    @media (max-width:600px){
-		#map_div{
-			width:100%;
-			height:550px;
-		}
-	
-		
-		input[type=button]{
-		  height:30px;
-		  font-size:0.9em;
-		  padding:0 1em;
-		  transition:800ms ease all;
-		  outline:none;
-		}
-		
-		#h1_title{
-			font-size:2rem;
-		}
-		
-		.modal-content{
-			margin-top : 70px;
-		}
-		
-		#map_btn{
-			margin-left:9.5%;
-		
-		}
-		
-	}
-  
-       
-</style>
-	
  </head>
  <body id="page-top">
     <!-- Navigation -->
@@ -385,7 +30,7 @@
 		  <!-- Custom scripts for this template -->
 		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
     		
-	<script src="http://localhost:82/socket.io/socket.io.js"></script>
+	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
 <!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	
@@ -404,10 +49,8 @@
 			<input type="button"  value='주소검색' data-toggle="modal" data-target="#findAddr">
 			<input type='button' id='f_btn' value='경로찾기' onclick = "findRoot()" >
 			<input type='button' id='r_btn' value='경로취소' onclick = "removeRoot()" style="/* visibility:hidden; */ display:none;" >
-			 <input type='button' id='fl_btn' value='친구찾기' onclick = "findMyLocation()">
-			  <input type='button' id='sl_btn' value='친구찾기 중지' onclick = "stopMyLocation()" style="/* visibility:hidden; */ display:none;"><br> 
-			  
-			
+			 <input type='button' id='fl_btn' value='친구찾기' onclick = "findLocation()">
+			  <input type='button' id='sl_btn' value='친구찾기 중지' onclick = "stopLocation()" style="/* visibility:hidden; */ display:none;"><br> 
 		</div>
 		</form>
 	</div>
@@ -415,9 +58,7 @@
 
  <!-- 지도 -->
 <div id="map_div"></div> 
-  <br><br>
-
-
+  
 <!-- Modal -->
 <div class="modal fade" id="findAddr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -487,34 +128,9 @@
     	
          <script>
          
-         
-// 	  		function setLocation(lat, lng) {
-// 	  			latitude = lat;
-// 	  			longitude = lng;
-	  			
-// 	  			initTmap();
-// 	 		}
-  		         
-// 	  		function setLocation2(lat, lng) {
-// 	  			latitude = lat;
-// 	  			longitude = lng;
-	  			
-// 	  			//drawMarker(   );
-// 	  			//$('#test').text(latitude+'/'+longitude);
-// 	  			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
-//         		var size = new Tmap.Size(24, 38);//아이콘 크기 설정
-//         		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정 
-//         		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
-        		
-//         		markers3 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
-//         		map.addLayer(markers3); // 지도에 Markers 객체 추가
-        		
-//         		marker3 = new Tmap.Marker(lonlat3, icon);//마커 생성
-//         		markers3.addMarker(marker3);//레이어에 마커 추가 
-        		
-// 	 		}
   		   
-			var socket;
+			var socket = io("http://192.168.0.28:82");
+			var watchId;
 			
          	var map;
          	var latitude, longitude;
@@ -525,49 +141,29 @@
 			var marker1, marker2, marker3;
 			var vectorLayer;
 		
-			var flocation;
+			//var flocation;
 			
 			var size = new Tmap.Size(24, 38);
      		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));
      		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_s.png',size, offset);
+     		var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기
          	
-         	$(document).ready(function() {
-				// 안드로이드 폰에서 접속한 경우에만 실행
-				//window.loc.sendLocation();
-         		initTmap();
-         		
+     		$(document).ready(function() {
+				// 안드로이드 폰에서 접속한 경우에만 실행				 
+				if (varUA.match('android') != null) { 
+				    //안드로이드 일때 처리
+				    window.loc.sendLocation();
+				    initTmap();
+				} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
+				    //IOS 일때 처리
+				} else {
+					initTmap();
+				}
+		
         	});
          	
          	function setVariables(){    
          	    zoom = 16;  // zoom level입니다.  0~19 레벨을 서비스 하고 있습니다. 
-         	}
-         	
-         	function setLocation(lat, lng){
-         		latitude = lat;
-         		longitude = lng;
-         		console.log("**********");
-         	}
-         	
-         	function setLocation2(lat, lng){
-         		latitude = lat;
-         		longitude = lng;
-         		
-         		try {
-					socket = io("http://localhost:82");
-		 			 //소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
-		            socket.emit("send_latitude2",latitude);
-					socket.on('send_latitude2', function(msg){
-						console.log("send_latitude2 : "+msg);	
-					});
-		          //소켓에 send_longitude라는 이벤트로 longitude를 담고 보내준다.
-		            socket.emit("send_longitude2",longitude); 
-					socket.on('send_longitude2', function(msg){
-						console.log("send_longitude2 : "+msg);
-						
-						alert(latitude + '/' + longitude)
-					});
-					
-				} catch(e) {}
          	}
          	
          	function initTmap(){
@@ -575,126 +171,76 @@
          		map = new Tmap.Map({
          			div:'map_div',
          		});
-         		
-         		//위치 정보 받아오기
-         		navigator.geolocation.getCurrentPosition(function(pos) {
-    				latitude = pos.coords.latitude;
-    				longitude = pos.coords.longitude;
-    				//alert(latitude + '/' + longitude)
-    					console.log("@@@@@@@@@");
-    				 //window.loc.sendLocation();
- //////
+
+         		if (varUA.match('android') != null) { 
+				    //안드로이드 일때 처리
+	         			console.log("안드로이드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+				       	//socket.emit("send_latlng",latitude,longitude);
+	 					socket.on('send_latlng', function(id,lat,lng){
+	 						console.log("send_latlng : "+id+"/"+lat+","+lng);	
+	 						latitude = lat;
+		    				longitude = lng;
+		    				initLocation();
+	 					});
 					
-						socket = io("http://localhost:82");
-			 			 //소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
-			            socket.emit("send_latitude",latitude);
-						socket.on('send_latitude', function(msg){
-							console.log("send_latitude : "+msg);	
-						});
-						
-						
-			          //소켓에 send_longitude라는 이벤트로 longitude를 담고 보내준다.
-			            socket.emit("send_longitude",longitude); 
-						socket.on('send_longitude', function(msg){
-							console.log("send_longitude : "+msg);
-						});
-						alert(latitude + '/' + longitude)
-					
-///////// 	
+				} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
+				    //IOS 일때 처리
+				} else {
+					//console.log("웹@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	         		//위치 정보 받아오기
+	         		navigator.geolocation.getCurrentPosition(function(pos) {
+	    				latitude = pos.coords.latitude;
+	    				longitude = pos.coords.longitude;
 
-             		map.setCenter(new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857"), 15);
-             		
-  					//시작마커
-             		lonlat = new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857");
-             		
-             		//////////////리버스지오코딩///////////////////
-             		var url = "https://apis.openapi.sk.com/tmap/geo/reversegeocoding"; //Reverse Geocoding api 요청 url입니다.
-            		var params = {
-            			"version" : "1"//버전 정보입니다.
-            			,"coordType" : "EPSG3857"
-            			,"lat" : lonlat.lat //위도 좌표입니다.
-            			,"lon" : lonlat.lon //경도 좌표입니다.
-            			,"appKey" : gAppKey//앱 키(appKey) 입니다.
-            		}
-            		$.get(url, params, function(data){
-            			if(data){ 
-	
-            				var address1 = data.addressInfo;//Reverse Geocoding api 요청하여 받은 결과에서 주소정보를 추출합니다.
-          					var addr = address1.fullAddress;
-            				
-                    		document.querySelector("[name=start]").value = addr;
-                    		//document.querySelector("[name=address]").value = addr;
-                    		
-                     		/* // 팝업 생성
-                    		var popup;
-                    		popup = new Tmap.Popup( );
-                    		popup.autoSize=true;//popup 사이즈 자동 조절		                         
-                    		popup.show(); // 팝업 보이기
-                    	 */
-                    		centerLL = lonlat;
-                    		targetLL = lonlat;
-                    		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
-                    		markers1 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
-                    		map.addLayer(markers1); // 지도에 Markers 객체 추가
-                    		
-                    		drawMarker(3,addr,1); // 마커 그리기
-                    		////////////////////////////////
-            			}else{
-            				alert("검색결과가 없습니다.");
-            			}
-            		}); 
-             	
-             		//도착마커
-            		lonlat2 = new Tmap.LonLat(longitude + 0.001,latitude + 0.001).transform("EPSG:4326", "EPSG:3857");
-            	
-            		var params2 = {
-                			"version" : "1"//버전 정보입니다.
-                			,"coordType" : "EPSG3857"
-                			,"lat" : lonlat2.lat //위도 좌표입니다.
-                			,"lon" : lonlat2.lon //경도 좌표입니다.
-                			,"appKey" : gAppKey//앱 키(appKey) 입니다.
-                		}
-                		$.get(url, params2, function(data){
-                			if(data){ 
-                				
-                				var address = data.addressInfo;//Reverse Geocoding api 요청하여 받은 결과에서 주소정보를 추출합니다.
-                				var addr2 = address.fullAddress;
-              
-                         		//document.querySelector("[name=arrive]").value = addr2;	
-                         		document.querySelector("[name=arrive]").value = '도착지 주소를 검색해주세요';	
+	    				 socket.emit("send_latlng",latitude,longitude);
+	 					socket.on('send_latlng', function(id,lat,lng){
+	 						console.log("send_latlng : "+id+"/"+lat+","+lng);	
+	 					});
 
-//                          		// 팝업 생성
-//                         		var popup2;
-//                         		popup2 = new Tmap.Popup( );
-//                         		popup2.autoSize=true;//popup 사이즈 자동 조절		                         
-//                         		popup2.show(); // 팝업 보이기
-                        	
-                        		// 이미지 마커 커스텀 오버레이
-                        	
-                        		centerLL = lonlat2;
-                        		targetLL = lonlat2;
-                        		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
-                        		markers2 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - 도착
-                        		map.addLayer(markers2); // 지도에 Markers 객체 추가
-                        		drawMarker(3,addr2,2); // 마커 그리기
-                        		
-                			}else{
-                				alert("검색결과가 없습니다.");
-                			}
-                		}); 
-             		
-            	/* 	document.querySelector("[name=lat]").value = lonlat.lat;
-             		document.querySelector("[name=lon]").value = lonlat.lon; */
-             		
-             		map.events.register("click", map, onClick);
-      
+	    				initLocation();
+         			});        		
+         		} 
+         	}
+         
+  			//위치 초기값
+  			function initLocation(){
+         		map.setCenter(new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857"), 15);
+				//시작마커
+         		lonlat = new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857");
+         		//////////////리버스지오코딩///////////////////
+         		var url = "https://apis.openapi.sk.com/tmap/geo/reversegeocoding"; //Reverse Geocoding api 요청 url입니다.
+        		var params = {
+        			"version" : "1"//버전 정보입니다.
+        			,"coordType" : "EPSG3857"
+        			,"lat" : lonlat.lat //위도 좌표입니다.
+        			,"lon" : lonlat.lon //경도 좌표입니다.
+        			,"appKey" : gAppKey//앱 키(appKey) 입니다.
+        		}
+        		$.get(url, params, function(data){
+        			if(data){ 
 
-         		});
-
-         	} 
+        				var address1 = data.addressInfo;//Reverse Geocoding api 요청하여 받은 결과에서 주소정보를 추출합니다.
+      					var addr = address1.fullAddress;
+        				
+                		document.querySelector("[name=start]").value = addr;
+                	
+                		centerLL = lonlat;
+                		targetLL = lonlat;
+                		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
+                		markers1 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
+                		map.addLayer(markers1); // 지도에 Markers 객체 추가
+                		
+                		drawMarker(3,addr,1); // 마커 그리기
+                		////////////////////////////////
+        			}else{
+        				alert("검색결과가 없습니다.");
+        			}
+        		}); 
+         	
+  			}
 
          	//위치찾기
-			function findMyLocation(){
+			function findLocation(){
 				
 				markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
 				map.addLayer(markerLayer);//map에 마커 레이어 추가
@@ -702,53 +248,72 @@
         		document.getElementById("fl_btn").style.display="none";
         		document.getElementById("sl_btn").style.display="inline";
         		
-//         		setLocation2(lat, lng);
+        		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
         		
-//         		$('#test').text(latitude+'/'+longitude);
-        		
-//         		lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
-//         		var size = new Tmap.Size(24, 38);//아이콘 크기 설정
-//         		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정 
-//         		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
-        		
-//         		markers3 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
-//         		map.addLayer(markers3); // 지도에 Markers 객체 추가
-        		
-//         		marker3 = new Tmap.Marker(lonlat3, icon);//마커 생성
-//         		markers3.addMarker(marker3);//레이어에 마커 추가
-     					
-        		flocation = setInterval(function() {
-        		
-        			longitude += 0.001;
-        			latitude += 0.001;
-        			   
-        			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
-        			/* var size = new Tmap.Size(24, 38);//아이콘 크기 설정
-        			var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정 */
-        			var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
-        			
-        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
-        			markerLayer.addMarker(marker);//레이어에 마커 추가
-        			
-        			console.log('내위치 확인')
-        			console.log('지도에 마커 표시')
-        			console.log('lonlat : ' + lonlat); 
-        			
-        		}, 3000);
-				
+        		if (varUA.match('android') != null) { 
+				    //안드로이드 일때 처리
+				    console.log("안드로이드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+				    
+	        			
+			 			//소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
+			            socket.emit("send_latlng2",latitude,longitude);
+						socket.on('send_latlng2', function(id,lat,lng){
+							console.log("send_latlng2 : "+id+"/"+lat+","+lng);	
+							latitude = lat;
+		       				longitude = lng;
+							
+		 					console.log("lat: " + latitude + "/lng: " + longitude);
+
+		        			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
+		        				        			
+		        			centerLL = lonlat3;
+		            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
+		            		
+		        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
+		        			markerLayer.addMarker(marker);//레이어에 마커 추가
+						});
+						
+						
+	       		  
+				} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
+				    //IOS 일때 처리
+				} else {
+					  console.log("웹@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+					var options = {timeout: 3000};
+	        		watchId = navigator.geolocation.watchPosition(function(position) {
+	        			console.log(position.coords);
+
+	        			latitude = position.coords.latitude;
+	       				longitude = position.coords.longitude;
+			 			//소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
+			            socket.emit("send_latlng2",latitude,longitude);
+						socket.on('send_latlng2', function(id,lat,lng){
+							console.log("send_latlng2 : "+id+"/"+lat+","+lng);	
+						},null,options);
+									
+	        			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
+	        				        			
+	        			centerLL = lonlat3;
+	            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
+	            		
+	        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
+	        			markerLayer.addMarker(marker);//레이어에 마커 추가
+	       			}); 
+				}
+
          	}
 			
          	//위치찾기 종료
-			function stopMyLocation(){
+			function stopLocation(){
 					
-        		clearInterval(flocation);
+        		navigator.geolocation.clearWatch(watchId);
+        		//clearInterval(flocation);
         		markerLayer.clearMarkers();//레이어에 마커 제거
         		console.log("친구찾기 중지");
         		
-        		/* document.getElementById("fl_btn").style.visibility="visible";
-        		document.getElementById("sl_btn").style.visibility="hidden"; */
         		document.getElementById("fl_btn").style.display="inline";
         		document.getElementById("sl_btn").style.display="none";
+        		
          	}
          	
          	//길찾기
@@ -756,14 +321,10 @@
          		try {
          			removeRoot();
          		} catch(e) {}
-         		
-         		//출발, 도착지 마커 제거
-         		//markers1.clearMarkers();
-         		//markers2.clearMarkers();
+         	
          		markers1.setVisibility(false);
          		markers2.setVisibility(false);
          		
-     			
 				var tData = new Tmap.TData();//REST API 에서 제공되는 경로, 교통정보, POI 데이터를 쉽게 처리할 수 있는 클래스입니다.
 				
         		var s_lonLat =  new Tmap.LonLat(lonlat.lon , lonlat.lat).transform("EPSG:3857", "EPSG:4326");; //시작 좌표입니다.   
@@ -774,7 +335,6 @@
         				resCoordType:"EPSG3857"  //응답 좌표계 옵셥 설정입니다.
                      }
         		
-
         		tData.getRoutePlan(s_lonLat, e_lonLat, optionObj);//경로 탐색 데이터를 콜백 함수를 통해 XML로 리턴합니다.
         		
         		tData.events.register("onComplete", tData, onComplete);//데이터 로드가 성공적으로 완료되었을 때 발생하는 이벤트를 등록합니다.
@@ -783,8 +343,7 @@
         		
         		document.getElementById("r_btn").style.display="inline";
         		document.getElementById("f_btn").style.display="none";
-        		/* document.getElementById("r_btn").style.visibility="visible";
-        		document.getElementById("f_btn").style.visibility="hidden"; */
+        
          	}
          	
          	//길찾기 제거
@@ -795,61 +354,9 @@
          		
          		document.getElementById("r_btn").style.display="none";
         		document.getElementById("f_btn").style.display="inline";
-         		/* document.getElementById("r_btn").style.visibility="hidden";
-         		document.getElementById("f_btn").style.visibility="visible"; */
-         		
-         		
+         	
          	}
 
-
-         	//map을 클릭하는 경우 발생하는 함수입니다.
-        	function onClick(e){
-        		lonlat2 = map.getLonLatFromViewPortPx(e.xy); 
-        		var url = "https://apis.openapi.sk.com/tmap/geo/reversegeocoding"; //Reverse Geocoding api 요청 url입니다.
-        		var params = {
-        			"version" : "1"//버전 정보입니다.
-        			,"coordType" : "EPSG3857"
-        			,"lat" : lonlat2.lat //위도 좌표입니다.
-        			,"lon" : lonlat2.lon //경도 좌표입니다.
-        			,"appKey" : gAppKey//앱 키(appKey) 입니다.
-        		}
-        		$.get(url, params, function(data){
-        			if(data){ 
-        				
-        				markers2.removeMarker(marker2); //기존 마커를 삭제합니다.
-        				
-        				var address = data.addressInfo;//Reverse Geocoding api 요청하여 받은 결과에서 주소정보를 추출합니다.
-        				var addr2 = address.fullAddress;
-      
-                 		document.querySelector("[name=arrive]").value = addr2;	
-
-                 		// 팝업 생성
-                		var popup2;
-                		popup2 = new Tmap.Popup( );
-                		popup2.autoSize=true;//popup 사이즈 자동 조절		                         
-                		popup2.show(); // 팝업 보이기
-                	
-                		// 이미지 마커 커스텀 오버레이
-                	
-                		centerLL = lonlat2;
-                		targetLL = lonlat2;
-                		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
-                		markers2 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성- 클릭 도착마커
-                		map.addLayer(markers2); // 지도에 Markers 객체 추가
-                		drawMarker(3,addr2,2); // 마커 그리기
-
-        			}else{
-        				alert("검색결과가 없습니다.");
-        			}
-        			
-        			
-        		});
-        	}
-       
-         	
-         	
-         	///////////////////////
-         	
          	//map을 이동하는 경우 발생하는 함수입니다.
         	function onMoveEnd(){
         		var c_ll = map.getCenter(); //현재 지도의 center 좌표를 가져옵니다.
@@ -893,10 +400,7 @@
         	function onError(){
         		alert("onError");
         	}
-        	
-        	
-        	//////////////////////////////////
-        	
+
 			// 마커 그리기
 			function drawMarker(type, addr,ca){
 				
@@ -913,8 +417,7 @@
 						markers2.addMarker(marker2); // markers 에 마커 추가
 						marker2.popup.show(); // 팝업 보이기
 					}	
-				}
-				
+				}				
 		
 			// 라벨 컨텐츠 지정 함수
 			function getMarkupData(addr){
@@ -923,7 +426,7 @@
 				txt += "<span class='whiteText'>"+ addr + "</span>";
 				return txt;
 			}
-			////////////////////////////////////
+
 		//주소검색    
 		var newRoadAddr = '';
 
@@ -1115,7 +618,7 @@
 				strHtml+='		<ul class="tb1">';
 				strHtml+='			<li class="row">';
 				strHtml+='				<div class="th"><span class="label st">도로명</span></div>';
-				strHtml+='				<div id="selectArrive" onclick="arriveAddr()">' + newRoadAddr + '</div>';
+				strHtml+='				<div id="selectArrive" onclick="arriveAddr()" data-dismiss="modal">' + newRoadAddr + '</div>';
 				strHtml+='			</li>';
 				strHtml+='		</ul>';
 				strHtml+='	</td>';
@@ -1140,7 +643,7 @@
 			var roadAddr = newRoadAddr;
 			console.log(roadAddr);
 			document.querySelector("[name=arrive]").value = roadAddr;
-			
+		       
 			$.ajax({
 				method:"GET",
 				url:"https://apis.openapi.sk.com/tmap/geo/fullAddrGeo?version=1&format=xml&callback=result", //FullTextGeocoding api 요청 url입니다.
@@ -1152,8 +655,7 @@
 				},//데이터 로드가 성공적으로 완료되었을 때 발생하는 함수입니다.
 				success:function(response){
 					prtcl = response;
-					
-					// 3. 마커 찍기
+										// 3. 마커 찍기
 					var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String	
 					xmlDoc = $.parseXML( prtclString ),
 					$xml = $( xmlDoc ),
@@ -1185,8 +687,8 @@
 					console.log("lonlat2 : " +lonlat2);
 					
 					//////////////////////////////////
-					markers2.removeMarker(marker2); //기존 마커를 삭제합니다.
-					console.log("마커 제거됫니")
+					//markers2.removeMarker(marker2); //기존 마커를 삭제합니다.
+					//console.log("마커 제거됫니")
 					//////
     				
     				var addr2 = document.querySelector("[name=arrive]").value;
@@ -1205,8 +707,7 @@
             		markers2 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - 주소검색시
             		map.addLayer(markers2); // 지도에 Markers 객체 추가
             		drawMarker(3,addr2,2); // 마커 그리기
-            	
-					
+
 				},
 					//요청 실패시 콘솔창에서 에러 내용을 확인할 수 있습니다.
 					error:function(request,status,error){
@@ -1218,9 +719,7 @@
 								$("#result").html("");
 					}
 				});
-			
-			
-			
+
 		}
 		
 		function fail(){
