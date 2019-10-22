@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	// 채팅에 접속 
-    var socket = io("http://192.168.0.15:82");  
+    var socket = io("http://192.168.0.28:82");  
 	
   // 2. 소켓에 이벤트를 등록하여 접속 됬음을 알게 되면 사용자의 이름을 받는다
     // (세션이 있었다면 : 이름, 아이디 사용)
@@ -38,14 +38,14 @@ $(document).ready(function() {
     function memberShow(memberId, memberNick){
     	// $("#memberList").empty();
     	console.log('여기로 들어오는지...')
+    	console.log('@' + room_num + '@');
     	var html = "";
 //    	for(var i =0 ; i<Object.keys( member ).length ; i++){
 //    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
     		html += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+memberNick+"";
     		html += "<span class='caret'></span></button>"
 			html += "<ul class='dropdown-menu' style='list-style:none;'>"
-			html += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
-//			html += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
+			html += "<li><a href='/returnscroll/tmap/" + user_id + "' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
 			html += "</ul></div>";
 //    	}
 
@@ -74,9 +74,10 @@ $(document).ready(function() {
     				"float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+memberNick+"";
     		html += "<span class='caret'></span></button>"
 			html += "<ul class='dropdown-menu' style='list-style:none;'>"
-			html += "<li><a href='/returnscroll/tmap' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
+			html += "<li><a href='/returnscroll/tmap/" + user_id + "' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
 //			html += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
 			html += "</ul></div>";
+    		
 //    	}
 
     	/*for(var i=0;i<member.length;i++){

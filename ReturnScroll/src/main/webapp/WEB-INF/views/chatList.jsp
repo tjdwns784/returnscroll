@@ -240,14 +240,14 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.15:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <%--     <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script> --%>
 <!-- 	<script src="jquery.sticky.js"></script> -->
 	<script>
 		// 현재 접속중인 채팅방 리스트를 보여주기 위함.
 		$(document).ready(function(){
-			var socket = io("http://192.168.0.15:82");
+			var socket = io("http://192.168.0.28:82");
 			console.log('채팅 서버 접속');
 			var user = $('#userID').val();
 			
@@ -290,12 +290,12 @@
 			console.log('초대수락 버튼 ');
 			console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
 			$.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
+                url:"/returnscroll/friend/friendInviteCheck",
                 type:'GET',
                 data: inviteData,
                 success:function(data){
                 	console.log('결과 데이터는 '+data);
-                	window.location.href="http://localhost:8080/returnscroll/chat/"+data;
+                	window.location.href="/chat/"+data;
                 },
                 error:function(request, status, errorThrown){
                    alert('방 입장 실패'+errorThrown);
@@ -308,7 +308,7 @@
 			console.log('거절수락 버튼 ');
 			console.log("데이터 : "+inviteData.roomNumber+", "+inviteData.sender+", "+inviteData.recipient);
 			$.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendInviteCheck",
+                url:"/returnscroll/friend/friendInviteCheck",
                 type:'GET',
                 data: inviteData,
                 success:function(data){

@@ -168,7 +168,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.15:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
   
@@ -186,7 +186,7 @@
     		var check = confirm(friendId+"님을 삭제하시겠습니까?");
         	  if(check) {
         		  $.ajax({
-                      url:"http://localhost:8080/returnscroll/chat/deleteFriend",
+                      url:"/returnscroll/chat/deleteFriend",
                       type:'GET',
                       data: data,
                       success:function(data){
@@ -213,12 +213,12 @@
     		var createData = {"roomName": newChatName ,"createUser": uid, "friendId" : friendId};
     		console.log("방생성할 때 보내는 데이터 : "+createData.roomName+", "+createData.createUser+", "+createData.friendId);
     		$.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendChatRoom",
+                url:"/returnscroll/friend/friendChatRoom",
                 type:'GET',
                 data: createData,
                 success:function(data){
                 	console.log('방금 생성한 방의 번호: '+data+", data의 타입 : "+typeof data);
-                	var url = "http://localhost:8080/returnscroll/chat/"+data+"";
+                	var url = "chat/"+data+"";
                 	console.log('접속할 url은 '+url);
                 	window.open(url); // 접속 성공했고, 
                 	// friendId에게 채팅방에 초대됬다는 알람을 보내줌
@@ -235,7 +235,7 @@
   			var chatInvite = {"roomNumber":roomNumber,"sender":sender,"recipient":recipient};
   			// 데이터베이스에 집어 넣기
   			$.ajax({
-                url:"http://localhost:8080/returnscroll/friend/friendInviteRoom",
+                url:"/returnscroll/friend/friendInviteRoom",
                 type:'GET',
                 data: chatInvite,
                 success:function(data){

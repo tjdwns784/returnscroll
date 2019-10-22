@@ -69,15 +69,19 @@ public class HomeController  {
 	}
 	
 	//지도 티맵 - 사용하는것
-	@RequestMapping(value = "/tmap", method = RequestMethod.GET)
-	public String tmap(Locale locale, Model model, HttpSession httpSession, @RequestHeader(required = false, value="user-agent") String userAgent) {
+	@RequestMapping(value = "/tmap/{user_id}", method = RequestMethod.GET)
+	public String tmap(Locale locale, Model model, HttpSession httpSession, /*
+																			 * @RequestHeader(required = false,
+																			 * value="user-agent") String userAgent,
+																			 */
+			@PathVariable("user_id") String user_id) {
 				
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 			return "redirect:/login";
 		}else {
 			
-			System.out.println(userAgent);
+			//System.out.println(userAgent);
 			
 //			if(userAgent != null) {
 //				if(userAgent.indexOf("Android") > -1 && userAgent.indexOf("Mobile") > -1) {
@@ -86,6 +90,8 @@ public class HomeController  {
 //				}
 //			}
 //			System.out.println("웹");
+			System.out.println(user_id);
+			model.addAttribute("user_id",user_id);
 			return "tmap";
 				
 		}

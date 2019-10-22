@@ -51,6 +51,7 @@
 			<input type='button' id='r_btn' value='경로취소' onclick = "removeRoot()" style="/* visibility:hidden; */ display:none;" >
 			 <input type='button' id='fl_btn' value='친구찾기' onclick = "findLocation()">
 			  <input type='button' id='sl_btn' value='친구찾기 중지' onclick = "stopLocation()" style="/* visibility:hidden; */ display:none;"><br> 
+			<input type="hidden" id="user_id" value="${user_id}">
 		</div>
 		</form>
 	</div>
@@ -147,12 +148,16 @@
      		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));
      		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_s.png',size, offset);
      		var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기
+     		
+     		var user_id = $('#user_id').val();
          	
      		$(document).ready(function() {
 				// 안드로이드 폰에서 접속한 경우에만 실행				 
 				if (varUA.match('android') != null) { 
 				    //안드로이드 일때 처리
-				    window.loc.sendLocation();
+				    socket.emit('send_userid',user_id);
+				    console.log("send_userid" + user_id);
+				    window.loc.sendLocation();				    
 				    initTmap();
 				} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
 				    //IOS 일때 처리
@@ -180,25 +185,32 @@
 	 						console.log("send_latlng : "+id+"/"+lat+","+lng);	
 	 						latitude = lat;
 		    				longitude = lng;
+		    				
+		    				socket.emit('send_room_latlng',id,latitude,longitude);
+		    			
 		    				initLocation();
 	 					});
 					
 				} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
 				    //IOS 일때 처리
 				} else {
-					//console.log("웹@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+					console.log("웹@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 	         		//위치 정보 받아오기
 	         		navigator.geolocation.getCurrentPosition(function(pos) {
 	    				latitude = pos.coords.latitude;
 	    				longitude = pos.coords.longitude;
+	    				console.log("웹@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 	    				 socket.emit("send_latlng",latitude,longitude);
 	 					socket.on('send_latlng', function(id,lat,lng){
 	 						console.log("send_latlng : "+id+"/"+lat+","+lng);	
+	 						socket.emit('send_room_latlng',id,latitude,longitude);
 	 					});
+	 					
 
 	    				initLocation();
          			});        		
+	         		
          		} 
          	}
          
@@ -263,6 +275,7 @@
 		       				longitude = lng;
 							
 		 					console.log("lat: " + latitude + "/lng: " + longitude);
+		 					socket.emit('send_room_latlng2',id,latitude,longitude);
 
 		        			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
 		        				        			
@@ -289,6 +302,7 @@
 			            socket.emit("send_latlng2",latitude,longitude);
 						socket.on('send_latlng2', function(id,lat,lng){
 							console.log("send_latlng2 : "+id+"/"+lat+","+lng);	
+							socket.emit('send_room_latlng2',id,latitude,longitude);
 						},null,options);
 									
 	        			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
