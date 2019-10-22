@@ -137,45 +137,6 @@
 //           $('#sidebar-wrapper').close();
 //           $('.menu-toggle').removeClass('active');
       });
-
-      function onLoad() {
-          gapi.load('auth2', function() {
-            gapi.auth2.init();
-          });
-        }
-      $('#logout').click(function(e) {
-   //       e.preventDefault();
-         var auth2 = gapi.auth2.getAuthInstance();
-         auth2.signOut().then(function () {
-            console.log('user singed out');
-         });
-         auth2.disconnect();
-      })
-
-      $("body").on('click', '#body', function(){
-         $('.menu-toggle > i.fa-times').trigger('click');
-//           $('#sidebar-wrapper').close();
-//           $('.menu-toggle').removeClass('active');
-      });
-      function onLoad() {
-          gapi.load('auth2', function() {
-            gapi.auth2.init();
-          });
-        }
-      $('#logout').click(function(e) {
-   //       e.preventDefault();
-         var auth2 = gapi.auth2.getAuthInstance();
-         auth2.signOut().then(function () {
-            console.log('user singed out');
-         });
-         auth2.disconnect();
-      })
-
-      $("body").on('click', '#body', function(){
-         $('.menu-toggle > i.fa-times').trigger('click');
-//           $('#sidebar-wrapper').close();
-//           $('.menu-toggle').removeClass('active');
-      });
 </script>
 
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
