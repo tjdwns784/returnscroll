@@ -15,13 +15,13 @@ public class UsersDao {
 
 	
 	// 관리자 회원목록
-	public List<Map<String, Object>> admin_member() {
-		return ss.selectList("users.admin_member");
+	public List<Map<String, Object>> admin_member(Map<String, Object> map) {
+		return ss.selectList("users.admin_member", map);
 	}
 		
 	// 관리자 회원목록 게시판 갯수 찾기
-	public int admin_selectTotalCount() {
-		return ss.selectOne("users.admin_selectTotalCount");
+	public int admin_selectTotalCount(Map<String, Object> map) {
+		return ss.selectOne("users.admin_selectTotalCount", map);
 	}
 		
 	// 메일에 가입한 이름 뜨게 하는거

@@ -197,28 +197,28 @@
     	
     %>
     <c:if test='${page > 10}'>
-    	<li class="page-item"><a class="page-link" href="admin_articel?page=${startPage - 10}">◀</a></li>
+    	<li class="page-item"><a class="page-link" href="admin_article?page=${startPage - 10}">◀</a></li>
     </c:if>
     <c:if test='${page <= 10}'>
-    	<li class="page-item disabled"><a class="page-link" href="admin_articel?page=${startPage - 10}">◀</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="admin_article?page=${startPage - 10}">◀</a></li>
     </c:if>
 
     <c:forEach begin="<%=startPage %>" end="<%=endPage%>" var="pnum" step="1">
     	<c:if test='${nowPage == pnum}'> 
     		<li class="page-item active">
-    		<a class="page-link" style="background-color:#FFCC33; border-color: #FFCC33;" href="admin_articel?page=${pnum}&searchText=${searchText}&searchItem=${searchItem}&searchOrd=${searchOrd}">${pnum}</a></li>
+    		<a class="page-link" style="background-color:#FFCC33; border-color: #FFCC33;" href="admin_article?page=${pnum}&searchText=${searchText}&searchItem=${searchItem}&searchOrd=${searchOrd}">${pnum}</a></li>
     	</c:if>
     	<c:if test='${nowPage != pnum}'> 
     		<li class="page-item">
-    		<a class="page-link" href="admin_articel?page=${pnum}&searchText=${searchText}&searchItem=${searchItem}&searchOrd=${searchOrd}">${pnum}</a></li>
+    		<a class="page-link" href="admin_article?page=${pnum}&searchText=${searchText}&searchItem=${searchItem}&searchOrd=${searchOrd}">${pnum}</a></li>
     	</c:if>
     </c:forEach>
     
     <c:if test='${endPage < showNum}'>
-    	<li class="page-item"><a class="page-link" href="admin_articel?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item"><a class="page-link" href="admin_article?page=${startPage + 10}">▶</a></li>
     </c:if>
      <c:if test='${endPage >= showNum}'>
-    	<li class="page-item disabled"><a class="page-link" href="admin_articel?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="admin_article?page=${startPage + 10}">▶</a></li>
     </c:if>
   </ul>
 </div>

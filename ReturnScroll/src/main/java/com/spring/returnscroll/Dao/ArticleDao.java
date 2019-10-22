@@ -76,8 +76,8 @@ public class ArticleDao {//qna게시판
 	}
 	
 	//게시판 댓글수 찾기
-		public int selectCommentCount(Map<String, Object> map) {
-			return ss.selectOne("article.selectCommentCount", map);
-		}
+	public int selectCommentCount(Map<String, Object> map) {
+		return ss.selectOne("article.selectCommentCount", map);
+	}
 	
 }

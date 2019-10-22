@@ -90,7 +90,12 @@
 		#h1_title{
 			font-size:2rem;
 		}
+		
+		#tableuid{
+			text-align : left;
+		}
 	}
+
 
   /* .masthead {
   	padding-top: 4rem; 
@@ -118,32 +123,34 @@
 		<thead class="thead-dark" style="text-align:center;" >
 			<tr >
 			<th  class="d-none d-lg-table-cell" style="width:5%;" >번호</th>
-			<th  class="d-none d-lg-table-cell" style="width:25%;" >아이디</th>
-			<th  class="d-none d-lg-table-cell" style="width:5%;" >이름</th>
-			<th  class="d-none d-lg-table-cell" style="width:10%;" >별명</th>
-			<th  class="d-none d-lg-table-cell" style="width:10%;" >생일</th>
-			<th  class="d-none d-lg-table-cell" style="width:15%;" >휴대폰</th>
-			<th  class="d-none d-lg-table-cell" style="width:20%;" >이메일</th>
-			<th  class="d-none d-lg-table-cell" style="width:10%;" >비고</th>
+			<th  style="width:13%;" >아이디</th>
+			<th  class="d-none d-lg-table-cell" style="width:9%;" >이름</th>
+			<th  class="d-none d-lg-table-cell" style="width:15%;" >별명</th>
+			<th  class="d-none d-lg-table-cell" style="width:9%;" >생일</th>
+			<th  class="d-none d-lg-table-cell" style="width:9%;" >휴대폰</th>
+			<th  class="d-none d-lg-table-cell" style="width:14%;" >이메일</th>
+			<th  class="d-none d-lg-table-cell" style="width:10%;" >가입날짜</th>
+			<th  style="width:16%;" >비고</th>
 			</tr>
 		</thead>
 	<tbody>
 		<c:forEach items="${admin_member}" var="item" varStatus="status">
 	
 		<tr>
-			<td class="d-none d-lg-table-cell">${status.count}</td>
-			<td class="d-none d-lg-table-cell">${item.uid}</td>
+			<td class="d-none d-lg-table-cell">${(page-1)*10+status.count}</td>
+			<td id="tableuid">${item.uid}</td>
 			<td class="d-none d-lg-table-cell">${item.uname}</td>
 			<td class="d-none d-lg-table-cell">${item.nick}</td>
 			<td class="d-none d-lg-table-cell">${item.birth}</td>
 			<td class="d-none d-lg-table-cell">${item.phone}</td>
 			<td class="d-none d-lg-table-cell">${item.email}</td>
+			<td class="d-none d-lg-table-cell">${item.date}</td>
 			<td>
 				<a href="#" style="cursor: pointer" class="delete" uid="${item.uid}">삭제</a>
 				<a href="admin_userUpdate/${item.uid}" style="cursor: pointer" class="update">수정</a>
 			</td>
 			</tr>
-			
+
 		</c:forEach>
 	
 	</tbody>
@@ -203,9 +210,8 @@
   </ul>
 </div>
 
-
 	<jsp:include page="../footer.jsp"></jsp:include>
-	
+</div>
 <script>
 		function enterkey() {
 		    if (window.event.keyCode == 13) {

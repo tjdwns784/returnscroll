@@ -19,13 +19,13 @@ public class AdminService {
 	UsersDao usersDao;
 
 	// 관리자 게시판 목록 불러오기
-	public List<Map<String, Object>> admin_member() {
-		return usersDao.admin_member();
+	public List<Map<String, Object>> admin_member(Map<String, Object> map) {
+		return usersDao.admin_member(map);
 	}
 
 	// 관리자 회원목록 전체 개수 찾기
-	public int admin_selectTotalCount() {
-		return usersDao.admin_selectTotalCount();
+	public int admin_selectTotalCount(Map<String, Object> map) {
+		return usersDao.admin_selectTotalCount(map);
 	}
 	
 	// 회원탈퇴

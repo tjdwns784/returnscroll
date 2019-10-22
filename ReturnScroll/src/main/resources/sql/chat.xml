@@ -111,4 +111,8 @@
 		SELECT roomId, roomName FROM chatroom WHERE roomId = #{value}
 	</select>
 	
+	<select id="friendInvite" parameterType="string" resultType="map">
+		SELECT uid, uname, nick FROM users WHERE nick = #{value}
+	</select>
+	
 </mapper>
