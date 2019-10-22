@@ -87,7 +87,7 @@
 
   </style>
    <div style="text-align:center;" id='body'>
-       <img id="img_home" src="resources/img/리턴2.jpg" style=" height:564px;"><br>
+       <img id="img_home" src="resources/img/리턴2.jpg" style=" height:500px;"><br>
       <br><br>
 
       <c:if test="${uid.uid == null}">
@@ -103,11 +103,11 @@
       </c:if>
       
       <c:if test="${uid.uid != null && uid.uid == 'admin'}">
-    	<h1 id="welcome" style="margin-top:-1%; margin-bottom:-2%"><span id='unick' style='color:red'>대장님</span> 오셨나이까?</h1>
+    	<h1 id="welcome" style="margin-top:-5%; margin-bottom:-10%"><span id='unick' style='color:red'>대장님</span> 오셨나이까?</h1>
 	  </c:if>
 	  
       <c:if test="${uid.uid != null && uid.uid != 'admin'}">
-    	<h1 id="welcome" style="margin-top:-1%; margin-bottom:-2%"><span id='unick' style='color:red'>${uid.nick}님</span> 환영합니다!</h1>
+    	<h1 id="welcome" style="margin-top:-5%; margin-bottom:-10%"><span id='unick' style='color:red'>${uid.nick}님</span> 환영합니다!</h1>
 	  </c:if>
 
 	<jsp:include page="footer.jsp"></jsp:include>

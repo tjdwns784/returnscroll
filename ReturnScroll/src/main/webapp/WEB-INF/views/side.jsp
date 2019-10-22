@@ -8,7 +8,7 @@
 <br>
 <a href="/returnscroll/">
 <img id=img src="/returnscroll/resources/img/리턴2.jpg"></a>
-<h1 id='header' style="text-align:center; margin-right:100px;"><span onclick="location='/returnscroll'" style="cursor:pointer">Return Scroll</span></h1>
+<h1 id='header' style="text-align:center; margin-right:100px;"><span onclick="location='/returnscroll'" style="cursor:pointer; margin-right:-10%;">Return Scroll</span></h1>
 <c:if test="${uid.uid == 'admin'}">
 <h2 id="admin" style="text-align:center;">관리자전용</h2>
 </c:if>
