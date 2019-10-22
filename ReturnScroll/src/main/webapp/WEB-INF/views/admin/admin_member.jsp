@@ -79,6 +79,13 @@
 		margin-bottom: 0.5%;
 			
 	}
+	
+	#pagination {
+		justify-content: center; 
+		margin-top: 2%; 
+		margin-bottom: -3%;
+	}
+	
 	@media (max-width : 600px){
 	
 		#writeBtn {
@@ -93,6 +100,11 @@
 		
 		#tableuid{
 			text-align : left;
+		}
+		
+		#pagination {
+			margin-top: 2%; 
+			margin-bottom: -8%;
 		}
 	}
 
@@ -114,8 +126,17 @@
 	<!-- Custom scripts for this template -->
 	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
+<% 
+	String userAgent = request.getHeader("user-agent");
+	boolean isMobile = false;
+	if(userAgent.toLowerCase().indexOf("android") > -1) { // 안드로이드 폰에서 접속
+		isMobile = true;
+	}
+	request.setAttribute("isMobile", isMobile);
+%>
+
 <div id="body">
-<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">회원 목록</h1>
+<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">관리자 회원 목록</h1>
 <!-- <h1 class="mb-1">Q&A 게시판</h1> -->
 <hr style="width:95%; background:#FFCC33; height:2px" >
 
@@ -156,22 +177,28 @@
 	</tbody>
 </table>
 	<div class="container" style="width:90%;" >
-  <ul class="pagination" style="justify-content: center; margin-top: 2%; margin-bottom: -3%;">
-     <% int t = (Integer)request.getAttribute("total"); 
+  <ul id="pagination" class="pagination">
+     <% 
+	 	int showPageCount = 10;
+	 	if(isMobile) {
+	 		showPageCount = 5;
+	 	}
+	     
+	 	int t = (Integer)request.getAttribute("total"); 
     	int showNum = t / 10;
     	if(t % 10 != 0) {
     		showNum++;
     	}
     	
     	int nowPage = (Integer)request.getAttribute("page");
-    	int startPage = nowPage / 10 * 10;
-    	if(nowPage % 10 != 0) {
+    	int startPage = nowPage / showPageCount * showPageCount;
+    	if(nowPage % showPageCount != 0) {
     		startPage++;
     	} else {
-    		startPage -= 9;
+    		startPage -= (showPageCount - 1);
     	}
     	
-    	int endPage = startPage + 9;
+    	int endPage = startPage + (showPageCount - 1);
     	if(endPage > showNum) {
     		endPage = showNum;
     	}
@@ -180,14 +207,15 @@
     	request.setAttribute("startPage", startPage);
     	request.setAttribute("endPage", endPage);
     	request.setAttribute("nowPage", nowPage);
+    	request.setAttribute("showPageCount", showPageCount);
 
     	
     %>
-    <c:if test='${page > 10}'>
-    	<li class="page-item"><a class="page-link" href="admin_member?page=${startPage - 10}">◀</a></li>
+    <c:if test='${page > showPageCount}'>
+    	<li class="page-item"><a class="page-link" href="admin_member?page=${startPage - showPageCount}">◀</a></li>
     </c:if>
-    <c:if test='${page <= 10}'>
-    	<li class="page-item disabled"><a class="page-link" href="admin_member?page=${startPage - 10}">◀</a></li>
+    <c:if test='${page <= showPageCount}'>
+    	<li class="page-item disabled"><a class="page-link" href="admin_member?page=${startPage - showPageCount}">◀</a></li>
     </c:if>
 
     <c:forEach begin="<%=startPage %>" end="<%=endPage%>" var="pnum" step="1">
@@ -202,10 +230,10 @@
     </c:forEach>
     
     <c:if test='${endPage < showNum}'>
-    	<li class="page-item"><a class="page-link" href="admin_member?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item"><a class="page-link" href="admin_member?page=${startPage + showPageCount}">▶</a></li>
     </c:if>
      <c:if test='${endPage >= showNum}'>
-    	<li class="page-item disabled"><a class="page-link" href="admin_member?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="admin_member?page=${startPage + showPageCount}">▶</a></li>
     </c:if>
   </ul>
 </div>

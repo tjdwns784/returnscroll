@@ -36,13 +36,10 @@
 	rel="stylesheet">
 
 <style>
-	label {
-		display: block;
-	}
-	label + input {
-		display: inline-block !important;
-		width: 30% !important;
-	}
+
+ @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  
+  body, table, div, p, h1, form {font-family:'Nanum Gothic'; font-weight:bold;}
 	@media (min-width: 1200px) {
 		.container {
 		    max-width: 800px;
@@ -61,7 +58,7 @@
 	<jsp:include page="side.jsp"></jsp:include>
 	<!-- Header -->
 		<div class="container text-align:left my-auto">
-			<div style="border: 1px solid; padding: 10px; text-align:center;">
+			<div style="border: 1px solid; padding: 10px;">
 				<form method="POST" > 
 				<!-- 소셜 로그인 -->
 				<input type="hidden" name="kakao" value="${param.kakao}">
@@ -71,7 +68,7 @@
 					<c:if test="${param.kakao == null && param.facebook == null && param.google == null && param.naver == null}">
 						<div class="form-group">
 							<label for="user_id">아이디</label>
-							 <input type="text" style="width:70px; height:45px;"
+							 <input type="text"
 								class="form-control" id="user_id" name="uid" placeholder="ID"
 								required="required">
 							<p id='msgid' style="color: red"></p>
