@@ -85,7 +85,6 @@
 	<hr style="width:95%; background:#FFCC33; height:2px" >
 
 <div style="width:90%; margin:0 auto">
-<br><br>
 	<form action="/returnscroll/userUpdateAction" method="post">
 	<div class="form-group">
 
@@ -137,7 +136,7 @@
 						<p id='msgemail' style="color: red"></p>
 						<div class="check_font" id="email_check"></div>
 	</div>
-	<br><br>
+	<br>
 	<div style="margin:0 auto; text-align:center;">
 		<!-- submit 서버와 통신을 하게 되는 버튼 -->
 		<a href="/returnscroll/mypage"><input type="button" value="이전"></a>

@@ -90,7 +90,12 @@
 		#h1_title{
 			font-size:2rem;
 		}
+		
+		#tableuid{
+			text-align : left;
+		}
 	}
+
 
   /* .masthead {
   	padding-top: 4rem; 
@@ -119,13 +124,13 @@
 			<tr >
 			<th  class="d-none d-lg-table-cell" style="width:5%;" >번호</th>
 			<th  style="width:13%;" >아이디</th>
-			<th  class="d-none d-lg-table-cell" style="width:10%;" >이름</th>
+			<th  class="d-none d-lg-table-cell" style="width:9%;" >이름</th>
 			<th  class="d-none d-lg-table-cell" style="width:15%;" >별명</th>
-			<th  class="d-none d-lg-table-cell" style="width:10%;" >생일</th>
-			<th  class="d-none d-lg-table-cell" style="width:10%;" >휴대폰</th>
-			<th  class="d-none d-lg-table-cell" style="width:15%;" >이메일</th>
+			<th  class="d-none d-lg-table-cell" style="width:9%;" >생일</th>
+			<th  class="d-none d-lg-table-cell" style="width:9%;" >휴대폰</th>
+			<th  class="d-none d-lg-table-cell" style="width:14%;" >이메일</th>
 			<th  class="d-none d-lg-table-cell" style="width:10%;" >가입날짜</th>
-			<th  style="width:12%;" >비고</th>
+			<th  style="width:16%;" >비고</th>
 			</tr>
 		</thead>
 	<tbody>
@@ -133,7 +138,7 @@
 	
 		<tr>
 			<td class="d-none d-lg-table-cell">${(page-1)*10+status.count}</td>
-			<td>${item.uid}</td>
+			<td id="tableuid">${item.uid}</td>
 			<td class="d-none d-lg-table-cell">${item.uname}</td>
 			<td class="d-none d-lg-table-cell">${item.nick}</td>
 			<td class="d-none d-lg-table-cell">${item.birth}</td>

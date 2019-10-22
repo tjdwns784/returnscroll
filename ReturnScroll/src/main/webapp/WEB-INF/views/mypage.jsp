@@ -71,7 +71,6 @@
 	
 		#h1_title{
 			font-size:2rem;
-		}
 	}
 	
 </style>
@@ -88,27 +87,22 @@
 <div id="body">
 <h1 id="h1_title" style="margin-left:5%;margin-top:2%;">My Page</h1>
 <hr style="width:95%; background:#FFCC33; height:2px" >
-<br><br>
 <div style="width:95%; margin: 0 auto;">
 	<ul class="list-group">					
-					
-		<li class="list-group-item">아이디 : ${map.uid}</li>				
+		<li id="mypage_uid"class="list-group-item">아이디 : ${map.uid}</li>				
 		<li class="list-group-item">이름 : ${map.uname}</li>				
 		<li class="list-group-item">별명 : ${map.nick}</li>				
 		<li class="list-group-item">생년월일 : ${map.birth}</li>				
 		<li class="list-group-item">휴대폰 번호: ${map.phone}</li>				
-		<li class="list-group-item">이메일 : ${map.email}</li>	
+		<li id="mypage_email" class="list-group-item">이메일 : ${map.email}</li>	
 	</ul>		
-		<br><br><br><br>
-		
+	<br>
 		<div style="text-align:center;">
 		<button id="edit" 				
 			onclick='userUpdate()' style="height:40px; font-size: 17px;">수정</button>
 		<button id="del"			
 			onclick='userDelete()' style="height:40px; font-size: 17px;">탈퇴</button>			
 		</div>
-
-
   </div>
 	<jsp:include page="footer.jsp"></jsp:include>
 	</div>

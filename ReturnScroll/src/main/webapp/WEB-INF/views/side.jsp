@@ -8,9 +8,9 @@
 <br>
 <a href="/returnscroll/">
 <img id=img src="/returnscroll/resources/img/리턴2.jpg"></a>
-<h1 id='header' style="text-align:center; margin-right:100px;"><span onclick="location='/returnscroll'" style="cursor:pointer; margin-right:-10%;">Return Scroll</span></h1>
+<h1 id='header' style="text-align:center; margin-right:100px;"><span  id="returnscroll" onclick="location='/returnscroll'" style="cursor:pointer">Return Scroll</span></h1>
 <c:if test="${uid.uid == 'admin'}">
-<h2 id="admin" style="text-align:center;">관리자전용</h2>
+<h3 id="admin" style="text-align:center; color: red;">관리자전용</h3>
 </c:if>
 <hr style="width:95%; background:#FFCC33; height:2px" >
 </header>
@@ -26,7 +26,6 @@
        font-size:50px;
   }
   h1,body, table, div, a, li, ul{font-family:'Nanum Gothic';}
-
   #img {
         float: left;
         width: 65px;
@@ -52,8 +51,10 @@
   @media (max-width: 600px) {
      #header {
         
-        font-size: 35px;
-        margin-left:2px;
+        font-size: 29px;
+     }
+     #returnscroll {
+     	margin-left: 8%
      }
   }
 
@@ -99,7 +100,7 @@
       
       <c:if test="${uid != null && uid.uid == 'admin'}">
          <div style="bottom: 0;position: absolute; font-weight: 100px; font-size: 19px; margin-bottom: 10px; margin-left:20px;">
-            	관리자  님이 접속중입니다.<br> 
+               관리자  님이 접속중입니다.<br> 
             <a id="logout" href="../returnscroll/logout" style="color:red">관리 끝</a>
          </div>
       </c:if>
@@ -118,24 +119,24 @@
    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>      
 <!--    <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 <script>
-		function onLoad() {
-		    gapi.load('auth2', function() {
-		      gapi.auth2.init();
-		    });
-		  }
-		$('#logout').click(function(e) {
-	// 		e.preventDefault();
-			var auth2 = gapi.auth2.getAuthInstance();
-			auth2.signOut().then(function () {
-				console.log('user singed out');
-			});
-			auth2.disconnect();
-		})
-		$("body").on('click', '#body', function(){
-			$('.menu-toggle > i.fa-times').trigger('click');
-// 		 	$('#sidebar-wrapper').close();
-// 		 	$('.menu-toggle').removeClass('active');
-		});
+      function onLoad() {
+          gapi.load('auth2', function() {
+            gapi.auth2.init();
+          });
+        }
+      $('#logout').click(function(e) {
+   //       e.preventDefault();
+         var auth2 = gapi.auth2.getAuthInstance();
+         auth2.signOut().then(function () {
+            console.log('user singed out');
+         });
+         auth2.disconnect();
+      })
+      $("body").on('click', '#body', function(){
+         $('.menu-toggle > i.fa-times').trigger('click');
+//           $('#sidebar-wrapper').close();
+//           $('.menu-toggle').removeClass('active');
+      });
 
       function onLoad() {
           gapi.load('auth2', function() {

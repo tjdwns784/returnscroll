@@ -73,15 +73,24 @@
 		margin-top: 18px;
 	}
 
+	#byebye {
+		width: 40%;
+	}
+	
 	 @media (max-width: 600px) {
   		#btn {
   			margin-left:60px;
   		}
   		
-		#h1_title{
+		#h1_title {
 			font-size:2rem;
 		}
-  }
+		
+		#byebye {
+			width: 100%;
+			margin-bottom: -15%;
+		}
+ 	}
     
   </style>
 </head>
@@ -106,7 +115,7 @@
 		<a href="/returnscroll/mypage"><input type="button" value="이전" style="margin-left: 4.5%;"></a>
 		<input type="submit" id="bye" name="bye" url="/returnscroll/userDeleteAction"  value="탈퇴" style="margin-bottom:1%">
 	</div>
-	<img id=bye src="/returnscroll/resources/img/또르르.jpg" style="width:40%">
+	<img id=byebye src="/returnscroll/resources/img/또르르.jpg">
 	</form>
 	</div>
       <jsp:include page="footer.jsp"></jsp:include>
