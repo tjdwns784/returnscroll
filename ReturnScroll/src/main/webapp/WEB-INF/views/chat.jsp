@@ -235,7 +235,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.15:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script>
     
@@ -250,7 +250,7 @@
  
  	// 채팅방 나가기 버튼을 눌렀을 때 실행되는 함수 (퇴장하는 회원, 퇴장하려는 방)
 	 function exitChat(user, roomId){
-		 var socket = io("http://192.168.0.15:82");
+		 var socket = io("http://192.168.0.28:82");
 		 socket.emit('s_chatRoom_exit',user, roomId);
 		 location.href="/returnscroll/chat";
 	 }
