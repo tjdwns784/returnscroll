@@ -71,10 +71,19 @@
 	a.menu-toggle > i {
 		margin-top: 18px;
 	}
+	
+	#admin_email {
+			margin-top:1.5%;
+	}
+		
 	@media (max-width : 600px){
 	
-		#h1_title{
+		#h1_title {
 			font-size:2rem;
+		}
+		
+		#admin_email {
+			margin-top:4%;
 		}
 	}
 	
@@ -100,9 +109,9 @@
 						<p id='msgnick' style="color: red"></p>
 						<div class="check_font" id="name_check"></div>
 	</div>
-	<div class="form-group">
+	<div id="admin_phone">
 						<label for="user_phone">휴대폰 번호</label> <br>
-						<select name="p1" style="width:85px; height:40px;">
+						<select name="p1" style="width:105px; height:40px; border-radius: 0.25rem;">
 							<option value="010" <c:if test="${info.p1 == '010'}">selected</c:if>>010
 							</option>
 							<option value="011" <c:if test="${info.p1 == '011'}">selected</c:if>>011
@@ -116,12 +125,12 @@
 							<option value="019" <c:if test="${info.p1 == '019'}">selected</c:if>>019
 							</option>
 						</select>
-						- <input name="p2" required="required" style="width:85px; height:40px;" maxlength="4" value="${info.p2}">
-						- <input name="p3" required="required" style="width:85px; height:40px;" maxlength="4" value="${info.p3}">
+						- <input name="p2" required="required" style="width:105px; height:40px; border-radius: 0.25rem;" maxlength="4" value="${info.p2}">
+						- <input name="p3" required="required" style="width:105px; height:40px; border-radius: 0.25rem;" maxlength="4" value="${info.p3}">
 						<div class="check_font" id="phone_check"></div>
 	</div>
 	<div class="form-group">
-						<label for="user_email">이메일</label> 
+						<label id="admin_email" for="user_email">이메일</label> 
 						<input type="text" class="form-control" name="email" id="user_email"  value="${info.email}" placeholder="E-mail" required>
 						<p id='msgemail' style="color: red"></p>
 						<div class="check_font" id="email_check"></div>

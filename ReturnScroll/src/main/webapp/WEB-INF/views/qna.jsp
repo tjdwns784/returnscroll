@@ -6,10 +6,12 @@
 <head>
       	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
- 
+   		<meta name="description" content="">
+		<meta name="author" content="">
+		
         <title>Q&A</title>
-    	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-    	 <!-- Bootstrap Core CSS -->
+        
+  <!-- Bootstrap Core CSS -->
   <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom Fonts -->
@@ -20,14 +22,13 @@
   <!-- Custom CSS -->
   <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
   
-  <%-- 
-  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" > 
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    --%>
+</head>
+
+ <body id="page-top">
+ 
+  <!-- Navigation -->
+ <jsp:include page="side.jsp" ></jsp:include>
+ 
   <style>
  
    @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -81,46 +82,45 @@
  	
 	
 	#writeBtn {
-	
 		float:right; 
 		margin-right:5%;
 		margin-bottom: 0.5%;
 			
 	}
+	
+	#searchItem {
+		height: 40px;
+		width:100px;
+	}
+	
+	#searchText{
+		height: 40px;
+		width:247px;
+	}
+
 	@media (max-width : 600px){
 	
 		#writeBtn {
-			text-align :center;
+			text-align : center;
 			float:none;
-			margin-right:-5%
 		}
 		
 		#h1_title{
 			font-size:2rem;
 		}
+		
+		#searchItem {
+			width:70px;
+			margin-bottom: 3%;
+		}
+
 	}
 
   /* .masthead {
   	padding-top: 4rem; 
   } */
   </style>
-    </head>
-<body id="page-top">
-	<jsp:include page="side.jsp" ></jsp:include>
 
-	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		
-	<!-- Plugin JavaScript -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-		
-	<!-- Custom scripts for this template -->
-	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-
- <!--  <header class="masthead d-flex"> -->
-
-   <!--  <div class="container my-auto"> -->
- 
 <div id="body">
 <h1 id="h1_title" style="margin-left:5%;margin-top:2%;">Q&A 게시판</h1>
 <!-- <h1 class="mb-1">Q&A 게시판</h1> -->
@@ -137,16 +137,25 @@
 		<button onclick="location.href='qna?searchText= ' +'&searchItem= ' + '&searchOrd= ';"> 목록고침 </button>
 	</div>
 	<div class="search" style="float:right; margin-right: 5%; margin-bottom: 1%">
-		<select id="searchItem" name="searchItem" style="height: 40px;width:100px">
+		<select id="searchItem" name="searchItem">
 			<option value="a_no">번호</option>
 			<option value="a_title"  selected="selected">제목</option>
 			<option value="a_content">내용</option>
 			<option value="a_writer">작성자</option>
 			<option value="a_tnc">제목+내용</option>
 		</select>
-		<input type="text" placeholder="search" id="searchText" name="searchText"  onkeydown="enterkey();" style="height: 40px;width:250px">
+		<input type="text" placeholder="search" id="searchText" name="searchText"  onkeydown="enterkey();">
 		<a href="" id="searchBtn"><i class="fa fa-search"></i></a>
 	</div>
+
+<% 
+	String userAgent = request.getHeader("user-agent");
+	boolean isMobile = false;
+	if(userAgent.toLowerCase().indexOf("android") > -1) { // 안드로이드 폰에서 접속
+		isMobile = true;
+	}
+	request.setAttribute("isMobile", isMobile);
+%>
 
 
 
@@ -161,23 +170,22 @@
 </tr>
 </thead>
 <tbody>
-	<c:forEach items="${list}" var="item">
+		<c:forEach items="${list}" var="item">
 
-	<%-- 	<tr  onClick ="location.href='show/${item.NO}'" style="cursor:pointer;" > --%>
-	<tr>
-		<td  >${item.NO}</td>
-		<td style="text-align:left; cursor:pointer;" ><a href="show/${item.NO}" >${item.TITLE}</a>
-			<c:if test='${item.CMT_CNT > 0}'>
-			[${item.CMT_CNT}]
-			</c:if>
-		</td>
-		<td class="d-none d-lg-table-cell">${item.WRITER}</td>
-		<td class="d-none d-lg-table-cell">${item.WRITE_DATE}</td>
-		<td class="d-none d-lg-table-cell">${item.HIT}</td>
-		</tr>
-		
-	</c:forEach>
-	
+		<%-- 	<tr  onClick ="location.href='show/${item.NO}'" style="cursor:pointer;" > --%>
+		<tr>
+			<td  >${item.NO}</td>
+			<td style="text-align:left; cursor:pointer;" ><a href="show/${item.NO}" >${item.TITLE}</a>
+				<c:if test='${item.CMT_CNT > 0}'>
+				[${item.CMT_CNT}]
+				</c:if>
+			</td>
+			<td class="d-none d-lg-table-cell">${item.WRITER}</td>
+			<td class="d-none d-lg-table-cell">${item.WRITE_DATE}</td>
+			<td class="d-none d-lg-table-cell">${item.HIT}</td>
+			</tr>
+			
+		</c:forEach>
 	</tbody>
 </table>
 <hr style="width:90%;" >
@@ -195,23 +203,30 @@
 <input type ="button" value="내게시글" onclick="location.href='qna?searchText=${unick}' +'&searchItem=a_writer' + '&searchOrd= ';" class="btn btn-info" 
 				style="float: right; margin-right: 1%;"> --%>
 <br>
-<div class="container" style="width:90%;" >
+<div id="pagination" class="container">
   <ul class="pagination" style="justify-content: center; margin-top: 4%; margin-bottom: -3%;">
-    <% int t = (Integer)request.getAttribute("total"); 
+    <% 
+    	
+    	int showPageCount = 10;
+    	if(isMobile) {
+    		showPageCount = 5;
+    	}
+    
+    	int t = (Integer)request.getAttribute("total"); 
     	int showNum = t / 10;
     	if(t % 10 != 0) {
     		showNum++;
     	}
     	
     	int nowPage = (Integer)request.getAttribute("page");
-    	int startPage = nowPage / 10 * 10;
-    	if(nowPage % 10 != 0) {
+    	int startPage = nowPage / showPageCount * showPageCount;
+    	if(nowPage % showPageCount != 0) {
     		startPage++;
     	} else {
-    		startPage -= 9;
+    		startPage -= (showPageCount - 1);
     	}
     	
-    	int endPage = startPage + 9;
+    	int endPage = startPage + (showPageCount - 1);
     	if(endPage > showNum) {
     		endPage = showNum;
     	}
@@ -220,14 +235,15 @@
     	request.setAttribute("startPage", startPage);
     	request.setAttribute("endPage", endPage);
     	request.setAttribute("nowPage", nowPage);
+    	request.setAttribute("showPageCount", showPageCount);
 
     	
     %>
-    <c:if test='${page > 10}'>
-    	<li class="page-item"><a class="page-link" href="qna?page=${startPage - 10}">◀</a></li>
+    <c:if test='${page > showPageCount}'>
+    	<li class="page-item"><a class="page-link" href="qna?page=${startPage - showPageCount}">◀</a></li>
     </c:if>
-    <c:if test='${page <= 10}'>
-    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage - 10}">◀</a></li>
+    <c:if test='${page <= showPageCount}'>
+    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage - showPageCount}">◀</a></li>
     </c:if>
 
     <c:forEach begin="<%=startPage %>" end="<%=endPage%>" var="pnum" step="1">
@@ -242,15 +258,25 @@
     </c:forEach>
     
     <c:if test='${endPage < showNum}'>
-    	<li class="page-item"><a class="page-link" href="qna?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item"><a class="page-link" href="qna?page=${startPage + showPageCount}">▶</a></li>
     </c:if>
      <c:if test='${endPage >= showNum}'>
-    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="qna?page=${startPage + showPageCount}">▶</a></li>
     </c:if>
   </ul>
 </div>
 	<jsp:include page="footer.jsp"></jsp:include>
 </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
 <script>
 	function enterkey() {

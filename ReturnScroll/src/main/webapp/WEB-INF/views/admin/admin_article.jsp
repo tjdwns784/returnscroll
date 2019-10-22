@@ -79,16 +79,41 @@
 		margin-bottom: 0.5%;
 			
 	}
+	
+	#searchItem {
+		height: 40px;
+		width:100px;
+	}
+	
+	#searchText {
+		height: 40px;
+		width:247px;
+	}
+	
+	#pagination {
+		justify-content: center; 
+		margin-top: 2%; 
+		margin-bottom: -3%;
+	}
+	
 	@media (max-width : 600px){
 	
 		#writeBtn {
 			text-align :center;
 			float:none;
-			margin-right:-5%
 		}
 		
 		#h1_title{
 			font-size:2rem;
+		}
+			
+		#searchItem {
+			width:70px;
+			margin-bottom: 3%;
+		}
+		
+		#pagination {
+			margin-top: 10%; 
 		}
 	}
 
@@ -109,8 +134,17 @@
 	<!-- Custom scripts for this template -->
 	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
+<% 
+	String userAgent = request.getHeader("user-agent");
+	boolean isMobile = false;
+	if(userAgent.toLowerCase().indexOf("android") > -1) { // 안드로이드 폰에서 접속
+		isMobile = true;
+	}
+	request.setAttribute("isMobile", isMobile);
+%>
+
 <div id="body">
-<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">게시물 목록</h1>
+<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">관리자 게시물 목록</h1>
 <hr style="width:95%; background:#FFCC33; height:2px" >
 
 		<div class="order d-none d-lg-block" style="float:left; margin-left: 5%;">
@@ -122,7 +156,7 @@
 				<button onclick="location.href='admin_article?searchText= ' +'&searchItem= ' + '&searchOrd= ';"> 목록고침 </button>
 			</div>
 			<div class="search" style="float:right; margin-right: 5%; margin-bottom: 1%">
-				<select id="searchItem" name="searchItem" style="height: 40px;width:100px">
+				<select id="searchItem" name="searchItem">
 					<option value="a_no">번호</option>
 					<option value="a_title"  selected="selected">제목</option>
 					<option value="a_content">내용</option>
@@ -169,22 +203,29 @@
 		</table>
 		
 		<div class="container" style="width:90%;" >
-  <ul class="pagination" style="justify-content: center; margin-top: 2%; margin-bottom: -3%;">
-     <% int t = (Integer)request.getAttribute("total"); 
+  <ul id="pagination" class="pagination">
+     <% 
+	 	int showPageCount = 10;
+	 	if(isMobile) {
+	 		showPageCount = 5;
+	 	}
+    
+     
+     	int t = (Integer)request.getAttribute("total"); 
     	int showNum = t / 10;
     	if(t % 10 != 0) {
     		showNum++;
     	}
     	
     	int nowPage = (Integer)request.getAttribute("page");
-    	int startPage = nowPage / 10 * 10;
-    	if(nowPage % 10 != 0) {
+    	int startPage = nowPage / showPageCount * showPageCount;
+    	if(nowPage % showPageCount != 0) {
     		startPage++;
     	} else {
-    		startPage -= 9;
+    		startPage -= (showPageCount - 1);
     	}
     	
-    	int endPage = startPage + 9;
+    	int endPage = startPage + (showPageCount - 1);
     	if(endPage > showNum) {
     		endPage = showNum;
     	}
@@ -193,14 +234,15 @@
     	request.setAttribute("startPage", startPage);
     	request.setAttribute("endPage", endPage);
     	request.setAttribute("nowPage", nowPage);
+    	request.setAttribute("showPageCount", showPageCount);
 
     	
     %>
-    <c:if test='${page > 10}'>
-    	<li class="page-item"><a class="page-link" href="admin_article?page=${startPage - 10}">◀</a></li>
+    <c:if test='${page > showPageCount}'>
+    	<li class="page-item"><a class="page-link" href="admin_article?page=${startPage - showPageCount}">◀</a></li>
     </c:if>
-    <c:if test='${page <= 10}'>
-    	<li class="page-item disabled"><a class="page-link" href="admin_article?page=${startPage - 10}">◀</a></li>
+    <c:if test='${page <= showPageCount}'>
+    	<li class="page-item disabled"><a class="page-link" href="admin_article?page=${startPage - showPageCount}">◀</a></li>
     </c:if>
 
     <c:forEach begin="<%=startPage %>" end="<%=endPage%>" var="pnum" step="1">
@@ -215,10 +257,10 @@
     </c:forEach>
     
     <c:if test='${endPage < showNum}'>
-    	<li class="page-item"><a class="page-link" href="admin_article?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item"><a class="page-link" href="admin_article?page=${startPage + showPageCount}">▶</a></li>
     </c:if>
      <c:if test='${endPage >= showNum}'>
-    	<li class="page-item disabled"><a class="page-link" href="admin_article?page=${startPage + 10}">▶</a></li>
+    	<li class="page-item disabled"><a class="page-link" href="admin_article?page=${startPage + showPageCount}">▶</a></li>
     </c:if>
   </ul>
 </div>

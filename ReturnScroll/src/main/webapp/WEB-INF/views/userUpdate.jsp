@@ -112,7 +112,7 @@
 	</div>
 	<div class="form-group">
 						<label for="user_phone">휴대폰 번호</label> <br>
-						<select name="p1" style="width:85px; height:40px;">
+						<select name="p1" style="width:105px; height:40px; border-radius: 0.25rem;">
 							<option value="010" <c:if test="${info.p1 == '010'}">selected</c:if>>010
 							</option>
 							<option value="011" <c:if test="${info.p1 == '011'}">selected</c:if>>011
@@ -126,8 +126,8 @@
 							<option value="019" <c:if test="${info.p1 == '019'}">selected</c:if>>019
 							</option>
 						</select>
-						- <input name="p2" required="required" style="width:85px; height:40px;" maxlength="4" value="${info.p2}">
-						- <input name="p3" required="required" style="width:85px; height:40px;" maxlength="4" value="${info.p3}">
+						- <input name="p2" required="required" style="width:105px; height:40px; border-radius: 0.25rem;" maxlength="4" value="${info.p2}">
+						- <input name="p3" required="required" style="width:105px; height:40px; border-radius: 0.25rem;" maxlength="4" value="${info.p3}">
 						<div class="check_font" id="phone_check"></div>
 	</div>
 	<div class="form-group">

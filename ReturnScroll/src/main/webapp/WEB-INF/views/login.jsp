@@ -37,6 +37,26 @@
 
 <link rel="stylesheet" href="resources/style.css">
 <style>
+
+   #loginForm {
+   	  margin-top: 0.5%;
+	  margin-bottom:-3.5%; 
+   }
+   
+   #ryan {
+   	  margin-bottom:3%;
+   }
+   
+   @media (max-width : 600px){
+   		#loginForm {
+	 	 	margin-bottom:-11.5%; 
+	  		margin-top:-10.5%;
+   		}
+   		#ryan {
+   	  		margin-bottom:3%;
+   		}
+   }
+   
    nav#sidebar-wrapper {
       top: 0px !important;
    }
@@ -56,8 +76,8 @@
    
    <div id="body">
    <div>
-    <form id="loginForm" name="loginForm" style="margin-bottom:-1.5%">
-        <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:3%">
+    <form id="loginForm" name="loginForm">
+        <svg id="ryan" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,150 C0,65 120,65 120,150" fill="#FF9999" stroke="#FF0066" stroke-width="2.5" />
             <g class="ears">
                 <path d="M36,32 L70,30 C16,16 26,16 26,30 L26,32" fill="#FF6666" stroke="#FF0066" stroke-width="2.5" stroke-linecap="round" transform="rotate(-10,38,24)" />
@@ -117,7 +137,7 @@
             
          <!-- 카카오 로그인 -->
          <a title="카카오 로그인" id="custom-login-btn" href="javascript:loginWithKakao()">
-      <img  id="kakao-login-btn" src="/returnscroll/resources/img/kakaotalk.jpg" style="margin-right:2.7%; margin-" border="0" alt=""/></a>
+      <img  id="kakao-login-btn" src="/returnscroll/resources/img/kakaotalk.jpg" style="margin-right:2.7%;  margin-left:0.2%;" border="0" alt=""/></a>
       
          <!-- 페이스북 로그인 -->
          <a title="페이스북 로그인" 로그인" onclick="fb_login()"><img src="/returnscroll/resources/img/facebook.jpg" style="margin-right:2.7%;" border="0" alt=""></a>
