@@ -75,8 +75,11 @@
 			font-size:2rem;
 		}
 	}
-	
-	
+
+	div.modal.in {
+		z-index: 20000;
+		
+	}
     
   </style>
 
@@ -95,9 +98,10 @@
     <!-- include libraries(jQuery, bootstrap) -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script> -->
+	<script src="${pageContext.request.contextPath}/resources/js/summernote-bs4.js"></script>
 	<!-- include summernote-ko-KR -->
-	<script src="/resources/js/summernote-ko-KR.js"></script>
+<!-- 	<script src="resources/js/summernote-ko-KR.js"></script> -->
 
 <div id="body">
 	<h1 id="h1_title" style="margin-left:5%;margin-top:2%;">Q&A 글 수정하기</h1>
