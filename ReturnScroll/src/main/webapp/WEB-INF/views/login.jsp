@@ -181,6 +181,7 @@
    <script
       src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
+
 <script>
       function enterkey() {
          if (window.event.keyCode == 13) {
