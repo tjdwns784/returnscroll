@@ -1,138 +1,148 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	language="java"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Tmap</title>
-        <script src="https://apis.openapi.sk.com/tmap/js?version=1&format=javascript&appKey=8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2"></script>
-    	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-    	 <!-- Bootstrap Core CSS -->
-  <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom Fonts -->
-  <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-  <link href="${pageContext.request.contextPath}/resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
-  <!-- Custom CSS -->
-  <link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
- <%--  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" > --%>
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/resources/css/map.css" rel="stylesheet"/>
-
- </head>
- <body id="page-top">
-    <!-- Navigation -->
-    <jsp:include page="side.jsp"></jsp:include>
-    	  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-		  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		  <!-- Plugin JavaScript -->
-		  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-		  <!-- Custom scripts for this template -->
-		  <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-    		
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Tmap</title>
+<script src="https://apis.openapi.sk.com/tmap/js?version=1&format=javascript&appKey=8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2"></script>
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- Bootstrap Core CSS -->
+<link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
+<%--  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" > --%>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/map.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+	<!-- Navigation -->
+	<jsp:include page="side.jsp"></jsp:include>
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Plugin JavaScript -->
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Custom scripts for this template -->
+	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
-<!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
+	<!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	
 	<!-- <p id="result" name="result" value=" " ></p> -->
 	<div id="body">
-	<h1 id="h1_title" style="margin-left:2.5%;margin-top:2%;">Map</h1>
-	<hr style="width:95%; background:#FFCC33; height:2px; margin-left:2.5%;" >
-	
-	<div style="width:100%;">
-		<form method='post' enctype='multipart/form-data' style="margin-left: 2.5%;">
-		<div style="width:100%; max-width:100%; height:auto; margin-bottom: 1%;">
-			출발 : <input type='text' name='start' readonly style="width : 90%; margin-bottom:10px;"><br>
-			도착 : <input type='text' name='arrive' readonly style="width : 90%;">
+		<h1 id="h1_title" style="margin-left: 2.5%; margin-top: 2%;">Map</h1>
+		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
+		<div style="width: 100%;">
+			<form method='post' enctype='multipart/form-data'
+				style="margin-left: 2.5%;">
+				<div
+					style="width: 100%; max-width: 100%; height: auto; margin-bottom: 1%;">
+					출발 : <input type='text' id='start' name='start' readonly
+						style="width: 90%; margin-bottom: 10px;"><br> 도착 : <input
+						type='text' id='arrive' name='arrive' readonly style="width: 90%;">
+				</div>
+				<div id="map_btn">
+					<input type="button" value='주소검색' data-toggle="modal" data-target="#findAddr">
+						 <input type='button' id='f_btn' value='경로찾기' onclick="findRoot()">
+						 <input type='button' id='r_btn' value='경로취소' onclick="removeRoot()" style="display: none;"> 
+						<input type='button' id='fl_btn' value='현재위치찾기' onclick="findLocation()">
+						 <input type='button' id='sl_btn' value='현재위치찾기 중지' onclick="stopLocation()" style="display: none;"><br>
+					<input type="hidden" id="memberNick" value="${memberNick}">
+					<input type="hidden" id="unick" value="${unick}">
+				</div>
+			</form>
 		</div>
-		<div id="map_btn" >
-			<input type="button"  value='주소검색' data-toggle="modal" data-target="#findAddr">
-			<input type='button' id='f_btn' value='경로찾기' onclick = "findRoot()" >
-			<input type='button' id='r_btn' value='경로취소' onclick = "removeRoot()" style="/* visibility:hidden; */ display:none;" >
-			 <input type='button' id='fl_btn' value='친구찾기' onclick = "findLocation()">
-			  <input type='button' id='sl_btn' value='친구찾기 중지' onclick = "stopLocation()" style="/* visibility:hidden; */ display:none;"><br> 
-			<input type="hidden" id="user_id" value="${user_id}">
+		<hr style="margin-left: 2.5%; width: 95%; background: #FFCC33; height: 2px">
+
+		<!-- 지도 -->
+		<div id="map_div"></div>
+		
+		<input type='button' id='back' value='뒤로가기' onclick="location.href='/returnscroll/chat/${room_num}'">
+		<input type='button' id='reflash' value='새로고침' onclick="location.reload()">
+
+		<!-- Modal -->
+		<div class="modal fade" id="findAddr" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<!--주소검색  -->
+					<div class="modal-body">
+						<div class="mainDiv">
+
+							<input type="hidden" id="inpPage" type="text" value="1">
+							<input type="hidden" id="inpTotLimit" type="text" value="7">
+							<div id="divtop">
+								<h3>
+									<span class="ico_sch"></span> <span class="top_tit">주소
+										검색</span>
+								</h3>
+							</div>
+							<div id="divcont">
+								<div id="divSearch">
+									<fieldset class="search_box">
+										<legend class="blind">검색어 입력창</legend>
+										<div class="inputGrp">
+											<button class="btn_sch" name="btn_sch" id="inpSearch">
+												<span class="ico_sch"></span>
+											</button>
+											<div class="input_sch">
+												<input type="text" id="inpKeyword" title="검색"
+													placeholder="예) 을지로 65, 을지로2가 11">
+											</div>
+										</div>
+									</fieldset>
+									<p>
+										* 검색창에 찾으시는 <b>도로명+건물번호</b> 또는 <b>지역명+지번</b>을 입력해 주세요.
+									</p>
+								</div>
+								<div id="divSearchlist">
+									<div class="result">
+										<p>
+											검색결과 : 총 <strong id="spanTotCnt">0</strong>건
+										</p>
+									</div>
+									<div class="tb_wrap">
+										<table>
+											<caption class="blind">검색결과 리스트</caption>
+											<thead>
+												<tr>
+													<th>도로명</th>
+												</tr>
+											</thead>
+											<tbody id="tbodyResult">
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div id="pageZone"></div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
 		</div>
-		</form>
-	</div>
-<hr style="margin-left:2.5%; width:95%; background:#FFCC33; height:2px" >
 
- <!-- 지도 -->
-<div id="map_div"></div> 
-  
-<!-- Modal -->
-<div class="modal fade" id="findAddr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-         </button>
-       </div>
-        <!--주소검색  --> 
-     <div class="modal-body">
-        <div class="mainDiv">
-        
-			<input type="hidden" id="inpPage" type="text" value="1">
-			<input type="hidden" id="inpTotLimit" type="text" value="7">
-		    <div id="divtop">
-            <h3>
-                <span class="ico_sch"></span>
-                <span class="top_tit">주소 검색</span>
-            </h3>
-        </div>
-        <div id="divcont">
-            <div id="divSearch">
-                    <fieldset class="search_box">
-                        <legend class="blind">검색어 입력창</legend>
-                        <div class="inputGrp">
-                            <button class="btn_sch" name="btn_sch" id="inpSearch">
-                                <span class="ico_sch"></span>
-                            </button>
-                            <div class="input_sch">
-                                <input type="text" id="inpKeyword" title="검색" placeholder="예) 을지로 65, 을지로2가 11">
-                            </div>
-                        </div>
-                    </fieldset>
-                <p>* 검색창에 찾으시는 <b>도로명+건물번호</b> 또는 <b>지역명+지번</b>을 입력해 주세요.</p>
-            </div>
-            <div id="divSearchlist">
-               <div class="result">
-                   <p>검색결과 : 총 <strong id="spanTotCnt">0</strong>건</p>
-               </div>
-                <div class="tb_wrap">
-                    <table>
-                        <caption class="blind">검색결과 리스트</caption>
-                        <thead>
-                            <tr>
-                                <th>도로명</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyResult">
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div id="pageZone"></div>	
-</div>	
+		<script>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-  
-    	
-         <script>
-         
-  		   
 			var socket = io("http://192.168.0.28:82");
 			var watchId;
-			
          	var map;
          	var latitude, longitude;
 			var lonlate, lonlate2, lonlat3;
@@ -141,30 +151,28 @@
 			var centerLL, targetLL;
 			var marker1, marker2, marker3;
 			var vectorLayer;
-		
-			//var flocation;
-			
+			var markerLayer;
+			var connectValue = true;
 			var size = new Tmap.Size(24, 38);
      		var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));
      		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_s.png',size, offset);
-     		var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기
-     		
-     		var user_id = $('#user_id').val();
-         	
+     		var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기	
+     		var memberNick = $('#memberNick').val();
+     		var unick = $('#unick').val();
+     		var start = '';
+     		var arrive = '';
+     		var addr2="";
+
      		$(document).ready(function() {
-				// 안드로이드 폰에서 접속한 경우에만 실행				 
-				if (varUA.match('android') != null) { 
-				    //안드로이드 일때 처리
-				    socket.emit('send_userid',user_id);
-				    console.log("send_userid" + user_id);
-				    window.loc.sendLocation();				    
+   				
+     			// 안드로이드 폰에서 접속한 경우에만 실행				 
+				if (varUA.match('android') != null) { //안드로이드 일때 처리				  
+				    window.loc.sendLocation(unick);					    
 				    initTmap();
-				} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
-				    //IOS 일때 처리
+				} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { //IOS 일때 처리
 				} else {
-					initTmap();
+					initTmap();					
 				}
-		
         	});
          	
          	function setVariables(){    
@@ -176,21 +184,91 @@
          		map = new Tmap.Map({
          			div:'map_div',
          		});
-
+				
+				//맨처음 아이디값 보내줌 -> 서버
+       		 	socket.emit('send_userid', unick);
+				console.log("send_userid : " + unick)	
+			
          		if (varUA.match('android') != null) { 
 				    //안드로이드 일때 처리
 	         			console.log("안드로이드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-				       	//socket.emit("send_latlng",latitude,longitude);
-	 					socket.on('send_latlng', function(id,lat,lng){
-	 						console.log("send_latlng : "+id+"/"+lat+","+lng);	
-	 						latitude = lat;
-		    				longitude = lng;
-		    				
-		    				socket.emit('send_room_latlng',id,latitude,longitude);
-		    			
-		    				initLocation();
+	                 	console.log("#######" +unick + "#########" + memberNick);
+	                
+				       	//처음 위치값을 받음 :  안드로이드 -> 서버 -> sts
+	 					socket.on('send_a_latlng_server', function(id,lat,lng){
+	 						if(id == unick){
+	 							console.log("send_a_latlng_server : "+id+"/"+lat+","+lng);	
+		 						latitude = lat;
+			    				longitude = lng;
+			    				//룸으로 user 위치값 보냄 -> 서버
+			    				socket.emit('send_room_a_latlng',id,lat,lng);
+			    				console.log("%%%%%%%%%%%%%%안드 - 나 ");	
+			    				console.log("#######" +unick + "#########" + memberNick);
+			    				
+			    				if(unick != memberNick){
+			    					//상대방 위치 요청(참여자 모두에게 요청)   카카오비니
+					    			socket.emit('request_room_a_latlng',unick, memberNick);	
+					    			socket.emit('request_room_aw_latlng',unick, memberNick);		
+			    				}else{		    					
+			 						initLocation(latitude, longitude);
+			    				}	
+	 						}
 	 					});
-					
+				       	
+	 					socket.on('request_room_a_latlng_server', function(requestNick, memberNick){
+	 						console.log(`${requestNick}가 ${memberNick}에게 위치 요청22222`)
+	 						console.log("start: " + start);
+	 						console.log("arrive: " + arrive);
+	 						console.log(unick == memberNick);
+	 						if(unick == memberNick){	 		
+	 							socket.emit('send_member_a_latlng',requestNick, latitude, longitude,start, arrive);
+	 						}
+	 					});
+	 					
+	 					socket.on('send_member_a_latlng_server', function(uid, lat, lng, start_r,arrive_r){
+	 						console.log('send_member_a_latlng_server1');
+	 						console.log(uid, lat, lng, start_r,arrive_r);
+	 						console.log('send_member_a_latlng_server2');
+	 						if(unick == uid) {
+		 						console.log( uid, '가요청한 위치', lat, lng,start,arrive);	
+	 							document.querySelector("[name=start]").value = start_r;
+	 							document.querySelector("[name=arrive]").value = arrive_r;
+	 							console.log('상대방 위치 전송 완료')
+	 							initLocation(lat,lng);
+	 						}
+	 					});
+	 					///////////
+	 					socket.emit('request_room_wa_latlng',unick, memberNick);
+		    			socket.on('request_room_wa_latlng_server', function(requestNick, memberNick){
+	 						console.log(`${requestNick}가 ${memberNick}에게 위치 요청22222`)
+	 						console.log(unick);
+	 						console.log(memberNick);
+	 						
+	 						console.log(unick == memberNick);
+	 						if(unick == memberNick){	 							
+	 							socket.emit('send_member_wa_latlng',requestNick, latitude, longitude,start, arrive);
+	 						}
+	 					});	 		
+	 					
+// 	 					socket.on('request_room_aw_latlng_server', function(requestNick, memberNick){
+// 	 						console.log(`${requestNick}가 ${memberNick}에게 위치 요청22222`)
+// 	 						console.log(unick);
+// 	 						console.log(memberNick);
+// 	 						console.log(unick == memberNick);
+// 	 						if(unick == memberNick){	 							
+// 	 							socket.emit('send_member_aw_latlng',requestNick, latitude, longitude,start, arrive);
+// 	 						}
+// 	 					});
+	 					
+	 					socket.on('send_member_aw_latlng_server', function(uid, lat, lng, start_r,arrive_r){
+	 						if(unick == uid) {
+		 						console.log( uid, '가요청한 위치', lat, lng,start,arrive);
+	 							document.querySelector("[name=start]").value = start_r;
+	 							document.querySelector("[name=arrive]").value = arrive_r;
+	 							console.log('상대방 위치 전송 완료')
+	 							initLocation(lat,lng);
+	 						}
+	 					});
 				} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
 				    //IOS 일때 처리
 				} else {
@@ -198,27 +276,83 @@
 	         		//위치 정보 받아오기
 	         		navigator.geolocation.getCurrentPosition(function(pos) {
 	    				latitude = pos.coords.latitude;
-	    				longitude = pos.coords.longitude;
-	    				console.log("웹@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-	    				 socket.emit("send_latlng",latitude,longitude);
-	 					socket.on('send_latlng', function(id,lat,lng){
-	 						console.log("send_latlng : "+id+"/"+lat+","+lng);	
-	 						socket.emit('send_room_latlng',id,latitude,longitude);
+	    				longitude = pos.coords.longitude;	    				
+						//룸으로 user 위치값 보냄 -> 서버
+		    			socket.emit('send_room_w_latlng',unick,latitude,longitude);	
+		    			socket.emit('send_room_wa_latlng',unick,latitude,longitude);	
+					 //              상대방 위치 요청(참여자 모두에게 요청)   카카오비니
+		    			socket.emit('request_room_w_latlng',unick, memberNick);		
+		    			socket.on('request_room_w_latlng_server', function(requestNick, memberNick){
+	 						console.log(`${requestNick}가 ${memberNick}에게 위치 요청22222`)
+	 						console.log(unick);
+	 						console.log(memberNick);
+	 						console.log(unick == memberNick);
+	 						if(unick == memberNick){	 							
+	 							socket.emit('send_member_w_latlng',requestNick, latitude, longitude,start, arrive);
+	 						}
+	 					});	 					
+	 					socket.on('send_member_w_latlng_server', function(uid, lat, lng, start_r,arrive_r){
+	 						if(unick == uid) {
+		 						console.log(unick, '가 요청한 위치', lat, lng,start,arrive);
+	 							document.querySelector("[name=start]").value = start_r;
+	 							document.querySelector("[name=arrive]").value = arrive_r;
+	 							console.log('상대방 위치 전송 완료')
+	 							initLocation(lat,lng);
+	 						}
+	 					});	 					
+	 				    //              상대방 위치 요청(참여자 모두에게 요청)   카카오비니
+		    			socket.emit('request_room_wa_latlng',unick, memberNick);
+		    			socket.on('request_room_wa_latlng_server', function(requestNick, memberNick){
+	 						console.log(`${requestNick}가 ${memberNick}에게 위치 요청22222`)
+	 						console.log(unick);
+	 						console.log(memberNick);
+	 						
+	 						console.log(unick == memberNick);
+	 						if(unick == memberNick){	 							
+	 							socket.emit('send_member_wa_latlng',requestNick, latitude, longitude,start, arrive);
+	 						}
+	 					});	 					
+	 					socket.on('send_member_wa_latlng_server', function(uid, lat, lng, start_r,arrive_r){
+	 						if(unick == uid) {
+		 						console.log(unick, '가 요청한 위치', lat, lng,start,arrive);
+	 							document.querySelector("[name=start]").value = start_r;
+	 							document.querySelector("[name=arrive]").value = arrive_r;
+	 							console.log('상대방 위치 전송 완료')
+	 							initLocation(lat,lng);
+	 						}
+	 					});
+	 					/////////////////////////
+	 					socket.on('request_room_aw_latlng_server', function(requestNick, memberNick){
+	 						console.log(`${requestNick}가 ${memberNick}에게 위치 요청22222`)
+	 						console.log(unick);
+	 						console.log(memberNick);
+	 						console.log(unick == memberNick);
+	 						if(unick == memberNick){	 							
+	 							socket.emit('send_member_aw_latlng',requestNick, latitude, longitude,start, arrive);
+	 						}
 	 					});
 	 					
-
-	    				initLocation();
+// 	 					socket.on('send_member_aw_latlng_server', function(uid, lat, lng, start_r,arrive_r){
+// 	 						if(unick == uid) {
+// 		 						console.log( uid, '가요청한 위치', lat, lng,start,arrive);
+// 	 							document.querySelector("[name=start]").value = start_r;
+// 	 							document.querySelector("[name=arrive]").value = arrive_r;
+// 	 							console.log('상대방 위치 전송 완료')
+// 	 							initLocation(lat,lng);
+// 	 						}
+// 	 					});
+	    				initLocation(latitude, longitude);
          			});        		
 	         		
          		} 
          	}
          
   			//위치 초기값
-  			function initLocation(){
-         		map.setCenter(new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857"), 15);
+  			function initLocation(lat, lng){
+  				console.log("***lat : " + lat + "/lng :" + lng);
+         		map.setCenter(new Tmap.LonLat(lng,lat).transform("EPSG:4326", "EPSG:3857"), 15);
 				//시작마커
-         		lonlat = new Tmap.LonLat(longitude,latitude).transform("EPSG:4326", "EPSG:3857");
+         		lonlat = new Tmap.LonLat(lng,lat).transform("EPSG:4326", "EPSG:3857");
          		//////////////리버스지오코딩///////////////////
          		var url = "https://apis.openapi.sk.com/tmap/geo/reversegeocoding"; //Reverse Geocoding api 요청 url입니다.
         		var params = {
@@ -230,18 +364,18 @@
         		}
         		$.get(url, params, function(data){
         			if(data){ 
-
         				var address1 = data.addressInfo;//Reverse Geocoding api 요청하여 받은 결과에서 주소정보를 추출합니다.
-      					var addr = address1.fullAddress;
-        				
+      					var addr = address1.fullAddress;        				
                 		document.querySelector("[name=start]").value = addr;
-                	
+                		start = $('#start').val();
+        	     		
+        	     		console.log('start값 : '+start + '@');
+        	     		console.log('arrive값 : '+arrive + '@');        	     	                		
                 		centerLL = lonlat;
                 		targetLL = lonlat;
                 		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
                 		markers1 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - start
-                		map.addLayer(markers1); // 지도에 Markers 객체 추가
-                		
+                		map.addLayer(markers1); // 지도에 Markers 객체 추가                		
                 		drawMarker(3,addr,1); // 마커 그리기
                 		////////////////////////////////
         			}else{
@@ -251,43 +385,68 @@
          	
   			}
 
-         	//위치찾기
+         	//친구위치찾기
 			function findLocation(){
-				
+				connectValue = true;
 				markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
-				map.addLayer(markerLayer);//map에 마커 레이어 추가
-			
+				map.addLayer(markerLayer);//map에 마커 레이어 추가			
         		document.getElementById("fl_btn").style.display="none";
-        		document.getElementById("sl_btn").style.display="inline";
-        		
-        		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정
-        		
+        		document.getElementById("sl_btn").style.display="inline";        		
+        		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정        		
         		if (varUA.match('android') != null) { 
 				    //안드로이드 일때 처리
-				    console.log("안드로이드@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-				    
-	        			
-			 			//소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
-			            socket.emit("send_latlng2",latitude,longitude);
-						socket.on('send_latlng2', function(id,lat,lng){
-							console.log("send_latlng2 : "+id+"/"+lat+","+lng);	
-							latitude = lat;
-		       				longitude = lng;
-							
-		 					console.log("lat: " + latitude + "/lng: " + longitude);
-		 					socket.emit('send_room_latlng2',id,latitude,longitude);
-
-		        			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
-		        				        			
-		        			centerLL = lonlat3;
-		            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
-		            		
-		        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
-		        			markerLayer.addMarker(marker);//레이어에 마커 추가
+				    console.log("안드로이드2222222222222222222222222");
+			 			//위치변경시 안드로이드 위치값 받음  
+						socket.on('send_a_latlng2_server', function(id,lat,lng){
+							if(connectValue == true){
+								console.log("send_latlng2_server : "+id+"/"+lat+","+lng);	
+								//위치변경시 나
+								if(id == memberNick && memberNick == unick){
+									latitude = lat;
+				       				longitude = lng;
+									//안드로이드 위치 변경시킴
+				 					console.log("lat: " + latitude + "/lng: " + longitude);
+				        			//룸으로 변경된 안드로이드 위치값 보냄
+									socket.emit('send_room_a_latlng2',id,latitude,longitude);				        			
+									lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정				        			
+				        			centerLL = lonlat3;
+				            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정				            		
+				        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
+				        			markerLayer.addMarker(marker);//레이어에 마커 추가
+								}
+							}
 						});
 						
-						
-	       		  
+			 			//서버에서 변경된 안드로이드 위치값 받음  나 안드- 상대 안드로이드
+						socket.on('send_room_a_latlng2_server', function(id,lat,lng){
+							if(connectValue ==true){
+		 						console.log("send_room_a_latlng2_server : "+id+"/"+lat+","+lng);	
+		 						//변경하고 싶은 유저면 위치값 변경
+		 						if(id == memberNick && memberNick != unick){	
+		 							lonlat3 = new Tmap.LonLat(lng ,lat).transform("EPSG:4326", "EPSG:3857");//좌표 설정				        			
+				        			centerLL = lonlat3;
+				            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정				            		
+				        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
+				        			markerLayer.addMarker(marker);//레이어에 마커 추가		 							
+		 						}	
+	 						}
+	 					});
+			 			
+						//안드로이드에서 웹값 받기
+						//변경된 웹 위치값 받음 
+						socket.on('send_room_w_latlng2_server', function(id,lat,lng){
+							if(connectValue == true){
+								console.log("send_room_w_latlng2_server : "+id+"/"+lat+","+lng);	
+								//원하는 웹 유저 위치값이면 변경
+								if(id == memberNick && memberNick != unick){ 						
+		 		        			lonlat3 = new Tmap.LonLat(lng ,lat).transform("EPSG:4326", "EPSG:3857");//좌표 설정
+		 		        			centerLL = lonlat3;
+		 		            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정		 		            		
+		 		        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
+		 		        			markerLayer.addMarker(marker);//레이어에 마커 추가
+		 						}
+							}
+						});
 				} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
 				    //IOS 일때 처리
 				} else {
@@ -295,88 +454,93 @@
 					var options = {timeout: 3000};
 	        		watchId = navigator.geolocation.watchPosition(function(position) {
 	        			console.log(position.coords);
-
+						//웹에서 위치 변경되면 
 	        			latitude = position.coords.latitude;
 	       				longitude = position.coords.longitude;
-			 			//소켓에 send_latitude라는 이벤트로 latitude를 담고 보내준다.
-			            socket.emit("send_latlng2",latitude,longitude);
-						socket.on('send_latlng2', function(id,lat,lng){
-							console.log("send_latlng2 : "+id+"/"+lat+","+lng);	
-							socket.emit('send_room_latlng2',id,latitude,longitude);
+			 			//변경된 웹 위치값 룸으로 보냄 - 나 웹
+			            socket.emit("send_room_w_latlng2",unick,latitude,longitude);
+			 			//내가 내 위치를 보고싶으면 
+			 			if(memberNick == unick){
+			            	lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
+		        			centerLL = lonlat3;
+		            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정		            		
+		        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
+		        			markerLayer.addMarker(marker);//레이어에 마커 추가
+			 			}
+			 			//변경된 웹 위치값 받음 
+						socket.on('send_room_w_latlng2_server', function(id,lat,lng){
+							console.log("send_room_w_latlng2_server : "+id+"/"+lat+","+lng);	
+							//원하는 유저 위치값이면 변경
+							if(id == memberNick && memberNick != unick){							
+	 		        			lonlat3 = new Tmap.LonLat(lng ,lat).transform("EPSG:4326", "EPSG:3857");//좌표 설정
+	 		        			centerLL = lonlat3;
+	 		            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정	 		            		
+	 		        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
+	 		        			markerLayer.addMarker(marker);//레이어에 마커 추가
+	 						}
 						},null,options);
-									
-	        			lonlat3 = new Tmap.LonLat(longitude ,latitude ).transform("EPSG:4326", "EPSG:3857");//좌표 설정
-	        				        			
-	        			centerLL = lonlat3;
-	            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정
-	            		
-	        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
-	        			markerLayer.addMarker(marker);//레이어에 마커 추가
+			 			//변경된 안드로이드 위치값 받음
+						socket.on('send_room_a_latlng2_server', function(id,lat,lng){
+							console.log("send_room_a_latlng2_server : "+id+"/"+lat+","+lng);	
+							//내가 웹일때 안드로이드 위치값으로 변경하고 싶으면
+		 					if(id == memberNick && memberNick != unick){
+				     			lonlat3 = new Tmap.LonLat(lng,lat).transform("EPSG:4326", "EPSG:3857");//좌표 설정			        				        			
+			        			centerLL = lonlat3;
+			            		map.setCenter(centerLL, 14); // 지도 중심 좌표 설정			            		
+			        			marker = new Tmap.Marker(lonlat3, icon);//마커 생성
+			        			markerLayer.addMarker(marker);//레이어에 마커 추가
+		 					}
+						});						
 	       			}); 
 				}
-
          	}
 			
          	//위치찾기 종료
 			function stopLocation(){
-					
-        		navigator.geolocation.clearWatch(watchId);
-        		//clearInterval(flocation);
+				connectValue = false;
+        		navigator.geolocation.clearWatch(watchId);        		
         		markerLayer.clearMarkers();//레이어에 마커 제거
-        		console.log("친구찾기 중지");
-        		
+        		console.log("친구찾기 중지");        		
         		document.getElementById("fl_btn").style.display="inline";
-        		document.getElementById("sl_btn").style.display="none";
-        		
+        		document.getElementById("sl_btn").style.display="none";        		
          	}
          	
          	//길찾기
          	function findRoot(){
          		try {
          			removeRoot();
-         		} catch(e) {}
-         	
+         		} catch(e) {}         	
          		markers1.setVisibility(false);
-         		markers2.setVisibility(false);
-         		
-				var tData = new Tmap.TData();//REST API 에서 제공되는 경로, 교통정보, POI 데이터를 쉽게 처리할 수 있는 클래스입니다.
-				
+         		markers2.setVisibility(false);         		
+				var tData = new Tmap.TData();//REST API 에서 제공되는 경로, 교통정보, POI 데이터를 쉽게 처리할 수 있는 클래스입니다.				
         		var s_lonLat =  new Tmap.LonLat(lonlat.lon , lonlat.lat).transform("EPSG:3857", "EPSG:4326");; //시작 좌표입니다.   
-        		var e_lonLat = new Tmap.LonLat(lonlat2.lon , lonlat2.lat).transform("EPSG:3857", "EPSG:4326"); //도착 좌표입니다.
-  
+        		var e_lonLat = new Tmap.LonLat(lonlat2.lon , lonlat2.lat).transform("EPSG:3857", "EPSG:4326"); //도착 좌표입니다.  
         		var optionObj = {
         				reqCoordType:"WGS84GEO", //요청 좌표계 옵셥 설정입니다.
         				resCoordType:"EPSG3857"  //응답 좌표계 옵셥 설정입니다.
-                     }
-        		
-        		tData.getRoutePlan(s_lonLat, e_lonLat, optionObj);//경로 탐색 데이터를 콜백 함수를 통해 XML로 리턴합니다.
-        		
+                     }        		
+        		tData.getRoutePlan(s_lonLat, e_lonLat, optionObj);//경로 탐색 데이터를 콜백 함수를 통해 XML로 리턴합니다.        		
         		tData.events.register("onComplete", tData, onComplete);//데이터 로드가 성공적으로 완료되었을 때 발생하는 이벤트를 등록합니다.
         		tData.events.register("onProgress", tData, onProgress);//데이터 로드중에 발생하는 이벤트를 등록합니다.
-        		tData.events.register("onError", tData, onError);//데이터 로드가 실패했을 떄 발생하는 이벤트를 등록합니다.
-        		
+        		tData.events.register("onError", tData, onError);//데이터 로드가 실패했을 떄 발생하는 이벤트를 등록합니다.        		
         		document.getElementById("r_btn").style.display="inline";
-        		document.getElementById("f_btn").style.display="none";
-        
+        		document.getElementById("f_btn").style.display="none";        
          	}
          	
          	//길찾기 제거
 			function removeRoot(){		
 				map.removeLayer(vectorLayer);
 				markers1.setVisibility(true);
-         		markers2.setVisibility(true);
-         		
+         		markers2.setVisibility(true);         		
          		document.getElementById("r_btn").style.display="none";
-        		document.getElementById("f_btn").style.display="inline";
-         	
+        		document.getElementById("f_btn").style.display="inline";         	
          	}
 
          	//map을 이동하는 경우 발생하는 함수입니다.
         	function onMoveEnd(){
         		var c_ll = map.getCenter(); //현재 지도의 center 좌표를 가져옵니다.
         		c_ll = new Tmap.LonLat(c_ll.lon, c_ll.lat).transform("EPSG:3857","EPSG:4326");//WGS84 좌표계로 변환
-        		loadGetAddressFromLonLat(c_ll);//중심좌표를 주소로 변환하는 함수입니다.
-        		 
+        		loadGetAddressFromLonLat(c_ll);//중심좌표를 주소로 변환하는 함수입니다.        		 
         		//중심좌표를 주소로 변환하는 함수입니다. 
         		function loadGetAddressFromLonLat(ll) {
         			var tdata = new Tmap.TData(); //REST API 에서 제공되는 경로, 교통정보, POI 데이터를 쉽게 처리할 수 있는 클래스입니다.
@@ -392,12 +556,10 @@
         			var resultDiv = document.getElementById("result");//id가 결과를 출력할 result인 element를 찾습니다.
         			resultDiv.innerHTML = result;//결과를 htmㅣ에 출력
         		}
-        	}
-        	
+        	}      	
          	
         	function onComplete(){
-        		console.log(this.responseXML); //xml로 데이터를 받은 정보들을 콘솔창에서 확인할 수 있습니다.
-        			      
+        		console.log(this.responseXML); //xml로 데이터를 받은 정보들을 콘솔창에서 확인할 수 있습니다.        			      
         		var kmlForm = new Tmap.Format.KML({extractStyles:true}).read(this.responseXML);
         		//var vectorLayer = new Tmap.Layer.Vector("vectorLayerID");
         		vectorLayer = new Tmap.Layer.Vector("vectorLayerID");
@@ -414,45 +576,40 @@
         	function onError(){
         		alert("onError");
         	}
-
 			// 마커 그리기
-			function drawMarker(type, addr,ca){
-				
+			function drawMarker(type, addr,ca){				
 				var labelHtml = getMarkupData(addr); // 라벨 내용 지정
 				var label = new Tmap.Label(labelHtml); // 라벨 생성
 				label.popupStyle = type;
 					if(ca == 1){
 						marker1 = new Tmap.Markers(targetLL,icon, label); // 마커 생성
 						markers1.addMarker(marker1); // markers 에 마커 추가
-						marker1.popup.show(); // 팝업 보이기
+						//marker1.popup.show(); // 팝업 보이기
 					}else if(ca == 2){
 						icon = new Tmap.Icon("http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_a.png",size,offset); // 마커 아이콘 지정
 						marker2 = new Tmap.Markers(targetLL,icon, label); // 마커 생성
 						markers2.addMarker(marker2); // markers 에 마커 추가
-						marker2.popup.show(); // 팝업 보이기
+						//marker2.popup.show(); // 팝업 보이기
 					}	
 				}				
 		
 			// 라벨 컨텐츠 지정 함수
-			function getMarkupData(addr){
-				
+			function getMarkupData(addr){				
 				var txt = "<div style='font-size:.8em'>";
 				txt += "<span class='whiteText'>"+ addr + "</span>";
 				return txt;
 			}
-
 		//주소검색    
 		var newRoadAddr = '';
-
 		function isValidate() {
 			var keyword = $('#inpKeyword').val();
 			var totLimit = $('#inpTotLimit').val();
-			var page = $('#inpPage').val();
+			var page = $('#inpPage').val();		
 			
 			if( $.trim( keyword ) == '' ) {
 				alert('검색어를 입력해주세요.');
 				return false;
-			}
+			}			
 			
 			if( $.trim( totLimit ) == '' || $.isNumeric( totLimit ) == false || totLimit <= 0 ) {
 				$('#inpTotLimit').val('20');
@@ -657,7 +814,8 @@
 			var roadAddr = newRoadAddr;
 			console.log(roadAddr);
 			document.querySelector("[name=arrive]").value = roadAddr;
-		       
+			arrive = $('#arrive').val();
+///////		       
 			$.ajax({
 				method:"GET",
 				url:"https://apis.openapi.sk.com/tmap/geo/fullAddrGeo?version=1&format=xml&callback=result", //FullTextGeocoding api 요청 url입니다.
@@ -700,24 +858,24 @@
 					lonlat2 = new Tmap.LonLat(lon,lat).transform("EPSG:4326", "EPSG:3857");
 					console.log("lonlat2 : " +lonlat2);
 					
-					//////////////////////////////////
-					//markers2.removeMarker(marker2); //기존 마커를 삭제합니다.
-					//console.log("마커 제거됫니")
-					//////
-    				
-    				var addr2 = document.querySelector("[name=arrive]").value;
+				
+				
+    				console.log("addr2 : " +addr2);
+    				if(addr2 != "")	markers2.removeMarker(marker2); //기존 마커를 삭제합니다.
+    				 addr2 = document.querySelector("[name=arrive]").value;
     				console.log("addr2 : " +addr2);
 
-             		// 팝업 생성
-            		var popup2;
-            		popup2 = new Tmap.Popup( );
-            		popup2.autoSize=true;//popup 사이즈 자동 조절		                         
-            		popup2.show(); // 팝업 보이기
+//              		// 팝업 생성
+//             		var popup2;
+//             		popup2 = new Tmap.Popup( );
+//             		popup2.autoSize=true;//popup 사이즈 자동 조절		                         
+//             		popup2.show(); // 팝업 보이기
+            	
             	
             		// 이미지 마커 커스텀 오버레이
             		targetLL = lonlat2;
             		map.setCenter(new Tmap.LonLat(lon,lat).transform("EPSG:4326", "EPSG:3857"), 15);
-            		
+            	
             		markers2 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - 주소검색시
             		map.addLayer(markers2); // 지도에 Markers 객체 추가
             		drawMarker(3,addr2,2); // 마커 그리기
@@ -749,9 +907,9 @@
 		}
 			
 	</script>
-    	
-    	<div id="ft" >
-    	<jsp:include page="footer.jsp"></jsp:include>
-    	</div>
-    </body>
-</html>	
+
+		<div id="ft">
+			<jsp:include page="footer.jsp"></jsp:include>
+		</div>
+</body>
+</html>

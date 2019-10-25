@@ -8,6 +8,8 @@ $(document).ready(function() {
     var user_nick = $('#nick').val(); 
     var user_id = $('#userid').val();
     var room_num = $('#roomNumber').val();
+    
+    console.log('room_num'+room_num);
 
     socket.on('connect', function(){
       // 서버로 닉네임을 전송 => 서버에 있는 이벤트를 발생시킨다
@@ -29,44 +31,49 @@ $(document).ready(function() {
     })
     
     // 현재 대화방 참여자 목록을 표시... 배열을 받음
-    socket.on('c_send_member', (memberNick) => {
-      console.log('입장한 방에 현재 멤버(member)는' +  memberNick);
-      // 참여자를 화면에 표시
-      memberShow(memberNick);
-    })
-    
-    function memberShow(memberId, memberNick){
-    	// $("#memberList").empty();
-    	console.log('여기로 들어오는지...')
-    	console.log('@' + room_num + '@');
-    	var html = "";
-//    	for(var i =0 ; i<Object.keys( member ).length ; i++){
-//    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
-    		html += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+memberNick+"";
-    		html += "<span class='caret'></span></button>"
-			html += "<ul class='dropdown-menu' style='list-style:none;'>"
-			html += "<li><a href='/returnscroll/tmap/" + user_id + "' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
-			html += "</ul></div>";
-//    	}
-
-    	/*for(var i=0;i<member.length;i++){
-    		users += member[i] + "님  ";
-    	}*/
-    	$("#memberList").append(html);
-    	//$("#members").append(users);
-    }
+//    socket.on('c_send_member', (memberNick) => {
+//      console.log('입장한 방에 현재 멤버(member)는' +  memberNick);
+//      // 참여자를 화면에 표시
+//      memberShow(memberNick);
+//    })
+//    
+//    function memberShow(memberId, memberNick){
+//    	// $("#memberList").empty();
+//    	console.log('여기로 들어오는지...')
+//    	console.log('@' + room_num + '@');
+//    	console.log(room_num)
+//    	var html = "";
+////    	for(var i =0 ; i<Object.keys( member ).length ; i++){
+////    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
+//    		html += "<div class='dropdown' style='float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+memberNick+"";
+//    		html += "<span class='caret'></span></button>"
+//			html += "<ul class='dropdown-menu' style='list-style:none;'>"
+//			html += "<li><a href='/returnscroll/tmap/" + memberNick + "/"+roomNum+"' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
+//			html += "</ul></div>";
+////    	}
+//
+//    	/*for(var i=0;i<member.length;i++){
+//    		users += member[i] + "님  ";
+//    	}*/
+//    	$("#memberList").append(html);
+//    	//$("#members").append(users);
+//    }
     
     // 현재 대화방 참여자 목록을 표시... 배열을 받음
     socket.on('c_send_updateMember', (memberNick) => {
       console.log('새로운 사람 : '+ memberNick);
+      console.log('방번호 : '+room_num)
       // 참여자를 화면에 표시
       memberUpdate( memberNick);
     })
     
+    console.log('room_num'+room_num);
+
     function memberUpdate(memberNick){
     	// 해당 태그 내부요소들을 비움(?)
     	//$("#memberList").empty();
     	console.log('[update] 여기로 들어오는지...')
+    	console.log(room_num)
     	var html = "";
 //    	for(var i =0;i<Object.keys( member ).length;i++){
 //    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
@@ -74,7 +81,7 @@ $(document).ready(function() {
     				"float: left;'><button class='btn btn-default' type='button' data-toggle='dropdown' style='border: none;background: none; display: inline-block;'>"+memberNick+"";
     		html += "<span class='caret'></span></button>"
 			html += "<ul class='dropdown-menu' style='list-style:none;'>"
-			html += "<li><a href='/returnscroll/tmap/" + user_id + "' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
+			html += "<li><a href='/returnscroll/tmap/" + memberNick + "/"+room_num+"' class='dropdown-item' style='padding-bottom:10px;padding-top:10px;'>현재위치확인</a></li>"
 //			html += "<li><a href='#' class='dropdown-item disabled' style='padding-bottom:10px;padding-top:10px;'>회원정보보기</a></li>"
 			html += "</ul></div>";
     		
