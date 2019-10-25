@@ -21,6 +21,7 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/map.css" rel="stylesheet" />
 </head>
+
 <body id="page-top">
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
@@ -61,9 +62,11 @@
 
 		<!-- 지도 -->
 		<div id="map_div"></div>
-		
-		<input type='button' id='back' value='뒤로가기' onclick="location.href='/returnscroll/chat/${room_num}'">
-		<input type='button' id='reflash' value='새로고침' onclick="location.reload()">
+		<br>
+		<div id="map_btn2">		
+			<input type='button' id='back' value='뒤로가기' onclick="location.href='/returnscroll/chat/${room_num}'">
+			<input type='button' id='reflash' value='새로고침' onclick="location.reload()">
+		</div>
 
 		<!-- Modal -->
 		<div class="modal fade" id="findAddr" tabindex="-1" role="dialog"

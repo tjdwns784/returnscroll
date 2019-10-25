@@ -7,7 +7,7 @@
 
 <footer>
 <!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top" style="z-index:10000;">
 		<i class="fas fa-angle-up"></i>
 	</a>
 <div>
