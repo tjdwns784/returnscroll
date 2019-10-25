@@ -237,7 +237,7 @@
   
   <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script>
+    <script src="${pageContext.request.contextPath}/resources/chat.js"/></script>
     
 <%--    <script src="${pageContext.request.contextPath}/resources/js/jquery.sticky.js"></script> --%>
     

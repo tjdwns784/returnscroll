@@ -40,6 +40,33 @@
  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
   
   body, table, div, p, h1, form {font-family:'Nanum Gothic'; font-weight:bold;}
+		
+	#reg_submit {
+		width:132px; 
+		margin-left:30%;
+		margin-top:2%;
+	}
+	
+	#date {
+		width:85px; 
+		height:38px; 
+		margin-right:-3%; 
+		border-radius: 0.25rem;
+	}
+	
+	#phone {
+		width:85px; 
+		height:38px; 
+		border-radius: 0.25rem;
+	}
+	
+	#phone1 {
+		width:85px; 
+		height:38px; 
+		margin-left: 1%;
+		border-radius: 0.25rem;
+	}
+	
 	@media (min-width: 1200px) {
 		.container {
 		    max-width: 800px;
@@ -47,6 +74,36 @@
 		
 		select[name=p1] {
 		    width: 100px;
+		}
+	
+	}
+
+	@media (max-width: 600px) {
+		
+		#reg_submit {
+			width:132px; 
+			margin-left:4%;
+			margin-top:2%;
+		}
+		
+		#date {
+			width:89px; 
+			height:38px; 
+			margin-right:-3%; 
+			border-radius: 0.25rem;
+		}
+		
+		#phone1 {
+			width:100px; 
+			height:38px; 
+			margin-left: 1%;
+			border-radius: 0.25rem;
+		}
+		
+		#phone {
+			width:100px; 
+			height:38px; 
+			border-radius: 0.25rem;
 		}
 	}
 </style>
@@ -129,20 +186,20 @@
 						<div class="check_font" id="name_check"></div>
 					</div>
 					<div class="form-group required">
-						<label for="user_birth">생년월일:</label>
-						<select name="year" style="width:85px; height:40px; margin-right:-2%;">
+						<label for="user_birth">생년월일</label><br>
+						<select id="date" name="year">
 							<%for(int i=2019; i>1939; i--){ %>
 							<option value="<%=i%>"><%=i %>년</option>
 							<%} %>
 						</select> 
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<select name="month" style="width:85px; height:40px; margin-right:-2%;">
+						<select id="date" name="month">
 							<%for(int i=1; i<13; i++){ %>
 							<option value="<%=i%>"><%=i %>월</option>
 							<%} %>
 						</select>	
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						 
-						<select name="day" style="width:85px; height:40px;">
+						<select  id="date" name="day">
 							<%for(int i=1; i<32; i++){ %>
 							<option value="<%=i%>"><%=i %>일</option>
 							<%} %>
@@ -151,8 +208,8 @@
 						<div class="check_font" id="birth_check"></div>
 					</div>
 					<div class="form-group">
-						<label for="user_phone">핸드폰 번호:</label> 
-						<select name="p1" style="width:85px; height:40px;">
+						<label for="user_phone">핸드폰 번호</label><br>
+						<select id="phone" name="p1">
 							<option value="010">010</option>
 							<option value="011">011</option>
 							<option value="016">016</option>
@@ -160,8 +217,8 @@
 							<option value="018">018</option>
 							<option value="019">019</option>
 						</select>
-						-<input name="p2" required="required" style="width:85px; height:40px;" maxlength="4">
-						-<input name="p3" required="required" style="width:85px; height:40px;" maxlength="4">
+						-<input id="phone1" name="p2" required="required" maxlength="4">
+						-<input id="phone1" name="p3" required="required" maxlength="4">
 						<div class="check_font" id="phone_check"></div>
 					</div>
 					<div class="form-group">
@@ -172,7 +229,7 @@
 						<div class="check_font" id="email_check"></div>
 					</div>
 					<div class="reg_button container text-align:center my-auto">
-						<button class="btn btn-primary px-3" id="reg_submit" type="submit" style="width:132px; margin-left:4%; margin-top:2%;">
+						<button class="btn btn-primary px-3" id="reg_submit" type="submit">
 							<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
 						</button>
 						<a class="btn btn-danger px-3"

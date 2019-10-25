@@ -40,7 +40,7 @@
 
    #loginForm {
    	  margin-top: 0.5%;
-	  margin-bottom:-3.5%; 
+	  margin-bottom:-2.5%; 
    }
    
    #ryan {

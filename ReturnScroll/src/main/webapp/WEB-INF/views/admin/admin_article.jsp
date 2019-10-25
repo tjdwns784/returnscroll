@@ -171,8 +171,8 @@
 				<thead class="thead-dark" style="text-align:center;" >
 					<tr >
 					<th  class="d-none d-lg-table-cell" style="width:10%;" >번호</th>
-					<th  class="d-none d-lg-table-cell" style="width:45%;" >제목</th>
-					<th  class="d-none d-lg-table-cell" style="width:10%;" >작성자</th>
+					<th  class="d-none d-lg-table-cell" style="width:35%;" >제목</th>
+					<th  class="d-none d-lg-table-cell" style="width:20%;" >작성자</th>
 					<th  class="d-none d-lg-table-cell" style="width:15%;" >작성일</th>
 					<th  class="d-none d-lg-table-cell" style="width:10%;" >조회수</th>
 					<th  class="d-none d-lg-table-cell" style="width:10%;" >비고</th>
