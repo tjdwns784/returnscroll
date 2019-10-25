@@ -93,6 +93,7 @@
 		#commentBtn{
 			height:10%;
 			width:22%;
+			top : -12px;
 		}
 		
 		#h1_title{
