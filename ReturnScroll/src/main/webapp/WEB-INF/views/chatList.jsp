@@ -295,7 +295,7 @@
                 data: inviteData,
                 success:function(data){
                 	console.log('결과 데이터는 '+data);
-                	window.location.href="/chat/"+data;
+                	window.location.href="/returnscroll/chat/"+data;
                 },
                 error:function(request, status, errorThrown){
                    alert('방 입장 실패'+errorThrown);
