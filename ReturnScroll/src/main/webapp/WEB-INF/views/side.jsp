@@ -79,8 +79,6 @@
             href="/returnscroll/">Menu</a></li>
          <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Home"
             href="/returnscroll/">Home</a></li>
-         <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Map"
-            href="/returnscroll/tmap">Map</a></li>
          <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Chat"
             href="/returnscroll/chat">Chat</a></li>
          <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Q&A"
