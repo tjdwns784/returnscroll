@@ -1,5 +1,6 @@
  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css); 
   	body, table, div, p ,h1,button, td,option{font-family:'Nanum Gothic';} 
+  	
 
         table {
             width: 100%;
