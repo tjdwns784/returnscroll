@@ -31,12 +31,14 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<!-- Custom scripts for this template -->
 	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
+<!-- 	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script> -->
+	<script src="http://192.168.0.15:82/socket.io/socket.io.js"></script>
 	<!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<!-- <p id="result" name="result" value=" " ></p> -->
 	<div id="body">
 		<h1 id="h1_title" style="margin-left: 2.5%; margin-top: 2%;">Map</h1>
+		<p style="text-align: right;">${memberNick}님의 현재 위치</p>
 		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
 		<div style="width: 100%;">
 			<form method='post' enctype='multipart/form-data'
@@ -55,6 +57,7 @@
 						 <input type='button' id='sl_btn' value='현재위치찾기 중지' onclick="stopLocation()" style="display: none;"><br>
 					<input type="hidden" id="memberNick" value="${memberNick}">
 					<input type="hidden" id="unick" value="${unick}">
+					<input type="hidden" id="room_num" value="${room_num}">
 				</div>
 			</form>
 		</div>
@@ -111,7 +114,19 @@
 								</div>
 								<div id="divSearchlist">
 									<div class="result">
-										<p>
+
+										<p style="color: darkorange">최근 검색 목록</p>
+										<table>
+											<c:forEach items="${user_addr}" var="item">
+												<tr>
+													<td><a onclick='arriveRecentAddr("${item.ADDRESS}")'  data-dismiss="modal" style="cursor:pointer;">
+															${item.ADDRESS} </a></td>
+												</tr>
+											</c:forEach>
+										</table>
+
+
+										<p style="color: darkorange">
 											검색결과 : 총 <strong id="spanTotCnt">0</strong>건
 										</p>
 									</div>
@@ -162,6 +177,7 @@
      		var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기	
      		var memberNick = $('#memberNick').val();
      		var unick = $('#unick').val();
+     		var room_num = $('#room_num').val();
      		var start = '';
      		var arrive = '';
      		var addr2="";
@@ -176,6 +192,17 @@
 				} else {
 					initTmap();					
 				}
+     			
+     			socket.emit('btn_status',room_num, unick);
+     			socket.on('btn_status_show',(status)=>{
+     				if(status == 'end'){
+     					stopLocation();
+     				}else if(status == 'start'){
+                		socket.emit('status_delete',room_num,unick);
+                		findLocation();
+     				}
+     			});
+     			
         	});
          	
          	function setVariables(){    
@@ -253,16 +280,6 @@
 	 						}
 	 					});	 		
 	 					
-// 	 					socket.on('request_room_aw_latlng_server', function(requestNick, memberNick){
-// 	 						console.log(`${requestNick}가 ${memberNick}에게 위치 요청22222`)
-// 	 						console.log(unick);
-// 	 						console.log(memberNick);
-// 	 						console.log(unick == memberNick);
-// 	 						if(unick == memberNick){	 							
-// 	 							socket.emit('send_member_aw_latlng',requestNick, latitude, longitude,start, arrive);
-// 	 						}
-// 	 					});
-	 					
 	 					socket.on('send_member_aw_latlng_server', function(uid, lat, lng, start_r,arrive_r){
 	 						if(unick == uid) {
 		 						console.log( uid, '가요청한 위치', lat, lng,start,arrive);
@@ -334,16 +351,7 @@
 	 							socket.emit('send_member_aw_latlng',requestNick, latitude, longitude,start, arrive);
 	 						}
 	 					});
-	 					
-// 	 					socket.on('send_member_aw_latlng_server', function(uid, lat, lng, start_r,arrive_r){
-// 	 						if(unick == uid) {
-// 		 						console.log( uid, '가요청한 위치', lat, lng,start,arrive);
-// 	 							document.querySelector("[name=start]").value = start_r;
-// 	 							document.querySelector("[name=arrive]").value = arrive_r;
-// 	 							console.log('상대방 위치 전송 완료')
-// 	 							initLocation(lat,lng);
-// 	 						}
-// 	 					});
+	 
 	    				initLocation(latitude, longitude);
          			});        		
 	         		
@@ -390,11 +398,19 @@
 
          	//친구위치찾기
 			function findLocation(){
+				// 내가 내 위치를 확인 했을 때
+				if(unick == memberNick){
+         			// unick이 접속한 사람 , memberNick이 확인하고 싳은 사람       					
+		         	socket.emit('send_start_user', unick+'님이 출발을 하였습니다.', unick, memberNick, room_num,new Date());
+         		}
+         		
 				connectValue = true;
 				markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
 				map.addLayer(markerLayer);//map에 마커 레이어 추가			
         		document.getElementById("fl_btn").style.display="none";
-        		document.getElementById("sl_btn").style.display="inline";        		
+        		document.getElementById("sl_btn").style.display="inline";  
+        		
+        		
         		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_g_m_m.png',size, offset);//마커 아이콘 설정        		
         		if (varUA.match('android') != null) { 
 				    //안드로이드 일때 처리
@@ -402,7 +418,7 @@
 			 			//위치변경시 안드로이드 위치값 받음  
 						socket.on('send_a_latlng2_server', function(id,lat,lng){
 							if(connectValue == true){
-								console.log("send_latlng2_server : "+id+"/"+lat+","+lng);	
+								console.log("send_latlng2_server : "+id+"/"+lat+","+lng);
 								//위치변경시 나
 								if(id == memberNick && memberNick == unick){
 									latitude = lat;
@@ -505,7 +521,13 @@
         		markerLayer.clearMarkers();//레이어에 마커 제거
         		console.log("친구찾기 중지");        		
         		document.getElementById("fl_btn").style.display="inline";
-        		document.getElementById("sl_btn").style.display="none";        		
+        		document.getElementById("sl_btn").style.display="none";
+        		
+				// 내가 내 위치를 확인 했을 때
+         		if(unick == memberNick){				
+   					// unick이 접속한 사람 , memberNick이 확인하고 싳은 사람
+           			socket.emit('send_end_user', unick+'님이 도착을 하였습니다.', unick, memberNick,room_num, new Date());
+         		}
          	}
          	
          	//길찾기
@@ -716,7 +738,7 @@
 			var curentPage = $('#inpPage').val();//현재 페이지
 			var pageHtml; //페이지 리스트
 			
-			var pageGroup = Math.ceil(curentPage/10);    //페이지 그룹 넘버링
+			var pageGroup = Math.ceil(curentPage/10);    // 페이지 그룹 넘버링
 
 			var next = pageGroup*10;
 			var prev = next-9;            

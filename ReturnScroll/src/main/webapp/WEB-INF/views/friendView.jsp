@@ -218,9 +218,10 @@
                 data: createData,
                 success:function(data){
                 	console.log('방금 생성한 방의 번호: '+data+", data의 타입 : "+typeof data);
-                	var url = "chat/"+data+"";
-                	console.log('접속할 url은 '+url);
-                	window.open(url); // 접속 성공했고, 
+//                 	var url = "/returnscroll/chat/"+data+"";
+//                 	console.log('접속할 url은 '+url);
+                	window.location.href="/returnscroll/chat/"+data;
+//                 	window.open(url); // 접속 성공했고, 
                 	// friendId에게 채팅방에 초대됬다는 알람을 보내줌
                 	inviteFriend(data, uid, friendId); 
                 	

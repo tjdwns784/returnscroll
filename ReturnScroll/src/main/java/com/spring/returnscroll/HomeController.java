@@ -39,6 +39,8 @@ public class HomeController  {
 	ArticleService articleservice;
 	@Autowired
 	ChatService chatService;
+	@Autowired
+	AddressService address_service;
 	  
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpSession httpSession) {
@@ -68,42 +70,69 @@ public class HomeController  {
 		return "kmap";
 	}
 	
-	//지도 티맵 - 사용하는것
-	@RequestMapping(value = "/tmap/{memberNick}/{room_num}", method = RequestMethod.GET)
-	public String tmap(Locale locale, Model model, HttpSession httpSession, /*
-																			 * @RequestHeader(required = false,
-																			 * value="user-agent") String userAgent,
-																			 */
-			@PathVariable("memberNick") String memberNick,@PathVariable("room_num") String room_num) {
+	@RequestMapping(value = "/tmap/{memberNick}", method = RequestMethod.GET)
+	public String tmapView(Locale locale, Model model, HttpSession httpSession,
+			@PathVariable("memberNick") String memberNick) {
 				
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 			return "redirect:/login";
 		}else {
 			
-			//System.out.println(userAgent);
-			
-//			if(userAgent != null) {
-//				if(userAgent.indexOf("Android") > -1 && userAgent.indexOf("Mobile") > -1) {
-//					System.out.println("안드로이드");
-//					return "tmap_app";
-//				}
-//			}
-//			System.out.println("웹");
 			
 			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
 			String unick = (String) userId.get("nick");
 			model.addAttribute("unick",unick);
 			
 			System.out.println(memberNick);
-			System.out.println(room_num);
+			model.addAttribute("memberNick",memberNick);
+			return "tmap";
+		}
+
+	}
+	
+	//지도 티맵 - 사용하는것
+	@RequestMapping(value = "/tmap/{memberNick}/{room_num}", method = RequestMethod.GET)
+	public String tmap(Locale locale, Model model, HttpSession httpSession,HttpServletRequest req,
+			@PathVariable("memberNick") String memberNick,@PathVariable("room_num") String room_num,
+			@RequestParam Map<String,Object> map) {
+				
+		if(httpSession.getAttribute("uid") == null) {
+			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+			return "redirect:/login";
+		}else {
+
+			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+			String unick = (String) userId.get("nick");
+			model.addAttribute("unick",unick);
+			
 			model.addAttribute("memberNick",memberNick);
 			model.addAttribute("room_num",room_num);
+			//System.out.println(room_num);
+			List<Map<String, Object>> user_addr = address_service.users_Address(unick);
+			//System.out.println(user_addr);
+			model.addAttribute("user_addr",user_addr);
+		
+
 			return "tmap";
 				
 		}
 
 	}
+	
+	//지도 티맵 - 사용하는것
+		@RequestMapping(value = "/tmap/{unick}/{room_num}", method = RequestMethod.POST)
+		@ResponseBody
+		public void tmapPost(Locale locale, Model model, HttpSession httpSession,HttpServletRequest req,
+				@PathVariable("unick") String unick,@PathVariable("room_num") String room_num,
+				@RequestParam Map<String,Object> map) {
+
+				map.put("nick", unick);
+				System.out.println(map);
+			
+				address_service.insert_Address(map);
+
+		}
 	
 	// 채팅주소로 들어갈때 로그인 세션이 있는지 없는 지 검사 & 세션있으면 채팅방 리스트를 볼 수 있음
 	@RequestMapping(value = "/chat", method = RequestMethod.GET)
@@ -210,13 +239,14 @@ public class HomeController  {
 	// 친구 추가할 때 회원의 아이디를 찾는거 (Ajax 통신)
 	@RequestMapping(value = "/chat/findId", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody Map<String, String> chatPost(@RequestParam("uid") String uid){
-		// 닉네임으로 찾음
+		// 닉네임으로 찾음 (uid, uname, nick)
 		Map<String, String> findUser = chatService.friendInvite(uid);
-		
-		
+		System.out.println("검색한 uid : "+uid);
+		System.out.println("초대할 findUser : "+findUser);
 		String uidFind = findUser.get("uid");
 		String nick = findUser.get("nick");
 		System.out.println("초대할 회원의 아이디 : "+uidFind);
+		// 값을 저장하여 보낼 maps
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid",uidFind);
 		map.put("nick", nick);

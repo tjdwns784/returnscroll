@@ -114,8 +114,8 @@
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
 	<!-- Header -->
-		<div class="container text-align:left my-auto">
-			<div style="border: 1px solid; padding: 10px;">
+		<div class="container text-align:left my-auto" id="body">
+			<div style="border: 1px solid; padding: 10px; margin-bottom: -6%">
 				<form method="POST" > 
 				<!-- 소셜 로그인 -->
 				<input type="hidden" name="kakao" value="${param.kakao}">
@@ -241,15 +241,11 @@
 			</div>
 		</div>
 		<div class="overlay"></div>
-	</header>
 
 	<div class="container"></div>
 
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-		<i class="fas fa-angle-up"></i>
-	</a>
-
+	<jsp:include page="footer.jsp"></jsp:include>
+	
 	<!-- Bootstrap core JavaScript -->
 	<script
 		src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
