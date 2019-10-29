@@ -49,15 +49,9 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<!-- Custom scripts for this template -->
-<<<<<<< HEAD
 	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-<!-- 	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script> -->
-	<script src="http://192.168.0.15:82/socket.io/socket.io.js"></script>
-=======
-	<script
-		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+ 	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script> 
+
 	<!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
