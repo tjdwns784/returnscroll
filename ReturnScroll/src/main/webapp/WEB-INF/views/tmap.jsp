@@ -60,7 +60,20 @@
 		<h1 id="h1_title" style="margin-left: 2.5%; margin-top: 2%;">Map</h1>
 
 		<p style="text-align: right;">${memberNick}님의 현재 위치</p>
+<<<<<<< HEAD
 		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
+=======
+		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
+=======
+<<<<<<< HEAD
+		<p style="text-align: right;">${memberNick}님의 현재 위치</p>
+		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
+=======
+		<hr
+			style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 		<div style="width: 100%;">
 			<form method='post' enctype='multipart/form-data'
 				style="margin-left: 2.5%;">
