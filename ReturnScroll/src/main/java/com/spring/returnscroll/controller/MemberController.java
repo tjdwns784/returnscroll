@@ -108,7 +108,6 @@ public class MemberController {
 	@ResponseBody
 	public String loginPost(Model model, HttpServletRequest req, HttpSession httpSession, @RequestParam Map<String, Object> map) {
 		String upw = (String) map.get("upw");
-		
 		String result2="";
 	    try {
 	        MessageDigest md5 = MessageDigest.getInstance("MD5");
@@ -123,7 +122,7 @@ public class MemberController {
 	    map.put("upw", result2);
 		
 	    Map<String, Object> user = memberservice.login(map);				
-								
+		System.out.println(user);
 		if (user != null) {						
 			httpSession.setAttribute("uid", user);
 			return "success";					

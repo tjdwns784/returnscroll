@@ -5,8 +5,44 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 <title>아이디/비번 찾기</title>
+<!-- Bootstrap Core CSS -->
+<link
+	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link
+	href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+	rel="stylesheet" type="text/css">
+<link
+	href="${pageContext.request.contextPath}/resources/vendor/simple-line-icons/css/simple-line-icons.css"
+	rel="stylesheet">
+
+<!-- Custom CSS -->
+<link
+	href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css"
+	rel="stylesheet">
+</head>
+
+
+<body id="page-top">
+
+	<!-- Navigation -->
+	<jsp:include page="side.jsp"></jsp:include>
+	
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  
+  body, table, div, p, h1, form {font-family:'Nanum Gothic'; font-weight:bold;}
+  
 #modal {
   display: none;
   position:absolute;
@@ -26,11 +62,27 @@
 }
 
 #modal .modal_contents {
-  width:300px;
-  margin:100px auto;
+  position:absolute;
+    top:13%; left:25%;
+    transform: translate(-50%, -50%);
+  width:390px;
+  margin:50px;
   padding:20px 10px;
   background:#fff;
   border:2px solid #666;
+}
+
+@media (max-width: 600px) {
+	 #modal .modal_contents {
+	 position:absolute;
+	    top:13%; left:25%;
+	    transform: translate(-50%, -50%);
+	  width:222px;
+	  margin:65px;
+	  padding:20px 10px;
+	  background:#fff;
+	  border:2px solid #666;
+	}
 }
 
 #modal .modal_layer {
@@ -43,8 +95,10 @@
   z-index:-1;
 } 
 </style>
-</head>
-<body>
+	<!-- Header -->
+		<div class="container text-align:left my-auto" id="body">
+			<div style="border: 1px solid; padding: 10px; margin-bottom: -4%">
+				<form method="POST" > 
 	<div id="modal" class="background_modal">
 		<div class="modal_contents">
 			<h4>
@@ -62,28 +116,28 @@
 	<div class="full">
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
-				<div class="sub_title font-weight-bold text-white">
+				<div class="sub_title font-weight-bold text-black">
 					<h3>아이디/비밀번호 찾기</h3>
 					<p>인증된 이메일만 정보 찾기가 가능합니다.</p>
 				</div>
 				<div style="margin-bottom: 10px;"
 					class="custom-control custom-radio custom-control-inline">
 					<input type="radio" class="custom-control-input" id="search_1" name="search_total" onclick="search_check(1)" checked="checked">
-					<label class="custom-control-label font-weight-bold text-white"	for="search_1">아이디 찾기</label>
+					<label class="custom-control-label font-weight-bold text-black"	for="search_1">아이디 찾기</label>
 				</div>
 				<div class="custom-control custom-radio custom-control-inline">
 					<input type="radio" class="custom-control-input" id="search_2" name="search_total" onclick="search_check(2)"> 
-					<label class="custom-control-label font-weight-bold text-white" for="search_2">비밀번호 찾기</label>
+					<label class="custom-control-label font-weight-bold text-black" for="search_2">비밀번호 찾기</label>
 				</div>
 				<div id="searchI">
 					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputName_1">이름</label>
+						<label class="font-weight-bold text-black" for="inputName_1">이름</label>
 						<div>
 							<input type="text" class="form-control" id="inputName_1" name="uname" placeholder="ex) 홍길동">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputPhone_1">휴대폰번호</label>
+						<label class="font-weight-bold text-black" for="inputPhone_1">휴대폰번호</label>
 						<div>
 							<input type="text" class="form-control" id="inputPhone_1" name="phone" placeholder="ex) 01077779999">
 						</div>
@@ -95,25 +149,44 @@
 				</div>
 				<div id="searchP" style="display: none;">
 					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputId">아이디</label>
+						<label class="font-weight-bold text-black" for="inputId">아이디</label>
 						<div>
 							<input type="text" class="form-control" id="inputId" name="uid" placeholder="ex) honggildong">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputEmail_2">이메일</label>
+						<label class="font-weight-bold text-black" for="inputEmail_2">이메일</label>
 						<div>
 							<input type="email" class="form-control" id="inputEmail_2"	name="email" placeholder="ex) E-mail@gmail.com">
 						</div>
 					</div>
 					<div class="form-group">
 						<button id="pwsearchBtn" type="button" class="btn btn-primary btn-block" onclick="pwSearch_click()">확인</button>
-						<button id="pwsearchBtn2" type="button" onclick="location='${pageContext.request.contextPath}'" class="btn btn-primary btn-block">취소</button>
+						<button id="pwsearchBtn2" type="button" onclick="location='${pageContext.request.contextPath}'" class="btn btn-primary btn-block" style="margin-bottom:-2%">취소</button>
 				</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</form>
+	</div>
+	</div>
+	
+		<jsp:include page="footer.jsp"></jsp:include>
+	
+		<!-- Bootstrap core JavaScript -->
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script
+		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 <script>
 	//체크 버튼에 따라 아이디/비밀번호 기능이 달라진다

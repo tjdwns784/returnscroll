@@ -49,8 +49,8 @@
    
    @media (max-width : 600px){
    		#loginForm {
-	 	 	margin-bottom:-11.5%; 
-	  		margin-top:-10.5%;
+	 	 	margin-bottom:-12.5%; 
+	  		margin-top:3.5%;
    		}
    		#ryan {
    	  		margin-bottom:3%;

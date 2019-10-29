@@ -83,7 +83,7 @@
 	<select id="login" parameterType="string" resultType="map">
 		SELECT uid, upw, uname, nick, birth, phone, email, kakao, facebook, naver, google 
 		FROM `USERS` WHERE UID = #{uid} 
-		<!-- 		AND UPW = #{upw} -->
+				AND UPW = #{upw}
 	</select>
 	
 	<!-- 카카오 로그인 -->
