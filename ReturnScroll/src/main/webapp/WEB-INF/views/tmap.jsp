@@ -58,8 +58,8 @@
 	<!-- <p id="result" name="result" value=" " ></p> -->
 	<div id="body">
 		<h1 id="h1_title" style="margin-left: 2.5%; margin-top: 2%;">Map</h1>
-		<hr
-			style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
+		<p style="text-align: right;">${memberNick}님의 현재 위치</p>
+		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
 		<div style="width: 100%;">
 			<form method='post' enctype='multipart/form-data'
 				style="margin-left: 2.5%;">
@@ -217,6 +217,17 @@
 				} else {
 					initTmap();					
 				}
+     			
+     			socket.emit('btn_status',room_num, unick);
+     			socket.on('btn_status_show',(status)=>{
+     				if(status == 'end'){
+     					stopLocation();
+     				}else if(status == 'start'){
+                		socket.emit('status_delete',room_num,unick);
+                		findLocation();
+     				}
+     			});
+     			
         	});
          	
          	function setVariables(){    
@@ -412,6 +423,12 @@
 
          	//친구위치찾기
 			function findLocation(){
+				// 내가 내 위치를 확인 했을 때
+				if(unick == memberNick){
+         			// unick이 접속한 사람 , memberNick이 확인하고 싳은 사람       					
+		         	socket.emit('send_start_user', unick+'님이 출발을 하였습니다.', unick, memberNick, room_num,new Date());
+         		}
+         		
 				connectValue = true;
 				markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
 				map.addLayer(markerLayer);//map에 마커 레이어 추가			
@@ -527,7 +544,13 @@
         		markerLayer.clearMarkers();//레이어에 마커 제거
         		console.log("친구찾기 중지");        		
         		document.getElementById("fl_btn").style.display="inline";
-        		document.getElementById("sl_btn").style.display="none";        		
+        		document.getElementById("sl_btn").style.display="none";
+        		
+				// 내가 내 위치를 확인 했을 때
+         		if(unick == memberNick){				
+   					// unick이 접속한 사람 , memberNick이 확인하고 싳은 사람
+           			socket.emit('send_end_user', unick+'님이 도착을 하였습니다.', unick, memberNick,room_num, new Date());
+         		}
          	}
          	
          	//길찾기
@@ -738,7 +761,7 @@
 			var curentPage = $('#inpPage').val();//현재 페이지
 			var pageHtml; //페이지 리스트
 			
-			var pageGroup = Math.ceil(curentPage/10);    //페이지 그룹 넘버링
+			var pageGroup = Math.ceil(curentPage/10);    // 페이지 그룹 넘버링
 
 			var next = pageGroup*10;
 			var prev = next-9;            
