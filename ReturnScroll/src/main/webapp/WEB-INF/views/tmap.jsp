@@ -1,5 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 	language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,37 +10,56 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Tmap</title>
-<script src="https://apis.openapi.sk.com/tmap/js?version=1&format=javascript&appKey=8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2"></script>
+<script
+	src="https://apis.openapi.sk.com/tmap/js?version=1&format=javascript&appKey=8bb7eb66-3a4e-4c6c-82b2-57eb56626ed2"></script>
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- Bootstrap Core CSS -->
-<link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 <!-- Custom Fonts -->
-<link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+	rel="stylesheet" type="text/css">
+<link
+	href="${pageContext.request.contextPath}/resources/vendor/simple-line-icons/css/simple-line-icons.css"
+	rel="stylesheet">
 <!-- Custom CSS -->
-<link href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/stylish-portfolio.min.css"
+	rel="stylesheet">
 <%--  <link href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css" rel="stylesheet" > --%>
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/map.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/map.css"
+	rel="stylesheet" />
 </head>
 
 <body id="page-top">
 	<!-- Navigation -->
 	<jsp:include page="side.jsp"></jsp:include>
-	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- Plugin JavaScript -->
-	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<!-- Custom scripts for this template -->
-	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
 	<!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<!-- <p id="result" name="result" value=" " ></p> -->
 	<div id="body">
 		<h1 id="h1_title" style="margin-left: 2.5%; margin-top: 2%;">Map</h1>
-		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
+		<hr
+			style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
 		<div style="width: 100%;">
 			<form method='post' enctype='multipart/form-data'
 				style="margin-left: 2.5%;">
@@ -48,24 +70,30 @@
 						type='text' id='arrive' name='arrive' readonly style="width: 90%;">
 				</div>
 				<div id="map_btn">
-					<input type="button" value='주소검색' data-toggle="modal" data-target="#findAddr">
-						 <input type='button' id='f_btn' value='경로찾기' onclick="findRoot()">
-						 <input type='button' id='r_btn' value='경로취소' onclick="removeRoot()" style="display: none;"> 
-						<input type='button' id='fl_btn' value='현재위치찾기' onclick="findLocation()">
-						 <input type='button' id='sl_btn' value='현재위치찾기 중지' onclick="stopLocation()" style="display: none;"><br>
+					<input type="button" value='주소검색' data-toggle="modal"
+						data-target="#findAddr"> <input type='button' id='f_btn'
+						value='경로찾기' onclick="findRoot()"> <input type='button'
+						id='r_btn' value='경로취소' onclick="removeRoot()"
+						style="display: none;"> <input type='button' id='fl_btn'
+						value='현재위치찾기' onclick="findLocation()"> <input
+						type='button' id='sl_btn' value='현재위치찾기 중지'
+						onclick="stopLocation()" style="display: none;"><br>
 					<input type="hidden" id="memberNick" value="${memberNick}">
 					<input type="hidden" id="unick" value="${unick}">
+					<input type="hidden" id="room_num" value="${room_num}">
 				</div>
 			</form>
 		</div>
-		<hr style="margin-left: 2.5%; width: 95%; background: #FFCC33; height: 2px">
+		<hr
+			style="margin-left: 2.5%; width: 95%; background: #FFCC33; height: 2px">
 
 		<!-- 지도 -->
 		<div id="map_div"></div>
 		<br>
-		<div id="map_btn2">		
-			<input type='button' id='back' value='뒤로가기' onclick="location.href='/returnscroll/chat/${room_num}'">
-			<input type='button' id='reflash' value='새로고침' onclick="location.reload()">
+		<div id="map_btn2">
+			<input type='button' id='back' value='뒤로가기'
+				onclick="location.href='/returnscroll/chat/${room_num}'"> <input
+				type='button' id='reflash' value='새로고침' onclick="location.reload()">
 		</div>
 
 		<!-- Modal -->
@@ -111,7 +139,19 @@
 								</div>
 								<div id="divSearchlist">
 									<div class="result">
-										<p>
+
+										<p style="color: darkorange">최근 검색 목록</p>
+										<table>
+											<c:forEach items="${user_addr}" var="item">
+												<tr>
+													<td><a onclick='arriveRecentAddr("${item.ADDRESS}")'  data-dismiss="modal" style="cursor:pointer;">
+															${item.ADDRESS} </a></td>
+												</tr>
+											</c:forEach>
+										</table>
+
+
+										<p style="color: darkorange">
 											검색결과 : 총 <strong id="spanTotCnt">0</strong>건
 										</p>
 									</div>
@@ -162,6 +202,7 @@
      		var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기	
      		var memberNick = $('#memberNick').val();
      		var unick = $('#unick').val();
+     		var room_num = $('#room_num').val();
      		var start = '';
      		var arrive = '';
      		var addr2="";
@@ -253,16 +294,6 @@
 	 						}
 	 					});	 		
 	 					
-// 	 					socket.on('request_room_aw_latlng_server', function(requestNick, memberNick){
-// 	 						console.log(`${requestNick}가 ${memberNick}에게 위치 요청22222`)
-// 	 						console.log(unick);
-// 	 						console.log(memberNick);
-// 	 						console.log(unick == memberNick);
-// 	 						if(unick == memberNick){	 							
-// 	 							socket.emit('send_member_aw_latlng',requestNick, latitude, longitude,start, arrive);
-// 	 						}
-// 	 					});
-	 					
 	 					socket.on('send_member_aw_latlng_server', function(uid, lat, lng, start_r,arrive_r){
 	 						if(unick == uid) {
 		 						console.log( uid, '가요청한 위치', lat, lng,start,arrive);
@@ -334,16 +365,7 @@
 	 							socket.emit('send_member_aw_latlng',requestNick, latitude, longitude,start, arrive);
 	 						}
 	 					});
-	 					
-// 	 					socket.on('send_member_aw_latlng_server', function(uid, lat, lng, start_r,arrive_r){
-// 	 						if(unick == uid) {
-// 		 						console.log( uid, '가요청한 위치', lat, lng,start,arrive);
-// 	 							document.querySelector("[name=start]").value = start_r;
-// 	 							document.querySelector("[name=arrive]").value = arrive_r;
-// 	 							console.log('상대방 위치 전송 완료')
-// 	 							initLocation(lat,lng);
-// 	 						}
-// 	 					});
+	 
 	    				initLocation(latitude, longitude);
          			});        		
 	         		
@@ -818,7 +840,7 @@
 			console.log(roadAddr);
 			document.querySelector("[name=arrive]").value = roadAddr;
 			arrive = $('#arrive').val();
-///////		       
+      
 			$.ajax({
 				method:"GET",
 				url:"https://apis.openapi.sk.com/tmap/geo/fullAddrGeo?version=1&format=xml&callback=result", //FullTextGeocoding api 요청 url입니다.
@@ -861,20 +883,38 @@
 					lonlat2 = new Tmap.LonLat(lon,lat).transform("EPSG:4326", "EPSG:3857");
 					console.log("lonlat2 : " +lonlat2);
 					
-				
-				
+
     				console.log("addr2 : " +addr2);
     				if(addr2 != "")	markers2.removeMarker(marker2); //기존 마커를 삭제합니다.
     				 addr2 = document.querySelector("[name=arrive]").value;
     				console.log("addr2 : " +addr2);
+    				
+  
+					console.log(unick);
+					console.log("mm:" + memberNick);
+					if(unick == memberNick ){
+						$.ajax({
+						  type : 'POST',
+						  data:{
+								"latitude" :  lonlat2.lon,
+								"longitude" : lonlat2.lat,
+								"address" : addr2
+							},
+						  async: false,
+						  url : "/returnscroll/tmap/${memberNick}/${room_num}",
+						  success : function(req) {
+						
+			    				console.log("주소 넣기")
+						  },
+						  error:function(e){
+						   if(e.status==300){
+						    alert("데이터를 가져오는데 실패하였습니다.");
+						   }
+						  }
+						 });
+					}
 
-//              		// 팝업 생성
-//             		var popup2;
-//             		popup2 = new Tmap.Popup( );
-//             		popup2.autoSize=true;//popup 사이즈 자동 조절		                         
-//             		popup2.show(); // 팝업 보이기
-            	
-            	
+////            	
             		// 이미지 마커 커스텀 오버레이
             		targetLL = lonlat2;
             		map.setCenter(new Tmap.LonLat(lon,lat).transform("EPSG:4326", "EPSG:3857"), 15);
@@ -896,6 +936,75 @@
 				});
 
 		}
+		
+		function arriveRecentAddr(recentAddr){
+			var roadAddr = recentAddr;
+			console.log(roadAddr);
+			console.log(recentAddr);
+		
+			document.querySelector("[name=arrive]").value = recentAddr;
+			arrive = $('#arrive').val();
+      
+			$.ajax({
+				method:"GET",
+				url:"https://apis.openapi.sk.com/tmap/geo/fullAddrGeo?version=1&format=xml&callback=result", //FullTextGeocoding api 요청 url입니다.
+				async:false,
+				data:{
+					"coordType" : "WGS84GEO",//지구 위의 위치를 나타내는 좌표 타입입니다.
+					"fullAddr" : document.querySelector("[name=arrive]").value, //주소 정보 입니다, 도로명 주소 표준 표기 방법을 지원합니다.  
+					"appKey" : gAppKey,//실행을 위한 키 입니다. 발급받으신 AppKey(appKey)를 입력하세요.
+				},//데이터 로드가 성공적으로 완료되었을 때 발생하는 함수입니다.
+				success:function(response){
+					prtcl = response;
+										// 3. 마커 찍기
+					var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String	
+					xmlDoc = $.parseXML( prtclString ),
+					$xml = $( xmlDoc ),
+					$intRate = $xml.find("coordinate");
+
+					//검색 결과 정보가 없을 때 처리
+					if($intRate.length==0){
+						//예외처리를 위한 파싱 데이터
+						$intError = $xml.find("error");
+								
+						// 주소가 올바르지 않을 경우 예외처리
+						if($intError.context.all[0].nodeName == "error"){
+							$("#result").text("요청 데이터가 올바르지 않습니다.");
+						}
+					}	
+						  		    
+					var lon, lat;
+					if($intRate[0].getElementsByTagName("lon").length>0){//구주소
+						lon = $intRate[0].getElementsByTagName("lon")[0].childNodes[0].nodeValue;
+					   	lat = $intRate[0].getElementsByTagName("lat")[0].childNodes[0].nodeValue;
+					}else{//신주소
+						lon = $intRate[0].getElementsByTagName("newLon")[0].childNodes[0].nodeValue;
+						lat = $intRate[0].getElementsByTagName("newLat")[0].childNodes[0].nodeValue;
+					}
+					
+				
+					console.log("좌표 :"+lon+"/"+lat);
+					lonlat2 = new Tmap.LonLat(lon,lat).transform("EPSG:4326", "EPSG:3857");
+					console.log("lonlat2 : " +lonlat2);
+					
+
+    				console.log("addr2 : " +addr2);
+    				if(addr2 != "")	markers2.removeMarker(marker2); //기존 마커를 삭제합니다.
+    				 addr2 = document.querySelector("[name=arrive]").value;
+    				console.log("addr2 : " +addr2);
+    				
+    				// 이미지 마커 커스텀 오버레이
+            		targetLL = lonlat2;
+            		map.setCenter(new Tmap.LonLat(lon,lat).transform("EPSG:4326", "EPSG:3857"), 15);
+            	
+            		markers2 = new Tmap.Layer.Markers("MarkerLayer"); // Markers 객체 생성 - 주소검색시
+            		map.addLayer(markers2); // 지도에 Markers 객체 추가
+            		drawMarker(3,addr2,2); // 마커 그리기
+				}
+    				
+			});
+		}
+		
 		
 		function fail(){
 			var strHtml="";

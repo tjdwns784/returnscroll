@@ -71,6 +71,7 @@
   }
   [title=Admin]{font-size : 25px;}
   </style>
+
    <a class="menu-toggle rounded" style="z-index:11000;"> <i class="fas fa-bars"></i>
    </a>
    <nav id="sidebar-wrapper" style="z-index:10000;">
@@ -79,6 +80,9 @@
             href="/returnscroll/">Menu</a></li>
          <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Home"
             href="/returnscroll/">Home</a></li>
+           
+             <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Home"
+            href="/returnscroll/tmap/${uid.nick}/0">Map</a></li>
          <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Chat"
             href="/returnscroll/chat">Chat</a></li>
          <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Q&A"
