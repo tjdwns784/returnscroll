@@ -70,6 +70,27 @@ public class HomeController  {
 		return "kmap";
 	}
 	
+
+	@RequestMapping(value = "/tmap/{memberNick}", method = RequestMethod.GET)
+	public String tmapView(Locale locale, Model model, HttpSession httpSession,
+			@PathVariable("memberNick") String memberNick) {
+			if(httpSession.getAttribute("uid") == null) {
+				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
+				return "redirect:/login";
+			}else {
+
+			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+			String unick = (String) userId.get("nick");
+			model.addAttribute("unick",unick);
+			
+
+			System.out.println(memberNick);
+			model.addAttribute("memberNick",memberNick);
+			return "tmap";
+		}
+
+	}
+	
 	//지도 티맵 - 사용하는것
 	@RequestMapping(value = "/tmap/{memberNick}/{room_num}", method = RequestMethod.GET)
 	public String tmap(Locale locale, Model model, HttpSession httpSession,HttpServletRequest req,
@@ -84,7 +105,7 @@ public class HomeController  {
 			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
 			String unick = (String) userId.get("nick");
 			model.addAttribute("unick",unick);
-			
+
 			model.addAttribute("memberNick",memberNick);
 			model.addAttribute("room_num",room_num);
 			//System.out.println(room_num);
@@ -218,13 +239,14 @@ public class HomeController  {
 	// 친구 추가할 때 회원의 아이디를 찾는거 (Ajax 통신)
 	@RequestMapping(value = "/chat/findId", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody Map<String, String> chatPost(@RequestParam("uid") String uid){
-		// 닉네임으로 찾음
+		// 닉네임으로 찾음 (uid, uname, nick)
 		Map<String, String> findUser = chatService.friendInvite(uid);
-		
-		
+		System.out.println("검색한 uid : "+uid);
+		System.out.println("초대할 findUser : "+findUser);
 		String uidFind = findUser.get("uid");
 		String nick = findUser.get("nick");
 		System.out.println("초대할 회원의 아이디 : "+uidFind);
+		// 값을 저장하여 보낼 maps
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid",uidFind);
 		map.put("nick", nick);

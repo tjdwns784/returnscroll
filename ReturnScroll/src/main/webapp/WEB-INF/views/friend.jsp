@@ -251,11 +251,13 @@
     </script>
      <!-- 아이디로 친구 찾기 -->
 	<script>
+		/* 친구 찾기 버튼 누르면 수행됨 */
  		$(document).on('click','#findId',function(){
 			// 입력한 아이디값 받기
  			var uid = $('#uid').val();
+			console.log('uid값 : '+uid);
  			var postData = {"uid" : uid};
-			var dataUrl = "chat/findId";
+			var dataUrl = "/returnscroll/chat/findId";
 			
 			$("#uid").val('');
 			$("#searchResult").empty();
@@ -318,6 +320,7 @@
            
          alert(user+'님에게 친구추가를 신청했습니다');
          // 채팅에 접속
+//          var socket = io("http://192.168.0.28:82");
          var socket = io("http://192.168.0.15:82");
          
          var recipient = user; // 받는사람
