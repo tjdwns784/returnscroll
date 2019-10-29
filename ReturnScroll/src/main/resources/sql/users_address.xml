@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="address">
+
+	<!--유저별 주소 넣기 -->
+	<insert id="insert_Address" parameterType="map">
+		INSERT INTO USERS_ADDRESS (NO, NICK, LATITUDE, LONGITUDE, ADDRESS)
+		VALUES (NULL, #{nick} , #{latitude} , #{longitude}, #{address} )
+	</insert>
+
+	<!-- 유저별 주소목록  불러오기-->
+	<select id="users_Address" resultType="map" parameterType="String">
+		
+		SELECT A.ADDRESS
+	 	FROM (SELECT NO, ADDRESS, NICK FROM users_address WHERE NICK = #{unick} ORDER BY NO DESC ) A
+		GROUP BY A.ADDRESS
+	 	LIMIT 5;
+	 	
+
+	</select>
+
+</mapper>

@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spring.returnscroll.Service.AddressService;
 import com.spring.returnscroll.Service.ArticleService;
 import com.spring.returnscroll.Service.ChatService;
 import com.spring.returnscroll.Service.MemberService;
@@ -70,20 +70,33 @@ public class HomeController  {
 		return "kmap";
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value = "/tmap/{memberNick}", method = RequestMethod.GET)
 	public String tmapView(Locale locale, Model model, HttpSession httpSession,
 			@PathVariable("memberNick") String memberNick) {
+=======
+	//지도 티맵 - 사용하는것
+	@RequestMapping(value = "/tmap/{memberNick}/{room_num}", method = RequestMethod.GET)
+	public String tmap(Locale locale, Model model, HttpSession httpSession,HttpServletRequest req,
+			@PathVariable("memberNick") String memberNick,@PathVariable("room_num") String room_num,
+			@RequestParam Map<String,Object> map) {
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 				
 		if(httpSession.getAttribute("uid") == null) {
 			// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
 			return "redirect:/login";
 		}else {
+<<<<<<< HEAD
 			
 			
+=======
+
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
 			String unick = (String) userId.get("nick");
 			model.addAttribute("unick",unick);
 			
+<<<<<<< HEAD
 			System.out.println(memberNick);
 			model.addAttribute("memberNick",memberNick);
 			return "tmap";
@@ -106,6 +119,8 @@ public class HomeController  {
 			String unick = (String) userId.get("nick");
 			model.addAttribute("unick",unick);
 			
+=======
+>>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
 			model.addAttribute("memberNick",memberNick);
 			model.addAttribute("room_num",room_num);
 			//System.out.println(room_num);
