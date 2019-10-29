@@ -6,13 +6,22 @@
 <head>
 
 <meta charset="utf-8">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
+   
 <meta name="description" content="">
 <meta name="author" content="">
     
     
 <title>귀환주문서</title>
+<% 
+	String userAgent = request.getHeader("user-agent");
+	boolean isMobile = false;
+	if(userAgent.toLowerCase().indexOf("android") > -1) { // 안드로이드 폰에서 접속
+		isMobile = true;
+	}
+	request.setAttribute("isMobile", isMobile);
+%>
 
 <!-- Bootstrap Core CSS -->
 <link
@@ -40,7 +49,7 @@
 
    #loginForm {
    	  margin-top: 0.5%;
-	  margin-bottom:-2.5%; 
+	  margin-bottom:-2.5%;
    }
    
    #ryan {
@@ -51,6 +60,7 @@
    		#loginForm {
 	 	 	margin-bottom:-12.5%; 
 	  		margin-top:3.5%;
+	  		width: 80%;
    		}
    		#ryan {
    	  		margin-bottom:3%;
