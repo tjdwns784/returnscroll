@@ -81,7 +81,7 @@
          <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Home"
             href="/returnscroll/">Home</a></li>
            
-             <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Home"
+             <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Map"
             href="/returnscroll/tmap/${uid.nick}/0">Map</a></li>
          <li class="sidebar-nav-item"><a class="js-scroll-trigger" title="Chat"
             href="/returnscroll/chat">Chat</a></li>

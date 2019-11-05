@@ -218,13 +218,14 @@ public class HomeController  {
 	// 친구 추가할 때 회원의 아이디를 찾는거 (Ajax 통신)
 	@RequestMapping(value = "/chat/findId", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody Map<String, String> chatPost(@RequestParam("uid") String uid){
-		// 닉네임으로 찾음
+		// 닉네임으로 찾음 (uid, uname, nick)
 		Map<String, String> findUser = chatService.friendInvite(uid);
-		
-		
+		System.out.println("검색한 uid : "+uid);
+		System.out.println("초대할 findUser : "+findUser);
 		String uidFind = findUser.get("uid");
 		String nick = findUser.get("nick");
 		System.out.println("초대할 회원의 아이디 : "+uidFind);
+		// 값을 저장하여 보낼 maps
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid",uidFind);
 		map.put("nick", nick);
