@@ -125,7 +125,7 @@
          <h3 class="mb-5"></h3>
          <form class="form-inline-block" action="login" method="post">
             <div class="form-group" style="margin-top: -10%">
-               <label for="uid"></label> <input type="text"
+               <label for="uid"></label> <input type="text" 
                   title="아이디 입력" class="form-control" name="uid" id="uid" placeholder="아이디 입력" style="margin-top: -10%; margin-bottom: -10%">
             </div>
             <div class="form-group">
@@ -192,6 +192,13 @@
       src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
 
 <script>
+	$('#uid').on('keyup', function() {
+	    if (window.event.keyCode == 13) {
+	         // 엔터키가 눌렸을 때 실행할 내용
+	         $('#upw').focus();
+	         return false;
+	    }
+	})
       function enterkey() {
          if (window.event.keyCode == 13) {
             // 엔터키가 눌렸을 때 실행할 내용
