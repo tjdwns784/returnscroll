@@ -168,7 +168,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-    <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
   
@@ -218,8 +218,10 @@
                 data: createData,
                 success:function(data){
                 	console.log('방금 생성한 방의 번호: '+data+", data의 타입 : "+typeof data);
+//                 	var url = "/returnscroll/chat/"+data+"";
+//                 	console.log('접속할 url은 '+url);
                 	window.location.href="/returnscroll/chat/"+data;
-
+//                 	window.open(url); // 접속 성공했고, 
                 	// friendId에게 채팅방에 초대됬다는 알람을 보내줌
                 	inviteFriend(data, uid, friendId); 
                 	
