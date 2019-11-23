@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	// 채팅에 접속 
-    var socket = io("http://192.168.0.28:82");  
+	var socket = io("http://192.168.0.28:82");  
 	
   // 2. 소켓에 이벤트를 등록하여 접속 됬음을 알게 되면 사용자의 이름을 받는다
     // (세션이 있었다면 : 이름, 아이디 사용)
@@ -67,13 +67,11 @@ $(document).ready(function() {
       memberUpdate( memberNick);
     })
     
-    console.log('room_num'+room_num);
-
     function memberUpdate(memberNick){
     	// 해당 태그 내부요소들을 비움(?)
     	//$("#memberList").empty();
     	console.log('[update] 여기로 들어오는지...')
-    	console.log(room_num)
+    	// console.log(room_num)
     	var html = "";
 //    	for(var i =0;i<Object.keys( member ).length;i++){
 //    		console.log('member속성 : '+i+", 값 : "+member[i]+", 닉네임을 : "+member[i].nick);
@@ -104,11 +102,26 @@ $(document).ready(function() {
     })
     
     // 이 문서상에 존재하는 모든 요소들 중에 id 값이 sendBtn인 요소
-    $('#sendBtn').on('click', (evt)=>{
-        console.log('메시지 전송');
-        sendMsg();
-    })
-    ;
+//    $('#sendBtn').on('click', (evt)=>{
+//        console.log('메시지 전송');
+//        sendMsg();
+//    });
+    
+//    $('#sendBtn').click(function(){
+//    	console.log('버튼클릭 메세지 전송');
+//        sendMsg();
+//    })
+    
+    function sendMsgBtn(){
+		var user_nick = $("#nick").val();
+		var user_id = $('#userid').val();
+		console.log('버튼클릭 메세지 전송/user_id는 '+user_id);
+      	socket.emit('s_send_msg_btn',user_id, user_nick ,$('input[name=message]').val(), new Date() );
+      	// 입력창 초기화
+      	$('input[name=message]').val('');
+      	
+    }
+    
     // 메시지 전송
     function sendMsg(){
       socket.emit('s_send_msg', $('input[name=message]').val(), new Date() );
@@ -120,20 +133,19 @@ $(document).ready(function() {
     function addMsg(sender, msg, time)
     {
     	
-    	
     	console.log(typeof time)
     	time = time.substr(time.indexOf("T")+1,5);
     	console.log(time)
+    	
     	// 관리자 메세지는 따로 ~~
       var flag = sender === user_nick ? 'right' : 'left';
       // 1. 메시지UI를 붙일 요소를 찾아서, 동적으로 html을 구성하여 추가한다.
       if(sender === '관리자'){
-    	  var html = "<div class='direct-chat-msg' style='margin: auto; width:100%; text-align:center;'>";
-    	  html += "<div class='direct-chat-info clearfix'style='display: inline-block'>";
-    	  html += "<div class='direct-chat-text' style='position: initial; border:none;'>"+msg+"</div>"
-    	  html += "</div>";
-    	  html += "</div>";
-    	  
+		  var html = "<div class='direct-chat-msg' style='margin: auto; width:100%; text-align:center;'>";
+		  html += "<div class='direct-chat-info clearfix'style='display: inline-block'>";
+		  html += "<div class='direct-chat-text' style='position: initial; border:none;'>"+msg+"</div>"
+		  html += "</div>";
+		  html += "</div>";    	
       }else if(flag == 'left'){ // 왼쪽 
     	  var html = "<div class='direct-chat-msg "+flag+"'>";
     	  html += "<div class='direct-chat-info clearfix' style='display: inline'>";

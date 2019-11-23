@@ -187,8 +187,8 @@ public class HomeController  {
 			,@PathVariable("roomNum") int roomNum) {
 		
 		// 접속자의 아이디 얻기
-		Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
-		String uid = (String) userId.get("uid");
+//		Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
+//		String uid = (String) userId.get("uid");
 		
 		// 디비에 접속자 추가 (접속한 사람의 세션 값으로 ) if-else
 //		Map<String, Object> map = new HashMap<String, Object>();

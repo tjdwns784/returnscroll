@@ -227,7 +227,7 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
+    <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     
     <!-- 모달 띄우고 내리는거 -->
@@ -320,8 +320,7 @@
            
          alert(user+'님에게 친구추가를 신청했습니다');
          // 채팅에 접속
-//          var socket = io("http://192.168.0.28:82");
-         var socket = io("http://192.168.0.15:82");
+         var socket = io("http://192.168.0.28:82");
          
          var recipient = user; // 받는사람
          var sender = $('#userID').val();  // 보낸사람
@@ -349,6 +348,7 @@
             success:function(data){
                //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
                   alert(data+'님의 친구요청을 수락하였습니다.')
+                  window.location.reload();
             },
             error:function(request, status, errorThrown){
                alert('친구요청 수락 실패');
@@ -366,7 +366,8 @@
             data: data,
             success:function(data){
                //console.log('유저 닉네임을 받는부분의 결과데이터는'+data);
-                  alert(data+'님의 친구요청을 거절하였습니다.')
+                  alert(data+'님의 친구요청을 거절하였습니다.');
+                  window.location.reload();
             },
             error:function(request, status, errorThrown){
                alert('친구요청 수락 실패');

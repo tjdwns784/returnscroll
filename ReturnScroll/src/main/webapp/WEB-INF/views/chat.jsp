@@ -32,7 +32,7 @@
     border: 1px solid black;
 }
 #msg {
-    width: 700px;
+    width: auto;
 }
 #msg_process {
     width: 90px;
@@ -195,7 +195,7 @@
                         <div class="input-group">
                             <input type="text" name="message" id="msg" placeholder="메세지를 입력하세요" class="form-control">
                             <span class="input-group-btn">
-                                <button id='sendBtn' type="button"  class="btn btn-warning btn-flat">보내기</button>
+                                <button id='sendBtn' onclick="sendMsg()" type="button"  class="btn btn-warning btn-flat">보내기</button>
 <!--                                 <button id='addFriend' type="button" class="btn btn-warning btn-flat">친구추가</button> -->
                             </span>
                         </div>
@@ -235,9 +235,9 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-  <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
+    <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/chat.js"/></script>
+    <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script>
     
 <%--    <script src="${pageContext.request.contextPath}/resources/js/jquery.sticky.js"></script> --%>
     
@@ -250,15 +250,86 @@
  
  	// 채팅방 나가기 버튼을 눌렀을 때 실행되는 함수 (퇴장하는 회원, 퇴장하려는 방)
 	 function exitChat(user, roomId){
-		 var socket = io("http://192.168.0.28:82");
+ 		// 소켓 서버 아이피 넣기
+ 		 var socket = io("http://192.168.0.28:82");
 		 socket.emit('s_chatRoom_exit',user, roomId);
 		 location.href="/returnscroll/chat";
 	 }
+		 
+		// 이 문서상에 존재하는 모든 요소들 중에 id 값이 sendBtn인 요소
+	    /* $('#sendBtn').click(function(){
+	    	console.log('버튼클릭 메세지 전송');
+	        sendMsg();
+    	}) */
+	    
+	    // 메시지 전송
+	    function sendMsg(){
+			var user_nick = $("#nick").val();
+			var user_id = $('#userid').val();
+			var room_id = $('#roomNumber').val();
+			var socket = io("http://192.168.0.28:82");  
+			console.log('버튼클릭 메세지 전송/room_id는 '+room_id);
+	      	socket.emit('s_send_msg_btn',room_id,user_id, user_nick ,$('input[name=message]').val(), new Date() );
+	      	// 입력창 초기화
+	      	$('input[name=message]').val('');
+	      	
+	      	socket.on('c_send_msg', function(sender, msg, time) {
+	            console.log(sender, msg, time);
+	            // 메시지를 화면에 표시
+	            addMsg(sender, msg, time);
+          })
+          
+          function addMsg(sender, msg, time)
+    {
+    	
+    	console.log(typeof time)
+    	time = time.substr(time.indexOf("T")+1,5);
+    	console.log(time)
+    	
+    	// 관리자 메세지는 따로 ~~
+      var flag = sender === user_nick ? 'right' : 'left';
+      // 1. 메시지UI를 붙일 요소를 찾아서, 동적으로 html을 구성하여 추가한다.
+      if(sender === '관리자'){
+		  var html = "<div class='direct-chat-msg' style='margin: auto; width:100%; text-align:center;'>";
+		  html += "<div class='direct-chat-info clearfix'style='display: inline-block'>";
+		  html += "<div class='direct-chat-text' style='position: initial; border:none;'>"+msg+"</div>"
+		  html += "</div>";
+		  html += "</div>";    	
+      }else if(flag == 'left'){ // 왼쪽 
+    	  var html = "<div class='direct-chat-msg "+flag+"'>";
+    	  html += "<div class='direct-chat-info clearfix' style='display: inline'>";
+    	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:left!important;'>"+sender+"&nbsp;&nbsp;</span>";
+    	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:left!important;'>"+time+"</span><br>";
+    	  html += "<div class='direct-chat-text' style='text-align:"+flag+"; margin-right: 110px; display: table-cell;'>"+msg+"</div>"
+    	  html += "</div>";
+    	  html += "</div>";
+      }else{  // 오른쪽 
+    	  var html = "<div class='direct-chat-msg "+flag+"' style='text-align:right;'>";
+    	  html += "<div class='direct-chat-info clearfix' style='display: inline'>";
+    	  html += "<span class='direct-chat-timestamp pull-right' stlye='text-align:right!important;' >"+time+"&nbsp;&nbsp;</span>";
+    	  html += "<span class='direct-chat-name pull-"+flag+"' stlye='text-align:right!important;' >"+sender+"</span><br>";
+    	  html += "<div class='direct-chat-text' style='text-align:"+flag+"; display: table-cell;'>"+msg+"</div>"
+    	  html += "</div>";
+    	  html += "</div>";
+      }
+      
+      html+= '<div class= row></div>'
+      $('.direct-chat-messages').append(html);
+      // 자동스크롤
+      $('.direct-chat-messages').scrollTop($('.direct-chat-messages')[0].scrollHeight+20);
+
+    }
+	      
+	    }
  
     </script>
     
 	<!-- 현재 대화방에 참여중인 상대를 불러옴 -->
 	<script>
+		// 들어오자마자 새로고침.
+		/* $(document).ready(function(){
+			window.location.reload();
+		}); */
 
 //  		$(document).ready(function(){
 // 			// 입력한 아이디값 받기
