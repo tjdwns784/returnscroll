@@ -50,7 +50,7 @@
 		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<!-- Custom scripts for this template -->
 	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>  
+ 	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script> 
 
 	<!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
 	<script type="text/javascript"
@@ -58,7 +58,7 @@
 	<!-- <p id="result" name="result" value=" " ></p> -->
 	<div id="body">
 		<h1 id="h1_title" style="margin-left: 2.5%; margin-top: 2%;">Map</h1>
-		
+		 
 		<p style="text-align: right;">${memberNick}님의 현재 위치</p>
 		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
 
