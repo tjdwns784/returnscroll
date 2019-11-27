@@ -53,7 +53,7 @@
  	<script src="http://192.168.0.15:82/socket.io/socket.io.js"></script> 
 
 	<!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
-	<script type="text/javascript"
+	<script type="text/javascript" 
 		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<!-- <p id="result" name="result" value=" " ></p> -->
 	<div id="body">
