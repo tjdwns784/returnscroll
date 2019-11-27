@@ -218,16 +218,10 @@
                 data: createData,
                 success:function(data){
                 	console.log('방금 생성한 방의 번호: '+data+", data의 타입 : "+typeof data);
-<<<<<<< HEAD
 //                 	var url = "/returnscroll/chat/"+data+"";
 //                 	console.log('접속할 url은 '+url);
                 	window.location.href="/returnscroll/chat/"+data;
 //                 	window.open(url); // 접속 성공했고, 
-=======
-                	var url = "/returnscroll/chat/"+data+"";
-                	console.log('접속할 url은 '+url);
-                	window.open(url); // 접속 성공했고, 
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
                 	// friendId에게 채팅방에 초대됬다는 알람을 보내줌
                 	inviteFriend(data, uid, friendId); 
                 	

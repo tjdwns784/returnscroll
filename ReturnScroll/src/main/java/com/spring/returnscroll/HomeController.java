@@ -70,27 +70,6 @@ public class HomeController  {
 		return "kmap";
 	}
 	
-
-	@RequestMapping(value = "/tmap/{memberNick}", method = RequestMethod.GET)
-	public String tmapView(Locale locale, Model model, HttpSession httpSession,
-			@PathVariable("memberNick") String memberNick) {
-			if(httpSession.getAttribute("uid") == null) {
-				// 세션 아이디 값이 없으면 로그인 화면으로 (알림창도 띄우기)
-				return "redirect:/login";
-			}else {
-
-			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
-			String unick = (String) userId.get("nick");
-			model.addAttribute("unick",unick);
-			
-
-			System.out.println(memberNick);
-			model.addAttribute("memberNick",memberNick);
-			return "tmap";
-		}
-
-	}
-	
 	//지도 티맵 - 사용하는것
 	@RequestMapping(value = "/tmap/{memberNick}/{room_num}", method = RequestMethod.GET)
 	public String tmap(Locale locale, Model model, HttpSession httpSession,HttpServletRequest req,
@@ -105,7 +84,7 @@ public class HomeController  {
 			Map<String, Object> userId = (Map<String, Object>) httpSession.getAttribute("uid");
 			String unick = (String) userId.get("nick");
 			model.addAttribute("unick",unick);
-
+			
 			model.addAttribute("memberNick",memberNick);
 			model.addAttribute("room_num",room_num);
 			//System.out.println(room_num);

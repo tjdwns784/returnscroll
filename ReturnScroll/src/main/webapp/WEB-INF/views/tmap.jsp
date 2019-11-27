@@ -49,33 +49,19 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<!-- Custom scripts for this template -->
-<<<<<<< HEAD
 	<script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-<!-- 	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script> -->
-	<script src="http://192.168.0.15:82/socket.io/socket.io.js"></script>
-=======
-	<script
-		src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
-	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+ 	<script src="http://192.168.0.28:82/socket.io/socket.io.js"></script> 
+
 	<!-- 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<!-- <p id="result" name="result" value=" " ></p> -->
 	<div id="body">
 		<h1 id="h1_title" style="margin-left: 2.5%; margin-top: 2%;">Map</h1>
-<<<<<<< HEAD
+		 
 		<p style="text-align: right;">${memberNick}님의 현재 위치</p>
 		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
-=======
-<<<<<<< HEAD
-		<p style="text-align: right;">${memberNick}님의 현재 위치</p>
-		<hr style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
-=======
-		<hr
-			style="width: 95%; background: #FFCC33; height: 2px; margin-left: 2.5%;">
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
->>>>>>> branch 'master' of https://github.com/tjdwns784/returnscroll.git
+
 		<div style="width: 100%;">
 			<form method='post' enctype='multipart/form-data'
 				style="margin-left: 2.5%;">
@@ -257,7 +243,7 @@
          		});
 				
 				//맨처음 아이디값 보내줌 -> 서버
-       		 	socket.emit('send_userid', unick);
+        	 	socket.emit('send_userid', unick);
 				console.log("send_userid : " + unick)	
 			
          		if (varUA.match('android') != null) { 
