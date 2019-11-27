@@ -235,9 +235,10 @@
   <!-- Custom scripts for this template -->
   <script src="${pageContext.request.contextPath}/resources/js/stylish-portfolio.min.js"></script>
   
-    <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script>
+<!--     <script src="http://192.168.0.28:82/socket.io/socket.io.js"></script> -->
+    <script src="http://192.168.0.15:82/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/chat.js?ver=1"/></script>
+    <script src="${pageContext.request.contextPath}/resources/chat.js"/></script>
     
 <%--    <script src="${pageContext.request.contextPath}/resources/js/jquery.sticky.js"></script> --%>
     
@@ -251,7 +252,7 @@
  	// 채팅방 나가기 버튼을 눌렀을 때 실행되는 함수 (퇴장하는 회원, 퇴장하려는 방)
 	 function exitChat(user, roomId){
  		// 소켓 서버 아이피 넣기
- 		 var socket = io("http://192.168.0.28:82");
+ 		 var socket = io("http://192.168.0.15:82");
 		 socket.emit('s_chatRoom_exit',user, roomId);
 		 location.href="/returnscroll/chat";
 	 }
@@ -267,7 +268,7 @@
 			var user_nick = $("#nick").val();
 			var user_id = $('#userid').val();
 			var room_id = $('#roomNumber').val();
-			var socket = io("http://192.168.0.28:82");  
+			var socket = io("http://192.168.0.15:82");  
 			console.log('버튼클릭 메세지 전송/room_id는 '+room_id);
 	      	socket.emit('s_send_msg_btn',room_id,user_id, user_nick ,$('input[name=message]').val(), new Date() );
 	      	// 입력창 초기화
